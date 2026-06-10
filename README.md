@@ -30,9 +30,9 @@ echo 'NEXT_PUBLIC_API_BASE_URL=http://localhost:8000' > frontend/.env.local
 ```bash
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev]"                        # add ,llm for the authoring plane (gemini/claude SDKs)
 uvicorn app.main:app --reload --port 8000     # http://localhost:8000  (docs at /docs)
-pytest                                         # run backend tests
+pytest                                         # run backend tests (uses an ephemeral mongod)
 ```
 
 ## Frontend (web)
