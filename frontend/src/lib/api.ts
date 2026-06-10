@@ -14,10 +14,7 @@ export class ApiError extends Error {
   }
 }
 
-export async function apiFetch<T>(
-  path: string,
-  init?: RequestInit,
-): Promise<T> {
+export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE_URL}${path}`, {
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
     ...init,
@@ -36,11 +33,89 @@ export async function apiFetch<T>(
   return (await res.json()) as T;
 }
 
+// ── Domain types (mirror backend schemas) ──────────────────────────────────
+export type Difficulty = "easy" | "medium" | "hard";
+export type RequestDifficulty = Difficulty | "random";
+export type QuizMode = "exam" | "practice";
+
+export interface Course {
+  id: string;
+  name: string;
+  slug: string;
+  isActive: boolean;
+}
+
+export interface Subtopic {
+  id: string;
+  courseId: string;
+  name: string;
+  slug: string;
+}
+
+export interface QuestionOut {
+  id: string;
+  courseId: string;
+  subtopicId: string;
+  difficulty: Difficulty;
+  questionText: string;
+  codeSnippet?: string | null;
+  latex?: string | null;
+  options: string[];
+  // Present only in practice mode / review (withheld during an exam).
+  correctIndex?: number | null;
+  explanation?: string | null;
+  distractorRationales?: string[] | null;
+}
+
+export interface QuizStartRequest {
+  courseId: string;
+  subtopicId?: string | null;
+  count: number;
+  difficulty: RequestDifficulty;
+  mode: QuizMode;
+}
+
+export interface QuizStartResponse {
+  sessionId: string;
+  mode: QuizMode;
+  difficulty: RequestDifficulty;
+  count: number;
+  durationSeconds?: number | null;
+  questions: QuestionOut[];
+}
+
+export interface QuestionReview extends QuestionOut {
+  selectedIndex: number | null;
+  isCorrect: boolean;
+}
+
+export interface QuizResultResponse {
+  sessionId: string;
+  mode: QuizMode;
+  score: number;
+  total: number;
+  questions: QuestionReview[];
+}
+
 export interface HealthResponse {
   status: string;
   service: string;
 }
 
-export function getHealth() {
-  return apiFetch<HealthResponse>("/health");
-}
+// ── Endpoint wrappers ──────────────────────────────────────────────────────
+export const getHealth = () => apiFetch<HealthResponse>("/health");
+export const getCourses = () => apiFetch<Course[]>("/courses");
+export const getSubtopics = (slug: string) =>
+  apiFetch<Subtopic[]>(`/courses/${slug}/subtopics`);
+
+export const startQuiz = (body: QuizStartRequest) =>
+  apiFetch<QuizStartResponse>("/quiz/start", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+
+export const submitQuiz = (sessionId: string, answers: (number | null)[]) =>
+  apiFetch<QuizResultResponse>(`/quiz/${sessionId}/submit`, {
+    method: "POST",
+    body: JSON.stringify({ answers }),
+  });

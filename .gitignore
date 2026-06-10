@@ -6,6 +6,12 @@ frontend/.turbo/
 *.tsbuildinfo
 npm-debug.log*
 
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/.playwright/
+
 # Capacitor native (android/ committed per MOBILE.md; ios/ added later)
 frontend/android/app/build/
 frontend/android/.gradle/
@@ -29,3 +35,6 @@ __pycache__/
 .DS_Store
 .idea/
 .vscode/
+
+# Local agent state
+.claude/
