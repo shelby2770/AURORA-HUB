@@ -1,0 +1,31 @@
+# Node / Next
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+*.tsbuildinfo
+npm-debug.log*
+
+# Capacitor native (android/ committed per MOBILE.md; ios/ added later)
+frontend/android/app/build/
+frontend/android/.gradle/
+frontend/ios/App/Pods/
+frontend/ios/App/build/
+
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Env / secrets
+.env
+.env.local
+*.local
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
