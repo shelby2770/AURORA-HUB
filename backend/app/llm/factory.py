@@ -14,16 +14,19 @@ def _build(name: str, model: str, s: Settings) -> LLMProvider:
         from app.llm.gemini import GeminiProvider
 
         return GeminiProvider(s.gemini_api_key, model, s.gemini_embedding_model)
+    if name == "groq":
+        from app.llm.groq import GroqProvider
+
+        return GroqProvider(s.groq_api_key, model)
     raise LLMError(f"Unknown LLM provider: {name!r}")
 
 
 def _model_for(name: str, role: str, s: Settings) -> str:
+    verifier = role == "verifier"
     if name == "claude":
-        return (
-            s.claude_verifier_model
-            if role == "verifier"
-            else s.claude_generation_model
-        )
+        return s.claude_verifier_model if verifier else s.claude_generation_model
+    if name == "groq":
+        return s.groq_verifier_model if verifier else s.groq_generation_model
     return s.gemini_generation_model
 
 

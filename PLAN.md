@@ -33,8 +33,7 @@ concepts* as new questions, never reworded clones.
 **Defaulted decisions (override if you disagree):**
 - Exam timer → **whole-quiz countdown** of `90s × question count`, top bar, auto-submit at 0.
 - Embedding dedup → **in-process cosine** over embeddings stored in Mongo (Atlas Vector Search is a drop-in swap behind the same interface).
-- LLM providers → **gemini** generator, **claude** cross-check verifier (env-selectable, swappable).
-- Embeddings → supplied by the generator's provider by default.
+- LLM providers → **gemini** generator, **groq** cross-check verifier (env-selectable; claude optional). Embeddings → **gemini** (Groq/Claude have no embeddings API).
 
 ---
 
@@ -59,7 +58,7 @@ Aurora_Hub/
 **Backend (two clearly separated planes).**
 - **Serving plane (hot path):** `/quiz` endpoints do plain Mongo queries by course/subtopic/difficulty, `verified:true` only, exemplars first, capped at requested count. No LLM, no vector search.
 - **Authoring plane (offline + optional async):** ingestion script, generation+verification script, optional async "generate N more for subtopic+difficulty" endpoint. LLM adapters, execution-verify, cross-check, and dedup live here.
-- **LLM adapter:** `LLMProvider` with `generate()` / `complete()` / `embed()`; concrete `GeminiProvider`, `ClaudeProvider`; env-selected; generator vs verifier can differ.
+- **LLM adapter:** `LLMProvider` with `complete()` / `embed()`; concrete `GeminiProvider`, `GroqProvider`, `ClaudeProvider`; env-selected; generator vs verifier differ.
 - **Execution-verify sandbox:** runs model-emitted Python checks in a constrained subprocess (no network, time + memory limits, restricted builtins).
 
 **Data flow.** Exemplar corpus → spot-verified by execution, mismatches flagged → authoring retrieves
