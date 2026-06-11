@@ -24,7 +24,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 | 2 | Config / quiz-setup flow — touch-fixed selects, tap targets | ✅ | No free-text inputs; dropdown options ≥44px + 16px text |
 | 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ✅ | Built in web P3; added instant timer re-sync on app resume |
 | 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ✅ | Share button: native share sheet (cache file) vs web download |
-| 5 | Account/settings/billing screens — payments via rule 7 (if applicable) | ⬜ | May be N/A (no auth yet) |
+| 5 | Account/settings/billing screens — payments via rule 7 (if applicable) | ✅ | **N/A** — no auth/accounts/billing; no external redirects to wire (rule 7) |
 | 6 | Polish — real-notch safe-area, iOS zoom/overscroll, Android `env()=0` floor audit, asset sizes | ⬜ | |
 | 7 | iOS project + CI/CD — `cap add ios`, GitHub Actions macOS runner, TestFlight, Android APK workflow | ⬜ | No local Mac |
 | 8 | E2E — Playwright suites @375px green + full device checklist (emulator + iOS) + dark-mode pass | ⬜ | Drains Pending-device backlog |
@@ -47,6 +47,7 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 | 1 | `keyboard-open` / `.hide-on-keyboard` infra is wired but **dormant** — the app currently has no free-text inputs (selects + buttons only). | Rule 5 says bake it in from the first screen; it activates automatically when/if text inputs are added. | ⬜ |
 | 1 | **Hover gating (rule 10) deferred to Phase 6.** Kept Tailwind `hover:` utilities as-is for now. | All interactive elements already have `:active` feedback; a full `@media (hover:hover)` sweep is cheaper to do once in the polish phase than piecemeal. | ⬜ |
 | 2 | Phase 2's text-input work is **N/A** — app has zero free-text inputs (selects + buttons only). Did the applicable parts instead: select option tap targets ≥44px and 16px text. | Can't add `inputMode`/`autoComplete` to inputs that don't exist; faking a text field to satisfy the checklist would be worse than documenting N/A. | ⬜ |
+| 5 | **Phase 5 entirely N/A** — no settings/auth/billing screen built, `@capacitor/browser` not installed. | Spec excludes accounts/auth/payments; app is dark-only and stateless; grep shows no external links for rule 7. Fabricating these would contradict the spec. **Flagged: if you want a Settings/About screen, say so and I'll add one.** | ⬜ |
 
 ---
 
@@ -134,11 +135,11 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 - **Gate:** build + `cap sync` + smoke.
 - **Pending device verification:** share sheet opens with the exported file.
 
-### Phase 5 — Account / settings / billing (likely N/A now — no auth)
-- [ ] Settings screen (theme, etc.) if present.
-- [ ] Any external redirect / payment via rule 7 (`Browser.open`).
-- **Gate:** build + `cap sync` + smoke.
-- **Pending device verification:** external browser returns to app cleanly.
+### Phase 5 — Account / settings / billing (N/A now — no auth)
+- [x] ~~Settings screen~~ → **N/A.** App is intentionally dark-only (no theme toggle to expose) and stateless; no other settings exist to surface. Not fabricating a screen the spec excludes.
+- [x] ~~External redirect / payment (rule 7)~~ → **N/A.** Grep confirms zero external links / `window.open` / off-origin anchors in `src/`, so `Browser.open` has nothing to wire. `@capacitor/browser` intentionally **not** installed yet — add it the moment a real external link (payments/OAuth/docs) appears.
+- **Gate:** no code change → covered by the Phase 4 gate (build + `cap sync` + smoke + e2e all green).
+- **Pending device verification:** none (nothing built).
 
 ### Phase 6 — Polish
 - [ ] Safe-area sweep on a real notch.
