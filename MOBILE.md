@@ -23,7 +23,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 | 1 | Mobile shell & navigation — safe-area, status bar, splash, keyboard + back managers | ✅ | No tab bar (linear flow); native bootstrap + safe-area on all fixed bars |
 | 2 | Config / quiz-setup flow — touch-fixed selects, tap targets | ✅ | No free-text inputs; dropdown options ≥44px + 16px text |
 | 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ✅ | Built in web P3; added instant timer re-sync on app resume |
-| 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ⬜ | |
+| 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ✅ | Share button: native share sheet (cache file) vs web download |
 | 5 | Account/settings/billing screens — payments via rule 7 (if applicable) | ⬜ | May be N/A (no auth yet) |
 | 6 | Polish — real-notch safe-area, iOS zoom/overscroll, Android `env()=0` floor audit, asset sizes | ⬜ | |
 | 7 | iOS project + CI/CD — `cap add ios`, GitHub Actions macOS runner, TestFlight, Android APK workflow | ⬜ | No local Mac |
@@ -61,8 +61,8 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 | `@capacitor/splash-screen` | Splash control / hide on ready | 1 | ✅ |
 | `@capacitor/keyboard` | `resize:native`, `keyboardWillShow` → `keyboard-open` class | 1 | ✅ |
 | `@capacitor/app` | Android hardware back button, app state | 1 | ✅ |
-| `@capacitor/filesystem` | Write export file to cache dir (rule 6) | 4 | ⬜ |
-| `@capacitor/share` | Native share sheet for export (rule 6) | 4 | ⬜ |
+| `@capacitor/filesystem` | Write export file to cache dir (rule 6) | 4 | ✅ |
+| `@capacitor/share` | Native share sheet for export (rule 6) | 4 | ✅ |
 | `@capacitor/browser` | External redirects / OAuth / payments (rule 7) | 5 | ⬜ |
 
 ---
@@ -129,8 +129,8 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 - **Pending device verification:** timer accuracy after backgrounding, long-math/code horizontal scroll.
 
 ### Phase 4 — Practice feedback & scoring
-- [ ] Result / feedback screens (score + per-question review).
-- [ ] Share / export via rule 6 (native share sheet vs web download).
+- [x] Result / feedback screens (score + per-question review) — built in web Phase 3.
+- [x] Share / export via rule 6 — `lib/export-results.ts` builds a plain-text report; native writes it to the cache dir + opens the share sheet (`@capacitor/filesystem` + `@capacitor/share`, dynamically imported), web does an ordinary browser download. Share button on the results screen; user-cancelled share is swallowed (no error toast).
 - **Gate:** build + `cap sync` + smoke.
 - **Pending device verification:** share sheet opens with the exported file.
 

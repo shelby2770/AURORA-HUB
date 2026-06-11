@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { RotateCcw, Trophy } from "lucide-react";
+import { RotateCcw, Share2, Trophy } from "lucide-react";
+import { toast } from "sonner";
 import { useQuizStore } from "@/store/quiz";
+import { shareResults } from "@/lib/export-results";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { QuestionView } from "@/components/quiz/question-view";
@@ -14,12 +16,29 @@ export default function ResultsPage() {
   const router = useRouter();
   const result = useQuizStore((s) => s.result);
   const reset = useQuizStore((s) => s.reset);
+  const [sharing, setSharing] = useState(false);
 
   useEffect(() => {
     if (!result) router.replace("/");
   }, [result, router]);
 
   if (!result) return null;
+
+  const onShare = async () => {
+    if (sharing) return;
+    setSharing(true);
+    try {
+      await shareResults(result);
+    } catch (err) {
+      // A user dismissing the native share sheet rejects — don't nag them.
+      const msg = err instanceof Error ? err.message : "";
+      if (!/cancel|abort|dismiss/i.test(msg)) {
+        toast.error("Could not export results.");
+      }
+    } finally {
+      setSharing(false);
+    }
+  };
 
   const pct = result.total > 0 ? Math.round((result.score / result.total) * 100) : 0;
 
@@ -43,10 +62,22 @@ export default function ResultsPage() {
       </section>
 
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Review</h2>
-        <span className="text-sm text-muted-foreground">
-          {result.questions.length} questions
-        </span>
+        <div className="flex items-baseline gap-2">
+          <h2 className="text-lg font-semibold">Review</h2>
+          <span className="text-sm text-muted-foreground">
+            {result.questions.length} questions
+          </span>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-9"
+          onClick={onShare}
+          disabled={sharing}
+          data-testid="share-results"
+        >
+          <Share2 className="size-4" /> Share
+        </Button>
       </div>
 
       {/* Per-question review */}
