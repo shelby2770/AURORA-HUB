@@ -96,6 +96,8 @@ export default function QuizPage() {
           {mode === "exam" && remaining != null ? (
             <span
               data-testid="timer"
+              role="timer"
+              aria-label={`Time remaining: ${formatTime(remaining)}`}
               className={cn(
                 "flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold tabular-nums",
                 remaining <= 30
@@ -103,7 +105,7 @@ export default function QuizPage() {
                   : "text-muted-foreground",
               )}
             >
-              <Timer className="size-4" />
+              <Timer className="size-4" aria-hidden />
               {formatTime(remaining)}
             </span>
           ) : (

@@ -27,22 +27,35 @@ export function computeOptionState(
   return index === selectedIndex ? "selected" : "default";
 }
 
+const STATE_HINT: Record<OptionState, string> = {
+  default: "",
+  selected: ", selected",
+  correct: ", correct answer",
+  incorrect: ", your answer, incorrect",
+  muted: "",
+};
+
 export function OptionButton({
   index,
   text,
   state,
+  checked,
   disabled,
   onSelect,
 }: {
   index: number;
   text: string;
   state: OptionState;
+  checked?: boolean;
   disabled?: boolean;
   onSelect?: () => void;
 }) {
   return (
     <button
       type="button"
+      role="radio"
+      aria-checked={!!checked}
+      aria-label={`Option ${LETTERS[index]}: ${text}${STATE_HINT[state]}`}
       data-testid="option"
       data-state={state}
       disabled={disabled}

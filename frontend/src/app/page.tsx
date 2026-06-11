@@ -3,7 +3,14 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { GraduationCap, Loader2, Timer, Zap } from "lucide-react";
+import {
+  AlertTriangle,
+  GraduationCap,
+  Loader2,
+  RotateCcw,
+  Timer,
+  Zap,
+} from "lucide-react";
 import { toast } from "sonner";
 import {
   getCourses,
@@ -12,6 +19,7 @@ import {
   type RequestDifficulty,
   type QuizMode,
   ApiError,
+  API_BASE_URL,
 } from "@/lib/api";
 import { useQuizStore } from "@/store/quiz";
 import { Button } from "@/components/ui/button";
@@ -24,6 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Segmented } from "@/components/quiz/segmented";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 const WHOLE_COURSE = "__whole__";
@@ -82,49 +91,103 @@ export default function ConfigPage() {
     },
   });
 
-  return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-24">
-      <header className="flex items-center gap-3 pt-2">
-        <GraduationCap className="size-8 text-primary" />
-        <div>
-          <h1 className="text-2xl font-bold leading-tight">Aurora Hub</h1>
-          <p className="text-sm text-muted-foreground">Build your quiz</p>
+  // Backend unreachable → don't show an empty, mysterious form.
+  if (courses.isError) {
+    return (
+      <Shell>
+        <div
+          data-testid="courses-error"
+          role="alert"
+          className="flex flex-col items-center gap-4 rounded-2xl border bg-card p-8 text-center"
+        >
+          <AlertTriangle className="size-10 text-destructive" />
+          <div className="flex flex-col gap-1">
+            <p className="font-semibold">Couldn&apos;t reach the server</p>
+            <p className="text-sm text-muted-foreground">
+              Make sure the backend is running at {API_BASE_URL}.
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            data-testid="courses-retry"
+            onClick={() => courses.refetch()}
+            disabled={courses.isFetching}
+          >
+            {courses.isFetching ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <RotateCcw className="size-4" />
+            )}
+            Try again
+          </Button>
         </div>
-      </header>
+      </Shell>
+    );
+  }
 
+  // Loaded but no courses → the database hasn't been seeded yet.
+  if (!courses.isLoading && (courses.data?.length ?? 0) === 0) {
+    return (
+      <Shell>
+        <div
+          data-testid="courses-empty"
+          className="flex flex-col items-center gap-3 rounded-2xl border bg-card p-8 text-center"
+        >
+          <GraduationCap className="size-10 text-muted-foreground" />
+          <p className="font-semibold">No courses yet</p>
+          <p className="text-sm text-muted-foreground">
+            Seed the database with{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
+              python -m app.scripts.seed
+            </code>
+            , then reload.
+          </p>
+        </div>
+      </Shell>
+    );
+  }
+
+  return (
+    <Shell>
       {/* Course */}
       <section className="flex flex-col gap-2">
-        <Label>Course</Label>
-        <Select
-          value={courseSlug ?? undefined}
-          onValueChange={(v) => {
-            setCourseSlug(v);
-            setSubtopicId(WHOLE_COURSE);
-          }}
-        >
-          <SelectTrigger data-testid="course-select" className="h-12">
-            <SelectValue placeholder="Choose a course" />
-          </SelectTrigger>
-          <SelectContent>
-            {courses.data?.map((c) => (
-              <SelectItem key={c.id} value={c.slug}>
-                {c.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Label htmlFor="course-select">Course</Label>
+        {courses.isLoading ? (
+          <Skeleton data-testid="course-skeleton" className="h-12 w-full rounded-md" />
+        ) : (
+          <Select
+            value={courseSlug ?? undefined}
+            onValueChange={(v) => {
+              setCourseSlug(v);
+              setSubtopicId(WHOLE_COURSE);
+            }}
+          >
+            <SelectTrigger id="course-select" data-testid="course-select" className="h-12">
+              <SelectValue placeholder="Choose a course" />
+            </SelectTrigger>
+            <SelectContent>
+              {courses.data?.map((c) => (
+                <SelectItem key={c.id} value={c.slug}>
+                  {c.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
       </section>
 
       {/* Subtopic */}
       <section className="flex flex-col gap-2">
-        <Label>Subtopic</Label>
+        <Label htmlFor="subtopic-select">Subtopic</Label>
         <Select
           value={subtopicId}
           onValueChange={changeSubtopic}
-          disabled={!courseSlug}
+          disabled={!courseSlug || subtopics.isLoading}
         >
-          <SelectTrigger data-testid="subtopic-select" className="h-12">
-            <SelectValue placeholder="Whole course" />
+          <SelectTrigger id="subtopic-select" data-testid="subtopic-select" className="h-12">
+            <SelectValue
+              placeholder={subtopics.isLoading ? "Loading…" : "Whole course"}
+            />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value={WHOLE_COURSE}>Whole course</SelectItem>
@@ -197,6 +260,21 @@ export default function ConfigPage() {
           )}
         </Button>
       </div>
+    </Shell>
+  );
+}
+
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-24">
+      <header className="flex items-center gap-3 pt-2">
+        <GraduationCap className="size-8 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold leading-tight">Aurora Hub</h1>
+          <p className="text-sm text-muted-foreground">Build your quiz</p>
+        </div>
+      </header>
+      {children}
     </main>
   );
 }
@@ -219,6 +297,7 @@ function ModeCard({
   return (
     <button
       type="button"
+      aria-pressed={active}
       data-testid={testid}
       data-active={active}
       onClick={onClick}

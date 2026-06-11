@@ -38,12 +38,18 @@ export function QuestionView({
 
       {question.codeSnippet ? <CodeBlock code={question.codeSnippet} /> : null}
 
-      <div className="flex flex-col gap-3" data-testid="options">
+      <div
+        className="flex flex-col gap-3"
+        data-testid="options"
+        role="radiogroup"
+        aria-label="Answer options"
+      >
         {question.options.map((opt, i) => (
           <OptionButton
             key={i}
             index={i}
             text={opt}
+            checked={i === selectedIndex}
             state={computeOptionState(
               i,
               selectedIndex,

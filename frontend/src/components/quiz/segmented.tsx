@@ -21,6 +21,7 @@ export function Segmented<T extends string | number>({
         <button
           key={String(opt)}
           type="button"
+          aria-pressed={value === opt}
           data-testid={testid ? `${testid}-${opt}` : undefined}
           data-active={value === opt}
           onClick={() => onChange(opt)}
