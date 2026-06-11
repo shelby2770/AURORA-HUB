@@ -4,6 +4,8 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { PlatformClass } from "@/components/mobile/platform-class";
+import { NativeBootstrap } from "@/components/mobile/native-bootstrap";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +41,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <PlatformClass />
+        <NativeBootstrap />
         <Providers>{children}</Providers>
         <Toaster position="top-center" richColors />
       </body>

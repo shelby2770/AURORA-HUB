@@ -245,7 +245,7 @@ export default function ConfigPage() {
         </div>
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto max-w-md p-5">
+      <div className="hide-on-keyboard safe-bottom [--safe-pad-bottom:1.25rem] fixed inset-x-0 bottom-0 mx-auto max-w-md p-5">
         <Button
           data-testid="start-quiz"
           size="lg"
@@ -266,7 +266,7 @@ export default function ConfigPage() {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-24">
+    <main className="safe-top [--safe-pad-top:1.25rem] mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-24">
       <header className="flex items-center gap-3 pt-2">
         <GraduationCap className="size-8 text-primary" />
         <div>

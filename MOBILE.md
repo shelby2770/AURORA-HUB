@@ -20,7 +20,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 | Phase | Area | Status | Notes |
 |------|------|:----:|------|
 | 0 | Infra — Capacitor install, config, `android/` committed, smoke script | ✅ | Capacitor 8.4 + Android platform; `npm run smoke` @375px green |
-| 1 | Mobile shell & navigation — bottom-nav, topbar, safe-area, keyboard + back managers | ⬜ | Depends on Phase 0 |
+| 1 | Mobile shell & navigation — safe-area, status bar, splash, keyboard + back managers | ✅ | No tab bar (linear flow); native bootstrap + safe-area on all fixed bars |
 | 2 | Config / quiz-setup flow — mobile inputs, touch-fixed selects | ⬜ | |
 | 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ⬜ | |
 | 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ⬜ | |
@@ -42,6 +42,10 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 | 0 | Gate runs `cap sync android` but **not** a full `gradlew assembleDebug`. | APK build is heavy and not required to prove the project wires up; emulator launch stays a Pending device-verification item per the plan. | ⬜ |
 | 0 | Smoke spec drives into a practice quiz (3 mock questions: plain / code / latex) and asserts no horizontal overflow on each, beyond just the config shell. | Overflow from KaTeX/Shiki blocks is the top mobile-layout risk; cheap to cover now at 375px. | ⬜ |
 | 0 | Smoke lives in its own `playwright.smoke.config.ts` at 375×812; main e2e (`testIgnore`) skips it. | Keeps the 375px gate concern separate from the Pixel-7 functional e2e. | ⬜ |
+| 1 | **No bottom tab bar.** Phase 1 makes the existing linear-flow chrome native-correct instead of adding tabs. | User-selected; the app is Config→Quiz→Results with no sections to tab between (no history/settings screens). | ⬜ |
+| 1 | Safe-area utilities are **additive** (`calc(env() + var(--safe-pad-*, 0))`) and set the per-bar base via a Tailwind arbitrary prop `[--safe-pad-top:1rem]`. | Lets each bar keep its visual padding with zero web regression (env()=0 on web), while the `.native-app` floor still applies the Android inset. | ⬜ |
+| 1 | `keyboard-open` / `.hide-on-keyboard` infra is wired but **dormant** — the app currently has no free-text inputs (selects + buttons only). | Rule 5 says bake it in from the first screen; it activates automatically when/if text inputs are added. | ⬜ |
+| 1 | **Hover gating (rule 10) deferred to Phase 6.** Kept Tailwind `hover:` utilities as-is for now. | All interactive elements already have `:active` feedback; a full `@media (hover:hover)` sweep is cheaper to do once in the polish phase than piecemeal. | ⬜ |
 
 ---
 
@@ -52,10 +56,10 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 | `@capacitor/core` + `@capacitor/cli` | Runtime + native build CLI | 0 | ✅ |
 | `@capacitor/android` | Android platform | 0 | ✅ |
 | `@capacitor/ios` | iOS platform | 7 | ⬜ |
-| `@capacitor/status-bar` | Overlay status bar, style for dark mode | 1 | ⬜ |
-| `@capacitor/splash-screen` | Splash control / hide on ready | 1 | ⬜ |
-| `@capacitor/keyboard` | `resize:native`, `keyboardWillShow` → hide bottom tab bar | 1 | ⬜ |
-| `@capacitor/app` | Android hardware back button, app state | 1 | ⬜ |
+| `@capacitor/status-bar` | Overlay status bar, style for dark mode | 1 | ✅ |
+| `@capacitor/splash-screen` | Splash control / hide on ready | 1 | ✅ |
+| `@capacitor/keyboard` | `resize:native`, `keyboardWillShow` → `keyboard-open` class | 1 | ✅ |
+| `@capacitor/app` | Android hardware back button, app state | 1 | ✅ |
 | `@capacitor/filesystem` | Write export file to cache dir (rule 6) | 4 | ⬜ |
 | `@capacitor/share` | Native share sheet for export (rule 6) | 4 | ⬜ |
 | `@capacitor/browser` | External redirects / OAuth / payments (rule 7) | 5 | ⬜ |
@@ -99,12 +103,12 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 - **Pending device verification:** app launches on Android emulator from `cap sync`.
 
 ### Phase 1 — Mobile shell & navigation
-- [ ] Bottom-nav + mobile topbar; hide desktop sidebar at mobile widths.
-- [ ] Safe-area insets on fixed bars (rules 2–3); `viewportFit:"cover"` viewport export.
-- [ ] `platform-class.tsx` → `.native-app` + Android `env()=0` floor (rule 3).
-- [ ] Splash + status-bar plugins wired (style matches dark mode).
-- [ ] Global keyboard manager (rule 5) + back-button manager (rule 9), native-guarded, in `layout.tsx`.
-- [ ] Tap-target pass (≥44×44).
+- [x] ~~Bottom-nav + mobile topbar~~ → **N/A: no tab bar** (linear flow, user decision). Per-screen chrome made native-correct instead.
+- [x] Safe-area insets on fixed bars (rules 2–3); `viewportFit:"cover"` viewport export (already present in `layout.tsx`).
+- [x] `platform-class.tsx` → `.native-app` + Android `env()=0` floor (rule 3).
+- [x] Splash + status-bar plugins wired (style matches dark mode) in `native-bootstrap.tsx`.
+- [x] Global keyboard manager (rule 5) + back-button manager (rule 9), native-guarded, in `layout.tsx`.
+- [x] Tap-target pass (≥44×44) — exit "✕" bumped 36→44px.
 - **Gate:** build + `cap sync` + smoke.
 - **Pending device verification:** notch insets on a real device, status-bar overlay, hardware back.
 

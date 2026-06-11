@@ -1,4 +1,5 @@
 import type { CapacitorConfig } from "@capacitor/cli";
+import { KeyboardResize } from "@capacitor/keyboard";
 
 // Aurora Hub native shell. The web app is a Next.js static export (`output:'export'`),
 // so Capacitor just serves the built `out/` directory inside a WebView.
@@ -24,7 +25,7 @@ const config: CapacitorConfig = {
     },
     Keyboard: {
       // Native resize so the WebView shrinks above the soft keyboard (rule 5).
-      resize: "native",
+      resize: KeyboardResize.Native,
     },
   },
 };

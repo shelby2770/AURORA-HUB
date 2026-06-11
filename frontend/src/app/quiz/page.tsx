@@ -79,13 +79,13 @@ export default function QuizPage() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col">
       {/* Top bar */}
-      <header className="sticky top-0 z-10 flex flex-col gap-2 border-b bg-background/95 p-4 backdrop-blur">
+      <header className="safe-top [--safe-pad-top:1rem] sticky top-0 z-10 flex flex-col gap-2 border-b bg-background/95 px-4 pb-4 backdrop-blur">
         <div className="flex items-center justify-between">
           <button
             type="button"
             data-testid="exit-quiz"
             onClick={() => router.replace("/")}
-            className="flex size-9 items-center justify-center rounded-full hover:bg-muted"
+            className="flex size-11 items-center justify-center rounded-full hover:bg-muted"
             aria-label="Exit quiz"
           >
             <X className="size-5" />
@@ -109,7 +109,7 @@ export default function QuizPage() {
               {formatTime(remaining)}
             </span>
           ) : (
-            <span className="w-9" />
+            <span className="w-11" />
           )}
         </div>
         <Progress value={((currentIndex + 1) / questions.length) * 100} />
@@ -141,7 +141,7 @@ export default function QuizPage() {
       </section>
 
       {/* Navigation */}
-      <footer className="sticky bottom-0 flex items-center gap-3 border-t bg-background p-4">
+      <footer className="safe-bottom [--safe-pad-bottom:1rem] sticky bottom-0 flex items-center gap-3 border-t bg-background px-4 pt-4">
         <Button
           variant="outline"
           size="lg"

@@ -128,3 +128,50 @@
     @apply font-sans;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile / Capacitor shell primitives (MOBILE.md Phase 1)
+   ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Rule 2: safe-area insets belong on the FIXED bars, not body. Each utility
+     ADDS the inset to the bar's own padding via --safe-pad-* (default 0), so a
+     bar keeps its visual padding and never regresses on web (env()=0 there). */
+  .safe-top {
+    padding-top: calc(env(safe-area-inset-top) + var(--safe-pad-top, 0px));
+  }
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom) + var(--safe-pad-bottom, 0px));
+  }
+
+  /* Rule 3: Android WebView reports env()=0 even under an overlay status bar —
+     floor it NATIVE-ONLY (a floor on mobile-web would add dead space). iOS
+     reports real values and wins via max(). 24px ≈ Android status-bar height. */
+  .native-app .safe-top {
+    padding-top: calc(max(env(safe-area-inset-top), 24px) + var(--safe-pad-top, 0px));
+  }
+  .native-app .safe-bottom {
+    padding-bottom: calc(
+      max(env(safe-area-inset-bottom), 12px) + var(--safe-pad-bottom, 0px)
+    );
+  }
+}
+
+@layer base {
+  /* Rule 8: app-feel — no rubber-band scroll, no long-press callout on media,
+     no grey tap flash. Inputs are kept ≥16px at the component level. */
+  html,
+  body {
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  img,
+  canvas {
+    -webkit-touch-callout: none;
+  }
+
+  /* Rule 5: when the soft keyboard is open, hide fixed bottom chrome instead
+     of letting it float above the keyboard. NativeBootstrap toggles the class. */
+  body.keyboard-open .hide-on-keyboard {
+    display: none;
+  }
+}

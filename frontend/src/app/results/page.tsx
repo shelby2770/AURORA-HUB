@@ -24,7 +24,7 @@ export default function ResultsPage() {
   const pct = result.total > 0 ? Math.round((result.score / result.total) * 100) : 0;
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-28">
+    <main className="safe-top [--safe-pad-top:1.25rem] mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-28">
       {/* Score */}
       <section
         data-testid="score"
@@ -79,7 +79,7 @@ export default function ResultsPage() {
         ))}
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 mx-auto max-w-md p-5">
+      <div className="safe-bottom [--safe-pad-bottom:1.25rem] fixed inset-x-0 bottom-0 mx-auto max-w-md p-5">
         <Button
           data-testid="new-quiz"
           size="lg"
