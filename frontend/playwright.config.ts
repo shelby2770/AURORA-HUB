@@ -4,6 +4,8 @@ import { defineConfig, devices } from "@playwright/test";
 // these run against the client SPA alone (no FastAPI/Mongo needed).
 export default defineConfig({
   testDir: "./e2e",
+  // The mobile smoke runs under playwright.smoke.config.ts (375px) via `npm run smoke`.
+  testIgnore: /smoke\.spec\.ts$/,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Aurora Hub</string>
+    <string name="title_activity_main">Aurora Hub</string>
+    <string name="package_name">com.aurorahub.app</string>
+    <string name="custom_url_scheme">com.aurorahub.app</string>
+</resources>

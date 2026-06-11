@@ -19,7 +19,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 
 | Phase | Area | Status | Notes |
 |------|------|:----:|------|
-| 0 | Infra — Capacitor install, config, `android/` committed, smoke script | ⬜ | Gated on web Phase 6 stable |
+| 0 | Infra — Capacitor install, config, `android/` committed, smoke script | ✅ | Capacitor 8.4 + Android platform; `npm run smoke` @375px green |
 | 1 | Mobile shell & navigation — bottom-nav, topbar, safe-area, keyboard + back managers | ⬜ | Depends on Phase 0 |
 | 2 | Config / quiz-setup flow — mobile inputs, touch-fixed selects | ⬜ | |
 | 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ⬜ | |
@@ -37,7 +37,11 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 
 | Phase | Decision | Why | Reviewed? |
 |------|----------|-----|:--------:|
-| — | _(none yet — populated as work proceeds)_ | | ⬜ |
+| 0 | App identity `com.aurorahub.app` / "Aurora Hub". | User-selected from offered options; baked into `android/` namespace + `applicationId` (hard to change later). | ⬜ |
+| 0 | Local Android toolchain is fully present (Node 22, JDK 21, Android SDK at `~/Android/Sdk`). So `cap sync android` runs locally, not only in CI. iOS (Phase 7) remains the only "no local machine" gap. | Better than the plan assumed; reduces risk for Phases 1–6. | ⬜ |
+| 0 | Gate runs `cap sync android` but **not** a full `gradlew assembleDebug`. | APK build is heavy and not required to prove the project wires up; emulator launch stays a Pending device-verification item per the plan. | ⬜ |
+| 0 | Smoke spec drives into a practice quiz (3 mock questions: plain / code / latex) and asserts no horizontal overflow on each, beyond just the config shell. | Overflow from KaTeX/Shiki blocks is the top mobile-layout risk; cheap to cover now at 375px. | ⬜ |
+| 0 | Smoke lives in its own `playwright.smoke.config.ts` at 375×812; main e2e (`testIgnore`) skips it. | Keeps the 375px gate concern separate from the Pixel-7 functional e2e. | ⬜ |
 
 ---
 
@@ -45,8 +49,8 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 
 | Plugin | Purpose | Phase | Status |
 |--------|---------|:----:|:----:|
-| `@capacitor/core` + `@capacitor/cli` | Runtime + native build CLI | 0 | ⬜ |
-| `@capacitor/android` | Android platform | 0 | ⬜ |
+| `@capacitor/core` + `@capacitor/cli` | Runtime + native build CLI | 0 | ✅ |
+| `@capacitor/android` | Android platform | 0 | ✅ |
 | `@capacitor/ios` | iOS platform | 7 | ⬜ |
 | `@capacitor/status-bar` | Overlay status bar, style for dark mode | 1 | ⬜ |
 | `@capacitor/splash-screen` | Splash control / hide on ready | 1 | ⬜ |

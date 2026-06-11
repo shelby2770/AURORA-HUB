@@ -8,10 +8,16 @@
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
-    "pretest:e2e": "next build"
+    "pretest:e2e": "next build",
+    "smoke": "playwright test --config=playwright.smoke.config.ts",
+    "presmoke": "next build",
+    "cap:sync": "cap sync android"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0",
     "@tanstack/react-query": "^5.101.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
