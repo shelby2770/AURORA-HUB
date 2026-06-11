@@ -1,0 +1,142 @@
+[
+  {
+    "course": "distributed-systems",
+    "subtopic": "time-clocks-ordering",
+    "difficulty": "medium",
+    "questionText": "In a system of two processes using vector clocks [P1, P2], process P1 sends a message m; at the send event P1's vector clock is [2, 0], which it attaches to m. P2's vector clock is [0, 1] just before it receives m. What is P2's vector clock immediately after delivering m?",
+    "options": ["[2, 1]", "[2, 2]", "[3, 1]", "[0, 2]"],
+    "correctIndex": 1,
+    "explanation": "On receiving a message, a process takes the component-wise maximum of its own clock and the message's timestamp, and increments its own component. max([0,1],[2,0]) = [2,1]; incrementing P2's own component gives [2,2]. (The result is the same regardless of whether the increment is applied before or after the max.)",
+    "distractorRationales": ["[2,1] is the component-wise max but omits incrementing P2's own component for the receive event.", "", "[3,1] over-increments P1's component, which a receiver never advances on another process's behalf.", "[0,2] ignores the causal information carried in the message (P1's count of 2)."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "time-clocks-ordering",
+    "difficulty": "medium",
+    "questionText": "Which statement correctly contrasts Lamport logical clocks with vector clocks?",
+    "options": ["Lamport clocks satisfy C(a) < C(b) if and only if a → b", "Lamport clocks guarantee a → b implies C(a) < C(b), but vector clocks are needed to detect concurrency (a → b iff V(a) < V(b))", "Vector clocks use a single integer, Lamport clocks use a vector", "Both clocks can determine whether two events are concurrent"],
+    "correctIndex": 1,
+    "explanation": "Lamport clocks guarantee only one direction: if a happens-before b then C(a) < C(b); a smaller Lamport value does not imply causality, so concurrency cannot be detected. Vector clocks strengthen this to an 'if and only if' (a → b iff V(a) < V(b)), letting processes detect concurrent (incomparable) events.",
+    "distractorRationales": ["Lamport clocks give only the forward implication, not 'if and only if'.", "", "It is reversed: Lamport clocks use a single integer; vector clocks use a vector of integers.", "Plain Lamport clocks cannot detect concurrency; only vector clocks can."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mutual-exclusion-election",
+    "difficulty": "medium",
+    "questionText": "In the Ricart–Agrawala algorithm for distributed mutual exclusion among N processes, how many messages are exchanged per critical-section entry?",
+    "options": ["N − 1", "2(N − 1)", "2N", "N(N − 1)"],
+    "correctIndex": 1,
+    "explanation": "To enter the critical section a process multicasts a REQUEST to the other N−1 processes and must collect a REPLY from each, giving (N−1) requests + (N−1) replies = 2(N−1) messages per entry.",
+    "distractorRationales": ["N−1 counts only the requests, not the required replies.", "", "2N over-counts; a process does not send messages to itself.", "N(N−1) is the total across all processes entering once, not the cost of a single entry."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mutual-exclusion-election",
+    "difficulty": "medium",
+    "questionText": "What is the worst-case message complexity of the Bully leader-election algorithm with N processes?",
+    "options": ["O(N)", "O(N log N)", "O(N²)", "O(2^N)"],
+    "correctIndex": 2,
+    "explanation": "In the worst case (the process with the lowest id detects failure first), each process sends election messages to all higher-id processes, producing O(N²) messages overall.",
+    "distractorRationales": ["O(N) is too optimistic; the Bully algorithm broadcasts to all higher processes.", "O(N log N) characterizes some ring algorithms, not the Bully algorithm.", "", "O(2^N) is exponential and far exceeds the quadratic worst case."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consensus-replication",
+    "difficulty": "medium",
+    "questionText": "A Raft cluster has 5 servers. How many simultaneous server crashes can it tolerate while still being able to elect a leader and commit new entries?",
+    "options": ["1", "2", "3", "4"],
+    "correctIndex": 1,
+    "explanation": "Raft requires a majority (quorum) of ⌊5/2⌋+1 = 3 servers to make progress. With 3 servers available it can still operate, so it tolerates up to 5 − 3 = 2 crash failures. In general N = 2f+1 tolerates f failures.",
+    "distractorRationales": ["1 would be the tolerance of a 3-server cluster, not a 5-server one.", "", "3 failures would leave only 2 servers, which is not a majority of 5.", "4 failures would leave a single server, far short of a quorum."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consensus-replication",
+    "difficulty": "medium",
+    "questionText": "A quorum-replicated key–value store has N = 5 replicas and uses a write quorum of W = 3. What is the smallest read quorum R that guarantees every read observes the most recent committed write?",
+    "options": ["1", "2", "3", "5"],
+    "correctIndex": 2,
+    "explanation": "Read-your-writes consistency requires the read and write quorums to overlap: R + W > N. With N = 5 and W = 3, R > 2, so the minimum is R = 3, which guarantees any read set intersects any write set in at least one up-to-date replica.",
+    "distractorRationales": ["R = 1 gives R + W = 4 ≤ 5, so a read set can miss every replica that saw the write.", "R = 2 gives R + W = 5, which is not strictly greater than N, so overlap is not guaranteed.", "", "R = 5 works but is not the minimum; reading all replicas is unnecessarily expensive."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Which consistency model requires that every operation appear to take effect atomically at some instant between its invocation and response, consistent with real-time ordering — the strongest single-object guarantee?",
+    "options": ["Sequential consistency", "Causal consistency", "Eventual consistency", "Linearizability"],
+    "correctIndex": 3,
+    "explanation": "Linearizability requires each operation to appear instantaneous at a point between its call and return, and respects real-time order across processes. It is strictly stronger than sequential consistency, which permits any total order consistent with each process's program order but ignores real time.",
+    "distractorRationales": ["Sequential consistency preserves per-process order but need not respect real-time ordering across processes.", "Causal consistency only orders causally related operations; concurrent ones may differ.", "Eventual consistency is among the weakest models, guaranteeing only convergence given no new writes.", ""]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "In which consistency model are causally related writes seen in the same order by all processes, while writes that are concurrent (not causally related) may be observed in different orders by different processes?",
+    "options": ["Linearizability", "Sequential consistency", "Causal consistency", "Strict consistency"],
+    "correctIndex": 2,
+    "explanation": "Causal consistency orders only operations linked by the happens-before relation; all processes agree on the order of causally related writes, but concurrent writes have no required global order and may be seen differently. This is weaker than sequential consistency (which imposes one agreed total order).",
+    "distractorRationales": ["Linearizability would force a single real-time-respecting order even for concurrent writes.", "Sequential consistency requires all processes to agree on one total order, including concurrent writes.", "", "Strict consistency is an idealized model where every read returns the latest write instantaneously."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "distributed-transactions",
+    "difficulty": "medium",
+    "questionText": "In the two-phase commit (2PC) protocol, why is it called a 'blocking' protocol?",
+    "options": ["Participants lock resources and never release them", "If the coordinator crashes after participants have voted but before the decision is delivered, an uncertain participant must wait for the coordinator to recover", "It blocks all reads during the prepare phase", "Each phase blocks until a global clock tick"],
+    "correctIndex": 1,
+    "explanation": "A participant that has voted YES but not yet learned the outcome is 'uncertain'. If the coordinator fails at that point, the participant cannot unilaterally commit or abort (other participants may have decided either way), so it blocks until the coordinator recovers. Three-phase commit adds a phase to avoid this under certain failure assumptions.",
+    "distractorRationales": ["Participants do release locks once the decision arrives; perpetual locking is not what 'blocking' refers to here.", "", "2PC's blocking concerns the commit decision under coordinator failure, not read blocking in the prepare phase.", "2PC is asynchronous and does not depend on a global clock tick."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "distributed-transactions",
+    "difficulty": "medium",
+    "questionText": "What is the primary advantage of three-phase commit (3PC) over two-phase commit (2PC)?",
+    "options": ["It uses fewer messages", "It is non-blocking under a coordinator crash in a synchronous system with no network partitions", "It removes the need for participant voting", "It guarantees serializability without locks"],
+    "correctIndex": 1,
+    "explanation": "3PC inserts a 'pre-commit' phase between voting and commit so that the protocol's state is recoverable after a coordinator failure without indefinite blocking — assuming a synchronous system with reliable failure detection and no partitions. Under network partitions it can still fail, which is why production systems often prefer consensus-based commit.",
+    "distractorRationales": ["3PC uses more messages and an extra round, not fewer.", "", "Participants still vote in 3PC; the extra phase is about the commit decision, not voting.", "Avoiding blocking is unrelated to providing lock-free serializability; concurrency control is a separate concern."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "fault-tolerance",
+    "difficulty": "medium",
+    "questionText": "A synchronous Byzantine agreement protocol must tolerate up to f nodes that may behave arbitrarily (maliciously). What is the minimum total number of nodes required?",
+    "options": ["2f + 1", "3f", "3f + 1", "f + 1"],
+    "correctIndex": 2,
+    "explanation": "Byzantine agreement is solvable only when the total number of nodes N satisfies N ≥ 3f + 1 (equivalently, fewer than one-third of nodes are faulty). This bound, due to Lamport, Shostak and Pease, ensures honest nodes can outvote arbitrary faulty behaviour.",
+    "distractorRationales": ["2f+1 is the bound for crash (fail-stop) faults, not arbitrary Byzantine faults.", "3f is one short; with exactly 3f nodes agreement is impossible.", "", "f+1 suffices only for simple crash detection, not Byzantine behaviour."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "fault-tolerance",
+    "difficulty": "easy",
+    "questionText": "Using passive (primary-backup) replication to survive up to k simultaneous crash (fail-stop) failures while keeping at least one correct replica that holds the data, how many replicas are required?",
+    "options": ["k", "k + 1", "2k + 1", "3k + 1"],
+    "correctIndex": 1,
+    "explanation": "With fail-stop failures and no Byzantine behaviour, k+1 replicas suffice: even if k of them crash, one correct replica with the data remains. (Consensus-based agreement on the order of operations would instead need 2k+1 for a majority quorum.)",
+    "distractorRationales": ["k replicas could all crash, leaving none.", "", "2k+1 is the quorum requirement for crash-tolerant consensus, stronger than merely retaining the data.", "3k+1 is the Byzantine fault-tolerance bound, not needed for crash faults."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "HDFS (and GFS) store each data block with a default replication factor of 3, placing replicas across at least two racks. What is the main rationale for the cross-rack placement?",
+    "options": ["To minimize total disk usage", "To tolerate the failure of an entire rack while limiting cross-rack write bandwidth", "To guarantee strong consistency of reads", "To allow clients to write to all replicas in parallel over different racks"],
+    "correctIndex": 1,
+    "explanation": "Spreading replicas over at least two racks means a whole-rack failure (e.g., a top-of-rack switch dying) still leaves a replica available. Keeping two of the three replicas on the same rack limits expensive cross-rack write traffic, balancing fault tolerance against bandwidth.",
+    "distractorRationales": ["Replication increases disk usage threefold; minimizing storage is not the goal.", "", "HDFS provides high availability and durability, not strong read consistency, via replica placement.", "The write pipeline is sequential through the replicas, not a parallel broadcast across racks."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "In MapReduce, intermediate key–value pairs emitted by mappers are distributed to the R reduce tasks. By default, which reducer receives a given key?",
+    "options": ["hash(key) mod R", "The reducer chosen at random per pair", "The reducer determined by a range partition of the key space", "Round-robin across reducers, ignoring the key"],
+    "correctIndex": 0,
+    "explanation": "The default partitioner sends each key to reducer hash(key) mod R. Because partitioning is a deterministic function of the key, every pair with the same key lands at the same reducer, which is essential for correct grouping/aggregation.",
+    "distractorRationales": ["", "Random assignment would scatter equal keys across reducers, breaking grouping.", "Range partitioning is an optional custom partitioner (useful for global sorting), not the default.", "Round-robin ignores the key and would send identical keys to different reducers."]
+  }
+]

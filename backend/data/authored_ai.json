@@ -1,0 +1,162 @@
+[
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "uninformed-search",
+    "difficulty": "medium",
+    "questionText": "A graph has these directed weighted edges: A→B(1), A→C(4), B→C(2), B→D(5), C→D(1), C→G(7), D→G(3). Uniform-Cost Search is run from start A to goal G. What is the cost of the path it returns?",
+    "options": ["8", "7", "9", "11"],
+    "correctIndex": 1,
+    "explanation": "UCS expands nodes in order of least path cost and returns an optimal-cost path. The candidate paths are A-B-C-D-G = 1+2+1+3 = 7, A-C-D-G = 4+1+3 = 8, A-B-D-G = 1+5+3 = 9, and A-C-G = 4+7 = 11. The minimum is 7 via A-B-C-D-G.",
+    "distractorRationales": ["8 is the cost of A-C-D-G, which is not the cheapest.", "", "9 is the cost of A-B-D-G, more expensive than the optimum.", "11 is the cost of the direct-ish A-C-G route, the most expensive listed."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "uninformed-search",
+    "difficulty": "easy",
+    "questionText": "Which uninformed search strategy is complete and optimal for unit step costs while using only O(bd) memory (linear in depth), by repeatedly running depth-limited search with increasing limits?",
+    "options": ["Breadth-first search", "Depth-first search", "Iterative-deepening depth-first search", "Uniform-cost search"],
+    "correctIndex": 2,
+    "explanation": "Iterative-deepening DFS (IDDFS) runs depth-limited DFS for limits 0,1,2,... It keeps DFS's O(bd) space yet, like BFS, returns a shallowest goal, so it is complete and (for unit costs) optimal. The repeated work on shallow levels is asymptotically negligible.",
+    "distractorRationales": ["BFS is complete and optimal for unit costs but needs O(b^d) memory to store the frontier.", "Plain DFS uses O(bd) memory but is neither complete (infinite paths) nor optimal.", "", "UCS is optimal for general costs but stores the frontier, using exponential memory."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "A* search runs from S to G on a graph with edges S→A(1), S→B(4), A→B(2), A→G(5), B→G(1), using a consistent (admissible) heuristic. What is the cost of the solution path A* returns?",
+    "options": ["6", "4", "5", "7"],
+    "correctIndex": 1,
+    "explanation": "With a consistent heuristic, A* is optimal and returns a least-cost path. The options are S-A-B-G = 1+2+1 = 4, S-B-G = 4+1 = 5, and S-A-G = 1+5 = 6. The minimum cost is 4 via S-A-B-G.",
+    "distractorRationales": ["6 is the cost of S-A-G, not optimal.", "", "5 is the cost of S-B-G, not optimal.", "7 is larger than every actual path cost in this graph."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "Let h1 and h2 be two admissible heuristics for A* such that h2(n) ≥ h1(n) for every node n. Which statement is true?",
+    "options": ["h2 may cause A* to return a suboptimal solution", "h2 dominates h1, and A* using h2 never expands more nodes than A* using h1 (up to tie-breaking)", "h1 is preferable because it expands fewer nodes", "h2 is inadmissible because it is larger"],
+    "correctIndex": 1,
+    "explanation": "Since both heuristics are admissible and h2 ≥ h1 everywhere, h2 dominates h1. A node is surely expanded only if its f-value is below the optimal cost; a larger admissible heuristic prunes at least as many such nodes, so A* with h2 never expands more nodes than with h1. Optimality is preserved because h2 is still admissible.",
+    "distractorRationales": ["An admissible heuristic never causes A* to lose optimality.", "", "Dominance means h2 (the larger one) is the better-informed heuristic and expands no more nodes.", "Being larger does not make a heuristic inadmissible, as long as it never overestimates the true cost."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "A two-ply game tree has a MAX root with three MIN children. The MIN nodes have leaf values [3, 12, 8], [2, 4, 6], and [14, 5, 2] from left to right. What is the minimax value at the root?",
+    "options": ["2", "3", "8", "12"],
+    "correctIndex": 1,
+    "explanation": "Each MIN node takes the minimum of its leaves: min(3,12,8)=3, min(2,4,6)=2, min(14,5,2)=2. The MAX root takes the maximum of these: max(3,2,2)=3.",
+    "distractorRationales": ["2 is the value of the second and third MIN nodes, but MAX picks the best, not a smaller one.", "", "8 and 12 are individual leaves; MIN would never let the value rise to them.", "8 and 12 are individual leaves; MIN would never let the value rise to them."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "hard",
+    "questionText": "With optimal move ordering, alpha-beta pruning evaluates only O(b^(m/2)) leaves of a game tree with branching factor b and depth m. Compared with plain minimax, what is the effective branching factor in this best case?",
+    "options": ["b", "b/2", "√b", "b²"],
+    "correctIndex": 2,
+    "explanation": "Plain minimax examines b^m leaves. With perfect ordering, alpha-beta examines about b^(m/2) = (√b)^m leaves, so the effective branching factor is √b. This is why alpha-beta can search roughly twice as deep as minimax in the same time.",
+    "distractorRationales": ["b is the branching factor for plain minimax with no pruning.", "b/2 is not the asymptotic effect; pruning reduces the exponent, not a constant factor on b.", "", "b² would mean more work, the opposite of pruning."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "constraint-satisfaction",
+    "difficulty": "medium",
+    "questionText": "A CSP has variables X, Y, Z each with domain {1, 2, 3} and binary constraints X < Y and Y < Z. After enforcing full arc consistency (AC-3), what is the resulting domain of Y?",
+    "options": ["{1, 2}", "{2}", "{2, 3}", "{1, 2, 3}"],
+    "correctIndex": 1,
+    "explanation": "Arc consistency removes values with no support. From X < Y, X loses 3 and Y loses 1. From Y < Z, Z loses 1 and Y must have some Z greater than it, leaving Y = {2}; then X < Y forces X = {1} and Y < Z forces Z = {3}. The unique arc-consistent domain of Y is {2}.",
+    "distractorRationales": ["{1,2} ignores the Y < Z constraint, which removes 1 from Y (no smaller value exists below it after propagation).", "", "{2,3} ignores that X < Y eliminates the support needed to keep 3 once Z is reduced.", "{1,2,3} is the initial domain before any propagation."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "constraint-satisfaction",
+    "difficulty": "easy",
+    "questionText": "In backtracking search for CSPs, the Minimum-Remaining-Values (MRV) heuristic chooses which variable to assign next?",
+    "options": ["The variable involved in the most constraints", "The variable with the fewest remaining legal values in its domain", "The variable that rules out the fewest choices for neighbours", "Any unassigned variable, chosen at random"],
+    "correctIndex": 1,
+    "explanation": "MRV (the 'most constrained variable' or 'fail-first' heuristic) selects the unassigned variable with the fewest legal values left. Tackling the most constrained variable first prunes the search tree early by detecting failures sooner.",
+    "distractorRationales": ["Choosing the variable in the most constraints is the degree heuristic, typically used only as a tie-breaker for MRV.", "", "Ruling out the fewest choices for neighbours is the least-constraining-value heuristic, which orders values, not variables.", "Random selection ignores the structure MRV exploits."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "logic-knowledge-representation",
+    "difficulty": "medium",
+    "questionText": "A knowledge base in CNF contains the clauses {P ∨ Q, ¬Q ∨ R, ¬R}. Using resolution, which literal can be derived?",
+    "options": ["P", "Q", "¬P", "R"],
+    "correctIndex": 0,
+    "explanation": "Resolve (¬Q ∨ R) with (¬R) to obtain ¬Q. Resolve ¬Q with (P ∨ Q) to obtain P. Thus P is entailed by the knowledge base. (Continuing would resolve P against nothing of the form ¬P, so the KB is satisfiable with P true.)",
+    "distractorRationales": ["", "Q cannot be derived; in fact ¬Q is derivable from the last two clauses.", "¬P is not entailed; the KB is consistent with P being true.", "R is refuted by the clause ¬R, so R is false, not derivable."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "logic-knowledge-representation",
+    "difficulty": "easy",
+    "questionText": "In first-order logic, what does the sentence ∀x (P(x) → Q(x)) assert?",
+    "options": ["There exists an x that is both P and Q", "Every x that satisfies P also satisfies Q", "Every x satisfies both P and Q", "No x satisfies P unless every x satisfies Q"],
+    "correctIndex": 1,
+    "explanation": "A universally quantified implication ∀x (P(x) → Q(x)) states that for every object x, if x has property P then x has property Q — i.e., 'all Ps are Qs'. It says nothing about objects that are not P.",
+    "distractorRationales": ["An existential claim would use ∃ and a conjunction P(x) ∧ Q(x), the typical correct encoding of 'some P is Q'.", "", "Asserting every x is both P and Q would be ∀x (P(x) ∧ Q(x)), which is much stronger.", "This misreads the scope; the implication is evaluated per-object, not as a global condition on all x."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "probabilistic-reasoning",
+    "difficulty": "medium",
+    "questionText": "A disease affects 1% of a population. A test has 99% sensitivity (true-positive rate) and 95% specificity (so a 5% false-positive rate). If a randomly chosen person tests positive, what is the probability they actually have the disease (to the nearest value)?",
+    "options": ["≈ 50%", "≈ 16.7%", "≈ 99%", "≈ 1%"],
+    "correctIndex": 1,
+    "explanation": "By Bayes' theorem, P(D|+) = (0.99·0.01) / (0.99·0.01 + 0.05·0.99) = 0.0099 / 0.0594 ≈ 0.167, about 16.7%. Despite the accurate test, the low base rate means most positives are false positives.",
+    "distractorRationales": ["50% wrongly assumes positives split evenly; the base rate makes true positives much rarer.", "", "99% confuses the test's sensitivity with the posterior probability of disease.", "1% is the prior prevalence, ignoring the evidence from the positive test."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "probabilistic-reasoning",
+    "difficulty": "medium",
+    "questionText": "In a Bayesian network A → B, suppose P(A=T) = 0.6, P(B=T | A=T) = 0.8, and P(B=T | A=F) = 0.3. What is the marginal probability P(B=T)?",
+    "options": ["0.48", "0.60", "0.30", "0.72"],
+    "correctIndex": 1,
+    "explanation": "Marginalize over A: P(B=T) = P(B=T|A=T)·P(A=T) + P(B=T|A=F)·P(A=F) = 0.8·0.6 + 0.3·0.4 = 0.48 + 0.12 = 0.60.",
+    "distractorRationales": ["0.48 is only the first term P(B=T|A=T)·P(A=T); the A=F case is missing.", "", "0.30 is the conditional P(B=T|A=F), not the marginal.", "0.72 incorrectly uses P(A=T) twice or mixes the conditionals."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "A binary classification dataset at a decision-tree node has 9 positive and 5 negative examples (14 total). What is the entropy of this node, in bits?",
+    "options": ["0.940", "1.000", "0.652", "0.863"],
+    "correctIndex": 0,
+    "explanation": "Entropy = −(9/14)·log2(9/14) − (5/14)·log2(5/14) = −0.643·(−0.637) − 0.357·(−1.485) ≈ 0.409 + 0.531 = 0.940 bits. This is the classic Russell-and-Norvig / Quinlan example value.",
+    "distractorRationales": ["", "1.000 bit is the entropy only of a perfectly balanced 50/50 split, not 9:5.", "0.652 underestimates; it would correspond to a more skewed split than 9:5.", "0.863 is close but does not match the exact 9:5 computation of 0.940."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "A binary classifier produces the confusion matrix TP = 40, FP = 10, FN = 20, TN = 30. What is its precision?",
+    "options": ["0.80", "0.67", "0.57", "0.40"],
+    "correctIndex": 0,
+    "explanation": "Precision = TP / (TP + FP) = 40 / (40 + 10) = 40/50 = 0.80. (For reference, recall = TP/(TP+FN) = 40/60 ≈ 0.67.)",
+    "distractorRationales": ["", "0.67 is the recall, TP/(TP+FN), not precision.", "0.57 is accuracy-like, (TP+...) miscomputed; it is neither precision nor recall here.", "0.40 is TP divided by the total positives-predicted-plus-something, an incorrect denominator."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "easy",
+    "questionText": "A 1-nearest-neighbour (k = 1) classifier, compared with a large-k version on the same data, typically exhibits which bias–variance behaviour?",
+    "options": ["High bias, low variance", "Low bias, high variance", "High bias, high variance", "Low bias, low variance"],
+    "correctIndex": 1,
+    "explanation": "k = 1 fits the training data almost exactly, so it has low bias but is highly sensitive to noise and individual points, giving high variance. Increasing k smooths the decision boundary, raising bias and lowering variance.",
+    "distractorRationales": ["High bias, low variance describes large k (an over-smoothed model), not k = 1.", "", "k = 1 is not high bias; it follows the data too closely.", "Low bias with low variance is generally unattainable; there is a trade-off, and k = 1 sits at the low-bias/high-variance end."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "Which Boolean function of two inputs is NOT learnable by a single-layer perceptron, because the function is not linearly separable?",
+    "options": ["AND", "OR", "XOR", "NOT (of one input)"],
+    "correctIndex": 2,
+    "explanation": "A single-layer perceptron can only represent linearly separable functions. XOR's true cases (0,1) and (1,0) cannot be separated from its false cases (0,0) and (1,1) by a single straight line, so no perceptron can learn it — the classic Minsky–Papert result requiring a hidden layer.",
+    "distractorRationales": ["AND is linearly separable and learnable by a perceptron.", "OR is linearly separable and learnable by a perceptron.", "", "NOT of a single input is trivially linearly separable."]
+  }
+]
