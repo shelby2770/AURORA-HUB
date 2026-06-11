@@ -1,0 +1,332 @@
+[
+  {
+    "course": "computer-architecture",
+    "subtopic": "i-o-interrupts",
+    "difficulty": "medium",
+    "questionText": "Suppose a program is running on a non-pipelined single processor computer system. The computer is connected to an external device that can interrupt the processor asynchronously. The processor needs to execute the interrupt service routine (ISR) to serve this interrupt. The following steps (not necessarily in order) are taken by the processor when the interrupt arrives:\n(i) The processor saves the content of the program counter.\n(ii) The program counter is loaded with the start address of the ISR.\n(iii) The processor finishes the present instruction.\nWhich ONE of the following is the CORRECT sequence of steps?",
+    "options": [
+      "(iii), (i), (ii)",
+      "(i), (iii), (ii)",
+      "(i), (ii), (iii)",
+      "(iii), (ii), (i)"
+    ],
+    "correctIndex": 0,
+    "explanation": "When an interrupt arrives, the processor must first finish executing the current instruction to maintain a consistent architectural state — interrupting mid-instruction would leave registers and memory in an undefined condition. Once the instruction completes, the processor saves the program counter (return address) so it can resume the interrupted program later. Only after the PC is saved is it safe to overwrite the PC with the ISR start address, transferring control to the interrupt handler.",
+    "distractorRationales": [
+      "",
+      "Saving the PC before finishing the current instruction would capture an intermediate PC value that does not correspond to any clean resumption point, leaving the CPU in an inconsistent state.",
+      "Loading the ISR address into the PC before saving the original PC destroys the return address, making it impossible to resume the interrupted program.",
+      "Loading the ISR address before saving the PC is the same flaw as option C — the return address is lost."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "memory-management-paging",
+    "difficulty": "medium",
+    "questionText": "Consider a demand paging memory management system with 32-bit logical address, 20-bit physical address, and page size of 2048 bytes. Assuming that the memory is byte addressable, what is the maximum number of entries in the page table?",
+    "latex": "\\text{Page size} = 2048 = 2^{11} \\text{ bytes} \\Rightarrow \\text{page offset} = 11 \\text{ bits} \\Rightarrow \\text{VPN bits} = 32 - 11 = 21 \\Rightarrow \\text{entries} = 2^{21}",
+    "options": [
+      "2^(21)",
+      "2^(20)",
+      "2^(22)",
+      "2^(24)"
+    ],
+    "correctIndex": 0,
+    "explanation": "The page size is 2048 = 2^11 bytes, so the page offset requires 11 bits. With a 32-bit logical address, the remaining 32 - 11 = 21 bits form the virtual page number. The page table must have one entry per virtual page, giving a maximum of 2^21 entries. The physical address size is irrelevant to the number of page table entries — it only determines the size of each entry (the physical frame number field).",
+    "distractorRationales": [
+      "",
+      "2^20 would result from incorrectly using the physical address size (20 bits) as the virtual page number field, which conflates physical and virtual address spaces.",
+      "2^22 would follow from an off-by-one error, perhaps miscalculating the offset as 10 bits instead of 11.",
+      "2^24 has no direct derivation from the given parameters and is simply incorrect."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "transactions-concurrency-control",
+    "difficulty": "medium",
+    "questionText": "A schedule of three database transactions T1, T2, and T3 is shown. Ri(A) and Wi(A) denote read and write of data item A by transaction Ti, i = 1,2,3. The transaction T1 aborts at the end. Which other transaction(s) will be required to be rolled back?\n\nSchedule: R1(X) W1(Y) R2(X) R2(Y) R3(Y) ABORT(T1)",
+    "options": [
+      "Only T2",
+      "Only T3",
+      "Both T2 and T3",
+      "Neither T2 nor T3"
+    ],
+    "correctIndex": 2,
+    "explanation": "When T1 aborts, any transaction that read a data item written by T1 has a dirty read and must also be rolled back (cascading abort). T1 writes Y (W1(Y)); both T2 reads Y (R2(Y)) and T3 reads Y (R3(Y)), so both have dirty reads of Y from the aborted T1. T2 also reads X (R2(X)), but T1 only reads X (R1(X)) — it never writes X, so R2(X) is not a dirty read. Nevertheless, because both T2 and T3 read the dirty value of Y written by T1, both must be rolled back.",
+    "distractorRationales": [
+      "Choosing only T2 misses T3, which also read Y after T1 wrote it and thus also has a dirty read dependency on the aborted T1.",
+      "Choosing only T3 misses T2, which read Y (R2(Y)) after T1's W1(Y) and therefore is also tainted by T1's dirty write.",
+      "",
+      "This is incorrect because both T2 and T3 read the value of Y that T1 wrote before aborting, creating dirty read dependencies that necessitate cascading rollback."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "medium",
+    "questionText": "Let G be any undirected graph with positive edge weights, and T be a minimum spanning tree of G. For any two vertices u and v, let d1(u,v) and d2(u,v) be the shortest distances between u and v in G and T, respectively. Which ONE of the options is CORRECT for all possible G, T, u and v?",
+    "latex": "d_1(u,v) \\leq d_2(u,v)",
+    "options": [
+      "d1(u,v) = d2(u,v)",
+      "d1(u,v) <= d2(u,v)",
+      "d1(u,v) >= d2(u,v)",
+      "d1(u,v) != d2(u,v)"
+    ],
+    "correctIndex": 1,
+    "explanation": "The graph G contains all edges, while the MST T is a subgraph of G containing only a spanning subset of edges. Any path that exists in T also exists in G (since T's edges are a subset of G's edges), but G may offer additional shorter paths through edges not in T. Therefore the shortest path in G can never be longer than the shortest path in T, giving d1(u,v) <= d2(u,v). Equality holds when the MST path happens to be the shortest path in G.",
+    "distractorRationales": [
+      "Equality does not hold in general; G can have non-tree edges that provide shorter paths than any path in T.",
+      "",
+      "d1 >= d2 would mean the MST provides shorter or equal paths than G, which is impossible since T is a subgraph of G — every T-path is also a valid G-path.",
+      "d1 != d2 is not always true; if the only path between u and v in G passes through tree edges, then d1 = d2."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "medium",
+    "questionText": "Consider the following context-free grammar G, where S, A, and B are the variables (non-terminals), a and b are the terminal symbols, S is the start variable, and the rules of G are described as:\nS -> aaB | Abb\nA -> a | aA\nB -> b | bB\nWhich ONE of the languages L(G) is accepted by G?",
+    "latex": "S \\to aaB \\mid Abb \\quad A \\to a \\mid aA \\quad B \\to b \\mid bB",
+    "options": [
+      "L(G) = {a^2 b^n | n >= 1} union {a^n b^2 | n >= 1}",
+      "L(G) = {a^n b^(2n) | n >= 1} union {a^(2n) b^n | n >= 1}",
+      "L(G) = {a^n b^n | n >= 1}",
+      "L(G) = {a^(2n) b^(2n) | n >= 1}"
+    ],
+    "correctIndex": 0,
+    "explanation": "From S -> aaB: A derives aaB, and B -> b | bB generates one or more b's, so this branch produces {a^2 b^n | n >= 1}. From S -> Abb: A -> a | aA generates one or more a's (i.e., a^n for n >= 1), so this branch produces {a^n bb | n >= 1} = {a^n b^2 | n >= 1}. The union of both branches is exactly {a^2 b^n | n >= 1} union {a^n b^2 | n >= 1}, matching option A.",
+    "distractorRationales": [
+      "",
+      "This option incorrectly ties the number of a's and b's together with a factor of 2; neither branch of S couples the count of a's to the count of b's in that way.",
+      "The grammar does not enforce equal numbers of a's and b's; the two productions are independent.",
+      "This option requires both sides to be even and equal in count, which does not follow from any derivation in the grammar."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "hard",
+    "questionText": "Consider the following recurrence relation:\nT(n) = 2T(n-1) + n*2^n for n > 0, T(0) = 1.\nWhich ONE of the following options is CORRECT?",
+    "latex": "T(n) = 2T(n-1) + n \\cdot 2^n,\\quad T(0) = 1",
+    "options": [
+      "T(n) = Theta(n^2 * 2^n)",
+      "T(n) = Theta(n * 2^n)",
+      "T(n) = Theta((log n)^2 * 2^n)",
+      "T(n) = Theta(4^n)"
+    ],
+    "correctIndex": 0,
+    "explanation": "Unrolling the recurrence: T(n) = 2^n * T(0) + sum_{k=1}^{n} 2^{n-k} * k * 2^k = 2^n + 2^n * sum_{k=1}^{n} k = 2^n + 2^n * n(n+1)/2. The dominant term is 2^n * n(n+1)/2 which is Theta(n^2 * 2^n). The sum sum_{k=1}^{n} k = n(n+1)/2 = Theta(n^2) drives the quadratic factor.",
+    "distractorRationales": [
+      "",
+      "T(n) = Theta(n * 2^n) underestimates the growth; the summation of k from 1 to n contributes a factor of n^2, not just n.",
+      "T(n) = Theta((log n)^2 * 2^n) has no basis in the recurrence expansion; logarithmic factors do not arise from linear-count summations.",
+      "T(n) = Theta(4^n) would result if the recurrence were T(n) = 2T(n-1) with a factor of 2 per step combined with an exponential in n base-2, but the additive term n*2^n does not produce a base-4 exponential."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-languages-finite-automata",
+    "difficulty": "medium",
+    "questionText": "A regular language L is accepted by a non-deterministic finite automaton (NFA) with n states. Which of the following statement(s) is/are FALSE?",
+    "options": [
+      "L may have an accepting NFA with < n states.",
+      "L may have an accepting DFA with < n states.",
+      "There exists a DFA with <= 2^n states that accepts L.",
+      "Every DFA that accepts L has > 2^n states."
+    ],
+    "correctIndex": 3,
+    "explanation": "The subset construction converts an n-state NFA into a DFA with at most 2^n states, so there always exists a DFA with at most 2^n states accepting L — making option C true (not false). Option D claims every DFA requires more than 2^n states, which contradicts the subset construction bound; in fact the resulting DFA has at most 2^n states, so D is false. Options A and B are both true: minimization can reduce states in both NFA and DFA, so L may indeed be accepted by smaller automata.",
+    "distractorRationales": [
+      "This is TRUE — an NFA for L may not be minimal, so a smaller NFA might also accept L.",
+      "This is TRUE — the equivalent DFA after minimization could have fewer than n states if the original NFA was not minimal.",
+      "This is TRUE — the standard subset construction guarantees a DFA with at most 2^n states.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "hard",
+    "questionText": "Consider a memory system with 1M bytes of main memory and 16K bytes of cache memory. Assume that the processor generates 20-bit memory address, and the cache block size is 16 bytes. If the cache uses direct mapping, how many bits will be required to store all the tag values? (Assume memory is byte addressable, 1K = 2^10, 1M = 2^20.)",
+    "latex": "\\text{Block offset} = \\log_2 16 = 4 \\text{ bits},\\quad \\text{Cache lines} = \\frac{16 \\times 2^{10}}{16} = 2^{10},\\quad \\text{Index} = 10 \\text{ bits},\\quad \\text{Tag} = 20 - 10 - 4 = 6 \\text{ bits}",
+    "options": [
+      "6 * 2^(10)",
+      "8 * 2^(10)",
+      "2^(12)",
+      "2^(14)"
+    ],
+    "correctIndex": 0,
+    "explanation": "The block size is 16 = 2^4 bytes, so the block offset is 4 bits. The cache has 16K / 16 = 1024 = 2^10 cache lines, requiring a 10-bit index. With a 20-bit address, the tag field is 20 - 10 - 4 = 6 bits per cache line. To store all tag values across all 2^10 = 1024 cache lines, the total number of bits is 6 * 1024 = 6 * 2^10.",
+    "distractorRationales": [
+      "",
+      "8 * 2^10 would result from miscalculating the tag as 8 bits, perhaps by subtracting only the index bits (20 - 10 = 10) then further misapplying a formula.",
+      "2^12 = 4096 bits; this does not match the correct computation of 6 * 1024 = 6144 bits.",
+      "2^14 = 16384 bits; this greatly overestimates and has no clear derivation from the given parameters."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "A processor has 64 general-purpose registers and 50 distinct instruction types. An instruction is encoded in 32-bits. What is the maximum number of bits that can be used to store the immediate operand for the given instruction?\nADD R1, #25 // R1 = R1 + 25",
+    "options": [
+      "16",
+      "20",
+      "22",
+      "24"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 32-bit instruction must encode the opcode and at least one register field. 64 registers require 6 bits per register field. 50 instruction types require ceil(log2(50)) = 6 bits for the opcode. The ADD immediate instruction format uses: 6 bits for opcode + 6 bits for the destination register (R1) = 12 bits, leaving 32 - 12 = 20 bits for the immediate operand. This is the maximum because no second register source is needed for an immediate instruction.",
+    "distractorRationales": [
+      "16 bits would be the immediate field if one assumed an opcode of 10 bits plus a 6-bit register, or some other over-allocation to the opcode.",
+      "",
+      "22 bits would require opcode + register to use only 10 bits total, which is not achievable: 6 (opcode) + 6 (register) = 12 bits minimum.",
+      "24 bits would leave only 8 bits for opcode and register combined, insufficient to encode 50 opcodes (6 bits) plus 64 registers (6 bits)."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "hard",
+    "questionText": "A computer has two processors, M1 and M2. Four processes P1, P2, P3, P4 with CPU bursts of 20, 16, 25, and 10 milliseconds, respectively, arrive at the same time and these are the only processes in the system. The scheduler uses non-preemptive priority scheduling, with priorities decided as follows:\nM1 uses priority order P1 > P3 > P2 > P4 (P1 highest, P4 lowest).\nM2 uses priority order P2 > P3 > P4 > P1 (P2 highest, P1 lowest).\nA process Pi is scheduled to a processor Mk if the processor is free and no other process Pj is waiting with higher priority. At any given point of time, a process can be allocated to any one of the free processors without violating the execution priority rules. Ignore context switch time. What will be the average waiting time of the processes in milliseconds?",
+    "options": [
+      "9.00",
+      "8.75",
+      "6.50",
+      "7.50"
+    ],
+    "correctIndex": 0,
+    "explanation": "At time 0, both processors are free. M1 picks P1 (highest M1 priority, burst 20ms) and M2 picks P2 (highest M2 priority, burst 16ms). P3 and P4 wait. At t=16, M2 finishes P2 and is free; the waiting processes are P3 and P4. M2's priority among waiting processes: P3 > P4, so M2 picks P3 (burst 25ms). P4 continues waiting. At t=20, M1 finishes P1 and is free; only P4 remains, so M1 picks P4 (burst 10ms). Waiting times: P1=0, P2=0, P3=16, P4=20. Average = (0+0+16+20)/4 = 36/4 = 9.00 ms.",
+    "distractorRationales": [
+      "",
+      "8.75 ms would require a total waiting time of 35 ms across four processes, which does not match any valid scheduling trace of this scenario.",
+      "6.50 ms would require a total of only 26 ms waiting time; this would only be possible if P3 or P4 started earlier, but both processors are occupied by P1 and P2 until t=16 and t=20 respectively.",
+      "7.50 ms corresponds to a total of 30 ms waiting time, inconsistent with the computed waiting times of P3=16 and P4=20."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "relational-algebra-calculus",
+    "difficulty": "medium",
+    "questionText": "Consider two relations describing teams and players in a sports league:\nteams(tid, tname): tid and tname are team-id and team-name, respectively\nplayers(pid, pname, tid): pid, pname, and tid denote player-id, player-name, and the team-id of the player, respectively\nWhich ONE of the following tuple relational calculus queries returns the name of the players who play for the team having tname as 'MI'?",
+    "options": [
+      "{ p.pname | p in players AND exists t (t in teams AND p.tid = t.tid AND t.tname = 'MI')}",
+      "{ p.pname | p in teams AND exists t (t in players AND p.tid = t.tid AND t.tname = 'MI')}",
+      "{ p.pname | p in players AND exists t (t in teams AND t.tname = 'MI')}",
+      "{ p.pname | p in teams AND exists t (t in players AND t.tname = 'MI')}"
+    ],
+    "correctIndex": 0,
+    "explanation": "The correct TRC query iterates over tuples p from the players relation, then existentially quantifies over a tuple t from the teams relation, requiring the join condition p.tid = t.tid (linking the player to their team) and the filter t.tname = 'MI'. This correctly retrieves all player names whose team name is 'MI'. The result attribute p.pname is drawn from the players relation, which is the appropriate source.",
+    "distractorRationales": [
+      "",
+      "This query iterates p over teams and t over players, so p.pname refers to a field in the teams relation, which does not have a pname attribute — the query is semantically invalid.",
+      "This query is missing the join condition p.tid = t.tid; it returns all player names whenever any team named 'MI' exists, regardless of which team the player belongs to.",
+      "Like option B, this iterates p over the teams relation and also lacks a proper join; it is doubly incorrect."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "graph-traversal-bfs-dfs",
+    "difficulty": "medium",
+    "questionText": "Let G(V,E) be an undirected and unweighted graph with 100 vertices. Let d(u,v) denote the number of edges in a shortest path between vertices u and v in V. Let the maximum value of d(u,v), u,v in V such that u != v, be 30. Let T be any breadth-first-search tree of G. Which ONE of the given options is CORRECT for every such graph G?",
+    "latex": "\\max_{u,v \\in V} d(u,v) = 30 \\Rightarrow \\text{height of BFS tree} \\geq 15",
+    "options": [
+      "The height of T is exactly 15.",
+      "The height of T is exactly 30.",
+      "The height of T is at least 15.",
+      "The height of T is at least 30."
+    ],
+    "correctIndex": 2,
+    "explanation": "The diameter of G is 30, meaning there exist vertices u and v with d(u,v) = 30. A BFS tree rooted at some vertex r has height equal to the eccentricity of r (the maximum BFS distance from r to any vertex). The BFS source r may not be one of u or v, so the height of T need not be 30. However, by the triangle inequality on BFS distances, max(d(r,u), d(r,v)) >= d(u,v)/2 = 15. Therefore the BFS tree height is at least 15, but could be anywhere from 15 to 30 depending on the choice of root.",
+    "distractorRationales": [
+      "The height cannot be pinned to exactly 15 for all graphs and all BFS roots; if r is one endpoint of the diametral pair, the height is 30.",
+      "The height is exactly 30 only when the BFS root is one endpoint of a diametral pair; for other roots, the height can be less (but at least 15).",
+      "",
+      "The height is at least 30 only when the BFS root coincides with a diameter endpoint; for interior vertices, the height can be as low as 15."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-languages-finite-automata",
+    "difficulty": "hard",
+    "questionText": "Consider the following two languages over the alphabet {a, b}:\nL1 = { alpha*beta*alpha | alpha in {a,b}^+ AND beta in {a,b}^+ }\nL2 = { alpha*beta*alpha | alpha in {a}^+ AND beta in {a,b}^+ }\nWhich ONE of the following statements is CORRECT?",
+    "latex": "L_1 = \\{\\alpha\\beta\\alpha \\mid \\alpha \\in \\{a,b\\}^+,\\, \\beta \\in \\{a,b\\}^+\\} \\quad L_2 = \\{\\alpha\\beta\\alpha \\mid \\alpha \\in \\{a\\}^+,\\, \\beta \\in \\{a,b\\}^+\\}",
+    "options": [
+      "Both L1 and L2 are regular languages.",
+      "L1 is a regular language but L2 is not a regular language.",
+      "L1 is not a regular language but L2 is a regular language.",
+      "Neither L1 nor L2 is a regular language."
+    ],
+    "correctIndex": 2,
+    "explanation": "L1 requires remembering the arbitrary string alpha (over {a,b}^+) to match the suffix, which requires unbounded memory — L1 is not regular (a pumping lemma argument confirms this). For L2, alpha is constrained to {a}^+, meaning the prefix and suffix are both blocks of only a's of the same length. L2 = {a^m w a^m | m >= 1, w in {a,b}^+}, which equals strings starting and ending with at least one 'a' and having length >= 3. This is recognized by a finite automaton that simply checks: starts with 'a', ends with 'a', and has at least one character in between — making L2 regular.",
+    "distractorRationales": [
+      "L1 is not regular because the automaton would need to remember an arbitrary-length, arbitrary-content string alpha over {a,b} to verify the suffix match.",
+      "This reverses the correct classification: it is L1 that is non-regular and L2 that is regular, not the other way around.",
+      "",
+      "L2 is indeed regular as shown above; claiming neither is regular is incorrect."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "hard",
+    "questionText": "Consider the following two languages over the alphabet {a, b, c}, where m and n are natural numbers.\nL1 = {a^m b^m c^(m+n) | m, n >= 1}\nL2 = {a^m b^n c^(m+n) | m, n >= 1}\nWhich ONE of the following statements is CORRECT?",
+    "latex": "L_1 = \\{a^m b^m c^{m+n} \\mid m,n \\geq 1\\} \\qquad L_2 = \\{a^m b^n c^{m+n} \\mid m,n \\geq 1\\}",
+    "options": [
+      "Both L1 and L2 are context-free languages.",
+      "L1 is a context-free language but L2 is not a context-free language.",
+      "L1 is not a context-free language but L2 is a context-free language.",
+      "Neither L1 nor L2 are context-free languages."
+    ],
+    "correctIndex": 2,
+    "explanation": "L2 is context-free: a PDA can push 'a' symbols onto the stack for each a, then push 'b' symbols for each b, then pop one stack symbol for each c — the stack empties exactly when c-count equals m+n, accepting the string. L1 requires that the number of a's equals the number of b's AND also that m appears again in the exponent of c. The pumping lemma for CFLs shows L1 is not context-free: pumping the a^m b^m portion disrupts both equalities simultaneously, and no PDA can track m independently for both the a=b constraint and the c-count constraint.",
+    "distractorRationales": [
+      "L1 is not context-free because accepting it would require a PDA to simultaneously enforce #a = #b and then also count c's equal to (#a + n) for some extra n, which requires two independent stack counts.",
+      "This is the reverse: L2 is the CFL and L1 is the non-CFL, not vice versa.",
+      "",
+      "L2 is indeed context-free, so the claim that neither is CFL is incorrect."
+    ],
+    "examName": "GATE CS 2025 Set 1",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

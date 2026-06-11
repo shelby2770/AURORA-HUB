@@ -16,7 +16,7 @@ import sys
 from app.core.db import close_db, init_db
 from app.ingest.ingest import ingest_items
 from app.ingest.sources import from_paths
-from app.llm.factory import get_generator
+from app.llm.factory import get_parser
 
 
 async def _main(paths: list[str]) -> None:
@@ -26,8 +26,9 @@ async def _main(paths: list[str]) -> None:
         return
 
     await init_db()
-    # Parsing is the "cheap" call; reuse the generator provider (thinking off).
-    provider = get_generator()
+    # Parsing is the "cheap" call (thinking off). Uses the parser provider —
+    # defaults to the generator, overridable via LLM_PARSER_PROVIDER.
+    provider = get_parser()
     report = await ingest_items(items, provider)
 
     print(

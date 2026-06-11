@@ -36,6 +36,7 @@ class ClaudeProvider(LLMProvider):
         thinking: bool = True,
         effort: str = "high",
         max_tokens: int = 8000,
+        json_mode: bool = False,  # accepted for interface parity (no-op here)
     ) -> str:
         kwargs: dict = {
             "model": self._model,

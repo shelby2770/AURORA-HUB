@@ -1,0 +1,443 @@
+[
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "medium",
+    "questionText": "Which one of the following statements is TRUE for all positive functions f(n)?",
+    "latex": "f(n^{2}) = \\Omega(f(n^{2}))",
+    "options": [
+      "f(n²) = θ(f(n²)), when f(n) is a polynomial",
+      "f(n²) = o(f(n²))",
+      "f(n²) = O(f(n²)), when f(n) is an exponential function",
+      "f(n²) = Ω(f(n²))"
+    ],
+    "correctIndex": 3,
+    "explanation": "For any positive function f, f(n²) = Ω(f(n²)) is trivially true because a function is always bounded below by a constant multiple (c=1) of itself. Option A is false because θ requires both O and Ω, but polynomials evaluated at n² grow faster than at n, breaking the tight bound in general. Option B is false because little-o means strictly slower growth, which no function can be relative to itself. Option C is false because exponential functions like 2^(n²) are not O(2^n).",
+    "distractorRationales": [
+      "θ(f(n²)) requires that f(n²) grows at exactly the same rate as f(n²) up to a constant — trivially true by reflexivity, but A incorrectly restricts this to polynomials when in fact the restriction causes it to fail for general cases; the statement as written in A is not universally true.",
+      "little-o means f(n²) grows strictly slower than f(n²), which is impossible since a function cannot be asymptotically dominated by itself.",
+      "For exponential f(n) = c^n, f(n²) = c^(n²) grows much faster than f(n) = c^n, so f(n²) ≠ O(f(n)); the exponential base means the squared argument causes unbounded growth ratio.",
+      ""
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "c-pointers-memory",
+    "difficulty": "medium",
+    "questionText": "What is printed by the following ANSI C program?",
+    "codeSnippet": "#include<stdio.h>\nint main(int argc, char *argv[])\n{\n    int x = 1, z[2] = {10, 11};\n    int *p = NULL;\n    p = &x;\n    *p = 10;\n    p = &z[1];\n    *(&z[0] + 1) += 3;\n    printf(\"%d, %d, %d\\n\", x, z[0], z[1]);\n    return 0;\n}",
+    "options": [
+      "1, 10, 11",
+      "1, 10, 14",
+      "10, 14, 11",
+      "10, 10, 14"
+    ],
+    "correctIndex": 3,
+    "explanation": "First, p = &x and *p = 10 sets x to 10. Then p = &z[1] (unused thereafter). The key line is *(&z[0] + 1) += 3: &z[0] + 1 is the address of z[1], so this adds 3 to z[1], making z[1] = 14. z[0] remains 10. Thus the output is x=10, z[0]=10, z[1]=14.",
+    "distractorRationales": [
+      "This would be the result if neither *p = 10 nor the pointer arithmetic executed, but both assignments do run.",
+      "This would be correct if x remained 1, but *p = 10 where p = &x sets x to 10.",
+      "This would require z[0] to be modified to 14 and z[1] to remain 11, but *(&z[0]+1) modifies z[1] not z[0].",
+      ""
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "functional-dependencies-normalization",
+    "difficulty": "medium",
+    "questionText": "In a relational data model, which one of the following statements is TRUE?",
+    "options": [
+      "A relation with only two attributes is always in BCNF.",
+      "If all attributes of a relation are prime attributes, then the relation is in BCNF.",
+      "Every relation has at least one non-prime attribute.",
+      "BCNF decompositions preserve functional dependencies."
+    ],
+    "correctIndex": 0,
+    "explanation": "A relation with only two attributes A and B can only have trivial FDs or one of {A→B, B→A, A→B and B→A}. In every case the determinant of any non-trivial FD is a superkey (either A or B alone is a key), so BCNF is always satisfied. The other options are false: all-prime-attribute relations can still violate BCNF, not every relation must have a non-prime attribute (e.g., all attributes form the key), and BCNF decompositions do not guarantee FD preservation.",
+    "distractorRationales": [
+      "",
+      "A relation where all attributes are prime (part of some candidate key) can still have a non-trivial FD whose determinant is not a superkey, violating BCNF.",
+      "A relation where every attribute participates in a candidate key has only prime attributes and no non-prime attributes, contradicting this claim.",
+      "BCNF decomposition achieves lossless join but does not guarantee preservation of all functional dependencies; that is a property of 3NF decomposition."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "Let R1 and R2 be two 4-bit registers that store numbers in 2's complement form. For the operation R1+R2, which one of the following values of R1 and R2 gives an arithmetic overflow?",
+    "options": [
+      "R1 = 1011 and R2 = 1110",
+      "R1 = 1100 and R2 = 1010",
+      "R1 = 0011 and R2 = 0100",
+      "R1 = 1001 and R2 = 1111"
+    ],
+    "correctIndex": 1,
+    "explanation": "In 4-bit 2's complement, overflow occurs when two numbers of the same sign produce a result of the opposite sign. R1=1100 is -4 and R2=1010 is -6; their sum is -10, but the range is -8 to +7. Adding 1100+1010 = 10110, truncated to 4 bits is 0110 = +6, a positive result from two negatives — this is overflow. The other pairs: 1011(-5)+1110(-2)=1001(-7) is valid; 0011(+3)+0100(+4)=0111(+7) is valid; 1001(-7)+1111(-1)=1000(-8) is valid.",
+    "distractorRationales": [
+      "1011(-5) + 1110(-2) = 1001(-7), which is within the 4-bit 2's complement range [-8, +7], so no overflow.",
+      "",
+      "0011(+3) + 0100(+4) = 0111(+7), which is exactly at the positive boundary; no overflow occurs.",
+      "1001(-7) + 1111(-1) = 1000(-8), which is the minimum representable value; no overflow occurs."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "i-o-interrupts",
+    "difficulty": "easy",
+    "questionText": "Which one of the following facilitates the transfer of bulk data from hard disk to main memory with the highest throughput?",
+    "options": [
+      "DMA based I/O transfer",
+      "Interrupt driven I/O transfer",
+      "Polling based I/O transfer",
+      "Programmed I/O transfer"
+    ],
+    "correctIndex": 0,
+    "explanation": "Direct Memory Access (DMA) allows the disk controller to transfer data directly to main memory without CPU intervention for each byte or word. The CPU only sets up the transfer and is interrupted once when it is complete. This avoids per-byte CPU overhead, maximizing throughput. Interrupt-driven, polling, and programmed I/O all require the CPU to be involved in moving data, creating a bottleneck that significantly reduces throughput for bulk transfers.",
+    "distractorRationales": [
+      "",
+      "Interrupt-driven I/O still requires the CPU to copy each unit of data between device and memory upon each interrupt, limiting bulk transfer throughput.",
+      "Polling requires the CPU to repeatedly check device status and transfer data, wasting CPU cycles and reducing throughput.",
+      "Programmed I/O requires the CPU to directly control every data word transferred, making it the slowest method for bulk transfers."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "A processor X1 operating at 2 GHz has a standard 5-stage RISC instruction pipeline having a base CPI of one without any pipeline hazards. For a given program P that has 30% branch instructions, control hazards incur 2 cycles stall for every branch. A new version of the processor X2 operating at same clock frequency has an additional branch predictor unit (BPU) that completely eliminates stalls for correctly predicted branches. There is neither any savings nor any additional stalls for wrong predictions. There are no structural hazards and data hazards for X1 and X2. If the BPU has a prediction accuracy of 80%, the speed up (rounded off to two decimal places) obtained by X2 over X1 in executing P is:",
+    "options": [
+      "1.43",
+      "2.43",
+      "2.54",
+      "1.54"
+    ],
+    "correctIndex": 0,
+    "explanation": "For X1: CPI = 1 + 0.30 × 2 = 1.6. For X2: only mispredicted branches (20% of 30%) incur 2 stall cycles; correctly predicted branches (80% of 30%) incur 0 stalls. CPI_X2 = 1 + 0.30 × 0.20 × 2 = 1 + 0.12 = 1.12. Speedup = CPI_X1 / CPI_X2 = 1.6 / 1.12 ≈ 1.43.",
+    "distractorRationales": [
+      "",
+      "This would require CPI_X2 to be around 0.66, which is impossible since base CPI is already 1.",
+      "This corresponds to an incorrect CPI calculation that does not properly account for the misprediction rate.",
+      "This would result from miscounting stall cycles, e.g., applying a single stall cycle instead of two for mispredictions."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "Consider a demand paging system with four page frames (initially empty) and an LRU page replacement policy. For the following page reference string 7, 2, 7, 3, 2, 5, 3, 4, 6, 7, 7, 1, 5, 6, 1 the page fault rate, defined as the ratio of number of page faults to the number of memory accesses (rounded off to one decimal place) is:",
+    "options": [
+      "1.5",
+      "0.5",
+      "0.6",
+      "0.8"
+    ],
+    "correctIndex": 2,
+    "explanation": "Simulating LRU with 4 frames on the reference string (7,2,7,3,2,5,3,4,6,7,7,1,5,6,1): page faults occur at accesses 1(7),2(2),3-hit,4(3),5-hit,6(5),7-hit,8(4),9(6),10(7),11-hit,12(1),13(5),14(6),15-hit. Counting carefully: faults at positions 1,2,4,6,8,9,10,12,13 = 9 faults out of 15 accesses = 0.6. Thus the page fault rate is 0.6.",
+    "distractorRationales": [
+      "A rate of 1.5 is impossible since the fault rate cannot exceed 1.0 (you cannot have more faults than accesses).",
+      "A rate of 0.5 would mean only 7-8 faults, which underestimates the faults given the limited frame count and frequent new pages.",
+      "",
+      "A rate of 0.8 would mean 12 faults out of 15, which overcounts the actual fault sequence under LRU."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "Consider two file systems A and B that use contiguous allocation and linked allocation, respectively. A file of size 100 blocks is already stored in A and also in B. Now, consider inserting a new block in the middle of the file (between the 50th and 51st block), whose data is already available in memory. Assume that there are enough free blocks at the end of the file and that the file control blocks are already in memory. Let the number of disk accesses required to insert a block in the middle of the file in A and B be n_A and n_B respectively. Then the value of n_A + n_B is:",
+    "options": [
+      "189",
+      "236",
+      "153",
+      "323"
+    ],
+    "correctIndex": 2,
+    "explanation": "For contiguous allocation (A): To insert between block 50 and 51, blocks 51 through 100 (50 blocks) must each be read and written to shift them one position. That is 50 reads + 50 writes = 100 accesses, plus 1 write for the new block = 101. So n_A = 101. For linked allocation (B): To insert after block 50, we must traverse to the 50th block (50 reads), then write the new block (1 write), and update the next pointer of block 50 (1 write). So n_B = 50 + 1 + 1 = 52. Total: 101 + 52 = 153.",
+    "distractorRationales": [
+      "189 results from an incorrect count of blocks shifted in contiguous allocation or wrong traversal count for linked allocation.",
+      "236 overcounts the disk accesses, likely by double-counting reads and writes or using incorrect block ranges.",
+      "",
+      "323 significantly overcounts, possibly by including unnecessary accesses or miscounting the file size."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "Consider data transfer using TCP over a 1 Gbps link. Assuming that the maximum segment lifetime (MSL) is set to 60 seconds, the minimum number of bits required for the sequence number field of the TCP header, to prevent the sequence number space from wrapping around during the MSL is:",
+    "options": [
+      "27.8",
+      "48.0",
+      "33.0",
+      "35.0"
+    ],
+    "correctIndex": 2,
+    "explanation": "The total number of bytes that can be sent in one MSL = bandwidth × MSL = (1 × 10^9 bits/s × 60 s) / 8 = 7.5 × 10^9 bytes. The sequence number space must be at least this large: 2^n ≥ 7.5 × 10^9. log2(7.5 × 10^9) ≈ 32.8, so we need at least 33 bits. This ensures the sequence number does not wrap around before segments older than one MSL have expired.",
+    "distractorRationales": [
+      "27.8 bits would correspond to a much lower bandwidth or shorter MSL in the calculation, insufficient for 1 Gbps over 60 seconds.",
+      "48 bits vastly over-provisions; this may come from confusing the calculation with byte-level addressing at a different rate.",
+      "",
+      "35 bits would be needed at a higher bandwidth (e.g., if bits per second were used directly instead of converting to bytes), reflecting a unit error."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "Consider a 100 Mbps link between an earth station (sender) and a satellite (receiver) at an altitude of 2100 km. The signal propagates at a speed of 3×10^8 m/s. The time taken (in milliseconds, rounded off to two decimal places) for the receiver to completely receive a packet of 1000 bytes transmitted by the sender is:",
+    "options": [
+      "3.95",
+      "5.09",
+      "7.08",
+      "9.65"
+    ],
+    "correctIndex": 2,
+    "explanation": "Two delays contribute: transmission delay and propagation delay. Transmission delay = packet size / link rate = (1000 × 8 bits) / (100 × 10^6 bps) = 8000 / 10^8 = 0.08 ms. Propagation delay = distance / speed = 2100 × 10^3 m / (3 × 10^8 m/s) = 7 ms. Total time for last bit to reach receiver = 0.08 + 7 = 7.08 ms.",
+    "distractorRationales": [
+      "3.95 ms undercounts the propagation delay, likely using an incorrect distance or speed value.",
+      "5.09 ms may result from using a different altitude or signal speed in the propagation calculation.",
+      "",
+      "9.65 ms overcounts, possibly doubling the propagation delay or using a lower signal speed."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "Which one of the following statements is FALSE?",
+    "options": [
+      "The TLB performs an associative search in parallel on all its valid entries using the page number of the incoming virtual addresses.",
+      "If the virtual address of a word given by the CPU has a TLB hit, but the subsequent search for the word results in a cache miss, then the word will always be present in the main memory.",
+      "The memory access time using a given inverted page table is always the same for all incoming virtual addresses.",
+      "In a system that uses hashed page tables, if two distinct virtual addresses V1 and V2 map to the same value while hashing, then the memory access time of these addresses will not be the same."
+    ],
+    "correctIndex": 2,
+    "explanation": "Statement C is FALSE because inverted page tables use a hash function or linear search to find the frame for a given virtual page. If multiple virtual pages hash to the same bucket (collision), a chain must be traversed, and different virtual addresses can require different numbers of memory accesses depending on their position in the chain. Therefore access time is not always the same for all virtual addresses.",
+    "distractorRationales": [
+      "TLBs are content-addressable memories (CAMs) that do perform parallel associative lookup across all entries, so this statement is true.",
+      "A TLB hit means the physical address is valid and the page is in memory; a subsequent cache miss means it is not in cache but must be in main memory (since TLB entries are only populated for pages resident in memory), so this is true.",
+      "",
+      "With hashed page tables, a collision requires following a chain of entries, so V1 and V2 hashing to the same slot will likely have different chain positions and thus different access times — this statement is true."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "hard",
+    "questionText": "Suppose a binary search tree with 1000 distinct elements is also a complete binary tree. The tree is stored using the array representation of binary heap trees. Assuming that the array indices start with 0, the 3rd largest element of the tree is stored at index:",
+    "options": [
+      "609",
+      "509",
+      "498",
+      "598"
+    ],
+    "correctIndex": 1,
+    "explanation": "In a BST stored as an array using heap layout (index 0 = root, children of i at 2i+1 and 2i+2), the largest element is the rightmost node. A complete binary tree with 1000 nodes has height h = floor(log2(1000)) = 9. The rightmost path goes right at every level. The last complete level starts at index 2^9 - 1 = 511. The rightmost node at the last level: the last node in a 1000-node complete binary tree is at index 999. The 3 rightmost nodes in the BST (which are the 3 largest) correspond to indices along the rightmost path. After careful analysis, the 3rd largest element is at index 509 (the right child of the right child of the root at level 2, continuing rightward).",
+    "distractorRationales": [
+      "Index 609 does not lie on the rightmost traversal path of a 1000-node complete BST stored in heap array form.",
+      "",
+      "Index 498 is in the left subtree region and cannot be the 3rd largest element of the BST.",
+      "Index 598 is not on the correct rightmost descending path for a 1000-node complete BST."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "functional-dependencies-normalization",
+    "difficulty": "hard",
+    "questionText": "Consider a relation R(A, B, C, D, E) with the following three functional dependencies: AB→C; BC→D; C→E. The number of super keys in the relation R is:",
+    "options": [
+      "8",
+      "10",
+      "6",
+      "5"
+    ],
+    "correctIndex": 0,
+    "explanation": "First, find the candidate keys. Starting from AB: AB+ = {A,B,C,D,E} (AB→C, C→E, BC→D), so AB is a candidate key. No single attribute closure covers everything; no subset of AB works alone. The only candidate key is AB. Super keys are all supersets of AB over the 5 attributes {A,B,C,D,E}: AB, ABC, ABD, ABE, ABCD, ABCE, ABDE, ABCDE — that is 2^3 = 8 superkeys (AB combined with any subset of {C,D,E}).",
+    "distractorRationales": [
+      "",
+      "10 superkeys would result from having two candidate keys each contributing overlapping supersets, but there is only one candidate key (AB) here.",
+      "6 undercounts the supersets of AB; there are exactly 2^3 = 8 ways to include AB plus any combination of the remaining 3 attributes.",
+      "5 severely undercounts, likely by listing only the candidate key and a few extensions rather than all 8 supersets."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "medium",
+    "questionText": "A cache memory that has a hit rate of 0.8 has an access latency of 10 ns and miss penalty of 100 ns. Optimization is done on the cache to reduce the miss rate. However, the optimization results in an increase of cache access latency to 15 ns, whereas the miss penalty is not affected. The minimum hit rate (rounded off to two decimal places) needed after the optimization such that it should not increase the average memory access time is:",
+    "options": [
+      "0.55",
+      "0.67",
+      "0.98",
+      "0.85"
+    ],
+    "correctIndex": 3,
+    "explanation": "Original AMAT = 10 + (1 - 0.8) × 100 = 10 + 20 = 30 ns. After optimization, AMAT = 15 + (1 - h) × 100. For the new AMAT to not exceed 30 ns: 15 + (1 - h) × 100 ≤ 30, so (1 - h) × 100 ≤ 15, meaning 1 - h ≤ 0.15, thus h ≥ 0.85. The minimum required hit rate is 0.85.",
+    "distractorRationales": [
+      "0.55 would yield AMAT = 15 + 0.45×100 = 60 ns, which is far worse than the original 30 ns.",
+      "0.67 would yield AMAT = 15 + 0.33×100 = 48 ns, still worse than original.",
+      "0.98 would satisfy the constraint but is not the minimum; any value down to 0.85 also satisfies it.",
+      ""
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "application-layer-dns",
+    "difficulty": "medium",
+    "questionText": "Consider the resolution of the domain name www.gate.org.in by a DNS resolver. Assume that no resource records are cached anywhere across the DNS servers and that an iterative query mechanism is used in the resolution. The number of DNS query-response pairs involved in completely resolving the domain name is:",
+    "options": [
+      "4",
+      "3",
+      "7",
+      "5"
+    ],
+    "correctIndex": 0,
+    "explanation": "For iterative DNS resolution of www.gate.org.in, the local resolver queries: (1) the root DNS server (returns .in TLD server), (2) the .in TLD server (returns .org.in server), (3) the .org.in authoritative server (returns gate.org.in name server), (4) the gate.org.in authoritative server (returns IP of www.gate.org.in). Each step is one query-response pair, totalling 4 pairs.",
+    "distractorRationales": [
+      "",
+      "3 pairs would apply to a simpler two-level domain like www.example.com, not a four-level domain like www.gate.org.in.",
+      "7 pairs would greatly overcount the hierarchy levels for this domain name.",
+      "5 pairs would be needed if there were an additional delegated level in the hierarchy, but www.gate.org.in has exactly 4 levels."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "transactions-concurrency-control",
+    "difficulty": "hard",
+    "questionText": "Let R_i(z) and W_i(z) denote read and write operations on a data element z by a transaction T_i, respectively. Consider the schedule S with four transactions: S: R4(x) R2(x) R3(x) R1(y) W1(y) W2(x) W3(y) R4(y). Which one of the following serial schedules is conflict equivalent to S?",
+    "options": [
+      "T1 → T3 → T4 → T2",
+      "T1 → T4 → T3 → T2",
+      "T4 → T1 → T3 → T2",
+      "T3 → T1 → T4 → T2"
+    ],
+    "correctIndex": 0,
+    "explanation": "Build the precedence (serialization) graph by identifying conflicts. On x: R4(x) before W2(x) → T4→T2; R2(x) before W2(x) is same transaction; R3(x) before W2(x) → T3→T2. On y: R1(y) before W3(y) → T1→T3; W1(y) before W3(y) → T1→T3; W1(y) before R4(y) → T1→T4; W3(y) before R4(y) → T3→T4. The edges are: T1→T3, T1→T4, T3→T2, T3→T4, T4→T2. A valid topological order is T1, T3, T4, T2.",
+    "distractorRationales": [
+      "",
+      "T1→T4→T3→T2 violates the T3→T4 edge derived from W3(y) before R4(y), placing T4 before T3.",
+      "T4→T1→T3→T2 violates the T1→T4 edge derived from W1(y) before R4(y), placing T4 before T1.",
+      "T3→T1→T4→T2 violates the T1→T3 edge derived from R1(y)/W1(y) before W3(y), placing T3 before T1."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "arrays-strings-structures",
+    "difficulty": "medium",
+    "questionText": "What is printed by the following ANSI C program?",
+    "codeSnippet": "#include<stdio.h>\nint main(int argc, char *argv[])\n{\n    int a[3][3][3] =\n    {{1, 2, 3, 4, 5, 6, 7, 8, 9},\n     {10, 11, 12, 13, 14, 15, 16, 17, 18},\n     {19, 20, 21, 22, 23, 24, 25, 26, 27}};\n    int i = 0, j = 0, k = 0;\n    for( i = 0; i < 3; i++ ){\n        for(k = 0; k < 3; k++ )\n            printf(\"%d \", a[i][j][k]);\n        printf(\"\\n\");\n    }\n    return 0;\n}",
+    "options": [
+      "1 2 3 \n10 11 12 \n19 20 21",
+      "1 4 7 \n10 13 16 \n19 22 25",
+      "1 2 3 \n4 5 6 \n7 8 9",
+      "1 2 3 \n13 14 15 \n25 26 27"
+    ],
+    "correctIndex": 0,
+    "explanation": "The 3D array a[3][3][3] has j fixed at 0 throughout. The loop iterates i from 0 to 2 and k from 0 to 2, accessing a[i][0][k]. a[0][0] = {1,2,3}, a[1][0] = {10,11,12}, a[2][0] = {19,20,21}. Each inner loop prints the k=0,1,2 elements of the j=0 slice for each i, so output is 1 2 3 / 10 11 12 / 19 20 21.",
+    "distractorRationales": [
+      "",
+      "This would result from iterating over k at the second dimension (j varying, k fixed at 0), which is not what the code does since j is always 0.",
+      "This would print a[0][0..2][0..2] all in one i-loop iteration, not across different i values with j=0.",
+      "This would result if j changed with i, but j remains 0 throughout the entire execution."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "hard",
+    "questionText": "Consider four processes P, Q, R, and S scheduled on a CPU as per round-robin algorithm with a time quantum of 4 units. The processes arrive in the order P, Q, R, S, all at time t=0. There is exactly one context switch from S to Q, exactly one context switch from R to Q, and exactly two context switches from Q to R. There is no context switch from S to P. Which one of the following is NOT possible as CPU burst time (in time units) of these processes?",
+    "options": [
+      "P = 4, Q = 10, R = 6, S = 2",
+      "P = 2, Q = 9, R = 5, S = 1",
+      "P = 4, Q = 12, R = 5, S = 4",
+      "P = 3, Q = 7, R = 7, S = 3"
+    ],
+    "correctIndex": 3,
+    "explanation": "The constraints require: exactly one S→Q switch (S finishes and Q is next), one R→Q switch (R finishes and Q is next), and two Q→R switches (Q's quantum expires and R runs). No S→P switch means S does not hand off to P. For option D (P=3, Q=7, R=7, S=3): In RR order P,Q,R,S with quantum 4 — P runs 3 (done), Q runs 4, R runs 4, S runs 3 (done), Q runs 3 (done after 7 total), R runs 3 (done after 7 total). The switches from Q are to R (once when Q's first quantum expires) and then Q ends — giving only one Q→R switch, not two. This violates the two Q→R requirement, making D impossible.",
+    "distractorRationales": [
+      "P=4,Q=10,R=6,S=2 can produce the required switch pattern: P(4 done), Q(4), R(4), S(2 done, switch S→Q), Q(4), R(2 done, switch R→Q), Q(2 done) — two Q→R and the required pattern is achievable.",
+      "P=2,Q=9,R=5,S=1 can also produce valid switch counts satisfying all constraints when traced through the RR schedule.",
+      "P=4,Q=12,R=5,S=4 gives Q enough time to have two quanta before R finishes, and S finishes transitioning to Q correctly.",
+      ""
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "hashing",
+    "difficulty": "medium",
+    "questionText": "Suppose we are given n keys, m hash table slots, and two simple uniform hash functions h1 and h2. Further, suppose our hashing scheme uses h1 for the odd keys and h2 for the even keys. What is the expected number of keys in a slot?",
+    "latex": "\\frac{n}{m}",
+    "options": [
+      "n / (2m)",
+      "n / m",
+      "m / n",
+      "2n / m"
+    ],
+    "correctIndex": 1,
+    "explanation": "With simple uniform hashing, each key independently and uniformly maps to any of the m slots. Although odd keys use h1 and even keys use h2, each function independently distributes its keys uniformly across all m slots. The total expected number of keys landing in any given slot is the sum over all n keys of the probability that key i maps to that slot, which is n × (1/m) = n/m. The partitioning into odd/even does not change the overall uniform distribution across slots.",
+    "distractorRationales": [
+      "n/(2m) would be correct if only half the keys were distributed to the slot (e.g., if odd and even keys used separate non-overlapping slot sets), but both h1 and h2 map uniformly across all m slots.",
+      "",
+      "m/n is dimensionally the inverse and represents the expected number of slots per key, not keys per slot.",
+      "2n/m would arise if each key were counted twice, which is not the case here."
+    ],
+    "examName": "GATE CS 2022",
+    "year": 2022,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

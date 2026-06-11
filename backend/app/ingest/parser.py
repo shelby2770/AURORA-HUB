@@ -24,6 +24,10 @@ else, no markdown fences, no prose.
 Rules:
 - Pick `courseSlug` from the ALLOWED COURSES and `subtopicSlug` from that
   course's ALLOWED SUBTOPICS. Never invent a slug.
+- If the item belongs to NO allowed course — e.g. general aptitude, English,
+  pure/engineering mathematics, discrete mathematics, digital logic, or compiler
+  design (topics outside this app's scope) — set `courseSlug` to "none". The
+  item will be dropped; still fill the other fields best-effort.
 - `options` must be exactly 4 strings. `correctIndex` is 0-3.
 - `difficulty` is one of easy|medium|hard (judge at university level).
 - Put math/formal notation in `latex` (KaTeX) and any code in `codeSnippet`.
@@ -46,7 +50,7 @@ examName, year, computable, verificationCode.
 
 class ParsedQuestion(BaseModel):
     courseSlug: str
-    subtopicSlug: str
+    subtopicSlug: str | None = None  # null allowed when courseSlug == "none"
     difficulty: Difficulty
     questionText: str
     codeSnippet: str | None = None
@@ -85,15 +89,30 @@ def extract_json(text: str) -> dict:
     start = text.find("{")
     if start == -1:
         raise ValueError("no JSON object in response")
+    # Balance braces while ignoring any that appear inside string literals
+    # (e.g. code with `{`/`}`), respecting escapes.
     depth = 0
+    in_str = False
+    escape = False
     for i in range(start, len(text)):
         c = text[i]
-        if c == "{":
+        if in_str:
+            if escape:
+                escape = False
+            elif c == "\\":
+                escape = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c == "{":
             depth += 1
         elif c == "}":
             depth -= 1
             if depth == 0:
-                return json.loads(text[start : i + 1])
+                # strict=False tolerates literal control chars inside strings.
+                return json.loads(text[start : i + 1], strict=False)
     raise ValueError("unterminated JSON object in response")
 
 
@@ -109,7 +128,7 @@ async def parse_item(
 ) -> ParsedQuestion:
     prompt = f"{_taxonomy_block(taxonomy)}\n\nRAW ITEM:\n{raw_text}"
     out = await provider.complete(
-        system=PARSE_SYSTEM_PROMPT, prompt=prompt, thinking=False, max_tokens=4000
+        system=PARSE_SYSTEM_PROMPT, prompt=prompt, thinking=False, max_tokens=8000, json_mode=True
     )
     data = extract_json(out)
     return ParsedQuestion.model_validate(data)

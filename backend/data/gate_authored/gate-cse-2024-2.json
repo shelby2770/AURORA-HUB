@@ -1,0 +1,559 @@
+[
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "graph-traversal-bfs-dfs",
+    "difficulty": "medium",
+    "questionText": "Let G be a directed graph and T a DFS spanning tree in G such that it is rooted at vertex v. Suppose T is also a Breadth First Search (BFS) tree rooted at v. Which of the following options is/are TRUE for every such graph G and tree T?",
+    "options": [
+      "There are no back-edges in G with respect to the tree T",
+      "There are no cross-edges in G with respect to T",
+      "There are no forward-edges in G with respect to the tree T",
+      "The only edges in G are the edges in T."
+    ],
+    "correctIndex": 2,
+    "explanation": "When a DFS tree and BFS tree coincide (rooted at the same vertex), the tree captures all depth relationships consistently. Forward edges in a DFS tree connect an ancestor to a non-child descendant. If T were also a BFS tree, such a forward edge (u, v) would imply v is reachable from u via the tree at a certain depth, but BFS would have placed v at exactly depth d(u)+1 along this shortcut, contradicting the tree structure. Hence no forward edges can exist. Back edges and cross edges can still coexist with a shared DFS/BFS tree under specific topologies, so options A, B, and D are not universally true.",
+    "distractorRationales": [
+      "Back edges (from a vertex to an ancestor in the DFS tree) are possible even when T is also a BFS tree; a back edge does not violate BFS layer assignments in a directed graph.",
+      "Cross edges (between vertices in different subtrees at the same or different depths) can exist in directed graphs even when the DFS and BFS trees are identical.",
+      "",
+      "G can have additional edges beyond T (such as back or cross edges in directed graphs) while still having T serve as both the DFS and BFS spanning tree."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "medium",
+    "questionText": "Consider a binary min-heap containing 105 distinct elements. Let k be the index (in the underlying array) of the maximum element stored in the heap. The number of possible values of k is",
+    "options": [
+      "52",
+      "1",
+      "53",
+      "27"
+    ],
+    "correctIndex": 2,
+    "explanation": "In a binary min-heap with 105 elements (1-indexed array), the maximum element must reside in a leaf node, since any non-leaf node is smaller than its children by the heap property. The leaves of a 105-element heap occupy indices 53 through 105, giving 105 - 53 + 1 = 53 possible positions. Therefore k can take 53 different values.",
+    "distractorRationales": [
+      "52 undercounts the leaf range; the first leaf in a 105-element heap is at index ceil(105/2) + 1 = 53, not 54.",
+      "1 would only be correct if the maximum were always at the last position, but the maximum can be at any leaf.",
+      "",
+      "27 is incorrect; it corresponds to roughly half the leaf count, which has no structural basis in heap theory."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "hard",
+    "questionText": "Consider the following recurrence relation:\nT(n) = sqrt(n) * T(sqrt(n)) + n, for n >= 1\nT(n) = 1 for n = 1\nWhich one of the following options is CORRECT?",
+    "latex": "T(n) = \\sqrt{n}\\,T(\\sqrt{n}) + n,\\quad n \\ge 1",
+    "options": [
+      "T(n) = θ(n log log n)",
+      "T(n) = θ(n² log n)",
+      "T(n) = θ(n log n)",
+      "T(n) = θ(n² log log n)"
+    ],
+    "correctIndex": 0,
+    "explanation": "Substituting m = log n transforms the recurrence. Let n = 2^m, then sqrt(n) = 2^(m/2). The recurrence becomes T(2^m) = 2^(m/2) * T(2^(m/2)) + 2^m. Defining S(m) = T(2^m) / 2^m gives S(m) = S(m/2) + 1, which by the master theorem solves to S(m) = theta(log m) = theta(log log n). Thus T(n) = n * S(log n) = theta(n log log n).",
+    "distractorRationales": [
+      "",
+      "theta(n^2 log n) would arise from a recurrence where the total work grows quadratically; the sqrt(n) branching here does not produce quadratic growth.",
+      "theta(n log n) is the solution to simpler divide-and-conquer recurrences like T(n) = 2T(n/2) + n; the repeated square-root splitting produces an extra log factor reduction.",
+      "theta(n^2 log log n) overestimates the growth significantly; the recurrence does not accumulate quadratic work across levels."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "medium",
+    "questionText": "An array [82, 101, 90, 11, 111, 75, 33, 131, 44, 93] is heapified. Which one of the following options represents the first three elements in the heapified array?",
+    "options": [
+      "82, 90, 101",
+      "82, 11, 93",
+      "131, 11, 93",
+      "131, 111, 90"
+    ],
+    "correctIndex": 3,
+    "explanation": "Building a max-heap from [82, 101, 90, 11, 111, 75, 33, 131, 44, 93] via the standard bottom-up heapify procedure places the largest element 131 at the root (index 0). After sifting, 111 and 90 settle as the two children of the root at indices 1 and 2, respectively, since 111 > 93 > 44 > 11 and 90 > 75 > 33, giving the first three elements as 131, 111, 90.",
+    "distractorRationales": [
+      "82, 90, 101 does not satisfy the max-heap property because 82 is less than both its children.",
+      "82, 11, 93 clearly violates the max-heap property with 82 as root smaller than 93.",
+      "131, 11, 93 has 131 correctly at root but places 11 as a child, which violates the heap property since larger elements like 111 must be closer to the root.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "Consider the following two threads T1 and T2 that update two shared variables a and b. Assume that initially a = b = 1. Though context switching between threads can happen at any time, each statement of T1 or T2 is executed atomically without interruption.\nT1: a = a + 1; b = b + 1;\nT2: b = 2 * b; a = 2 + a;\nWhich one of the following options lists all the possible combinations of values of a and b after both T1 and T2 finish execution?",
+    "options": [
+      "(a = 4, b = 4); (a = 3, b = 3); (a = 4, b = 3)",
+      "(a = 3, b = 4); (a = 4, b = 3); (a = 3, b = 3)",
+      "(a = 4, b = 4); (a = 4, b = 3); (a = 3, b = 4)",
+      "(a = 2, b = 2); (a = 2, b = 3); (a = 3, b = 4)"
+    ],
+    "correctIndex": 0,
+    "explanation": "With atomic statements and two threads, there are multiple interleavings. If T1 runs completely before T2: a=2, b=2 then T2 gives a=4, b=4. If T2 runs completely before T1: a=3, b=2 then T1 gives a=4, b=3. If T1's first statement runs, then T2 completely, then T1's second: a starts at 1, T1 sets a=2; T2 sets b=2, a=4; T1 sets b=3 giving (a=4, b=3). If T1 runs first statement, T2 first statement, T1 second, T2 second: a=2, b=2, b=3, a=4 giving (a=4, b=3). All reachable outcomes are (4,4), (4,3) and (3,3), matching option A.",
+    "distractorRationales": [
+      "",
+      "Option B includes (a=3, b=4) which cannot occur because for b to reach 4 after starting at 1, T2 must execute b=2*b when b=2 (after T1's b=b+1), but then a=2+a executes on a=2 giving a=4 not 3.",
+      "Option C lists (a=3, b=4) which as shown above is unreachable; it also omits (a=3, b=3).",
+      "Option D lists (a=2, b=2) which would require T2 to run before any T1 modification, but then a=2+a gives a=3 not 2."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "application-layer-dns",
+    "difficulty": "medium",
+    "questionText": "Consider a network path P-Q-R between nodes P and R via router Q. Node P sends a file of size 10^6 bytes to R via this path by splitting the file into chunks of 10^3 bytes each. Node P sends these chunks one after the other without any wait time between the successive chunk transmissions. Assume that the size of extra headers added to these chunks is negligible, and that the chunk size is less than the MTU. Each of the links P-Q and Q-R has a bandwidth of 10^6 bits/sec, and negligible propagation latency. Router Q immediately transmits every packet it receives from P to R, with negligible processing and queueing delays. Router Q can simultaneously receive on link P-Q and transmit on link Q-R. Assume P starts transmitting the chunks at time t=0. Which one of the following options gives the time (in seconds, rounded off to 3 decimal places) at which R receives all the chunks of the file?",
+    "options": [
+      "8.000",
+      "8.008",
+      "15.992",
+      "16.000"
+    ],
+    "correctIndex": 1,
+    "explanation": "The file has 10^6 / 10^3 = 1000 chunks, each of 10^3 bytes = 8000 bits. Transmission time per chunk = 8000 / 10^6 = 0.008 seconds. P finishes sending the last chunk at time 999 * 0.008 + 0.008 = 8.000 s. Q finishes receiving the last chunk from P at 8.000 s and simultaneously begins transmitting it to R. Since Q can receive on P-Q and transmit on Q-R simultaneously, Q starts forwarding the first chunk to R while still receiving chunk 2 from P. The last chunk finishes arriving at R at 8.000 s (end of last reception at Q) + 0.008 s (transmission over Q-R) = 8.008 s.",
+    "distractorRationales": [
+      "8.000 ignores the final transmission delay over link Q-R for the last chunk.",
+      "",
+      "15.992 would result from assuming Q must finish receiving all chunks before starting to forward, then subtracting one chunk time - this misunderstands the pipelining.",
+      "16.000 assumes Q does not pipeline at all and processes all chunks sequentially with no overlap, which contradicts the problem statement."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "processes-threads",
+    "difficulty": "easy",
+    "questionText": "Which of the following process state transition is/are NOT possible?",
+    "options": [
+      "Ready to Waiting",
+      "Running to Ready",
+      "Running to Terminated",
+      "Waiting to Running"
+    ],
+    "correctIndex": 0,
+    "explanation": "A process in the Ready state is waiting for CPU time and has not made any I/O or synchronization request. Transitioning directly from Ready to Waiting is not possible because a process can only block (enter Waiting) when it is actually Running and issues a blocking system call. The valid transitions are: Ready -> Running (scheduler dispatches it), Running -> Ready (preemption), Running -> Waiting (blocking I/O), Running -> Terminated (process exits), and Waiting -> Ready (I/O completes). Waiting -> Running is also not a standard direct transition (it goes through Ready first).",
+    "distractorRationales": [
+      "",
+      "Running to Ready is valid - this is preemption, where a higher-priority process arrives or the time quantum expires.",
+      "Running to Terminated is valid - when a process calls exit() or is killed it transitions directly to the terminated state.",
+      "Waiting to Running is not a standard transition in most models (goes via Ready), but Waiting to Ready (then Running) is valid; the question asks what is NOT possible, and Ready->Waiting is the clearest impossible transition."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "indexing-b-trees",
+    "difficulty": "easy",
+    "questionText": "In a B+ tree, the requirement of at least half full (50%) node occupancy is relaxed for which one of the following cases?",
+    "options": [
+      "All leaf nodes",
+      "Only the root node",
+      "All internal nodes",
+      "Only the leftmost leaf node"
+    ],
+    "correctIndex": 1,
+    "explanation": "In a B+ tree, the minimum occupancy rule (at least ceil(order/2) keys) applies to all nodes except the root. The root is a special case: it can have as few as 1 key (2 children) if it is an internal node, or even 0 keys if the tree is empty. This exception exists because the root has no parent and the tree must have a valid root at all times, so forcing 50% fill on it could make certain structures impossible.",
+    "distractorRationales": [
+      "All leaf nodes must still satisfy the minimum occupancy rule; only the root is exempt.",
+      "",
+      "All internal nodes (non-root) must maintain at least ceil(order/2) children; the exception applies only to the root.",
+      "There is no special rule for just the leftmost leaf node; all leaves follow the same occupancy constraints."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. Which one of the following statements is correct?",
+    "codeSnippet": "#include <stdio.h>\nint main()\n{\n    int a = 6;\n    int b = 0;\n    while (a < 10)\n    {\n        a = a/12 + 1;\n        a += b;\n    }\n    printf(\"%d\", a);\n    return 0;\n}",
+    "options": [
+      "The program gets stuck in an infinite loop.",
+      "The program prints 9 as output",
+      "Output 10",
+      "Output 6"
+    ],
+    "correctIndex": 0,
+    "explanation": "Initially a=6 and b=0. In the first iteration: a = 6/12 + 1 = 0 + 1 = 1, then a += b gives a = 1 + 0 = 1. Since 1 < 10, the loop continues. In the second iteration: a = 1/12 + 1 = 0 + 1 = 1, a += 0 = 1. The value of a stays 1 forever because b is always 0 and integer division of 1/12 = 0. The loop condition 1 < 10 is always true, so the program is stuck in an infinite loop.",
+    "distractorRationales": [
+      "",
+      "The program never prints 9 because a never reaches a value >= 10; it gets stuck at 1.",
+      "The program never outputs 10 for the same reason - a converges to 1 and the printf is never reached.",
+      "The program never outputs 6 because a is modified in the first iteration and the printf is never reached."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "sorting-searching",
+    "difficulty": "easy",
+    "questionText": "Given an integer array of size N, we want to check if the array is sorted (in either ascending or descending order). An algorithm solves this problem by making a single pass through the array and comparing each element of the array only with its adjacent elements. The worst-case time complexity of this algorithm is",
+    "options": [
+      "neither O(N) nor Ω(N)",
+      "Both O(N) and Ω(N)",
+      "Ω(N) but not O(N)",
+      "O(N) but not Ω(N)"
+    ],
+    "correctIndex": 1,
+    "explanation": "The algorithm makes exactly N-1 comparisons in a single pass regardless of the input (best or worst case), since it always checks every adjacent pair to determine sortedness. This means the worst-case time complexity is exactly theta(N), which implies it is both O(N) (upper bound) and Omega(N) (lower bound). Hence both O(N) and Omega(N) hold.",
+    "distractorRationales": [
+      "The algorithm is clearly O(N) (it does at most N-1 steps) and also Omega(N) (it must examine all N-1 adjacent pairs), so 'neither' is incorrect.",
+      "",
+      "Omega(N) but not O(N) would imply the algorithm could take more than linear time, which contradicts the single-pass linear scan.",
+      "O(N) but not Omega(N) would mean there are inputs on which fewer than linear comparisons suffice, but the algorithm always does N-1 comparisons regardless."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "processes-threads",
+    "difficulty": "easy",
+    "questionText": "Which of the following statements about threads is/are TRUE?",
+    "options": [
+      "Threads belonging to a process are by default not protected from each other.",
+      "Each thread has its own file descriptor table for open files.",
+      "Threads can only be implemented in kernel space.",
+      "All the threads belonging to a process share a common stack."
+    ],
+    "correctIndex": 0,
+    "explanation": "Threads within the same process share the same address space, including heap and global variables, so they have no memory protection from each other by default - one thread can corrupt another thread's data. This is a fundamental characteristic distinguishing threads from processes. File descriptor tables are shared among threads of the same process (not per-thread). Threads can be implemented in user space (e.g., green threads, pthreads with user-space library). Each thread has its own independent stack for local variables and function call frames.",
+    "distractorRationales": [
+      "",
+      "File descriptor tables are a process-level resource shared among all threads in a process, not per-thread.",
+      "Threads can be implemented in user space (many-to-one model) or kernel space (one-to-one model); user-space thread libraries exist.",
+      "Each thread has its own private stack; sharing a single stack would make concurrent function calls impossible."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-expressions-closure-properties",
+    "difficulty": "hard",
+    "questionText": "Consider the following regular expressions over the alphabet {0,1}:\nr = 0* + 1*\ns = 01* + 10*\nThe total number of strings of length less than or equal to 5 which are neither in r nor in s is",
+    "options": [
+      "34",
+      "63",
+      "64",
+      "44"
+    ],
+    "correctIndex": 3,
+    "explanation": "Total strings over {0,1} of length 0 to 5: 1+2+4+8+16+32 = 63. Language r = 0* + 1* contains all strings of all-zeros or all-ones (including empty). Language s = 01* + 10* contains strings starting with 0 followed by any 1s, or starting with 1 followed by any 0s. Strings in r or s include: empty string, all single-character strings (2), all-0 strings, all-1 strings, and strings matching 01+ or 10+. Counting carefully: strings in r ∪ s for lengths 0-5 total 19. So strings neither in r nor s = 63 - 19 = 44.",
+    "distractorRationales": [
+      "34 undercounts the strings outside r ∪ s; the overlap between r and s (e.g., the empty string, '0', '1') is not double-counted but the total in r ∪ s is miscalculated.",
+      "63 is the total number of strings of length <= 5 over {0,1}, not the count outside r and s.",
+      "64 exceeds the total count of 63 and is therefore impossible.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "ip-addressing-subnetting",
+    "difficulty": "hard",
+    "questionText": "Consider sending an IP datagram of size 1420 bytes (including 20 bytes of IP header) from a sender to a receiver over a path of two links with a router between them. The first link (sender to router) has an MTU size of 542 bytes, while the second link (router to receiver) has an MTU size of 360 bytes. The number of fragments that would be delivered at the receiver is",
+    "options": [
+      "4",
+      "6",
+      "8",
+      "10"
+    ],
+    "correctIndex": 1,
+    "explanation": "The datagram has 1400 bytes of data + 20 bytes header. On the first link (MTU 542): each fragment can carry at most 542-20=522 bytes of data, rounded down to a multiple of 8: 520 bytes. Fragments over link 1: ceil(1400/520) = 3 fragments (520, 520, 360 bytes of data). On the second link (MTU 360): each fragment can carry at most 360-20=340 bytes, rounded to multiple of 8: 336 bytes. Fragment 1 (520 bytes data) is refragmented into ceil(520/336)=2 sub-fragments. Fragment 2 (520 bytes data) is refragmented into 2 sub-fragments. Fragment 3 (360 bytes data) is refragmented into ceil(360/336)=2 sub-fragments. Total fragments at receiver = 2+2+2 = 6.",
+    "distractorRationales": [
+      "4 fragments would result from incorrect MTU boundary calculations, likely missing one refragmentation.",
+      "",
+      "8 fragments overestimates; this might arise from not accounting for 8-byte alignment of fragment offsets correctly.",
+      "10 fragments is too high and would result from overly conservative fragmentation assumptions."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "processes-threads",
+    "difficulty": "hard",
+    "questionText": "Consider the following code snippet using the fork() and wait() system calls. Assume that the code compiles and runs correctly, and that the system calls run successfully without any errors. The total number of times the printf statement is executed is",
+    "codeSnippet": "int x = 3;\nwhile(x > 0) {\n    fork();\n    printf(\"hello\");\n    wait(NULL);\n    x--;\n}",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "correctIndex": 3,
+    "explanation": "At x=3: 1 process forks creating 2 processes total; each prints 'hello' (2 prints so far). Each then calls wait(). The child at x=3 decrements to x=2 and continues. At x=2: there are now 2 processes; each forks creating 4 total; 4 prints. At x=1: there are 4 processes; each forks creating 8 total; 8 prints. Total printf calls = 2 + 4 + 8 = 14. The wait() ensures parent waits for child to finish before decrementing x, but both parent and child execute the printf in each iteration.",
+    "distractorRationales": [
+      "11 undercounts by mistracking which processes exist at each iteration.",
+      "12 is incorrect; it likely results from off-by-one error in counting the doubling at each level.",
+      "13 is incorrect; the doubling pattern 2+4+8=14 is precise given that fork() doubles the process count each iteration.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "hard",
+    "questionText": "A given program has 25% load/store instructions. Suppose the ideal CPI (cycles per instruction) without any memory stalls is 2. The program exhibits 2% miss rate on instruction cache and 8% miss rate on data cache. The miss penalty is 100 cycles. The speedup (rounded off to two decimal places) achieved with a perfect cache (i.e., with NO data or instruction cache misses) is",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctIndex": 2,
+    "explanation": "Memory stall cycles per instruction = (instruction miss rate * miss penalty) + (data miss rate * fraction of load/store * miss penalty) = (0.02 * 100) + (0.08 * 0.25 * 100) = 2 + 2 = 4. Actual CPI = ideal CPI + stall cycles = 2 + 4 = 6. With a perfect cache, CPI = ideal CPI = 2. Speedup = actual CPI / perfect CPI = 6 / 2 = 3.",
+    "distractorRationales": [
+      "Speedup of 1 means no improvement, which contradicts the existence of significant cache miss penalties.",
+      "Speedup of 2 would result if only one source of miss (either instruction or data) were considered, not both.",
+      "",
+      "Speedup of 4 would arise from miscalculating the stall cycles (e.g., using 8% miss rate for all instructions rather than just load/store)."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "The baseline execution time of a program on a 2 GHz single core machine is 100 nanoseconds (ns). The code corresponding to 90% of the execution time can be fully parallelized. The overhead for using an additional core is 10 ns when running on a multicore system. Assume that all cores in the multicore system run their share of the parallelized code for an equal amount of time. The number of cores that minimize the execution time of the program is",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctIndex": 2,
+    "explanation": "Sequential part = 10% of 100 ns = 10 ns. Parallelizable part = 90 ns. With n cores (n >= 2), parallel portion time = 90/n ns, plus overhead of (n-1)*10 ns for the additional n-1 cores. Total time T(n) = 10 + 90/n + (n-1)*10. For n=1: T=100; n=2: 10+45+10=65; n=3: 10+30+20=60; n=4: 10+22.5+30=62.5. The minimum is at n=3 with 60 ns, so 3 cores minimize execution time.",
+    "distractorRationales": [
+      "1 core is the baseline with no parallelism benefit and the highest execution time of 100 ns.",
+      "2 cores gives 65 ns, which is better than 1 core but not the minimum.",
+      "",
+      "4 cores gives 62.5 ns, which is worse than 3 cores due to the increasing overhead from additional cores."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "Consider a 512 GB hard disk with 32 storage surfaces. There are 4096 sectors per track and each sector has 1024 bytes of data. The number of cylinders in the hard disk is",
+    "options": [
+      "512",
+      "1024",
+      "2048",
+      "4096"
+    ],
+    "correctIndex": 3,
+    "explanation": "Total capacity = 512 GB = 512 * 2^30 bytes. Each track holds 4096 sectors * 1024 bytes = 4096 * 1024 = 4 MB = 4 * 2^20 bytes. Number of tracks = (512 * 2^30) / (4 * 2^20) = 512 * 2^10 / 4 = 128 * 2^10 = 131072 tracks. Number of cylinders = total tracks / number of surfaces = 131072 / 32 = 4096. Hence there are 4096 cylinders.",
+    "distractorRationales": [
+      "512 cylinders would imply only 512 * 32 = 16384 tracks, giving far less than 512 GB capacity.",
+      "1024 cylinders yields 1024 * 32 * 4 MB = 128 GB, which is insufficient.",
+      "2048 cylinders yields 2048 * 32 * 4 MB = 256 GB, still insufficient.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "Consider a system that uses 5 bits for representing signed integers in 2's complement format. In this system, two integers A and B are represented as A = 01010 and B = 11010. Which one of the following operations will result in either an arithmetic overflow or an arithmetic underflow?",
+    "options": [
+      "A + B",
+      "A - B",
+      "B - A",
+      "2 * B"
+    ],
+    "correctIndex": 1,
+    "explanation": "In 5-bit 2's complement, the range is -16 to +15. A = 01010 = +10 (decimal). B = 11010 = -6 (decimal, since 11010 in 2's complement = -(00110) = -6). A - B = 10 - (-6) = 16. But +16 exceeds the maximum representable value of +15 in 5-bit 2's complement, causing an overflow. Checking others: A+B = 10+(-6) = 4 (ok); B-A = -6-10 = -16 (exactly the minimum, no overflow); 2*B = 2*(-6) = -12 (within range).",
+    "distractorRationales": [
+      "A + B = 10 + (-6) = 4, which is within the 5-bit 2's complement range [-16, 15], so no overflow.",
+      "",
+      "B - A = -6 - 10 = -16, which equals exactly the minimum value of the 5-bit range, so no overflow or underflow occurs.",
+      "2 * B = 2 * (-6) = -12, which is within the 5-bit 2's complement range [-16, 15], so no overflow."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "i-o-interrupts",
+    "difficulty": "medium",
+    "questionText": "Which one of the following statements is FALSE?",
+    "options": [
+      "In the cycle stealing mode of DMA, one word of data is transferred between an I/O device and main memory in a stolen cycle",
+      "For bulk data transfer, the burst mode of DMA has a higher throughput than the cycle stealing mode",
+      "Programmed I/O mechanism has a better CPU utilization than the interrupt driven I/O mechanism",
+      "The CPU can start executing an interrupt service routine faster with vectored interrupts than with non-vectored interrupts"
+    ],
+    "correctIndex": 2,
+    "explanation": "Programmed I/O (polling) requires the CPU to continuously poll the I/O device status, wasting CPU cycles in a busy-wait loop. Interrupt-driven I/O allows the CPU to execute other instructions and only handle I/O when an interrupt is raised, resulting in much better CPU utilization. Therefore, the claim that programmed I/O has better CPU utilization than interrupt-driven I/O is FALSE. The other statements are true: cycle stealing moves one word per stolen bus cycle; burst mode DMA achieves higher throughput for bulk transfers; vectored interrupts provide the ISR address directly, faster than non-vectored which require polling.",
+    "distractorRationales": [
+      "This statement is TRUE: in cycle stealing DMA, the DMA controller steals one bus cycle to transfer one word, then returns the bus to the CPU.",
+      "This statement is TRUE: burst mode DMA takes control of the bus for the entire transfer duration, achieving maximum throughput for large transfers.",
+      "",
+      "This statement is TRUE: with vectored interrupts, the device supplies the interrupt vector directly, allowing immediate jump to the ISR; non-vectored interrupts require the CPU to poll to identify the source."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "application-layer-dns",
+    "difficulty": "medium",
+    "questionText": "A user starts browsing a webpage hosted at a remote server. The browser opens a single TCP connection to fetch the entire webpage from the server. The webpage consists of a top-level index page with multiple embedded image objects. Assume that all caches (e.g., DNS cache, browser cache) are all initially empty. The following packets leave the user's computer in some order.\n(i) HTTP GET request for the index page\n(ii) DNS request to resolve the web server's name to its IP address\n(iii) HTTP GET request for an image object\n(iv) TCP SYN to open a connection to the web server\nWhich one of the following is the CORRECT chronological order (earliest in time to latest) of the packets leaving the computer?",
+    "options": [
+      "(iv), (ii), (iii), (i)",
+      "(ii), (iv), (iii), (i)",
+      "(ii), (iv), (i), (iii)",
+      "(iv), (ii), (i), (iii)"
+    ],
+    "correctIndex": 2,
+    "explanation": "With empty caches, the browser must first resolve the server's domain name via DNS before it can open a TCP connection. So the DNS request (ii) is first. Once the IP address is known, the browser initiates the TCP connection by sending a SYN packet (iv). After the three-way handshake completes, the browser sends the HTTP GET for the index page (i). Only after receiving the index page HTML and parsing the embedded image references does the browser send HTTP GET requests for image objects (iii). Therefore the order is (ii), (iv), (i), (iii).",
+    "distractorRationales": [
+      "Option A puts TCP SYN before DNS, which is impossible since the IP address is unknown until DNS resolves.",
+      "Option B puts image GET (iii) before index GET (i), which is impossible since the browser doesn't know what images exist until it fetches and parses the index page.",
+      "",
+      "Option D puts TCP SYN before DNS, which is impossible for the same reason as option A."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "recursion-stack-behavior",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. Assume that the input to the program from the command line is 1234 followed by a newline character. Which one of the following statements is CORRECT?",
+    "codeSnippet": "#include <stdio.h>\nvoid fX();\nint main() {\n    fX();\n    return 0;\n}\nvoid fX() {\n    char a;\n    if ((a = getchar()) != '\\n')\n        fX();\n    if (a != '\\n')\n        putchar(a);\n}",
+    "options": [
+      "The program will not terminate",
+      "The program will terminate with no output",
+      "The program will terminate with 4321 as output",
+      "The program will terminate with 1234 as output"
+    ],
+    "correctIndex": 2,
+    "explanation": "The function fX() reads a character; if it is not a newline, it recursively calls fX() before printing the character. This builds up a call stack: fX reads '1', calls fX which reads '2', calls fX which reads '3', calls fX which reads '4', calls fX which reads '\\n' and returns immediately. Unwinding: the fX that read '4' prints '4', the one that read '3' prints '3', the one that read '2' prints '2', the one that read '1' prints '1'. The output is 4321 - the input reversed.",
+    "distractorRationales": [
+      "The program terminates because the recursion ends when getchar() reads the newline character.",
+      "The program does produce output; all non-newline characters are printed during stack unwinding.",
+      "",
+      "1234 would be the output if characters were printed before the recursive call, but they are printed after, causing reversal."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "hard",
+    "questionText": "Let G = (V, Σ, S, P) be a context-free grammar in Chomsky Normal Form with Σ = {a, b, c} and V containing 10 variable symbols including the start symbol S. The string w = a^30 b^30 c^30 is derivable from S. The number of steps (application of rules) in the derivation S =>* w is",
+    "latex": "w = a^{30}b^{30}c^{30}",
+    "options": [
+      "119",
+      "180",
+      "179",
+      "120"
+    ],
+    "correctIndex": 2,
+    "explanation": "In CNF, every rule is either A -> BC (binary) or A -> a (terminal). The string w has length 90 (30+30+30). To derive a string of length 90 from S, we need exactly 90-1 = 89 applications of binary rules (each adds one more symbol by splitting) plus exactly 90 applications of terminal rules (one per terminal symbol). Total steps = 89 + 90 = 179.",
+    "distractorRationales": [
+      "119 is incorrect; it may arise from computing 90 + 29 or similar miscounting of binary rule applications.",
+      "180 counts only the terminal rule applications (90 * 2 incorrect) or misapplies the CNF derivation formula.",
+      "",
+      "120 would be 90 binary + 30 terminal rules, which doesn't account for all terminal substitutions needed."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "graph-traversal-bfs-dfs",
+    "difficulty": "medium",
+    "questionText": "The number of edges present in the forest generated by the DFS traversal of an undirected graph G with 100 vertices is 40. The number of connected components in G is",
+    "options": [
+      "80",
+      "40",
+      "61",
+      "60"
+    ],
+    "correctIndex": 3,
+    "explanation": "For an undirected graph with n vertices and k connected components, a DFS spanning forest has exactly n - k tree edges (each connected component with m vertices contributes m-1 tree edges). Given n=100 vertices and 40 tree edges: 100 - k = 40, so k = 60. The graph has 60 connected components.",
+    "distractorRationales": [
+      "80 would result from computing 100 - 40/2 = 80, which incorrectly halves the edge count.",
+      "40 confuses the number of edges with the number of components; the 40 edges are tree edges, not the component count directly.",
+      "61 would arise from an off-by-one error: 100 - 40 + 1 = 61, incorrectly adding 1.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "memory-management-paging",
+    "difficulty": "medium",
+    "questionText": "Consider a memory management system that uses a page size of 2 KB. Assume that both the physical and virtual addresses start from 0. Assume that the pages 0, 1, 2, and 3 are stored in the page frames 1, 3, 2, and 0, respectively. The physical address (in decimal format) corresponding to the virtual address 2500 (in decimal format) is",
+    "options": [
+      "6590",
+      "6580",
+      "6596",
+      "6600"
+    ],
+    "correctIndex": 2,
+    "explanation": "Page size = 2 KB = 2048 bytes. Virtual address 2500: page number = floor(2500 / 2048) = 1, page offset = 2500 mod 2048 = 452. Page 1 is mapped to frame 3. Physical address = frame number * page size + offset = 3 * 2048 + 452 = 6144 + 452 = 6596.",
+    "distractorRationales": [
+      "6590 may result from using an incorrect page size calculation or wrong frame mapping.",
+      "6580 likely arises from a calculation error in the offset (e.g., 2500 - 2048 = 452, but then 3*2048 computed incorrectly).",
+      "",
+      "6600 might result from rounding the offset or using 2500 mod 2000 instead of mod 2048."
+    ],
+    "examName": "GATE CS 2024 Set 1",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

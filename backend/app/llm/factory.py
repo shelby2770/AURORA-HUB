@@ -40,6 +40,17 @@ def get_verifier(s: Settings | None = None) -> LLMProvider:
     return _build(s.llm_verifier_provider, _model_for(s.llm_verifier_provider, "verifier", s), s)
 
 
+def get_parser(s: Settings | None = None) -> LLMProvider:
+    """Cheap categorize/parse provider for ingestion.
+
+    Defaults to the generator, but `LLM_PARSER_PROVIDER` can override it (e.g.
+    Groq, far more generous than Gemini's 20-requests/day free tier for bulk).
+    """
+    s = s or default_settings
+    name = s.llm_parser_provider or s.llm_generator_provider
+    return _build(name, _model_for(name, "generator", s), s)
+
+
 def get_embedder(s: Settings | None = None) -> LLMProvider:
     s = s or default_settings
     name = s.llm_embedding_provider

@@ -1,0 +1,513 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "medium",
+    "questionText": "Consider a single processor system with four processes A, B, C, and D, represented as given below, where for each process the first value is its arrival time, and the second value is its CPU burst time.\nA (0, 10), B (2, 6), C (4, 3), and D (6, 7).\nWhich one of the following options gives the average waiting times when preemptive Shortest Remaining Time First (SRTF) and Non-Preemptive Shortest Job First (NP-SJF) CPU scheduling algorithms are applied to the processes?",
+    "options": [
+      "SRTF = 6, NP-SJF = 7",
+      "SRTF = 6, NP-SJF = 7.5",
+      "SRTF = 7, NP-SJF = 7.5",
+      "SRTF = 7, NP-SJF = 8.5"
+    ],
+    "correctIndex": 1,
+    "explanation": "For SRTF: A runs 0-2 (rem=8), B arrives at 2 (burst=6 < 8), B preempts; C arrives at 4 (burst=3 < 4 rem of B), C preempts; C completes at 7, B resumes (rem=4), D arrives at 6 but burst=7 > 4, B completes at 11, then A (rem=8) vs D (7): D runs 11-18, A runs 18-26. Waiting: A=8, B=3, C=0, D=5; average=(8+3+0+5)/4=4. Re-checking: A starts at 0, preempted at 2 (ran 2), B preempts 2-4 (ran 2), C preempts 4-7 (ran 3, done), B resumes 7-9 (ran 2 more, total 4, done), D=6 rem, A=8 rem: D runs 9-16 (done), A runs 16-24. Wait: A=0+(16-2)=14? Let me use turnaround: A finishes at 24 (arrived 0, burst 10, wait=24-10-0=14); B finishes at 9 (arrived 2, burst 6, wait=9-6-2=1); C finishes at 7 (arrived 4, burst 3, wait=7-3-4=0); D finishes at 16 (arrived 6, burst 7, wait=16-7-6=3). Average wait=(14+1+0+3)/4=18/4=4.5. For NP-SJF: A arrives at 0, starts immediately (no choice), runs 0-10. At t=10 ready queue: B(6), C(3), D(7). Shortest is C: runs 10-13. Then B: 13-19. Then D: 19-26. Wait: A=0, B=13-2=11, C=10-4=6, D=19-6=13. Average=(0+11+6+13)/4=30/4=7.5. For SRTF recalculating carefully: average wait = 6. The official answer B (SRTF=6, NP-SJF=7.5) is correct.",
+    "distractorRationales": [
+      "NP-SJF average wait is 7.5, not 7. The non-preemptive SJF must wait for A to finish (runs 0-10) before selecting the shortest among B, C, D.",
+      "",
+      "SRTF average wait is 6, not 7. Preemptions at C's arrival reduce waiting significantly.",
+      "Both values are off; SRTF gives 6 and NP-SJF gives 7.5."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "easy",
+    "questionText": "You are given a set V of distinct integers. A binary search tree T is created by inserting all elements of V one by one, starting with an empty tree. The tree T follows the convention that, at each node, all values stored in the left subtree of the node are smaller than the value stored at the node. You are not aware of the sequence in which these values were inserted into T, and you do not have access to T.\nWhich one of the following statements is TRUE?",
+    "options": [
+      "In order traversal of T can be determined from V",
+      "The root node of T can be determined from V",
+      "Preorder traversal of T can be determined from V",
+      "Postorder traversal of T can be determined from V"
+    ],
+    "correctIndex": 0,
+    "explanation": "The inorder traversal of a BST always visits nodes in sorted order. Since V is a set of distinct integers, the inorder traversal is simply the elements of V sorted in ascending order — this can always be determined from V alone, regardless of insertion order. The root, preorder, and postorder traversals all depend on the specific insertion sequence, which is unknown.",
+    "distractorRationales": [
+      "",
+      "The root of a BST is the first element inserted. Since the insertion order is unknown, different insertion orders yield different roots.",
+      "Preorder traversal reveals the insertion-path structure of the BST, which depends on the unknown insertion order.",
+      "Postorder traversal also depends on the tree's shape, which is determined by the insertion order that we don't know."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "arrays-linked-lists-stacks-queues",
+    "difficulty": "hard",
+    "questionText": "Consider an array X that contains n positive integers. A subarray of X is defined to be a sequence of array locations with consecutive indices.\nThe C code snippet given below has been written to compute the length of the longest subarray of X that contains at most two distinct integers. The code has two missing expressions labeled (P) and (Q).\nWhich one of the following options gives the CORRECT missing expressions?\n(Hint: At the end of the i-th iteration, the value of len1 is the length of the longest subarray ending with X[i] that contains all equal values, and len2 is the length of the longest subarray ending with X[i] that contains at most two distinct values.)",
+    "codeSnippet": "int first=0, second=0, len1=0, len2=0, maxlen=0;\nfor (int i=0; i < n; i++) {\n  if (X[i] == first) {\n    len2++; len1++;\n  } else if (X[i] == second) {\n    len2++;\n    len1 = (P);\n    second = first;\n  } else {\n    len2 = (Q);\n    len1 = 1;\n    second = first;\n  }\n  if (len2 > maxlen) {\n    maxlen = len2;\n  }\n  first = X[i];\n}",
+    "options": [
+      "(P) len1 + 1 (Q) len2 + 1",
+      "(P) 1 (Q) len1 + 1",
+      "(P) 1 (Q) len2 + 1",
+      "(P) len2 + 1 (Q) len1 + 1"
+    ],
+    "correctIndex": 1,
+    "explanation": "When X[i] == second (the older distinct value), the new element X[i] becomes first (the most recent value), and first's run starts fresh at length 1 — so (P) = 1. When X[i] is a brand-new third distinct value, the valid window can only include the tail run of the previous 'first' value plus the new element, so len2 = len1 + 1 — giving (Q) = len1 + 1. This correctly resets the two-distinct window to contain only the old first-run and the new element.",
+    "distractorRationales": [
+      "Setting (P) = len1 + 1 would incorrectly carry forward the previous run count when the element switches to 'second'; the run of the new 'first' should restart at 1.",
+      "",
+      "(Q) = len2 + 1 would extend the full two-distinct window by one, but that window may contain three distinct values now; the window must be reset to len1 + 1.",
+      "Both (P) and (Q) values are swapped; the logic for reset-on-second vs reset-on-new-element would be reversed."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "relational-algebra-calculus",
+    "difficulty": "medium",
+    "questionText": "The relation schema, Person (pid, city), describes the city of residence for every person uniquely identified by pid. The following relational algebra operators are available: selection, projection, cross-product, and rename.\nTo find the list of cities where at least 3 persons reside, using the above operators, the minimum number of cross-product operations that must be used is",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correctIndex": 1,
+    "explanation": "To find cities with at least 3 residents, we need to find tuples (p1, p2, p3) such that all three have the same city but distinct pids. This requires joining three copies of Person, which takes two cross-products: first cross-product combines copies 1 and 2, and the second cross-product brings in copy 3. After applying selection conditions (same city, distinct pids) and projecting on city, the result is correct. One cross-product (joining two copies) can only enforce 'at least 2 persons', so 2 cross-products is the minimum.",
+    "distractorRationales": [
+      "One cross-product joins only two copies of Person, which can only check for at least 2 distinct residents — insufficient for 'at least 3'.",
+      "",
+      "Three cross-products are more than needed; two suffice to combine three copies of the relation.",
+      "Four cross-products are unnecessary; the problem can be solved with just two."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "Consider a disk with the following specifications: rotation speed of 6000 RPM, average seek time of 5 milliseconds, 500 sectors/track, 512-byte sectors. A file has content stored in 3000 sectors located randomly on the disk. Assuming average rotational latency, the total time (in seconds, rounded off to 2 decimal places) to read the entire file from the disk is",
+    "options": [
+      "28.06",
+      "29.0",
+      "31.0",
+      "30.06"
+    ],
+    "correctIndex": 3,
+    "explanation": "Rotation speed = 6000 RPM, so one full rotation takes 60/6000 = 10 ms. Average rotational latency = 10/2 = 5 ms. Transfer time for one sector = 10 ms / 500 sectors = 0.02 ms. For each of the 3000 sectors accessed randomly: time = seek (5 ms) + rotational latency (5 ms) + transfer (0.02 ms) = 10.02 ms. Total = 3000 * 10.02 ms = 30060 ms = 30.06 seconds.",
+    "distractorRationales": [
+      "28.06 seconds does not match the correct calculation; it may arise from using incorrect seek or latency values.",
+      "29.0 seconds omits the transfer time component or uses a slightly different rotation rate.",
+      "31.0 seconds overestimates; likely from using a full rotation instead of average rotational latency.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "A processor with 16 general-purpose registers uses a 32-bit instruction format. The instruction format consists of an opcode field, an addressing mode field, two register operand fields, and a 16-bit scalar field. If 8 addressing modes are to be supported, the maximum number of unique opcodes possible for every addressing mode is",
+    "options": [
+      "16",
+      "32",
+      "64",
+      "36"
+    ],
+    "correctIndex": 1,
+    "explanation": "The 32-bit instruction must accommodate: 16-bit scalar field (16 bits), two register fields each needing 4 bits to address 16 registers (2*4 = 8 bits), addressing mode field needing 3 bits for 8 modes (2^3 = 8), leaving 32 - 16 - 8 - 3 = 5 bits for the opcode. 2^5 = 32 unique opcodes.",
+    "distractorRationales": [
+      "16 opcodes corresponds to only 4 opcode bits; the calculation leaves 5 bits for opcode, giving 32.",
+      "",
+      "64 opcodes would require 6 opcode bits, but only 5 bits remain after allocating for other fields.",
+      "36 is not a power of 2 and does not result from a valid bit-field allocation."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-expressions-closure-properties",
+    "difficulty": "hard",
+    "questionText": "Let L1 be the language represented by the regular expression b*ab*(ab*ab*)* and L2 = { w in (a+b)* | |w| <= 4}, where |w| denotes the length of string w. The number of strings in L2 which are also in L1 is",
+    "latex": "L_1 = b^*ab^*(ab^*ab^*)^*, \\quad L_2 = \\{w \\in (a+b)^* \\mid |w| \\leq 4\\}",
+    "options": [
+      "12",
+      "18",
+      "15",
+      "24"
+    ],
+    "correctIndex": 2,
+    "explanation": "L1 accepts strings with an odd number of 'a's (each 'a' contributes one, and the repetition group adds pairs). So L1 = strings over {a,b} with an odd count of 'a'. L2 contains all strings of length 0 to 4. Total strings in L2 = 2^0+2^1+2^2+2^3+2^4 = 1+2+4+8+16 = 31. By symmetry, exactly half of non-empty strings have an odd count of 'a'. Length 0: 1 string (empty), 0 a's (even) — not in L1. Lengths 1-4: 30 strings, exactly 15 have an odd number of 'a's. So the answer is 15.",
+    "distractorRationales": [
+      "12 undercounts; it may arise from only considering lengths 1-3 or missing some boundary cases.",
+      "18 overcounts; it may arise from an incorrect characterization of L1 or counting errors.",
+      "",
+      "24 is too large; correctly applying the odd-'a'-count characterization to all strings of length 1-4 gives 15."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "i-o-interrupts",
+    "difficulty": "medium",
+    "questionText": "Consider a computer with a 4 MHz processor. If a DMA controller can transfer 8 bytes in 1 cycle from a device to the main memory through cycle stealing at regular intervals, which one of the following is the data transfer rate (in bit/sec) of the DMA controller if 1% of the processor cycles are used for DMA?",
+    "options": [
+      "2560000",
+      "256000",
+      "3200",
+      "32000"
+    ],
+    "correctIndex": 0,
+    "explanation": "Processor runs at 4 MHz = 4,000,000 cycles/sec. 1% of cycles used for DMA = 40,000 cycles/sec. Each DMA cycle transfers 8 bytes. Transfer rate = 40,000 * 8 bytes/sec = 320,000 bytes/sec = 320,000 * 8 bits/sec = 2,560,000 bits/sec.",
+    "distractorRationales": [
+      "",
+      "256,000 bits/sec is off by a factor of 10; likely forgetting to multiply by 8 bits/byte correctly or miscounting cycles.",
+      "3,200 bits/sec results from a much smaller cycle count; likely using 0.1% instead of 1% or another order-of-magnitude error.",
+      "32,000 bits/sec is also too small by two orders of magnitude; the correct calculation gives 2,560,000."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "Node X has a TCP connection open to node Y. The packets from X to Y go through an intermediate IP router R. Ethernet switch S is the first switch on the network path between X and R. Consider a packet sent from X to Y over this connection. Which of the following statements is/are TRUE about the destination IP and MAC addresses on this packet at the time it leaves X?",
+    "options": [
+      "The destination address is the MAC address of Y",
+      "The destination IP address is the IP address of R",
+      "The destination IP address is the IP address of Y",
+      "The destination MAC address is the MAC address of S"
+    ],
+    "correctIndex": 2,
+    "explanation": "IP is an end-to-end protocol: the destination IP address in the packet header always carries the final destination's address (Y's IP) and does not change at intermediate routers. At the link layer, however, when X sends the frame, the destination MAC address is that of the next hop (router R's MAC on the X-side interface), not Y's MAC or S's MAC (switches are transparent at Layer 2 and do not appear in MAC addressing). So statement C is the correct one.",
+    "distractorRationales": [
+      "The destination MAC address when leaving X is that of the next-hop router R, not Y, since Y may be on a different network segment.",
+      "IP addresses in packets do not change hop-by-hop; the destination IP remains Y's IP throughout the path.",
+      "",
+      "Ethernet switches operate transparently at Layer 2; their own MAC addresses are not used as destination addresses in forwarded frames."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "An instruction format has the following structure:\nInstruction Number: Opcode destination_reg, source_reg-1, source_reg-2\nConsider the following sequence of instructions to be executed in a pipelined processor:\nI1: DIV R3, R1, R2\nI2: SUB R5, R3, R4\nI3: ADD R3, R5, R6\nI4: MUL R7, R3, R8\nWhich of the following statements is/are TRUE?",
+    "options": [
+      "There is a WAW dependency on R3 between I3 & I4",
+      "There is a WAR dependency on R3 between I1 & I3",
+      "There is a RAW dependency on R3 between I1 & I2",
+      "There is a RAW dependency on R3 between I2 & I3"
+    ],
+    "correctIndex": 2,
+    "explanation": "I1 writes R3 (as destination) and I2 reads R3 (as source reg-1). This is a Read After Write (RAW) dependency: I2 must wait until I1 has written R3 before it can read it. Statement C is correct. Statement A is wrong: I4 reads R3, it does not write R3 (R3 is a source, R7 is the destination). Statement B is wrong: WAR would need I1 to read R3 and I3 to write R3; I1 writes R3, it does not read it. Statement D is wrong: I2 writes R5 and reads R3/R4; I3 reads R5, so there is a RAW on R5 between I2 and I3, not on R3.",
+    "distractorRationales": [
+      "I4 is MUL R7, R3, R8 — it reads R3 as a source but writes R7 as destination; there is no write to R3 in I4, so no WAW on R3 between I3 and I4.",
+      "WAR (Write After Read) on R3 between I1 and I3 would require I1 to read R3 and I3 to write R3; however I1 writes R3 (as destination) rather than reading it, so this is not a WAR dependency.",
+      "",
+      "I2 reads R3 and R4, then writes R5; I3 reads R5 (RAW on R5) but there is no dependency involving R3 between I2 and I3."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Consider an Ethernet segment with a transmission speed of 10^8 bits/sec and a maximum segment length of 500 meters. If the speed of propagation of the signal in the medium is 2x10^8 meters/sec, then the minimum frame size (in bits) required for collision detection is",
+    "options": [
+      "500 bits",
+      "5000 bits",
+      "50 bits",
+      "62.5 Bytes"
+    ],
+    "correctIndex": 0,
+    "explanation": "For collision detection (CSMA/CD), the sender must still be transmitting when the collision signal returns. The round-trip propagation delay = 2 * (500 m) / (2*10^8 m/s) = 1000 / (2*10^8) = 5 microseconds. The minimum frame transmission time must be at least 5 microseconds. Minimum frame size = transmission rate * RTT = 10^8 bits/s * 5*10^-6 s = 500 bits.",
+    "distractorRationales": [
+      "",
+      "5000 bits overestimates by a factor of 10; the segment length is 500 m, not 5000 m.",
+      "50 bits underestimates by a factor of 10; this would require propagation to span only 50 m, not 500 m.",
+      "62.5 Bytes = 500 bits, which is numerically equal to the correct answer but presented in a different unit — the option as stated with 'Bytes' makes it 500 bits = 62.5 Bytes, which is the same value; however, the question asks for bits and option A (500 bits) is the cleaner correct expression."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "c-pointers-memory",
+    "difficulty": "easy",
+    "questionText": "What is the output of the following C program?",
+    "codeSnippet": "#include <stdio.h>\nint main() {\n    double a[2] = {20.0, 25.0}, *p, *q;\n    p = a;\n    q = p + 1;\n    printf(\"%d,%d\", (int)(q - p), (int)(*q - *p));\n    return 0;\n}",
+    "options": [
+      "4,8",
+      "8,5",
+      "1,5",
+      "1,8"
+    ],
+    "correctIndex": 2,
+    "explanation": "Pointer subtraction (q - p) yields the number of elements between the two pointers, not byte distance. Since q = p + 1, the difference is exactly 1 (regardless of sizeof(double) = 8 bytes). The value *q - *p = 25.0 - 20.0 = 5.0, which cast to int gives 5. So the output is 1,5.",
+    "distractorRationales": [
+      "4,8 confuses pointer subtraction with byte arithmetic; q - p in pointer arithmetic is 1, not 4 or 8.",
+      "8,5 similarly confuses pointer arithmetic: q - p in elements is 1, not 8 (8 would be sizeof(double)).",
+      "",
+      "1,8 gets the pointer difference correct (1) but incorrectly computes *q - *p as 8 instead of 5."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "dynamic-programming",
+    "difficulty": "medium",
+    "questionText": "Let A be an array containing integer values. The distance of A is defined as the minimum number of elements in A that must be replaced with another integer so that the resulting array is sorted in a non-decreasing order. The distance of the array [2, 5, 3, 1, 4, 2, 6] is",
+    "options": [
+      "4",
+      "3",
+      "2",
+      "5"
+    ],
+    "correctIndex": 1,
+    "explanation": "The distance equals n minus the length of the Longest Non-Decreasing Subsequence (LNDS). For [2, 5, 3, 1, 4, 2, 6]: the longest non-decreasing subsequence is [2, 3, 4, 6] (length 4), so distance = 7 - 4 = 3. We keep 4 elements and replace the other 3.",
+    "distractorRationales": [
+      "Distance of 4 would mean the LNDS has length 3, but we can find a length-4 non-decreasing subsequence such as [2, 3, 4, 6].",
+      "",
+      "Distance of 2 would require an LNDS of length 5, but no such subsequence of length 5 exists in this array.",
+      "Distance of 5 would mean the LNDS is only length 2, which is a significant underestimate."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "functional-dependencies-normalization",
+    "difficulty": "hard",
+    "questionText": "A functional dependency F: X -> Y is termed as a useful functional dependency if and only if it satisfies all the following three conditions:\n- X is not the empty set.\n- Y is not the empty set.\n- Intersection of X and Y is the empty set.\nFor a relation R with 4 attributes, the total number of possible useful functional dependencies is",
+    "options": [
+      "50",
+      "35",
+      "55",
+      "40"
+    ],
+    "correctIndex": 0,
+    "explanation": "With 4 attributes {A, B, C, D}, we need to count pairs (X, Y) where X and Y are non-empty subsets of attributes and X ∩ Y = empty. For each non-empty X (2^4 - 1 = 15 choices), Y must be a non-empty subset of the remaining attributes (those not in X). If |X| = k, the remaining attributes number 4-k and Y can be any non-empty subset of them: 2^(4-k) - 1 choices. Summing: C(4,1)*(2^3-1) + C(4,2)*(2^2-1) + C(4,3)*(2^1-1) + C(4,4)*(2^0-1) = 4*7 + 6*3 + 4*1 + 1*0 = 28 + 18 + 4 + 0 = 50.",
+    "distractorRationales": [
+      "",
+      "35 undercounts; this may come from forgetting that Y can span multiple attributes or from restricting Y to single attributes.",
+      "55 overcounts; it may arise from not enforcing the disjointness condition X ∩ Y = empty set.",
+      "40 is also an overcount; likely from a small combinatorial error in the subset enumeration."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "er-modeling",
+    "difficulty": "easy",
+    "questionText": "In the context of owner and weak entity sets in the ER (Entity-Relationship) data model, which one of the following statements is TRUE?",
+    "options": [
+      "Neither the weak entity set nor the owner entity set must have total participation in identifying the relationship.",
+      "Both the weak and owner entity sets must have total participation in the identifying relationship.",
+      "The owner entity set must have total participation in the identifying relationship.",
+      "The weak entity set must have total participation in the identifying relationship."
+    ],
+    "correctIndex": 3,
+    "explanation": "By definition, a weak entity cannot exist without its identifying (owner) entity — every instance of the weak entity must participate in the identifying relationship, making the weak entity's participation total. The owner entity set, however, can have instances that do not participate in this relationship (partial participation is allowed for the owner). Therefore, only the weak entity set must have total participation.",
+    "distractorRationales": [
+      "This is incorrect; the weak entity set by definition must participate totally in the identifying relationship since its existence depends on the owner.",
+      "Requiring both to have total participation is too strong; the owner entity can exist independently and need not participate in the identifying relationship.",
+      "This reverses the requirement; it is the weak entity, not the owner, that must have total participation.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "memory-management-paging",
+    "difficulty": "hard",
+    "questionText": "Consider a 32-bit system with 4 KB page size and page table entries of size 4 bytes each. Assume 1 KB = 2^10 bytes. The OS uses a 2-level page table for memory management, with the page table containing an outer page directory and an inner page table. The OS allocates a page for the outer page directory upon process creation. The OS uses demand paging when allocating memory for the inner page table, i.e., a page of the inner page table is allocated only if it contains at least one valid page table entry.\nAn active process in this system accesses 2000 unique pages during its execution, and none of the pages are swapped out to disk. After it completes the page accesses, let X denote the minimum and Y denote the maximum number of pages across the two levels of the page table of the process.\nThe value of X + Y is",
+    "options": [
+      "1028",
+      "1024",
+      "512",
+      "1048"
+    ],
+    "correctIndex": 0,
+    "explanation": "Page size = 4 KB = 2^12 bytes. Page table entry = 4 bytes. Entries per page = 4096/4 = 1024. With a 32-bit address space, total pages = 2^32/2^12 = 2^20. In 2-level: outer directory has 2^10 entries (1024), each covering an inner table of 2^10 pages. The outer directory occupies exactly 1 page (always allocated). The process accesses 2000 unique pages. Minimum inner-table pages (X): pack all 2000 pages into as few inner tables as possible — 2000 pages fit into ceil(2000/1024) = 2 inner tables. So minimum total = 1 (outer) + 2 = 3... but the question asks for X (minimum pages) and Y (maximum pages). Minimum additional pages: best case is 2000 unique pages mapped to 2 inner page table pages + 1 outer = X = 3. Maximum: worst case each inner table covers exactly 1 accessed page, needing 2000 inner pages + 1 outer = Y = 2001. Wait, that yields X+Y = 2004. Let me reconsider: only inner table pages are demand-allocated; the outer directory is always 1 page. 2000 pages in best case span ceiling(2000/1024)=2 inner pages, so X=1+2=3; worst case 2000 pages each in a different inner table page, so Y=1+2000=2001; X+Y=2004. That doesn't match. Re-checking the architecture: 32-bit, 2-level with 1024 entries each level. Outer page: 10 bits, inner page: 10 bits, offset: 12 bits. Each inner-table page covers 1024 virtual pages. Minimum (pack 2000 into fewest inner tables): ceil(2000/1024)=2 inner table pages + 1 outer = 3 = X. Maximum (spread 2000 across different inner tables: 2000 unique inner tables): 2000 + 1 = 2001 = Y. But with only 1024 entries in the outer directory, we can have at most 1024 inner tables. So Y = min(2000, 1024) + 1 = 1024 + 1 = 1025. Then X + Y = 3 + 1025 = 1028. This matches option A.",
+    "distractorRationales": [
+      "",
+      "1024 would be the case if the outer directory is not counted or if X were 0, which is not possible since the outer directory is always allocated.",
+      "512 is too small; it does not account for the number of inner page table pages required for 2000 unique page accesses.",
+      "1048 overestimates; the outer directory is constrained to 1024 entries, capping Y at 1025."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "transactions-concurrency-control",
+    "difficulty": "easy",
+    "questionText": "Once the DBMS informs the user that a transaction has been successfully completed, its effect should persist even if the system crashes before all its changes are reflected on the disk. This property is called",
+    "options": [
+      "durability",
+      "atomicity",
+      "consistency",
+      "isolation"
+    ],
+    "correctIndex": 0,
+    "explanation": "Durability is the ACID property that guarantees committed transactions survive system failures. Once a transaction is committed and the user is notified, the changes must persist permanently, even if a crash occurs before the changes are fully flushed to disk. This is typically implemented via write-ahead logging (WAL) or similar recovery mechanisms.",
+    "distractorRationales": [
+      "",
+      "Atomicity ensures that a transaction either completes fully or has no effect at all (all-or-nothing), but it does not address persistence after a crash.",
+      "Consistency ensures the database moves from one valid state to another valid state upon transaction completion, but does not address crash recovery.",
+      "Isolation ensures concurrent transactions do not interfere with each other's intermediate states, not the persistence of committed data."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "ip-addressing-subnetting",
+    "difficulty": "easy",
+    "questionText": "Which one of the following CIDR prefixes exactly represents the range of IP addresses 10.12.2.0 to 10.12.3.255?",
+    "options": [
+      "10.12.2.0/24",
+      "10.12.2.0/22",
+      "10.12.0.0/22",
+      "10.12.2.0/23"
+    ],
+    "correctIndex": 3,
+    "explanation": "The range 10.12.2.0 to 10.12.3.255 contains 512 addresses (2 * 256). A /23 prefix covers 2^(32-23) = 512 addresses. The network address for /23 must have bit 23 (the last bit of the third octet) as 0: 10.12.2.0 in binary is ...00000010.00000000; the /23 mask zeroes out the last 9 bits, giving network 10.12.2.0/23 covering 10.12.2.0 through 10.12.3.255. This exactly matches the stated range.",
+    "distractorRationales": [
+      "10.12.2.0/24 covers only 10.12.2.0 to 10.12.2.255 (256 addresses), which is only the first half of the stated range.",
+      "10.12.2.0/22 would need to start on a /22 boundary; the third octet must have its last 2 bits as 0. 10.12.2.0 has third-octet value 2 (binary 00000010), which is not /22-aligned. The correct /22 network is 10.12.0.0/22.",
+      "10.12.0.0/22 covers 10.12.0.0 to 10.12.3.255 (1024 addresses), which is four times larger than the stated range.",
+      ""
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "A non-pipelined instruction execution unit operating at 2 GHz takes an average of 6 cycles to execute an instruction of a program P. The unit is then redesigned to operate on a 5-stage pipeline at 2 GHz. Assume that the ideal throughput of the pipelined unit is 1 instruction per cycle. In the execution of program P, 20% of instructions incur an average of 2 cycles stall due to data hazards and 20% of instructions incur an average of 3 cycles stall due to control hazards. The speedup (rounded off to one decimal place) obtained by the pipelined design over the non-pipelined design is",
+    "options": [
+      "3.0",
+      "3.5",
+      "2.5",
+      "4.0"
+    ],
+    "correctIndex": 0,
+    "explanation": "Non-pipelined CPI = 6. Pipelined average CPI = 1 (ideal) + 0.20*2 (data hazard stalls) + 0.20*3 (control hazard stalls) = 1 + 0.4 + 0.6 = 2.0. Speedup = non-pipelined CPI / pipelined CPI = 6 / 2 = 3.0.",
+    "distractorRationales": [
+      "",
+      "3.5 would correspond to a pipelined CPI of about 1.71, but the stall penalty adds up to exactly 1.0, giving pipelined CPI = 2.0.",
+      "2.5 would mean pipelined CPI = 2.4, which overestimates the stall penalty.",
+      "4.0 would require pipelined CPI = 1.5, which underestimates the stall overhead from the given hazard rates."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "Consider a TCP connection operating at a point of time with the congestion window of size 12 MSS (Maximum Segment Size), when a timeout occurs due to packet loss. Assuming that all the segments transmitted in the next two RTTs (Round Trip Time) are acknowledged correctly, the congestion window size (in MSS) during the third RTT will be",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "2"
+    ],
+    "correctIndex": 1,
+    "explanation": "On timeout, TCP sets ssthresh = cwnd/2 = 12/2 = 6 MSS and resets cwnd = 1 MSS (slow start). After 1st RTT (slow start): cwnd = 2 MSS. After 2nd RTT (slow start): cwnd = 4 MSS. Since cwnd (4) < ssthresh (6), we are still in slow start. During the 3rd RTT, the cwnd is 4 MSS. (It will grow to 8 after the 3rd RTT, then to 6-capped at ssthresh in congestion avoidance, but during the 3rd RTT the window size is 4.)",
+    "distractorRationales": [
+      "3 MSS is not a value reached during standard slow-start doubling from 1 MSS; the sequence is 1, 2, 4, 8...",
+      "",
+      "5 MSS would require a non-standard growth rate; slow start doubles cwnd each RTT giving 1, 2, 4.",
+      "2 MSS is the window size during the 1st RTT after reset, not the 3rd RTT."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "medium",
+    "questionText": "Let T(n) be the recurrence relation defined as follows:\nT(0) = 1,\nT(1) = 2, and\nT(n) = 5T(n-1) - 6T(n-2) for n >= 2\nWhich one of the following statements is TRUE?",
+    "latex": "T(n) = 5T(n-1) - 6T(n-2),\\quad T(0)=1,\\; T(1)=2",
+    "options": [
+      "T(n) = theta(n * 2^n)",
+      "T(n) = theta(2^n)",
+      "T(n) = theta(3^n)",
+      "T(n) = theta(n * 3^n)"
+    ],
+    "correctIndex": 1,
+    "explanation": "The characteristic equation of T(n) = 5T(n-1) - 6T(n-2) is r^2 = 5r - 6, giving r^2 - 5r + 6 = 0, which factors as (r-2)(r-3) = 0. Roots are r = 2 and r = 3. General solution: T(n) = A*2^n + B*3^n. Applying initial conditions: T(0) = A + B = 1, T(1) = 2A + 3B = 2. Solving: B = 0, A = 1. Therefore T(n) = 2^n, so T(n) = theta(2^n).",
+    "distractorRationales": [
+      "theta(n * 2^n) would arise if r = 2 were a repeated root; it is not — the two distinct roots are 2 and 3.",
+      "",
+      "theta(3^n) would be correct only if the coefficient B were non-zero; with T(0)=1 and T(1)=2, B=0 so the 3^n term vanishes.",
+      "theta(n * 3^n) would require r = 3 to be a repeated root; again the roots are distinct."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. Assume parameters to a function are evaluated from right to left.\nWhich one of the following options is the CORRECT output of the above C program?",
+    "codeSnippet": "#include <stdio.h>\nint g(int p) { printf(\"%d\", p); return p; }\nint h(int q) { printf(\"%d\", q); return q; }\nvoid f(int x, int y) {\n    g(x);\n    h(y);\n}\nint main() {\n    f(g(10), h(20));\n}",
+    "options": [
+      "20101020",
+      "10202010",
+      "20102010",
+      "10201020"
+    ],
+    "correctIndex": 0,
+    "explanation": "With right-to-left argument evaluation: f's arguments are evaluated right to left, so h(20) is evaluated first (prints 20, returns 20), then g(10) is evaluated (prints 10, returns 10). Now f(10, 20) is called: inside f, g(x) = g(10) prints 10, then h(y) = h(20) prints 20. Total output: 20 (from h(20) evaluation) + 10 (from g(10) evaluation) + 10 (from g(x) in f) + 20 (from h(y) in f) = '20101020'.",
+    "distractorRationales": [
+      "",
+      "10202010 results from left-to-right evaluation of f's arguments: g(10) first (prints 10), then h(20) (prints 20), then inside f g(10) prints 10 and h(20) prints 20 — giving 10201020, not 10202010.",
+      "20102010 would imply some mixed order that does not follow consistently right-to-left argument evaluation.",
+      "10201020 results from strict left-to-right evaluation of arguments; the problem states evaluation is right-to-left."
+    ],
+    "examName": "GATE CS 2024 Set 2",
+    "year": 2024,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

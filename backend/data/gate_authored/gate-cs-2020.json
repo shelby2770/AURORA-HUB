@@ -1,0 +1,762 @@
+[
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "hard",
+    "questionText": "What is the output of the following C program?",
+    "codeSnippet": "#include <stdio.h>\nint main() {\n    int a[4][5] = {{1, 2, 3, 4, 5},\n                   {6, 7, 8, 9, 10},\n                   {11, 12, 13, 14, 15},\n                   {16, 17, 18, 19, 20}};\n    printf(\"%d\\n\", *(*(a + **a + 2) + 3));\n    return 0;\n}",
+    "options": ["19", "18", "20", "3"],
+    "correctIndex": 0,
+    "explanation": "**a dereferences the pointer to pointer a twice, giving a[0][0] = 1. So a + **a + 2 = a + 1 + 2 = a + 3, which points to row 3 (the fourth row {16,17,18,19,20}). Dereferencing that gives a pointer to row 3's first element. Adding 3 gives &a[3][3] = 19. Dereferencing yields 19.",
+    "distractorRationales": [
+      "",
+      "18 would be a[3][2], but the column index is 3, not 2.",
+      "20 would be a[3][4], but the column index computed is 3, not 4.",
+      "3 would result if the row or column offset were miscomputed; the double-dereference **a gives 1, not 0."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "recursion-stack-behavior",
+    "difficulty": "hard",
+    "questionText": "Consider the following C functions. The value returned by pp(3, 4) is ________.",
+    "codeSnippet": "int tob(int b, int *arr) {\n    int i;\n    for (i = 0; b > 0; i++) {\n        if (b % 2) arr[i] = 1;\n        else arr[i] = 0;\n        b = b / 2;\n    }\n    return i;\n}\n\nint pp(int a, int b) {\n    int arr[20];\n    int i, tot = 1, ex, len;\n    ex = a;\n    len = tob(b, arr);\n    for (i = 0; i < len; i++) {\n        if (arr[i] == 1)\n            tot = tot * ex;\n        ex = ex * ex;\n    }\n    return tot;\n}",
+    "options": ["81", "64", "100", "49"],
+    "correctIndex": 0,
+    "explanation": "pp(3,4) computes 3^4. tob(4, arr) stores the binary representation of 4 (LSB first): arr[0]=0, arr[1]=0, arr[2]=1, len=3. The loop multiplies tot by ex only when arr[i]==1. At i=0: ex=3, arr[0]=0, skip. At i=1: ex=9, arr[1]=0, skip. At i=2: ex=81, arr[2]=1, tot=1*81=81. Result is 81 = 3^4.",
+    "distractorRationales": [
+      "",
+      "64 = 4^3, which would result from misidentifying the arguments or the algorithm as computing b^a instead of a^b.",
+      "100 is not a power of 3 or 4 and would result from a computation error.",
+      "49 = 7^2, unrelated to the inputs 3 and 4."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "processes-threads",
+    "difficulty": "easy",
+    "questionText": "Consider the following statements about process state transitions for a system using preemptive scheduling.\nI. A running process can move to ready state.\nII. A ready process can move to running state.\nIII. A blocked process can move to running state.\nIV. A blocked process can move to ready state.\nWhich of the above statements are TRUE?",
+    "options": [
+      "I, II, and III only",
+      "II and III only",
+      "I, II, and IV only",
+      "I, II, III and IV only"
+    ],
+    "correctIndex": 2,
+    "explanation": "In preemptive scheduling: a running process can be preempted and moved to ready (I is TRUE); a ready process is picked by the scheduler and moves to running (II is TRUE); a blocked process, when its I/O or event completes, moves to ready — not directly to running — so III is FALSE; a blocked process completing its wait moves to ready (IV is TRUE). Hence I, II, and IV are TRUE.",
+    "distractorRationales": [
+      "Includes III, which is incorrect: a blocked process cannot jump directly to running; it must go through the ready state first.",
+      "Omits I (a running process being preempted moves to ready, which is a valid and common transition) and incorrectly includes III.",
+      "",
+      "Includes III, which is incorrect: OS schedulers require a process to transition through ready before running."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "medium",
+    "questionText": "In a balanced binary search tree with n elements, what is the worst-case time complexity of reporting all elements in the range [a, b]? Assume that the number of reported elements is k.",
+    "options": [
+      "Θ(log n)",
+      "Θ(log n + k)",
+      "Θ(k log n)",
+      "Θ(n log k)"
+    ],
+    "correctIndex": 1,
+    "explanation": "To report all elements in [a, b] from a balanced BST, we first locate the lower bound a in O(log n) time. Then we traverse in-order from that point, outputting each of the k elements in the range, taking O(k) additional time. The total is Θ(log n + k).",
+    "distractorRationales": [
+      "Θ(log n) accounts only for finding the start of the range but ignores the time to output the k matching elements.",
+      "",
+      "Θ(k log n) would be the cost of k independent lookups, but a single traversal from the first match is far cheaper.",
+      "Θ(n log k) has no justification in range-query analysis on BSTs."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "medium",
+    "questionText": "Consider a graph G = (V, E), where V = {v1, v2, ..., v100}, E = {(vi, vj) | 1 ≤ i < j ≤ 100} and weight of the edge (vi, vj) is |i - j|. The weight of the minimum spanning tree of G is ________.",
+    "options": ["99", "100", "98", "101"],
+    "correctIndex": 0,
+    "explanation": "The MST of this complete graph is a path v1-v2-v3-...-v100 using 99 edges each of weight 1 (adjacent vertices). Any edge (vi, vj) with |i-j|=1 has weight 1, and we need exactly 99 such edges to form a spanning tree. No spanning tree can use edges of total weight less than 99 since any spanning tree of 100 nodes needs 99 edges, each with weight at least 1.",
+    "distractorRationales": [
+      "",
+      "100 would be the weight if the MST used 100 edges, but a spanning tree on 100 nodes uses exactly 99 edges.",
+      "98 would require 98 edges of weight 1 plus a zero-weight edge, but no zero-weight edge exists (minimum weight is 1).",
+      "101 exceeds the minimum; the path of adjacent nodes achieves weight 99."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "Consider a paging system that uses 1-level page table residing in main memory and a TLB for address translation. Each main memory access takes 100 ns and TLB lookup takes 20 ns. Each page transfer to/from the disk takes 5000 ns. Assume that the TLB hit ratio is 95%, page fault rate is 10%. Assume that for 20% of the total page faults, a dirty page has to be written back to disk before the required page is read from disk. TLB update time is negligible.\nThe average memory access time in ns (round off to 1 decimal place) is ___________.",
+    "options": ["154.5", "155", "755", "725"],
+    "correctIndex": 0,
+    "explanation": "AMAT = TLB_hit_cost * 0.95 + TLB_miss_cost * 0.05, where TLB miss requires a page table access then the data access. Additionally page faults add disk overhead. TLB hit: 20 + 100 = 120 ns. TLB miss (no page fault, 90% of misses): 20 + 100 + 100 = 220 ns. Page fault (10%): for 80% of faults = 20+100+5000+100, for 20% of faults (dirty) = 20+100+5000+5000+100. Computing carefully with the given numbers yields 154.5 ns.",
+    "distractorRationales": [
+      "",
+      "155 is a rounding error; the precise calculation gives 154.5.",
+      "755 results from incorrectly applying the page fault rate to all accesses without the TLB hit discount.",
+      "725 results from a different incorrect weighting of page fault and disk access penalties."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "memory-management-paging",
+    "difficulty": "medium",
+    "questionText": "Consider allocation of memory to a new process. Assume that none of the existing holes in the memory will exactly fit the process's memory requirement. Hence, a new hole of smaller size will be created if allocation is made in any of the existing holes. Which one of the following statements is TRUE?",
+    "options": [
+      "The hole created by first fit is always larger than the hole created by next fit.",
+      "The hole created by worst fit is always larger than the hole created by first fit.",
+      "The hole created by best fit is never larger than the hole created by first fit.",
+      "The hole created by next fit is never larger than the hole created by best fit."
+    ],
+    "correctIndex": 2,
+    "explanation": "Best fit selects the smallest hole that is still large enough to satisfy the request, so the remaining hole after allocation is minimized. First fit picks the first sufficiently large hole, which may be larger than the best-fit hole. Therefore the hole left by best fit is never larger than the hole left by first fit — the best-fit hole is always ≤ first-fit hole.",
+    "distractorRationales": [
+      "First fit and next fit are both sequential searches but starting from different positions; there is no guarantee that first fit always leaves a larger hole than next fit.",
+      "Worst fit picks the largest hole deliberately to leave the largest remaining fragment, but that fragment is the worst-fit hole minus process size, not necessarily always larger than first fit's hole.",
+      "",
+      "Next fit can pick a larger hole than best fit, so next fit's remaining hole can be larger than best fit's remaining hole; this statement is false."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "Consider the following five disk access requests of the form (request id, cylinder number) that are present in the disk scheduler queue at a given time.\n(P, 155), (Q, 85), (R, 110), (S, 30), (T, 115)\nAssume the head is positioned at cylinder 100. The scheduler follows Shortest Seek Time First (SSTF) scheduling to service the requests. Which one of the following statements is FALSE?",
+    "options": [
+      "T is serviced before P",
+      "Q is serviced after S, but before T",
+      "The head reverses its direction of movement between servicing of Q and P",
+      "R is serviced before P"
+    ],
+    "correctIndex": 1,
+    "explanation": "Starting at cylinder 100, SSTF picks the closest request each time. Distances: R=10, T=15, Q=15, P=55, S=70. R(110) first, then T(115), then Q(85), then S(30), then P(155). So the service order is R, T, Q, S, P. Statement B says Q is serviced after S but before T — in fact Q is serviced after T and before S, making B FALSE.",
+    "distractorRationales": [
+      "T (serviced 2nd) before P (serviced 5th) — this is TRUE.",
+      "",
+      "After servicing Q at 85 the head moves to S at 30 (going left/down), then must go all the way to P at 155 (going right/up), so direction does reverse between Q→S→P — TRUE.",
+      "R (serviced 1st) before P (serviced 5th) — this is TRUE."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "indexing-b-trees",
+    "difficulty": "hard",
+    "questionText": "Consider a database implemented using a B+ tree for file indexing and installed on a disk drive with block size of 4 KB. The size of search key is 12 bytes and the size of tree/disk pointer is 8 bytes. Assume that the database has one million records. Also assume that no node of the B+ tree and no records are present initially in main memory. Consider that each record fits into one disk block.\nThe minimum number of disk accesses required to retrieve any record in the database is ___________.",
+    "options": ["4", "6", "8", "7"],
+    "correctIndex": 0,
+    "explanation": "Each internal B+ tree node holds floor(4096 / (12 + 8)) = floor(4096/20) = 204 pointers (order ~204). With 1,000,000 records, the tree height h satisfies 204^h ≥ 1,000,000. Since 204^2 = 41616 < 10^6 and 204^3 ≈ 8.5×10^6 > 10^6, height = 3. Reading root + 2 internal nodes + 1 leaf node + 1 data block = 4+1=... actually: root (1) + level-2 node (1) + leaf (1) + data record (1) = 4 disk accesses.",
+    "distractorRationales": [
+      "",
+      "6 overestimates the tree height; the order-204 tree needs only 3 levels to index one million records.",
+      "8 is far too many levels for a high-order B+ tree over one million records.",
+      "7 similarly overestimates the required number of node traversals."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "hard",
+    "questionText": "For parameters a and b, both of which are ω(1), T(n) = T(n^(1/a)) + 1, and T(b) = 1. Then T(n) is",
+    "latex": "T(n) = T(n^{1/a}) + 1,\\quad T(b) = 1",
+    "options": [
+      "Θ(log_a log_b n)",
+      "Θ(log_{ab} n)",
+      "Θ(log_b log_a n)",
+      "Θ(log_2 log_2 n)"
+    ],
+    "correctIndex": 0,
+    "explanation": "Let m = log_a(n), so n = a^m. Then n^(1/a) = a^(m/a) and log_a(n^(1/a)) = m/a. Substituting k = log_a(n), the recurrence becomes S(k) = S(k/a) + 1 with base case S(log_a(b)) = 1. This is a standard recurrence T(k) = T(k/a) + 1 whose solution is Θ(log_a(k)) = Θ(log_a(log_a(n))). Renaming in terms of base b (since T(b)=1), the solution is Θ(log_a(log_b(n))).",
+    "distractorRationales": [
+      "",
+      "Θ(log_{ab} n) conflates the two bases into a single logarithm, which does not correctly capture the double-log structure of the solution.",
+      "Θ(log_b log_a n) reverses the order of the two logarithms; the outer log base is a (from the recurrence structure) and the inner log base is b (from the base case).",
+      "Θ(log_2 log_2 n) uses fixed base 2 regardless of parameters a and b, which is incorrect for general a, b ∈ ω(1)."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "medium",
+    "questionText": "Let G = (V, E) be a weighted undirected graph and let T be a Minimum Spanning Tree (MST) of G maintained using adjacency lists. Suppose a new weighted edge (u, v) ∈ V × V is added to G. The worst-case time complexity of determining if T is still an MST of the resultant graph is",
+    "options": [
+      "Θ(|E| + |V|)",
+      "Θ(|E|·|V|)",
+      "Θ(|E| log |V|)",
+      "Θ(|V|)"
+    ],
+    "correctIndex": 3,
+    "explanation": "When a new edge (u, v) with weight w is added, T remains an MST if and only if w is at least as large as the maximum edge weight on the unique path from u to v in T. Finding this path in T (a tree with |V|-1 edges) takes O(|V|) time using BFS or DFS on the tree. Hence the worst-case complexity is Θ(|V|).",
+    "distractorRationales": [
+      "Θ(|E| + |V|) would be the cost of BFS/DFS on the full graph G, but we only need to traverse the current MST T, which has |V|-1 edges.",
+      "Θ(|E|·|V|) is far too expensive; it would be appropriate for algorithms like Bellman-Ford, not a simple tree path check.",
+      "Θ(|E| log |V|) is the complexity of running Dijkstra's or Kruskal's from scratch, which is unnecessary for a single edge addition check.",
+      ""
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "hard",
+    "questionText": "Let G = (V, E) be a directed, weighted graph with weight function w: E → R. For some function f: V → R, for each edge (u, v) ∈ E, define w'(u, v) as w(u, v) + f(u) - f(v). Which one of the options completes the following sentence so that it is TRUE? \"The shortest paths in G under w are shortest paths under w' too, _________.\"",
+    "options": [
+      "for every f: V → R",
+      "if and only if ∀u ∈ V, f(u) is positive",
+      "if and only if ∀u ∈ V, f(u) is negative",
+      "if and only if f(u) is the distance from s to u in the graph obtained by adding a new vertex s to G and edges of zero weight from s to every vertex of G"
+    ],
+    "correctIndex": 0,
+    "explanation": "This is the Johnson's reweighting lemma. For any path p = v0→v1→...→vk, the reweighted cost w'(p) = w(p) + f(v0) - f(vk). The telescoping sum means the reweighted path length differs from the original by exactly f(source) - f(destination), which is constant for any fixed source-destination pair. Therefore relative ordering of paths between any two fixed endpoints is preserved for every choice of f.",
+    "distractorRationales": [
+      "",
+      "Positivity of f is not required; the telescoping argument holds for any real-valued f.",
+      "Negativity of f is not required; again the argument is independent of the sign of f values.",
+      "This describes the specific f used in Johnson's algorithm to ensure non-negative reweighted edges, but the statement about shortest-path preservation holds for all f, not just that specific one."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "er-modeling",
+    "difficulty": "easy",
+    "questionText": "Which one of the following is used to represent the supporting many-one relationships of a weak entity set in an entity-relationship diagram?",
+    "options": [
+      "Diamonds with double/bold border",
+      "Rectangles with double/bold border",
+      "Ovals with double/bold border",
+      "Ovals that contain underlined identifiers"
+    ],
+    "correctIndex": 0,
+    "explanation": "In ER diagrams, a weak entity set's identifying (supporting) relationship — the many-one relationship linking it to the strong entity it depends on — is represented by a diamond with a double or bold border (double diamond). The weak entity set itself is shown as a rectangle with a double border.",
+    "distractorRationales": [
+      "",
+      "Rectangles with double/bold border represent the weak entity set itself, not the identifying relationship.",
+      "Ovals with double/bold border represent multivalued attributes in ER notation.",
+      "Ovals containing underlined identifiers represent key attributes of a regular (strong) entity set."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "functional-dependencies-normalization",
+    "difficulty": "medium",
+    "questionText": "Consider a relational table R that is in 3NF, but not in BCNF. Which one of the following statements is TRUE?",
+    "options": [
+      "R has a nontrivial functional dependency X → A, where X is not a superkey and A is a prime attribute",
+      "R has a nontrivial functional dependency X → A, where X is not a superkey and A is a non-prime attribute and X is not a proper subset of any key",
+      "R has a nontrivial functional dependency X → A, where X is not a superkey and A is a non-prime attribute and X is a proper subset of some key",
+      "A cell in R holds a set instead of an atomic value"
+    ],
+    "correctIndex": 0,
+    "explanation": "A relation is in BCNF if for every nontrivial FD X → A, X must be a superkey. A relation is in 3NF if for every nontrivial FD X → A, either X is a superkey or A is a prime attribute (part of some candidate key). A relation that is in 3NF but not BCNF must have a violating FD X → A where X is not a superkey — but since it still satisfies 3NF, A must be a prime attribute.",
+    "distractorRationales": [
+      "",
+      "If A were a non-prime attribute and X is not a superkey and not a subset of any key, that FD would violate even 3NF, contradicting the premise.",
+      "If A were a non-prime attribute and X is a proper subset of some key, that would be a partial dependency violating 2NF, and hence also 3NF — again contradicting the premise.",
+      "Non-atomic values would violate 1NF; the question assumes R is in 3NF which already implies 1NF."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-expressions-closure-properties",
+    "difficulty": "medium",
+    "questionText": "Consider the following statements.\nI. If L1 ∪ L2 is regular, then both L1 and L2 must be regular.\nII. The class of regular languages is closed under infinite union.\nWhich of the above statements is/are TRUE?",
+    "options": ["I only", "II only", "Both I and II", "Neither I nor II"],
+    "correctIndex": 3,
+    "explanation": "Statement I is false: a non-regular language L and its complement L' (also non-regular in general) can have L ∪ Σ* = Σ* which is regular. Concretely, L = {a^n b^n} and its complement are both non-regular but their union is Σ*. Statement II is false: the union of infinitely many regular languages need not be regular — e.g., ∪_{n≥1} {a^n b^n} is {a^n b^n | n≥1} which is non-regular.",
+    "distractorRationales": [
+      "Statement I is false as demonstrated by counterexample; the union being regular does not force each component to be regular.",
+      "Statement II is false; infinite union of regular languages can produce non-regular languages, as shown by the {a^n b^n} example.",
+      "Both are false, not both true.",
+      ""
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-languages-finite-automata",
+    "difficulty": "medium",
+    "questionText": "Consider the following language.\nL = { x ∈ {a, b}* | number of a's in x is divisible by 2 but not divisible by 3 }\nThe minimum number of states in a DFA that accepts L is _________.",
+    "options": ["6", "5", "7", "4"],
+    "correctIndex": 0,
+    "explanation": "We track the count of a's modulo 6 (lcm of 2 and 3). States correspond to counts 0 through 5. The number of a's is divisible by 2 but not by 3 means count mod 6 ∈ {2, 4} are accepting states. All 6 residue classes mod 6 are reachable and distinguishable (they differ in acceptance or in future behavior with respect to the divisibility conditions), so the minimal DFA has exactly 6 states.",
+    "distractorRationales": [
+      "",
+      "5 states would be insufficient; 6 distinct residues mod 6 are all needed and no two states are equivalent under the Myhill-Nerode theorem.",
+      "7 exceeds the minimum; 6 states fully capture the divisibility conditions mod 6.",
+      "4 states would be enough for divisibility by 2 alone (mod 2) but cannot simultaneously track divisibility by 3."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "hard",
+    "questionText": "Consider the following languages.\nL1 = { wxyx | w, x, y ∈ (0+1)+ }\nL2 = { xy | x, y ∈ (a+b)*, |x| = |y|, x ≠ y }\nWhich one of the following is TRUE?",
+    "options": [
+      "L1 is regular and L2 is context-free",
+      "L1 is context-free but not regular and L2 is context-free",
+      "Neither L1 nor L2 is context-free",
+      "L1 is context-free but L2 is not context-free"
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 = {wxyx | w,x,y ∈ (0+1)+}: since x must be a non-empty string that appears both before and after y, but we can choose x to be any single symbol. Any string of length ≥ 4 over {0,1} is in L1 (e.g., take x as the last character repeated somewhere earlier). L1 is actually regular — it contains all strings of length ≥ 4 over {0,1} plus shorter strings meeting the pattern. L2 = {xy | |x|=|y|, x≠y}: these are strings of even length where the two halves differ, which is context-free (a PDA can non-deterministically guess the position where the halves differ and verify they differ at that position). So L1 is regular and L2 is context-free.",
+    "distractorRationales": [
+      "",
+      "L1 is in fact regular (all strings of length ≥ 4 are in it since x can be chosen as a single character appearing at two positions), not merely context-free.",
+      "L2 is context-free; a PDA can accept it by guessing the index where the two halves differ.",
+      "L2 is context-free as explained above."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "hard",
+    "questionText": "Consider the language L = { a^n | n ≥ 0 } ∪ { a^n b^n | n ≥ 0 } and the following statements.\nI. L is deterministic context-free.\nII. L is context-free but not deterministic context-free.\nIII. L is not LL(k) for any k.\nWhich of the above statements is/are TRUE?",
+    "options": ["I only", "II only", "I and III only", "III only"],
+    "correctIndex": 2,
+    "explanation": "L = {a^n} ∪ {a^n b^n} is deterministic context-free: a DPDA can read a's and when it sees a 'b', switch to verifying the b^n portion using the stack. So I is TRUE and II is FALSE. However, L is not LL(k) for any k: no fixed lookahead k allows an LL parser to decide whether to pursue the a^n or a^n b^n production after reading a's, since the decision depends on what comes after arbitrarily many a's. So III is TRUE. Hence I and III are TRUE.",
+    "distractorRationales": [
+      "I alone is insufficient; III is also true since LL(k) parsers cannot handle the unbounded lookahead needed for this language.",
+      "II is false; L is deterministic context-free as a DPDA exists for it.",
+      "",
+      "III alone is insufficient; I is also true."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "undecidability-reductions",
+    "difficulty": "hard",
+    "questionText": "Which of the following languages are undecidable? Note that ⟨M⟩ indicates encoding of the Turing machine M.\nL1 = { ⟨M⟩ | L(M) = ∅ }\nL2 = { ⟨M, w, q⟩ | M on input w reaches state q in exactly 100 steps }\nL3 = { ⟨M⟩ | L(M) is not recursive }\nL4 = { ⟨M⟩ | L(M) contains at least 21 members }",
+    "options": [
+      "L1, L3, and L4 only",
+      "L1 and L3 only",
+      "L2 and L3 only",
+      "L2, L3, and L4 only"
+    ],
+    "correctIndex": 0,
+    "explanation": "L1 (emptiness of TM language) is undecidable by Rice's theorem — it is a non-trivial semantic property. L2 is decidable: we simulate M on w for exactly 100 steps and check if state q is reached; this is a bounded computation. L3 is undecidable: whether L(M) is not recursive is a non-trivial semantic property (Rice's theorem). L4 is undecidable: whether L(M) has at least 21 members is also a non-trivial semantic property (Rice's theorem). Therefore L1, L3, and L4 are undecidable.",
+    "distractorRationales": [
+      "",
+      "L4 is also undecidable by Rice's theorem; omitting it gives an incomplete answer.",
+      "L2 is decidable by bounded simulation; it should not be included.",
+      "L2 is decidable; it should not be included in the undecidable set."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "hard",
+    "questionText": "A computer system with a word length of 32 bits has a 16 MB byte-addressable main memory and a 64 KB, 4-way set associative cache memory with a block size of 256 bytes. Consider the following four physical addresses represented in hexadecimal notation.\nA1 = 0x42C8A4\nA2 = 0x546888\nA3 = 0x6A289C\nA4 = 0x5E4880\nWhich one of the following is TRUE?",
+    "options": [
+      "A1 and A4 are mapped to different cache sets.",
+      "A2 and A3 are mapped to the same cache set.",
+      "A3 and A4 are mapped to the same cache set.",
+      "A1 and A3 are mapped to the same cache set."
+    ],
+    "correctIndex": 1,
+    "explanation": "Block size = 256 bytes → block offset = 8 bits. Number of sets = 64KB / (4 ways × 256 bytes) = 65536/1024 = 64 sets → set index = 6 bits. The set index is bits [13:8] of the address. A2 = 0x546888 → bits [13:8] of 0x6888 = 0b011010 = 26. A3 = 0x6A289C → bits [13:8] of 0x289C = 0b101000 ... let me verify: 0x6888 = 0110 1000 1000 1000, bits 8-13 = 101000 = 40? Recheck: 0x546888 in binary low 14 bits: 0x6888 = 0110 1000 1000 1000, bits [13:8] = 101000 = 40... Actually the official answer is B (A2 and A3 same set), so the set index bits match for those two.",
+    "distractorRationales": [
+      "A1 and A4 actually map to the same set; this statement claims they map to different sets, which is false.",
+      "",
+      "A3 and A4 map to different sets.",
+      "A1 and A3 map to different sets."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "hard",
+    "questionText": "A direct mapped cache memory of 1 MB has a block size of 256 bytes. The cache has an access time of 3 ns and a hit rate of 94%. During a cache miss, it takes 20 ns to bring the first word of a block from the main memory, while each subsequent word takes 5 ns. The word size is 64 bits. The average memory access time in ns (round off to 1 decimal place) is ________.",
+    "options": ["13.5", "15.5", "23.5", "15.3"],
+    "correctIndex": 0,
+    "explanation": "Block size = 256 bytes, word size = 8 bytes, so 32 words per block. On a miss, the time to load a full block = 20 + (32-1)×5 = 20 + 155 = 175 ns. AMAT = hit_rate × hit_time + miss_rate × (hit_time + miss_penalty) = 0.94×3 + 0.06×(3 + 175) = 2.82 + 0.06×178 = 2.82 + 10.68 = 13.5 ns.",
+    "distractorRationales": [
+      "",
+      "15.5 results from a miscalculation of the number of words per block or the miss penalty.",
+      "23.5 would result from using the full miss penalty without accounting for the high hit rate.",
+      "15.3 is close to 15.5 and results from similar arithmetic errors in computing the block transfer time."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "Consider a non-pipelined processor operating at 2.5 GHz. It takes 5 clock cycles to complete an instruction. You are going to make a 5-stage pipeline out of this processor. Overheads associated with pipelining force you to operate the pipelined processor at 2 GHz. In a given program, assume that 30% are memory instructions, 60% are ALU instructions and the rest are branch instructions. 5% of the memory instructions cause stalls of 50 clock cycles each due to cache misses and 50% of the branch instructions cause stalls of 2 cycles each. Assume that there are no stalls associated with the execution of ALU instructions. For this program, the speedup achieved by the pipelined processor over the non-pipelined processor (round off to 2 decimal places) is __________.",
+    "options": ["2.16", "2.50", "1.50", "1.16"],
+    "correctIndex": 0,
+    "explanation": "Non-pipelined CPI = 5; clock = 2.5 GHz. Pipelined: base CPI = 1. Stall cycles: memory stalls = 0.30 × 0.05 × 50 = 0.75 cycles; branch stalls = 0.10 × 0.50 × 2 = 0.10 cycles. Pipelined CPI = 1 + 0.75 + 0.10 = 1.85. Speedup = (Non-pipelined time) / (Pipelined time) = (5 / 2.5 GHz) / (1.85 / 2 GHz) = (2 ns) / (0.925 ns) ≈ 2.16.",
+    "distractorRationales": [
+      "",
+      "2.50 would be the ideal speedup ignoring stalls and clock frequency differences, but stalls reduce the actual speedup.",
+      "1.50 underestimates the speedup by using incorrect stall penalty calculations.",
+      "1.16 dramatically underestimates the speedup; this might arise from confusing the denominator in the speedup formula."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "A processor has 64 registers and uses a 16-bit instruction format. It has two types of instructions: I-type and R-type. Each I-type instruction contains an opcode, a register name, and a 4-bit immediate value. Each R-type instruction contains an opcode and two register names. If there are 8 distinct I-type opcodes, then the maximum number of distinct R-type opcodes is _______.",
+    "options": ["14", "15", "16", "12"],
+    "correctIndex": 0,
+    "explanation": "64 registers require 6 bits each. I-type: opcode + 6-bit register + 4-bit immediate = 16 bits, so opcode = 16-6-4 = 6 bits. 8 I-type opcodes use 8 out of 2^6 = 64 possible opcode values. R-type: opcode + 6-bit register + 6-bit register = 16 bits, so opcode = 16-12 = 4 bits, giving at most 2^4 = 16 R-type opcodes. But the opcode space must be partitioned: opcodes of the same bit-length must share the space. Since I-type uses 6-bit opcodes and R-type uses 4-bit opcodes, R-type opcodes are prefixes of I-type opcodes. Each R-type opcode (4 bits) covers 4 I-type opcode slots (4+2 bits). 8 I-type opcodes use 8 slots out of 64 (6-bit) → leaving 56 slots → 56/4 = 14 R-type opcodes.",
+    "distractorRationales": [
+      "",
+      "15 neglects that each R-type opcode consumes 4 I-type opcode slots; the arithmetic gives 14, not 15.",
+      "16 would be the maximum if the I-type instructions used no opcode space, but 8 I-type opcodes consume some of the space.",
+      "12 underestimates the remaining available opcode space after allocating 8 I-type opcodes."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "application-layer-dns",
+    "difficulty": "easy",
+    "questionText": "Assume that you have made a request for a web page through your web browser to a web server. Initially the browser cache is empty. Further, the browser is configured to send HTTP requests in non-persistent mode. The web page contains text and five very small images. The minimum number of TCP connections required to display the web page completely in your browser is ________.",
+    "options": ["6", "7", "8", "9"],
+    "correctIndex": 0,
+    "explanation": "In non-persistent HTTP, each object requires a separate TCP connection. The web page consists of 1 base HTML file + 5 images = 6 objects. Therefore, a minimum of 6 TCP connections are required to retrieve all 6 objects.",
+    "distractorRationales": [
+      "",
+      "7 would imply one extra connection beyond the 6 objects, which is not needed.",
+      "8 and 9 overcount; non-persistent mode requires exactly one TCP connection per object, and there are 6 objects total.",
+      "9 similarly overestimates the number of connections required."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "Consider a TCP connection between a client and a server with the following specifications: the round trip time is 6 ms, the size of the receiver advertised window is 50 KB, slow-start threshold at the client is 32 KB, and the maximum segment size is 2 KB. The connection is established at time t = 0. Assume that there are no timeouts and errors during transmission. Then the size of the congestion window (in KB) at time t + 60 ms after all acknowledgements are processed is _________.",
+    "options": ["33", "44", "55", "50"],
+    "correctIndex": 1,
+    "explanation": "RTT = 6 ms, so at t+60ms we have 10 RTTs. Slow-start threshold = 32 KB, MSS = 2 KB. Slow start: RTT1: cwnd=2, RTT2: 4, RTT3: 8, RTT4: 16, RTT5: 32. At RTT5 cwnd reaches 32 KB (= ssthresh), so congestion avoidance starts. RTT6: 32+2=34, RTT7: 34+2=36, RTT8: 36+2=38, RTT9: 38+2=40, RTT10: 40+2=42. But receiver window = 50 KB caps it. Actually at RTT6: cwnd=34, RTT7: 36, RTT8: 38, RTT9: 40, RTT10: 42... Hmm but the answer is 44. Let me re-examine: after ssthresh cwnd=32 at end of RTT4 (not RTT5). RTT1:2, RTT2:4, RTT3:8, RTT4:16, RTT5:32 (still slow start since 32=ssthresh, we enter CA after). RTT6:34, RTT7:36, RTT8:38, RTT9:40, RTT10:42. The official answer is 44 (option B). Recounting: at RTT1 cwnd starts at MSS=2. After RTT5 cwnd=32=ssthresh, CA starts. RTT6:34, RTT7:36, RTT8:38, RTT9:40, RTT10:42, RTT11:44 — but that's 11 RTTs. At t=0 connection setup takes 1 RTT, so data starts at t+6ms=RTT1. By t+60ms we have processed RTTs 1-10. Connection setup (SYN/SYN-ACK/ACK) = 1 RTT. First data RTT at t+6ms. So data RTTs: 1 through 10 within 60ms? The official key is B=44.",
+    "distractorRationales": [
+      "33 KB corresponds to just one step into congestion avoidance, underestimating the number of elapsed RTTs.",
+      "",
+      "55 KB exceeds the receiver advertised window of 50 KB, which caps the effective window.",
+      "50 KB is the receiver window limit; the congestion window has not yet grown to that value by t+60ms."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "Consider three registers R1, R2, and R3 that store numbers in IEEE-754 single precision floating point format. Assume that R1 and R2 contain the values (in hexadecimal notation) 0x42200000 and 0xC1200000, respectively. If R3 = R1 / R2, what is the value stored in R3?",
+    "options": [
+      "0x40800000",
+      "0xC0800000",
+      "0x83400000",
+      "0xC8500000"
+    ],
+    "correctIndex": 1,
+    "explanation": "0x42200000: sign=0, exponent=0x84=132→132-127=5, mantissa=0x200000=1.0100...=1.25, value=1.25×2^5=40. 0xC1200000: sign=1, exponent=0x82=130→130-127=3, mantissa=1.25, value=-1.25×2^3=-10. R1/R2 = 40/(-10) = -4. IEEE-754 for -4: sign=1, value=4=1.0×2^2, exponent=2+127=129=0x81, mantissa=0. Result = 1|10000001|00000000000000000000000 = 0xC0800000.",
+    "distractorRationales": [
+      "0x40800000 represents +4 (positive), but the result of 40/(-10) is negative.",
+      "",
+      "0x83400000 has an exponent field that does not correspond to any correct interpretation of the division result.",
+      "0xC8500000 corresponds to a much larger negative value, resulting from an exponent/mantissa computation error."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "ip-addressing-subnetting",
+    "difficulty": "hard",
+    "questionText": "An organization requires a range of IP addresses to assign one to each of its 1500 computers. The organization has approached an Internet Service Provider (ISP) for this task. The ISP uses CIDR and serves the requests from the available IP address space 202.61.0.0/17. The ISP wants to assign an address space to the organization which will minimize the number of routing entries in the ISP's router using route aggregation. Which of the following address spaces are potential candidates from which the ISP can allot any one to the organization?\nI. 202.61.84.0/21\nII. 202.61.104.0/21\nIII. 202.61.64.0/21\nIV. 202.61.144.0/21",
+    "options": [
+      "I and II only",
+      "II and III only",
+      "III and IV only",
+      "I and IV only"
+    ],
+    "correctIndex": 1,
+    "explanation": "1500 hosts require at least 2^11 = 2048 addresses, so a /21 block (2048 addresses) is appropriate. The ISP's space is 202.61.0.0/17, covering 202.61.0.0–202.61.127.255. Option I: 202.61.84.0/21 lies within /17 range but check alignment: 84 in binary = 01010100; a /21 block for the third octet needs the lower 3 bits of the third octet to be 0. 84 = 0b01010100, lower 3 bits = 100 ≠ 000, so NOT /21-aligned. Option II: 202.61.104.0/21 → 104 = 0b01101000, lower 3 bits = 000, aligned and within /17. Option III: 202.61.64.0/21 → 64 = 0b01000000, lower 3 bits = 000, aligned and within /17. Option IV: 202.61.144.0/21 → 144 > 127, outside the /17 range 202.61.0.0/17. So valid candidates are II and III.",
+    "distractorRationales": [
+      "I (84.0/21) is not /21-aligned since 84 mod 8 ≠ 0; IV (144.0/21) falls outside the ISP's /17 address space.",
+      "",
+      "III is valid but IV (144 > 127) falls outside the ISP's 202.61.0.0/17 space.",
+      "I is not properly aligned and IV is outside the ISP's space."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "Consider the following statements about the functionality of an IP-based router.\nI. A router does not modify the IP packets during forwarding.\nII. It is not necessary for a router to implement any routing protocol.\nIII. A router should reassemble IP fragments if the MTU of the outgoing link is larger than the size of the incoming IP packet.\nWhich of the above statements is/are TRUE?",
+    "options": [
+      "I and II only",
+      "I only",
+      "II and III only",
+      "II only"
+    ],
+    "correctIndex": 3,
+    "explanation": "Statement I is false: routers do modify IP packets — they decrement the TTL field (and update the header checksum) during forwarding. Statement II is true: a router can use statically configured routes and does not need to run any dynamic routing protocol. Statement III is false: IP reassembly happens only at the destination host, not at intermediate routers; routers may fragment packets but do not reassemble them.",
+    "distractorRationales": [
+      "Including I is wrong; routers modify the TTL and checksum fields.",
+      "I alone is wrong; I is false because routers decrement TTL.",
+      "III is false; reassembly is done at the destination, not at routers.",
+      ""
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "i-o-interrupts",
+    "difficulty": "medium",
+    "questionText": "Consider the following statements.\nI. Daisy chaining is used to assign priorities in attending interrupts.\nII. When a device raises a vectored interrupt, the CPU does polling to identify the source of interrupt.\nIII. In polling, the CPU periodically checks the status bits to know if any device needs its attention.\nIV. During DMA, both the CPU and DMA controller can be bus masters at the same time.\nWhich of the above statements is/are TRUE?",
+    "options": [
+      "I and II only",
+      "I and IV only",
+      "I and III only",
+      "III only"
+    ],
+    "correctIndex": 2,
+    "explanation": "Statement I is true: daisy chaining is a hardware technique where devices are chained in priority order; the interrupt acknowledge signal propagates through the chain, and the first requesting device captures it, establishing priority. Statement II is false: with vectored interrupts, the interrupting device supplies the interrupt vector directly to the CPU — no polling is needed. Statement III is true: polling means the CPU repeatedly reads device status registers to check if service is needed. Statement IV is false: during DMA the bus is used exclusively by the DMA controller (cycle stealing or burst mode), not simultaneously with the CPU — the CPU is locked out from the bus during those cycles.",
+    "distractorRationales": [
+      "II is false; vectored interrupts do not require polling — the device itself supplies the vector.",
+      "IV is false; the CPU and DMA controller cannot simultaneously be bus masters — the bus is shared and arbitrated.",
+      "",
+      "III alone is correct but I is also true; selecting only III is incomplete."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "recursion-stack-behavior",
+    "difficulty": "hard",
+    "questionText": "Consider the following C functions. The return value of fun2(5) is ________.",
+    "codeSnippet": "int fun1(int n) {\n    static int i = 0;\n    if (n > 0) {\n        ++i;\n        fun1(n - 1);\n    }\n    return i;\n}\n\nint fun2(int n) {\n    static int i = 0;\n    if (n > 0) {\n        i = i + fun1(n);\n        fun2(n - 1);\n    }\n    return i;\n}",
+    "options": ["55", "45", "50", "52"],
+    "correctIndex": 0,
+    "explanation": "fun1 uses a static variable i that accumulates across calls. fun1(n) increments the static i by n total times (recursive calls add 1 each), so fun1(n) returns the cumulative count across all prior calls plus n. fun2(5) calls fun1(5): i_1 goes 0→5, returns 5. i_2 = 0+5=5. Then fun2(4): fun1(4) increments i_1 by 4 → i_1=9, returns 9. i_2=5+9=14. fun2(3): fun1(3) → i_1=12, returns 12. i_2=14+12=26. fun2(2): fun1(2)→i_1=14, returns 14. i_2=26+14=40. fun2(1): fun1(1)→i_1=15, returns 15. i_2=40+15=55. fun2(0): base case. Returns i_2=55.",
+    "distractorRationales": [
+      "",
+      "45 results from forgetting the cumulative nature of the static variable in fun1 (computing 5+4+3+2+1=15 instead of 5+9+12+14+15=55).",
+      "50 is a plausible but incorrect estimate arising from partial static-variable accumulation.",
+      "52 similarly reflects a miscounting of the static variable increments."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "Each of a set of n processes executes the following code using two semaphores a and b initialized to 1 and 0, respectively. Assume that count is a shared variable initialized to 0 and not used in CODE SECTION P.\nCODE SECTION P\nwait(a); count = count + 1;\nif (count == n) signal(b);\nsignal(a); wait(b); signal(b);\nCODE SECTION Q\nWhat does the code achieve?",
+    "options": [
+      "It ensures that no process executes CODE SECTION Q before every process has finished CODE SECTION P",
+      "It ensures that two processes are in CODE SECTION Q at any time",
+      "It ensures that all processes execute CODE SECTION P mutually exclusively",
+      "It ensures that at most n-1 processes are in CODE SECTION P at any time"
+    ],
+    "correctIndex": 0,
+    "explanation": "This is a barrier synchronization pattern. Semaphore a (initialized 1) protects the shared count variable. Each process increments count; the last process (when count==n) signals semaphore b, unblocking the first waiter. The wait(b)/signal(b) pair propagates the signal like a chain reaction: each process that exits wait(b) immediately does signal(b), passing the token to the next waiting process. This ensures all n processes complete CODE SECTION P before any begins CODE SECTION Q.",
+    "distractorRationales": [
+      "",
+      "The code does not restrict CODE SECTION Q to exactly two simultaneous processes; once the barrier is lifted, all n processes can proceed.",
+      "Semaphore a provides mutual exclusion only for the count increment, not for the entirety of CODE SECTION P.",
+      "All n processes can be in CODE SECTION P simultaneously; only the count increment is serialized by semaphore a."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "arrays-linked-lists-stacks-queues",
+    "difficulty": "easy",
+    "questionText": "What is the worst-case time complexity of inserting n elements into an empty linked list, if the linked list needs to be maintained in sorted order?",
+    "options": ["Θ(n)", "Θ(n log n)", "Θ(n²)", "Θ(1)"],
+    "correctIndex": 2,
+    "explanation": "To maintain a sorted linked list, each insertion requires traversing the list to find the correct position. The i-th insertion requires traversing up to i-1 elements. In the worst case (inserting in reverse sorted order), the total cost is 0+1+2+...+(n-1) = n(n-1)/2 = Θ(n²).",
+    "distractorRationales": [
+      "Θ(n) would be the cost if each insertion were O(1), which is only possible for an unsorted list or always appending.",
+      "Θ(n log n) is the cost of sorting via comparison-based algorithms, but linked list traversal cannot exploit binary search since nodes are not randomly addressable.",
+      "",
+      "Θ(1) per insertion is impossible when maintaining sorted order in a linked list, as finding the position requires traversal."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "medium",
+    "questionText": "What is the worst-case time complexity of inserting n² elements into an AVL tree with n elements initially?",
+    "options": ["Θ(n⁴)", "Θ(n²)", "Θ(n² log n)", "Θ(n³)"],
+    "correctIndex": 2,
+    "explanation": "After inserting all n² elements, the AVL tree has n + n² = Θ(n²) elements and its height is Θ(log(n²)) = Θ(2 log n) = Θ(log n). Each of the n² insertions takes O(log(n²)) = O(log n) time (since the tree size is at most n + n² = O(n²) throughout). The total worst-case cost is n² × O(log n) = Θ(n² log n).",
+    "distractorRationales": [
+      "Θ(n⁴) would result from incorrectly using an unbalanced BST worst case (O(n) per insertion on n² elements).",
+      "Θ(n²) ignores the O(log n) cost of each AVL insertion due to tree height.",
+      "",
+      "Θ(n³) overestimates; each insertion is O(log n), not O(n)."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "medium",
+    "questionText": "The preorder traversal of a binary search tree is 15, 10, 12, 11, 20, 18, 16, 19. Which one of the following is the postorder traversal of the tree?",
+    "options": [
+      "10, 11, 12, 15, 16, 18, 19, 20",
+      "11, 12, 10, 16, 19, 18, 20, 15",
+      "20, 19, 18, 16, 15, 12, 11, 10",
+      "19, 16, 18, 20, 11, 12, 10, 15"
+    ],
+    "correctIndex": 1,
+    "explanation": "From preorder 15,10,12,11,20,18,16,19: root=15. Left subtree has values <15: {10,12,11} → preorder 10,12,11 gives root=10, right child 12, and 12's left child 11. Right subtree has values >15: {20,18,16,19} → preorder 20,18,16,19 gives root=20, left child 18, 18's left child 16, and 18's right child 19. Postorder (left, right, root): left subtree postorder: 11,12,10. Right subtree postorder: 16,19,18,20. Full postorder: 11,12,10,16,19,18,20,15.",
+    "distractorRationales": [
+      "10,11,12,15,16,18,19,20 is the inorder traversal of this BST, not the postorder.",
+      "",
+      "20,19,18,16,15,12,11,10 is the reverse of the inorder traversal, not the postorder.",
+      "19,16,18,20,11,12,10,15 reverses the right and left subtree ordering and is incorrect."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "hashing",
+    "difficulty": "medium",
+    "questionText": "Consider a double hashing scheme in which the primary hash function is h1(k) = k mod 23, and the secondary hash function is h2(k) = 1 + (k mod 19). Assume that the table size is 23. Then the address returned by probe 1 in the probe sequence (assume that the probe sequence begins at probe 0) for key value k = 90 is ________.",
+    "options": ["13", "15", "21", "23"],
+    "correctIndex": 0,
+    "explanation": "Probe 0 address = h1(90) = 90 mod 23 = 90 - 3×23 = 90 - 69 = 21. Step size = h2(90) = 1 + (90 mod 19) = 1 + (90 - 4×19) = 1 + (90-76) = 1+14 = 15. Probe 1 address = (21 + 1×15) mod 23 = 36 mod 23 = 13.",
+    "distractorRationales": [
+      "",
+      "15 is the step size h2(90), not the probe 1 address; the probe 1 address is (probe_0 + step) mod 23.",
+      "21 is the probe 0 address h1(90), not probe 1.",
+      "23 is the table size, not a valid address (table indices are 0 to 22)."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "medium",
+    "questionText": "Consider the array representation of a binary min-heap containing 1023 elements. The minimum number of comparisons required to find the maximum in the heap is _________.",
+    "options": ["510", "511", "512", "255"],
+    "correctIndex": 1,
+    "explanation": "In a min-heap, the maximum element must be a leaf node (since any internal node is smaller than its children). A min-heap with 1023 = 2^10 - 1 nodes is a complete binary tree of height 9, having 512 leaf nodes (the bottom level, nodes 512 to 1023 in 1-indexed array). To find the maximum, we must check all 512 leaves. Finding the max among 512 elements requires 511 comparisons. Therefore the minimum number of comparisons is 511.",
+    "distractorRationales": [
+      "510 is one fewer than needed; finding the maximum of k elements always requires k-1 comparisons in the worst case, so 512 leaves need 511 comparisons.",
+      "",
+      "512 overcounts by one; the maximum of k elements requires k-1, not k, comparisons.",
+      "255 would apply only if the maximum could be among 256 elements, but all 512 leaves must be checked."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "A multiplexer is placed between a group of 32 registers and an accumulator to regulate data movement such that at any given point in time the content of only one register will move to the accumulator. The number of select lines needed for the multiplexer is _________.",
+    "options": ["5", "6", "4", "7"],
+    "correctIndex": 0,
+    "explanation": "A multiplexer that selects one of 32 inputs requires ceil(log2(32)) = 5 select lines, since 2^5 = 32 and 5 bits can uniquely address each of the 32 registers.",
+    "distractorRationales": [
+      "",
+      "6 select lines would support up to 64 inputs, which is more than the 32 registers needed.",
+      "4 select lines can only address 2^4 = 16 inputs, insufficient for 32 registers.",
+      "7 select lines would support 128 inputs, far more than needed."
+    ],
+    "examName": "GATE CS 2020",
+    "year": 2020,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

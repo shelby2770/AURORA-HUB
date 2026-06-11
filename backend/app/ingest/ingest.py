@@ -81,6 +81,10 @@ async def ingest_items(
             report.skipped.append({"source": item.source_name, "reason": f"parse: {e}"})
             continue
 
+        if pq.courseSlug == "none":
+            report.skipped.append({"source": item.source_name, "reason": "out-of-scope (courseSlug=none)"})
+            continue
+
         course = by_course.get(pq.courseSlug)
         if course is None:
             report.skipped.append({"source": item.source_name, "reason": f"unknown course '{pq.courseSlug}'"})

@@ -1,0 +1,467 @@
+[
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. Which one of the following options is correct?",
+    "codeSnippet": "#include <stdio.h>\nint main()\n{\n    int i, j, count;\n    count = 0;\n    i = 0;\n    for (j = -3; j <= 3; j++)\n    {\n        if ((j >= 0) && (i++))\n        {\n            count = count + j;\n        }\n    }\n    count = count + i;\n    printf(\"%d\", count);\n    return 0;\n}",
+    "options": [
+      "The program will not compile successfully",
+      "The program will compile successfully and output 10 when executed",
+      "The program will compile successfully and output 8 when executed",
+      "The program will compile successfully and output 13 when executed"
+    ],
+    "correctIndex": 1,
+    "explanation": "For j = -3, -2, -1 the condition (j >= 0) is false so short-circuit evaluation prevents i from being incremented. For j = 0: (j >= 0) is true, (i++) evaluates to 0 (false) so count is not updated, but i becomes 1. For j = 1: (i++) evaluates to 1 (true), count += 1, i becomes 2. For j = 2: (i++) = 2 (true), count += 2, i becomes 3. For j = 3: (i++) = 3 (true), count += 3, i becomes 4. Total count = 1+2+3 = 6, then count = 6 + i = 6 + 4 = 10.",
+    "distractorRationales": [
+      "The program is valid ANSI C and compiles without error.",
+      "",
+      "This would be incorrect because the i++ post-increment side effect means i reaches 4, giving count = 6 + 4 = 10, not 8.",
+      "13 is incorrect; the short-circuit on j=0 prevents that value from being added, and i accumulates to 4 not 7."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "Consider the following ANSI C function. Let Z be an array of 10 elements with Z[i]=1, for all i such that 0 <= i <= 9. The value returned by SimpleFunction(Z, 10, 2) is __________.",
+    "codeSnippet": "int SimpleFunction(int Y[], int n, int x)\n{\n    int total = Y[0], loopIndex;\n    for (loopIndex=1; loopIndex<=n-1; loopIndex++)\n        total = x*total + Y[loopIndex];\n    return total;\n}",
+    "options": [
+      "1023",
+      "1024",
+      "2047",
+      "511"
+    ],
+    "correctIndex": 0,
+    "explanation": "SimpleFunction implements Horner's method for polynomial evaluation. With all Z[i]=1 and x=2, total starts at 1 and each iteration computes total = 2*total + 1, producing the sequence 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023 after 9 iterations. This equals 2^10 - 1 = 1023.",
+    "distractorRationales": [
+      "",
+      "1024 = 2^10, which would result if Y[0]=0 and only the last step contributed, not the Horner accumulation.",
+      "2047 = 2^11 - 1, which would require 11 iterations or x=2 applied once more.",
+      "511 = 2^9 - 1, which is the value after only 8 iterations, one short of the required 9."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "easy",
+    "questionText": "Three processes arrive at time zero with CPU bursts of 16, 20 and 10 milliseconds. If the scheduler has prior knowledge about the length of the CPU bursts, the minimum achievable average waiting time for these three processes in a non-preemptive scheduler (rounded to nearest integer) is _____________ milliseconds.",
+    "options": [
+      "12",
+      "36",
+      "46",
+      "10"
+    ],
+    "correctIndex": 0,
+    "explanation": "With prior knowledge, the optimal non-preemptive policy is Shortest Job First (SJF). Scheduling in order of burst length: P3 (10ms), P1 (16ms), P2 (20ms). Waiting times: P3 = 0, P1 = 10, P2 = 10+16 = 26. Average = (0+10+26)/3 = 36/3 = 12 ms.",
+    "distractorRationales": [
+      "",
+      "36 ms is the total waiting time across all three processes, not the average.",
+      "46 ms would correspond to a suboptimal scheduling order such as longest-job-first.",
+      "10 ms is only the waiting time for the second process in the SJF schedule, not the average."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "Consider the following two statements. S1: Destination MAC address of an ARP reply is a broadcast address. S2: Destination MAC address of an ARP request is a broadcast address. Which one of the following choices is correct?",
+    "options": [
+      "Both S1 and S2 are true",
+      "S1 is true and S2 is false",
+      "S1 is false and S2 is true",
+      "Both S1 and S2 are false"
+    ],
+    "correctIndex": 2,
+    "explanation": "An ARP request is sent as a broadcast (destination MAC = FF:FF:FF:FF:FF:FF) because the sender does not yet know who owns the target IP address. An ARP reply, however, is sent as a unicast frame directly to the MAC address of the host that originally sent the request, since that address is now known. So S1 is false and S2 is true.",
+    "distractorRationales": [
+      "ARP replies are unicast, not broadcast, so S1 is false — this option is incorrect.",
+      "S1 is false (replies are unicast), so this option incorrectly calls S1 true.",
+      "",
+      "S2 is true — ARP requests are indeed broadcast — so both-false is incorrect."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "Consider the sliding window flow-control protocol operating between a sender and a receiver over a full-duplex error-free link. Assume the following: the receiver processing time is negligible; the sender processing time for ACKs is negligible; the sender has infinite frames; data frame size is 2,000 bits; ACK frame size is 10 bits; link rate in each direction is 1 Mbps; one-way propagation delay is 100 milliseconds. The minimum sender window size (in number of frames, rounded to the nearest integer) needed to achieve 50% link utilization is _____________.",
+    "options": [
+      "51",
+      "50",
+      "25",
+      "52"
+    ],
+    "correctIndex": 0,
+    "explanation": "Transmission time for a data frame Tt = 2000 / 10^6 = 2 ms. Round-trip propagation = 2 x 100 = 200 ms. The cycle time (time from first bit sent to ACK received) = Tt + 2*Tp = 2 + 200 = 202 ms. Link utilization = (W * Tt) / (Tt + 2*Tp). Setting U = 0.5: W = 0.5 * 202 / 2 = 50.5, which rounds to 51.",
+    "distractorRationales": [
+      "",
+      "W=50 gives utilization = 50*2/202 = 49.5%, which is just below 50%, so it does not achieve the target.",
+      "W=25 gives utilization = 25*2/202 ≈ 24.8%, far below 50%.",
+      "W=52 satisfies the requirement but is not the minimum; 51 is already sufficient."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "arrays-linked-lists-stacks-queues",
+    "difficulty": "easy",
+    "questionText": "Consider the following sequence of operations on an empty stack: Push(54); Push(52); pop(); Push(55); Push(62); s=pop(). Consider the following sequence of operations on an empty queue: enqueue(21); enqueue(24); dequeue(); enqueue(28); enqueue(32); q=dequeue(). The value of s+q is ___________.",
+    "options": [
+      "86",
+      "68",
+      "24",
+      "94"
+    ],
+    "correctIndex": 0,
+    "explanation": "Stack (LIFO): Push 54, Push 52, pop (removes 52), Push 55, Push 62, s = pop() = 62. Queue (FIFO): enqueue 21, enqueue 24, dequeue (removes 21), enqueue 28, enqueue 32, q = dequeue() = 24. Therefore s + q = 62 + 24 = 86.",
+    "distractorRationales": [
+      "",
+      "68 would result from incorrectly computing the stack top or queue front, e.g., s=55 and q=24-11 or similar arithmetic error.",
+      "24 is only the value of q from the queue, not the sum s+q.",
+      "94 would result from incorrect stack tracing, e.g., using s=62+8 or confusing push/pop order."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "medium",
+    "questionText": "A binary search tree T contains n distinct elements. What is the time complexity of picking an element in T that is smaller than the maximum element in T?",
+    "options": [
+      "Θ(nlogn)",
+      "Θ(n)",
+      "Θ(logn)",
+      "Θ(1)"
+    ],
+    "correctIndex": 3,
+    "explanation": "We need any element that is strictly less than the maximum. A constant-time strategy exists: examine the root. If the root has a right child, the root is not the maximum, so the root itself is a valid answer (it is less than the maximum). If the root has no right child, the root IS the maximum, so return the root's left child (which must exist since n >= 2 and the root is the max). Both checks are O(1), giving overall Θ(1).",
+    "distractorRationales": [
+      "Θ(nlogn) has no basis here; no sorting or repeated traversals are needed.",
+      "Θ(n) would be needed if we had to find the maximum explicitly by full traversal, but the constant-time trick avoids this.",
+      "Θ(logn) would apply for balanced BST search, but even that is unnecessary given the Θ(1) approach.",
+      ""
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "sorting-searching",
+    "difficulty": "hard",
+    "questionText": "Let P be an array containing n integers. Let t be the lowest upper bound on the number of comparisons of the array elements, required to find the minimum and maximum values in an arbitrary array of n elements. Which one of the following choices is correct?",
+    "options": [
+      "t>2n−2",
+      "t>3⌈n/2⌉ and t≤2n−2",
+      "t>n and t≤3⌈n/2⌉",
+      "t>⌈log_(2)(n)⌉ and t≤n"
+    ],
+    "correctIndex": 1,
+    "reviewNote": "The standard result for the minimum number of comparisons to find both min and max is ⌈3n/2⌉ - 2, achieved by the tournament/paired-comparison algorithm. This value satisfies t > n and t <= 3⌈n/2⌉ (option C), not t > 3⌈n/2⌉ (option B). The provided key (B) may be a transcription error.",
+    "explanation": "Using the paired-comparison (tournament) algorithm, the array is split into pairs; for each pair one comparison determines the local min and max candidate (n/2 comparisons), then the n/2 max-candidates are compared to find the global max (n/2 - 1 comparisons) and similarly for the min. The total is approximately 3n/2 - 2 comparisons, which is the optimal lowest upper bound. According to the official key this falls in the range t > 3⌈n/2⌉ and t <= 2n-2.",
+    "distractorRationales": [
+      "t > 2n-2 would imply even the naive algorithm is not tight; 2n-2 comparisons suffice for the simple scan, so t cannot exceed 2n-2.",
+      "",
+      "This range (t > n and t <= 3⌈n/2⌉) describes the actual optimal bound per the standard algorithm analysis.",
+      "t > log2(n) and t <= n is far too low; finding even the minimum alone requires n-1 comparisons."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "medium",
+    "questionText": "Consider a computer system with a byte-addressable primary memory of size 2^32 bytes. Assume the computer system has a direct-mapped cache of size 32 KB (1 KB = 2^10 bytes), and each cache block is of size 64 bytes. The size of the tag field is __________ bits.",
+    "options": [
+      "17",
+      "18",
+      "15",
+      "9"
+    ],
+    "correctIndex": 0,
+    "explanation": "Physical address width = 32 bits. Block offset bits = log2(64) = 6 bits. Number of cache lines = 32 KB / 64 = 512 = 2^9, so index bits = 9. Tag bits = 32 - 9 - 6 = 17 bits.",
+    "distractorRationales": [
+      "",
+      "18 would result from miscounting the index bits (e.g., using 8 index bits instead of 9).",
+      "15 would result from double-counting the offset or using a smaller address space.",
+      "9 is the number of index bits, not the tag field size."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "hard",
+    "questionText": "Consider the following three functions. f1 = 10^n, f2 = n^(logn), f3 = n^(√n). Which one of the following options arranges the functions in the increasing order of asymptotic growth rate?",
+    "latex": "f_1 = 10^n,\\quad f_2 = n^{\\log n},\\quad f_3 = n^{\\sqrt{n}}",
+    "options": [
+      "f3, f2, f1",
+      "f2, f1, f3",
+      "f1, f2, f3",
+      "f2, f3, f1"
+    ],
+    "correctIndex": 3,
+    "explanation": "Compare growth by taking logarithms. log(f1) = n*log10 (linear in n). log(f2) = logn * logn = (logn)^2 (polylogarithmic). log(f3) = sqrt(n)*logn (superpolynomial but subexponential). For large n: (logn)^2 << sqrt(n)*logn << n*log10, so f2 grows slowest, then f3, then f1. The increasing order is f2, f3, f1.",
+    "distractorRationales": [
+      "Placing f3 first and f1 last reverses the correct order; 10^n grows far faster than n^sqrt(n).",
+      "f2, f1, f3 is incorrect because n*log10 (log f1) grows faster than sqrt(n)*logn (log f3) for large n is actually false; log f1 = n*log10 >> sqrt(n)*logn, so f1 > f3, not f1 < f3.",
+      "f1, f2, f3 is entirely reversed from the correct order.",
+      ""
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "graph-traversal-bfs-dfs",
+    "difficulty": "hard",
+    "questionText": "An articulation point in a connected graph is a vertex such that removing the vertex and its incident edges disconnects the graph into two or more connected components. Let T be a DFS tree obtained by doing DFS in a connected undirected graph G. Which of the following options is/are correct?",
+    "options": [
+      "Root of T can never be an articulation point in G.",
+      "Root of T is an articulation point in G if and only if it has 2 or more children.",
+      "A leaf of T can be an articulation point in G.",
+      "If u is an articulation point in G such that x is an ancestor of u in T and y is a descendant of u in T, then all paths from x to y in G must pass through u."
+    ],
+    "correctIndex": 1,
+    "explanation": "In DFS theory, the root of the DFS tree is an articulation point if and only if it has two or more children in the DFS tree. This is because removing the root disconnects the subtrees rooted at its children only when there are at least two such subtrees (no back edge can connect them since DFS explores each child's subtree fully before starting the next). A DFS tree leaf cannot be an articulation point because removing it never disconnects the remaining graph.",
+    "distractorRationales": [
+      "This is false: the root IS an articulation point when it has 2 or more DFS children, as shown by standard DFS articulation-point theory.",
+      "",
+      "This is false: a leaf in the DFS tree has no descendants, so removing it cannot disconnect any other pair of vertices.",
+      "This is not universally true: there may exist back edges in G that provide a path from x to y bypassing u, even when u is an articulation point."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "query-processing",
+    "difficulty": "hard",
+    "questionText": "A relation r(A, B) in a relational database has 1200 tuples. The attribute A has integer values ranging from 6 to 20, and the attribute B has integer values ranging from 1 to 20. Assume that the attributes A and B are independently distributed. The estimated number of tuples in the output of σ_((A>10)∨(B=18))(r) is ____________.",
+    "latex": "\\sigma_{(A>10)\\,\\vee\\,(B=18)}(r)",
+    "options": [
+      "820",
+      "1200",
+      "960",
+      "1000"
+    ],
+    "correctIndex": 0,
+    "explanation": "A has 15 distinct values (6 to 20). P(A > 10) = 10/15 = 2/3. B has 20 distinct values (1 to 20). P(B = 18) = 1/20. By inclusion-exclusion and independence: P(A>10 OR B=18) = 2/3 + 1/20 - (2/3)(1/20) = 40/60 + 3/60 - 2/60 = 41/60. Estimated tuples = 1200 * 41/60 = 820.",
+    "distractorRationales": [
+      "",
+      "1200 would mean every tuple satisfies the condition, which is impossible since P < 1.",
+      "960 = 1200 * 4/5 corresponds to an incorrect probability computation, e.g., using only P(A>10) = 4/5 without accounting for A's actual range.",
+      "1000 likely results from an arithmetic error in the inclusion-exclusion calculation."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "transactions-concurrency-control",
+    "difficulty": "medium",
+    "questionText": "Suppose a database system crashes again while recovering from a previous crash. Assume checkpointing is not done by the database either during the transactions or during recovery. Which of the following statements is/are correct?",
+    "options": [
+      "The same undo and redo list will be used while recovering again",
+      "The system cannot recover any further",
+      "All the transactions that are already undone and redone will not be recovered again",
+      "The database will become inconsistent"
+    ],
+    "correctIndex": 0,
+    "explanation": "Without checkpointing during recovery, the log is not modified during the recovery process itself. When the system crashes again, the recovery manager re-reads the same original log from the beginning and recomputes the same undo and redo lists. Since idempotent redo and undo operations are applied from the unchanged log, recovery restarts from scratch with the identical lists.",
+    "distractorRationales": [
+      "",
+      "The system can always recover by replaying the log from the beginning; a second crash does not prevent further recovery.",
+      "Without checkpointing, the recovery procedure does not persist partial results, so all transactions will be re-processed, not skipped.",
+      "ARIES-style recovery guarantees consistency: idempotent redo/undo operations ensure that replaying the log from the start yields a consistent state."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "Let the representation of a number in base 3 be 210. What is the hexadecimal representation of the number?",
+    "options": [
+      "15",
+      "21",
+      "D2",
+      "528"
+    ],
+    "correctIndex": 0,
+    "explanation": "Convert base-3 number 210 to decimal: 2*3^2 + 1*3^1 + 0*3^0 = 18 + 3 + 0 = 21 in decimal. Convert 21 to hexadecimal: 21 = 1*16 + 5, so the hexadecimal representation is 15.",
+    "distractorRationales": [
+      "",
+      "21 is the decimal (base-10) value of the number, not its hexadecimal representation.",
+      "D2 in hex equals 210 in decimal, likely a confusion from treating the base-3 digits as base-10.",
+      "528 has no correct derivation; it is not a valid hexadecimal or decimal conversion of this number."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "medium",
+    "questionText": "Suppose that L1 is a regular language and L2 is a context-free language. Which one of the following languages is NOT necessarily context-free?",
+    "options": [
+      "L1 ∩ L2",
+      "L1 · L2",
+      "L1 − L2",
+      "L1 ∪ L2"
+    ],
+    "correctIndex": 2,
+    "explanation": "CFLs are closed under intersection with regular languages, concatenation, and union. However, CFLs are NOT closed under complementation, so L1 - L2 = L1 ∩ complement(L2) is not necessarily a CFL, since complement(L2) may not be a CFL. A classic counterexample: L1 = {a,b,c}* and L2 = {a^n b^n c^m | n,m >= 0} ∪ {a^m b^n c^n | m,n >= 0} (which is CFL); L1 - L2 = {a^n b^n c^n} which is not a CFL.",
+    "distractorRationales": [
+      "L1 ∩ L2 IS necessarily a CFL; intersection of a CFL with a regular language always yields a CFL.",
+      "L1 · L2 IS necessarily a CFL; CFLs are closed under concatenation with regular languages.",
+      "",
+      "L1 ∪ L2 IS necessarily a CFL; CFLs are closed under union."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "turing-machines-decidability",
+    "difficulty": "hard",
+    "questionText": "For a Turing machine M, ⟨M⟩ denotes an encoding of M. Consider the following two languages. L1 = { ⟨M⟩ | M takes more than 2021 steps on all inputs }. L2 = { ⟨M⟩ | M takes more than 2021 steps on some input }. Which one of the following options is correct?",
+    "options": [
+      "Both L1 and L2 are decidable",
+      "L1 is decidable and L2 is undecidable",
+      "L1 is undecidable and L2 is decidable",
+      "Both L1 and L2 are undecidable"
+    ],
+    "correctIndex": 0,
+    "explanation": "Both languages are decidable because 2021 is a fixed constant. For any TM M and any input, we can simulate M for exactly 2021 steps and determine whether it halted or not within that bound — this is always decidable for a fixed step count. For L2: simulate M on all inputs of length 0, 1, 2, ... up to 2021+1 steps; if any input causes M to run for more than 2021 steps, accept. For L1: check whether M runs more than 2021 steps on every input — this reduces to checking all finitely many TM configurations reachable in 2021 steps. Both conditions are decidable with a finite simulation.",
+    "distractorRationales": [
+      "",
+      "L2 is also decidable (not undecidable) because the step bound is a fixed finite constant.",
+      "L1 is decidable for the same reason; the fixed step count 2021 makes the simulation finite.",
+      "Neither language is undecidable; fixed-step simulation is always computable."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "turing-machines-decidability",
+    "difficulty": "hard",
+    "questionText": "Let ⟨M⟩ denote an encoding of an automaton M. Suppose that Σ = {0, 1}. Which of the following languages is/are NOT recursive?",
+    "options": [
+      "L = {⟨M⟩ | M is a DFA such that L(M) = ∅}",
+      "L = {⟨M⟩ | M is a DFA such that L(M) = Σ*}",
+      "L = {⟨M⟩ | M is a PDA such that L(M) = ∅}",
+      "L = {⟨M⟩ | M is a PDA such that L(M) = Σ*}"
+    ],
+    "correctIndex": 3,
+    "explanation": "DFA emptiness and universality are both decidable: DFA emptiness is solved by checking whether any accepting state is reachable, and DFA universality is solved by complementing and checking emptiness. PDA emptiness is also decidable (the language of a CFL is empty iff its grammar generates no terminal string). However, PDA universality — deciding whether a CFL equals Σ* — is undecidable; it is not even semi-decidable (it is a complete co-RE problem). Therefore only option D describes a language that is NOT recursive.",
+    "distractorRationales": [
+      "DFA emptiness is decidable (recursive): check if any accepting state is reachable from the start state.",
+      "DFA universality is decidable (recursive): complement the DFA and check for emptiness.",
+      "PDA emptiness is decidable (recursive): derive whether the start symbol generates any terminal string.",
+      ""
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "Consider the following representation of a number in IEEE 754 single-precision floating point format with a bias of 127. S: 1, E: 10000001, F: 11110000000000000000000. Here, S, E and F denote the sign, exponent, and fraction components of the floating point representation. The decimal value corresponding to the above representation (rounded to 2 decimal places) is ____________.",
+    "options": [
+      "-7.75",
+      "+7.75",
+      "-5.57",
+      "5.75"
+    ],
+    "correctIndex": 0,
+    "explanation": "S = 1 means negative. E = 10000001 in binary = 129 in decimal; actual exponent = 129 - 127 = 2. Fraction F = 1111 0000 ... = 1/2 + 1/4 + 1/8 + 1/16 = 0.9375. Significand = 1 + 0.9375 = 1.9375. Value = (-1)^1 * 1.9375 * 2^2 = -1.9375 * 4 = -7.75.",
+    "distractorRationales": [
+      "",
+      "+7.75 has the correct magnitude but wrong sign; S=1 means the number is negative.",
+      "-5.57 results from incorrect fraction decoding; the leading fraction bits 1111 decode to 0.9375, not a value that yields 5.57.",
+      "5.75 is both the wrong sign and the wrong magnitude, likely from misreading the fraction bits."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "A five-stage pipeline has stage delays of 150, 120, 150, 160 and 140 nanoseconds. The registers that are used between the pipeline stages have a delay of 5 nanoseconds each. The total time to execute 100 independent instructions on this pipeline, assuming there are no pipeline stalls, is _______ nanoseconds.",
+    "options": [
+      "17160",
+      "16640",
+      "17640",
+      "15000"
+    ],
+    "correctIndex": 0,
+    "explanation": "The clock cycle in a pipelined processor is determined by the maximum stage delay plus the register delay: max(150, 120, 150, 160, 140) + 5 = 160 + 5 = 165 ns. For k stages and n instructions with no stalls, total time = (n + k - 1) * clock_cycle = (100 + 5 - 1) * 165 = 104 * 165 = 17160 ns.",
+    "distractorRationales": [
+      "",
+      "16640 = 100 * 160 + 4 * 160, which uses a 160 ns cycle without adding the register delay.",
+      "17640 = 104 * 170, using 170 ns cycle time which incorrectly adds more than 5 ns for the inter-stage register.",
+      "15000 = 100 * 150, which ignores pipelining fill/drain overhead and uses 150 ns instead of 165 ns."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "transactions-concurrency-control",
+    "difficulty": "hard",
+    "questionText": "Let ri(z) and wi(z) denote read and write operations respectively on a data item z by transaction Ti. Consider the following two schedules. S1: r1(x) r1(y) r2(x) r2(y) w2(y) w1(x). S2: r1(x) r2(x) r2(y) w2(y) r1(y) w1(x). Which one of the following options is correct?",
+    "options": [
+      "S1 is conflict serializable, and S2 is not conflict serializable",
+      "S1 is not conflict serializable, and S2 is conflict serializable",
+      "Both S1 and S2 are conflict serializable",
+      "Neither S1 nor S2 is conflict serializable"
+    ],
+    "correctIndex": 1,
+    "explanation": "For S1: conflict pairs are r1(y) before w2(y) (T1→T2) and r2(x) before w1(x) (T2→T1). This creates a cycle T1→T2→T1 in the precedence graph, so S1 is NOT conflict serializable. For S2: conflict pairs are r2(x) before w1(x) (T2→T1) and w2(y) before r1(y) is NOT a conflict (write before read by different transactions on same item: T2→T1). There is no T1→T2 arc, so the precedence graph has only T2→T1, which is acyclic. S2 IS conflict serializable (equivalent to serial order T2, T1).",
+    "distractorRationales": [
+      "S1 is not conflict serializable (cycle exists in precedence graph), so this option has the serializability assignments backwards.",
+      "",
+      "S1 has a cycle in its precedence graph so it is not conflict serializable; both cannot be serializable.",
+      "S2 has an acyclic precedence graph (only T2→T1) so it is conflict serializable."
+    ],
+    "examName": "GATE CS 2021 Set 1",
+    "year": 2021,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

@@ -1,0 +1,700 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "Assume that in a certain computer, the virtual addresses are 64 bits long and the physical addresses are 48 bits long. The memory is word addressable. The page size is 8 kB and the word size is 4 bytes. The Translation Look-aside Buffer (TLB) in the address translation path has 128 valid entries. At most how many distinct virtual addresses can be translated without any TLB miss?",
+    "options": [
+      "16 x 2^(10)",
+      "8 x 2^(20)",
+      "4 x 2^(20)",
+      "256 x 2^(10)"
+    ],
+    "correctIndex": 3,
+    "explanation": "The TLB has 128 valid entries, each covering one page. The page size is 8 kB = 8192 bytes, and with a word size of 4 bytes, each page holds 8192/4 = 2048 = 2^11 words. Since the memory is word-addressable, each TLB entry can translate 2^11 distinct word addresses. With 128 = 2^7 TLB entries, the total number of distinct virtual addresses translatable without a miss is 2^7 * 2^11 = 2^18 = 256 * 2^10.",
+    "distractorRationales": [
+      "16 x 2^10 = 2^14, which would correspond to only 16 TLB entries each covering 2^10 words — incorrect page size calculation.",
+      "8 x 2^20 = 2^23, which overcounts by incorrectly multiplying page count and page size.",
+      "4 x 2^20 = 2^22, another incorrect combination of TLB entry count and page size.",
+      ""
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "The index node (inode) of a Unix-like file system has 12 direct, one single-indirect and one double-indirect pointer. The disk block size is 4 kB and the disk block addresses are 32-bits long. The maximum possible file size is (rounded off to 1 decimal place) __________ GB.",
+    "options": [
+      "4",
+      "2",
+      "1",
+      "0.50"
+    ],
+    "correctIndex": 0,
+    "explanation": "Each disk block is 4 kB and addresses are 32-bit (4 bytes), so each block holds 4096/4 = 1024 pointers. Direct blocks: 12 * 4 kB = 48 kB. Single-indirect: 1024 * 4 kB = 4 MB. Double-indirect: 1024 * 1024 * 4 kB = 4 GB. Total ≈ 4 GB (the double-indirect alone dominates). Rounded to 1 decimal place, the maximum file size is approximately 4.0 GB.",
+    "distractorRationales": [
+      "",
+      "2 GB would result from an incorrect pointer count or block size assumption.",
+      "1 GB would only account for the single-indirect level, ignoring the double-indirect block.",
+      "0.50 GB severely underestimates by ignoring the double-indirect block contribution."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "medium",
+    "questionText": "Consider the following statements:\nI. The smallest element in a max-heap is always at a leaf node.\nII. The second largest element in a max-heap is always a child of the root node.\nIII. A max-heap can be constructed from a binary search tree in O(n) time.\nIV. A binary search tree can be constructed from a max-heap in O(n) time.\nWhich of the above statements is/are TRUE?",
+    "options": [
+      "II, III and IV",
+      "I, II and III",
+      "I, III and IV",
+      "I, II and IV"
+    ],
+    "correctIndex": 1,
+    "explanation": "Statement I is true: in a max-heap the smallest element must be at a leaf since any internal node is larger than its children. Statement II is false in general: the second largest element could be at any child of the root level or even deeper if it is not a direct child of root in all configurations — actually the second largest must be a child of the root because the root is the max, and the second largest must be in a subtree whose root is a child of the overall root (it can't be deeper because the root's children are the next candidates). Wait — Statement II is TRUE: since the root is the maximum, the second-largest must appear in the path just below the root, i.e., as a child. Statement III is true: heapify (build-heap) runs in O(n). Statement IV is false: constructing a BST from a heap requires sorting which takes O(n log n).",
+    "distractorRationales": [
+      "Including IV is wrong because building a BST from a max-heap requires O(n log n) sorting; IV is false.",
+      "",
+      "Excluding II is incorrect; the second largest element must be a child of the root in a max-heap.",
+      "Including IV and excluding III is wrong; IV requires sorting (O(n log n)) while III (heapify) is O(n)."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "Consider the following snapshot of a system running n concurrent processes. Process i is holding X_(i) instances of a resource R, 1 <= i <= n. Assume that all instances of R are currently in use. Further, for all i, process i can place a request for at most Y_(i) additional instances of R while holding the X_(i) instances it already has. Of the n processes, there are exactly two processes p and q such that Y_(p) = Y_(q) = 0.\nWhich one of the following conditions guarantees that no other process apart from p and q can complete execution?",
+    "options": [
+      "X_(p) + X_(q) < Min{Y_(k) | 1 <= k <= n, k != p, k != q}",
+      "Min(X_(p), X_(q)) >= Min{Y_(k) | 1 <= k <= n, k != p, k != q}",
+      "Min(X_(p), X_(q)) <= Max{Y_(k) | 1 <= k <= n, k != p, k != q}",
+      "X_(p) + X_(q) < Max{Y_(k) | 1 <= k <= n, k != p, k != q}"
+    ],
+    "correctIndex": 0,
+    "explanation": "Processes p and q need no additional resources (Y_p = Y_q = 0) so they will complete and release X_p + X_q total instances. For any other process k to complete, it needs Y_k additional instances. If X_p + X_q is less than the minimum Y_k among all other processes, then even after p and q release all their resources, no other process has enough resources to proceed — guaranteeing that no other process can complete.",
+    "distractorRationales": [
+      "",
+      "This condition relates the minimum held by p or q to the minimum needed by others, but does not correctly capture whether the released resources are insufficient for every other process.",
+      "This condition can be satisfied even when some processes can complete, so it does not guarantee blockage of all other processes.",
+      "Comparing the sum to the maximum Y_k only blocks the most demanding process, not all others."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "medium",
+    "questionText": "Let G be any connected, weighted, undirected graph.\nI. G has a unique minimum spanning tree if no two edges of G have the same weight.\nII. G has a unique minimum spanning tree if, for every cut of G, there is a unique minimum weight edge crossing the cut.\nWhich of the above two statements is/are TRUE?",
+    "options": [
+      "Neither I nor II",
+      "I only",
+      "II only",
+      "Both I and II"
+    ],
+    "correctIndex": 3,
+    "explanation": "Statement I is true: if all edge weights are distinct, the cut property guarantees a unique MST because each cut has a unique minimum-weight crossing edge, so the MST is uniquely determined. Statement II is also true: if every cut has a unique minimum-weight crossing edge, then no alternative choice exists at any cut, directly implying the MST is unique by the cut property of MSTs.",
+    "distractorRationales": [
+      "Both statements are in fact true; this option is incorrect.",
+      "Only accepting I misses that II is also a valid and correct sufficient condition for MST uniqueness.",
+      "Only accepting II misses that I is also correct — distinct weights ensure uniqueness via the cut property.",
+      ""
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "sorting-searching",
+    "difficulty": "hard",
+    "questionText": "There are n unsorted arrays: A_(1), A_(2), ..., A_(n). Assume that n is odd. Each of A_(1), A_(2), ..., A_(n) contains n distinct elements. There are no common elements between any two arrays. The worst-case time complexity of computing the median of the medians of A_(1), A_(2), ..., A_(n) is.",
+    "options": [
+      "O(n log n)",
+      "O(n^2)",
+      "O(n)",
+      "Omega(n^2 log n)"
+    ],
+    "correctIndex": 1,
+    "explanation": "Finding the median of each array A_i (which has n elements) takes O(n) per array using linear-time median finding (or O(n log n) by sorting). Since there are n arrays, finding all n medians takes O(n^2) total. Then finding the median of those n medians takes O(n). The dominant term is O(n^2), so the overall worst-case time complexity is O(n^2).",
+    "distractorRationales": [
+      "O(n log n) would only account for sorting a single array of size n, not processing n arrays each of size n.",
+      "",
+      "O(n) is achievable for a single selection but cannot cover finding medians of n arrays each of size n.",
+      "Omega(n^2 log n) is a lower bound claim that is too strong; the problem can be solved in O(n^2)."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "functional-dependencies-normalization",
+    "difficulty": "hard",
+    "questionText": "Let the set of functional dependencies F = {QR -> S, R -> P, S -> Q} hold on a relation schema X = (PQRS). X is not in BCNF. Suppose X is decomposed into two schemas Y and Z where Y = (PR) and Z = (QRS). Consider the two statements given below:\nI. Both Y and Z are in BCNF.\nII. Decomposition of X into Y and Z is dependency preserving and lossless.\nWhich of the above statements is/are correct?",
+    "options": [
+      "I only",
+      "Neither I nor II",
+      "Both I and II",
+      "II only"
+    ],
+    "correctIndex": 3,
+    "explanation": "For Y = (PR): the only FD applicable is R -> P, and R is a superkey of Y (since R determines P), so Y is in BCNF. For Z = (QRS): FDs applicable are QR -> S and S -> Q. The closure of S is {S, Q} which is not all of QRS, so S is not a superkey — Z is not in BCNF. Therefore Statement I is false. For Statement II: the decomposition is lossless because Y ∩ Z = {R} and R -> P holds (R is a key for Y). The FDs QR -> S, S -> Q are preserved in Z, and R -> P is preserved in Y; dependency preservation holds. Hence only Statement II is correct.",
+    "distractorRationales": [
+      "Statement I is false because Z = (QRS) is not in BCNF (S -> Q violates BCNF since S is not a superkey of Z).",
+      "Statement II is actually true — the decomposition is both lossless and dependency preserving.",
+      "Statement I is false, so 'Both I and II' is incorrect.",
+      ""
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "hard",
+    "questionText": "Which one of the following languages over {a, b} is NOT context-free?",
+    "options": [
+      "{a^n b^i | i in {n, 3n, 5n}, n >= 0}",
+      "{w a^n w^R b^n | w in {a,b}*, n >= 0}",
+      "{w w^R | w in {a,b}*}",
+      "{w a^n b^n w^R | w in {a,b}*, n >= 0}"
+    ],
+    "correctIndex": 1,
+    "explanation": "Option B requires simultaneously matching n in both the w-w^R portion and the a^n-b^n portion in a non-nested way that cannot be handled by a single stack. A PDA would need to match w with w^R while also independently counting n for a^n and b^n, which requires two independent counts — exceeding PDA capability. Options A, C, and D are context-free: A is a union of CFLs, C is the classic palindrome CFL, and D nests a^n b^n inside w w^R which a PDA can handle by first pushing w, then using the stack for a^n/b^n matching, then popping for w^R.",
+    "distractorRationales": [
+      "This is a union of three CFLs ({a^n b^n}, {a^n b^(3n)}, {a^n b^(5n)}), each context-free, and CFLs are closed under union.",
+      "",
+      "The language {ww^R} is the classic context-free palindrome language, accepted by a nondeterministic PDA.",
+      "This language nests a^n b^n inside ww^R; a PDA can push w, match a^n against b^n, then pop for w^R."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "Suppose that in an IP-over-Ethernet network, a machine X wishes to find the MAC address of another machine Y in its subnet. Which one of the following techniques can be used for this?",
+    "options": [
+      "X sends an ARP request packet with broadcast IP address in its local subnet",
+      "X sends an ARP request packet to the local gateway's MAC address which then finds the MAC address of Y and sends to X",
+      "X sends an ARP request packet with broadcast MAC address in its local subnet",
+      "X sends an ARP request packet to the local gateway's IP address which then finds the MAC address of Y and sends to X"
+    ],
+    "correctIndex": 2,
+    "explanation": "ARP works by broadcasting at the Ethernet (Layer 2) level. Machine X sends an ARP request frame with the destination MAC address set to the broadcast address (FF:FF:FF:FF:FF:FF) and the target IP address set to Y's IP. All machines on the subnet receive this frame, and machine Y replies with its MAC address. This is the standard ARP operation for resolving IP to MAC within the same subnet.",
+    "distractorRationales": [
+      "ARP requests use a broadcast MAC address, not a broadcast IP address; using the IP broadcast is not how ARP is structured.",
+      "ARP is a local subnet protocol and does not involve the gateway routing the request to find MAC addresses.",
+      "",
+      "ARP does not forward requests to the gateway IP; it directly broadcasts to all hosts on the local subnet."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "ip-addressing-subnetting",
+    "difficulty": "medium",
+    "questionText": "Consider three machines M, N and P with IP addresses 100.10.5.2, 100.10.5.5 and 100.10.5.6 respectively. The subnet mask is set to 255.255.255.252 for all the three machines. Which one of the following is true?",
+    "options": [
+      "M, N and P all belong to the same subnet",
+      "Only N and P belong to the same subnet",
+      "M, N, and P belong to three different subnets",
+      "Only M and N belong to the same subnet"
+    ],
+    "correctIndex": 1,
+    "explanation": "The subnet mask 255.255.255.252 (/30) means the last two bits of the fourth octet are host bits. For M (100.10.5.2): 2 in binary is 00000010, network = 100.10.5.0. For N (100.10.5.5): 5 in binary is 00000101, network = 100.10.5.4 (mask with 11111100 gives 00000100 = 4). For P (100.10.5.6): 6 in binary is 00000110, network = 100.10.5.4. N and P both belong to network 100.10.5.4/30, while M belongs to 100.10.5.0/30.",
+    "distractorRationales": [
+      "All three do not share the same network; M's network address (100.10.5.0) differs from N and P's (100.10.5.4).",
+      "",
+      "N and P share the same /30 subnet (100.10.5.4), so they are not in separate subnets.",
+      "M (100.10.5.0 network) and N (100.10.5.4 network) are in different /30 subnets."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "hard",
+    "questionText": "Consider the following C program. Which one of the following values will be displayed on execution of the program?",
+    "codeSnippet": "#include<stdio.h>\nint r(){\n    int static num=7;\n    return num--;\n}\nint main() {\n    for(r();r();r()) {\n        printf(\"%d \",r());\n    };\n    return 0;\n}",
+    "options": [
+      "41",
+      "52",
+      "63",
+      "630"
+    ],
+    "correctIndex": 1,
+    "explanation": "The static variable num starts at 7. In the for loop: init calls r() -> returns 7, num becomes 6. Condition: r() -> returns 6, num becomes 5 (non-zero, enter loop). Body: r() -> returns 5, num becomes 4, prints '5'. Increment: r() -> returns 4, num becomes 3. Condition: r() -> returns 3, num becomes 2 (non-zero, enter loop). Body: r() -> returns 2, num becomes 1, prints '2'. Increment: r() -> returns 1, num becomes 0. Condition: r() -> returns 0, num becomes -1 (zero, exit). Output is '5 2', which matches option B (52).",
+    "distractorRationales": [
+      "41 would imply different values are printed; tracing the static decrements does not produce 4 and 1 in the body calls.",
+      "",
+      "63 would require different num values at the body calls; the static decrements skip these values due to condition/increment calls.",
+      "630 suggests three body executions, but the loop exits after two body calls when the condition returns 0."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "recursion-stack-behavior",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. Which one of the following will happen when the function convert is called with any positive integer n as argument?",
+    "codeSnippet": "void convert(int n) {\n    if (n < 0)\n        printf(\"%d\", n);\n    else {\n        convert(n / 2);\n        printf(\"%d\", n % 2);\n    }\n}",
+    "options": [
+      "It will print the binary representation of n in the reverse order and terminate.",
+      "It will print the binary representation of n but will not terminate",
+      "It will not print anything and will not terminate.",
+      "It will print the binary representation of n and terminate."
+    ],
+    "correctIndex": 2,
+    "explanation": "When n is a positive integer, the function takes the else branch and calls convert(n/2) before printing. Integer division n/2 eventually reaches 0 (e.g., 5->2->1->0). At n=0, the condition n<0 is false, so it calls convert(0/2) = convert(0) again — creating an infinite recursion at n=0. The function never reaches any printf because the recursive call always comes first and never terminates at 0. Thus nothing is printed and the function does not terminate.",
+    "distractorRationales": [
+      "The function cannot print in reverse order because it never terminates; the infinite recursion at n=0 prevents any return.",
+      "The function will not print anything at all, not even the binary representation, because it loops infinitely before reaching printf.",
+      "",
+      "The function does not terminate due to infinite recursion when n reaches 0, so it cannot print and terminate normally."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "divide-conquer",
+    "difficulty": "medium",
+    "questionText": "Consider a sequence of 14 elements: A = [-5, -10, 6, 3, -1, -2, 13, 4, -9, -1, 4, 12, -3, 0]. The subsequence sum S(i,j) = sum of A[k] for k from i to j. Determine the maximum of S(i,j), where 0 <= i <= j < 14. (Divide and conquer approach may be used)",
+    "latex": "S(i,j) = \\sum_{k=i}^{j} A[k]",
+    "options": [
+      "29",
+      "19",
+      "39",
+      "09"
+    ],
+    "correctIndex": 0,
+    "explanation": "The maximum subarray is found by scanning: the subarray from index 2 to index 11 gives 6+3+(-1)+(-2)+13+4+(-9)+(-1)+4+12 = 29. Checking the divide-and-conquer approach or Kadane's algorithm confirms this is the maximum contiguous subarray sum. No other subarray achieves a higher sum.",
+    "distractorRationales": [
+      "",
+      "19 would be an undercount; including elements 13, 4 and nearby positives yields more than 19.",
+      "39 is too high; no contiguous subarray in the given array achieves a sum of 39.",
+      "09 is far too low; even a single element like 13 exceeds 9."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "hard",
+    "questionText": "A certain processor deploys a single-level cache. The cache block size is 8 words and the word size is 4 bytes. The memory system uses a 60 MHz clock. To service a cache-miss, the memory controller first takes 1 cycle to accept the starting address of the block, it then takes 3 cycles to fetch all the eight words of the block, and finally transmits the words of the requested block at the rate of 1 word per cycle. The maximum bandwidth for the memory system when the program running on the processor issues a series of read operations is _________ x 10^6 bytes/sec.",
+    "options": [
+      "160",
+      "128",
+      "256",
+      "320"
+    ],
+    "correctIndex": 0,
+    "explanation": "Each cache miss requires: 1 cycle (address) + 3 cycles (fetch) + 8 cycles (transmit 8 words) = 12 cycles total. Each block transfers 8 words * 4 bytes = 32 bytes. Bandwidth = 32 bytes / 12 cycles * 60 * 10^6 cycles/sec = 32/12 * 60 * 10^6 = 160 * 10^6 bytes/sec.",
+    "distractorRationales": [
+      "",
+      "128 Mbytes/sec would result from an incorrect cycle count (e.g., using 15 cycles instead of 12).",
+      "256 Mbytes/sec would require only 7.5 cycles per block transfer, which doesn't match the given timing.",
+      "320 Mbytes/sec would require only 6 cycles per block, ignoring the address acceptance cycle."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-languages-finite-automata",
+    "difficulty": "hard",
+    "questionText": "Let Sigma be the set of all bijections from {1,...,5} to {1,...,5}, where id denotes the identity function. Let ° denote composition on functions. For a string x = x_1 x_2 ... x_n in Sigma^n, n >= 0, let pi(x) = x_1 ° x_2 ° ... ° x_n. Consider the language L = {x in Sigma* | pi(x) = id}. The minimum number of states in any DFA accepting L is.",
+    "options": [
+      "120",
+      "125",
+      "210",
+      "None of these"
+    ],
+    "correctIndex": 0,
+    "explanation": "The set of bijections from {1,...,5} to {1,...,5} forms the symmetric group S_5, which has 5! = 120 elements. A DFA for L tracks the current composition of permutations seen so far. The state corresponds to the current accumulated permutation. Since there are exactly 120 distinct permutations in S_5, the DFA needs exactly 120 states (one per group element), with the accepting state being the identity permutation. No two distinct permutations can be merged since they lead to different futures.",
+    "distractorRationales": [
+      "",
+      "125 = 5^3 has no combinatorial meaning in the context of the symmetric group S_5.",
+      "210 = C(10,4) also has no direct relevance to the number of states needed for this DFA.",
+      "120 is indeed the correct answer, so 'None of these' is wrong."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "Consider that 15 machines need to be connected in a LAN using 8-port Ethernet switches. Assume that these switches do not have any separate uplink ports. The minimum number of switches needed is.",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "correctIndex": 0,
+    "explanation": "With 8-port switches and no dedicated uplink ports, inter-switch connections consume ports. With 3 switches: each switch uses 1 port to connect to each of the other 2 switches, leaving 8-2=6 ports per switch for end devices, giving 3*6=18 host ports — sufficient for 15 machines. With 2 switches: 2*(8-1)=14 host ports — not enough for 15. Therefore the minimum is 3 switches.",
+    "distractorRationales": [
+      "",
+      "4 switches would provide more than enough capacity but is not the minimum needed.",
+      "5 switches is excessive for connecting only 15 machines.",
+      "6 switches is far more than required for 15 hosts."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. The number of times variable sum will be printed when the above program is executed is.",
+    "codeSnippet": "#include <stdio.h>\nint main() {\n    float sum = 0.0, j = 1.0, i = 2.0;\n    while (i / j > 0.0625) {\n        j = j + j;\n        printf(\"%f\\n\", sum);\n    };\n    return 0;\n}",
+    "options": [
+      "5",
+      "6",
+      "4",
+      "0"
+    ],
+    "correctIndex": 0,
+    "explanation": "i=2.0 is fixed; j doubles each iteration. Loop checks i/j > 0.0625 (i.e., 2/j > 1/16, i.e., j < 32). Iterations: j=1 (2/1=2>0.0625, print, j->2); j=2 (1>0.0625, print, j->4); j=4 (0.5>0.0625, print, j->8); j=8 (0.25>0.0625, print, j->16); j=16 (0.125>0.0625, print, j->32); j=32 (0.0625 is NOT > 0.0625, exit). Sum is printed exactly 5 times.",
+    "distractorRationales": [
+      "",
+      "6 would require j to still satisfy the condition at j=32, but 2/32=0.0625 is not strictly greater than 0.0625.",
+      "4 would mean the loop exits at j=16, but 2/16=0.125 is still greater than 0.0625.",
+      "0 would mean the loop never executes, but 2/1=2 > 0.0625 so the loop enters at least once."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "c-pointers-memory",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. The output of above C program is.",
+    "codeSnippet": "#include<stdio.h>\nint main() {\n    int a[] = {2, 4, 6, 8, 10};\n    int i, sum = 0, *b = a + 4;\n    for (i = 0; i < 5; i++)\n        sum = sum + (*b - i) - *(b - i);\n    printf(\"%d\\n\", sum);\n    return 0;\n}",
+    "options": [
+      "10",
+      "8",
+      "6",
+      "3"
+    ],
+    "correctIndex": 0,
+    "explanation": "b points to a[4]=10. Each iteration: sum += (*b - i) - *(b-i) = (10-i) - a[4-i]. i=0: (10-0)-a[4]=(10-10)=0. i=1: (10-1)-a[3]=(9-8)=1. i=2: (10-2)-a[2]=(8-6)=2. i=3: (10-3)-a[1]=(7-4)=3. i=4: (10-4)-a[0]=(6-2)=4. Total sum = 0+1+2+3+4 = 10.",
+    "distractorRationales": [
+      "",
+      "8 would result from an off-by-one error in indexing or an incorrect loop bound.",
+      "6 would result from stopping the summation at i=3 or a miscalculation of the array accesses.",
+      "3 is too small; even a single iteration contributes up to 4 to the sum."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-expressions-closure-properties",
+    "difficulty": "medium",
+    "questionText": "If L is a regular language over {a, b}, which one of the following languages is NOT regular?",
+    "options": [
+      "L . L^R = {xy | x in L, y^R in L}",
+      "Suffix(L) = {y in {a,b}* | there exists x in {a,b}* such that xy in L}",
+      "Prefix(L) = {x in {a,b}* | there exists y in {a,b}* such that xy in L}",
+      "{ww^R | w in L}"
+    ],
+    "correctIndex": 3,
+    "explanation": "The language {ww^R | w in L} requires matching each string w with its reversal w^R, which involves a counting or matching constraint that finite automata cannot handle in general. Even if L is regular, the set of palindromes of words from L is not necessarily regular. Options A, B, and C are all regular: concatenation and reverse of regular languages are regular (A), suffixes of regular languages are regular (B), and prefixes (quotients) of regular languages are regular (C).",
+    "distractorRationales": [
+      "L . L^R is a concatenation of two regular languages (L and L^R, since regular languages are closed under reversal), which is regular.",
+      "The suffix (right quotient) of a regular language is regular; this follows from the closure of regular languages under suffix operation.",
+      "The prefix of a regular language is regular; DFAs can be modified to accept all prefixes of accepted strings.",
+      ""
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "application-layer-dns",
+    "difficulty": "easy",
+    "questionText": "Which of the following protocol pairs can be used to send and retrieve e-mails (in that order)?",
+    "options": [
+      "IMAP, POP3",
+      "SMTP, POP3",
+      "SMTP, MIME",
+      "IMAP, SMTP"
+    ],
+    "correctIndex": 1,
+    "explanation": "SMTP (Simple Mail Transfer Protocol) is used to send email from a client to a mail server or between mail servers. POP3 (Post Office Protocol version 3) is used to retrieve email from a mail server to a client. The pair SMTP (send) followed by POP3 (retrieve) is the standard combination for sending and retrieving email.",
+    "distractorRationales": [
+      "IMAP is a retrieval protocol, not a sending protocol, so the pair IMAP + POP3 gives two retrieval protocols with no sender.",
+      "",
+      "MIME is a format/encoding standard for email content, not a transport protocol for retrieving email.",
+      "IMAP, SMTP reverses the order — SMTP sends but IMAP retrieves, and the order should be send first then retrieve."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "turing-machines-decidability",
+    "difficulty": "hard",
+    "questionText": "Consider the following sets:\nS1: Set of all recursively enumerable languages over the alphabet {0, 1}.\nS2: Set of all syntactically valid C programs.\nS3: Set of all languages over the alphabet {0, 1}.\nS4: Set of all non-regular languages over the alphabet {0, 1}.\nWhich of the above sets are uncountable?",
+    "options": [
+      "S1 and S2",
+      "S3 and S4",
+      "S1 and S4",
+      "S2 and S3"
+    ],
+    "correctIndex": 1,
+    "explanation": "S3 (all languages over {0,1}) is uncountable because it equals the power set of {0,1}*, and the power set of a countably infinite set is uncountable. S4 (all non-regular languages) is a subset of S3 minus the finite set of regular languages; since S3 is uncountable and regular languages are countable, S4 is also uncountable. S1 (recursively enumerable languages) is countable because each RE language corresponds to a Turing machine, and Turing machines can be enumerated. S2 (valid C programs) is countable as it is a subset of all finite strings over a finite alphabet.",
+    "distractorRationales": [
+      "Both S1 and S2 are countable; S1 is countable via TM enumeration and S2 is countable as finite strings.",
+      "",
+      "S1 is countable (RE languages correspond to enumerable TMs), so S1 and S4 is incorrect.",
+      "S2 is countable (finite strings over a finite alphabet); only S3 is uncountable in this pair."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "medium",
+    "questionText": "A certain processor uses a fully associative cache of size 16 kB. The cache block size is 16 bytes. Assume that the main memory is byte addressable and uses a 32-bit address. How many bits are required for the Tag and the Index fields respectively in the addresses generated by the processor?",
+    "options": [
+      "24 bits and 0 bits",
+      "28 bits and 4 bits",
+      "24 bits and 4 bits",
+      "28 bits and 0 bits"
+    ],
+    "correctIndex": 3,
+    "explanation": "The cache block size is 16 bytes = 2^4, so the block offset field requires 4 bits. In a fully associative cache, there is no index field (0 bits for index) because any block can go into any cache line. The remaining 32 - 4 - 0 = 28 bits form the tag. Therefore the tag requires 28 bits and the index requires 0 bits.",
+    "distractorRationales": [
+      "24 bits for tag and 0 for index would imply 8 offset bits (block size 256 bytes), not 16 bytes.",
+      "4 index bits would imply a set-associative or direct-mapped cache, not fully associative.",
+      "24 tag bits with 4 index bits accounts for 32 bits only if offset=4, but then index should be 0 for fully associative.",
+      ""
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "In 16-bit 2's complement representation, the decimal number -28 is:",
+    "options": [
+      "1111 1111 0001 1100",
+      "0000 0000 1110 0100",
+      "1111 1111 1110 0100",
+      "1000 0000 1110 0100"
+    ],
+    "correctIndex": 2,
+    "explanation": "28 in binary (16 bits) is 0000 0000 0001 1100. To get -28 in 2's complement: invert all bits to get 1111 1111 1110 0011, then add 1 to get 1111 1111 1110 0100. This matches option C.",
+    "distractorRationales": [
+      "1111 1111 0001 1100 is the 1's complement of 28, not the 2's complement (missing the final +1 step).",
+      "0000 0000 1110 0100 = 228 in unsigned, which is the bit-flip of 27, not -28.",
+      "",
+      "1000 0000 1110 0100 has an incorrect high byte; the correct 2's complement of 28 has 1111 1111 in the high byte."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "Consider Z = X - Y where X, Y and Z are all in sign-magnitude form. X and Y are each represented in n bits. To avoid overflow, the representation of Z would require a minimum of:",
+    "options": [
+      "n bits",
+      "n-1 bits",
+      "n+1 bits",
+      "n+2 bits"
+    ],
+    "correctIndex": 2,
+    "explanation": "In sign-magnitude representation, an n-bit number has 1 sign bit and n-1 magnitude bits, representing values up to 2^(n-1)-1. Subtracting Y from X when they have opposite signs is equivalent to addition of magnitudes. The maximum magnitude of Z is (2^(n-1)-1) + (2^(n-1)-1) = 2^n - 2, which requires n bits for the magnitude. Adding the sign bit, Z requires n+1 bits total to avoid overflow.",
+    "distractorRationales": [
+      "n bits is insufficient; adding two maximum n-bit sign-magnitude values can produce a result exceeding the n-bit magnitude range.",
+      "n-1 bits would be even less than the input size, clearly insufficient for a subtraction result.",
+      "",
+      "n+2 bits is more than necessary; the maximum result fits within n+1 bits."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "transactions-concurrency-control",
+    "difficulty": "medium",
+    "questionText": "Consider the following two statements about database transaction schedules:\nI. Strict two-phase locking protocol generates conflict serializable schedules that are also recoverable.\nII. Timestamp-ordering concurrency control protocol with Thomas' Write Rule can generate view serializable schedules that are not conflict serializable.\nWhich of the above statements is/are TRUE?",
+    "options": [
+      "I only",
+      "II only",
+      "Both I and II",
+      "Neither I nor II"
+    ],
+    "correctIndex": 2,
+    "explanation": "Statement I is true: strict 2PL holds all exclusive locks until the transaction commits, guaranteeing conflict serializability (via 2PL) and recoverability (no dirty reads possible since locks are held until commit). Statement II is true: Thomas' Write Rule discards obsolete writes (a form of blind write elimination), which can allow schedules that are view serializable but not conflict serializable — these schedules would be rejected by basic timestamp ordering but accepted by the Thomas' Write Rule variant.",
+    "distractorRationales": [
+      "Statement II is also true; accepting only I misses the valid claim about Thomas' Write Rule.",
+      "Statement I is also true; accepting only II ignores the well-established guarantee of strict 2PL.",
+      "",
+      "Both statements are standard results in concurrency control theory; neither is false."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "indexing-b-trees",
+    "difficulty": "easy",
+    "questionText": "Which one of the following statements is NOT correct about the B+ tree data structure used for creating an index of a relational database table?",
+    "options": [
+      "B+ Tree is a height-balanced tree",
+      "Non-leaf nodes have pointers to data records",
+      "Key values in each node are kept in sorted order",
+      "Each leaf node has a pointer to the next leaf node"
+    ],
+    "correctIndex": 1,
+    "explanation": "In a B+ tree, only leaf nodes contain pointers to actual data records (or the data records themselves). Non-leaf (internal) nodes contain only keys and pointers to child nodes to guide search — they do not hold pointers to data records. This is a key distinction between B trees (where internal nodes can point to data) and B+ trees.",
+    "distractorRationales": [
+      "B+ trees are indeed height-balanced; all leaf nodes are at the same level, ensuring O(log n) search.",
+      "",
+      "Keys in every node of a B+ tree are maintained in sorted order to enable binary search within nodes.",
+      "Leaf nodes in a B+ tree are linked in a sorted linked list, enabling efficient range queries."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "pumping-lemmas",
+    "difficulty": "hard",
+    "questionText": "For {a, b}, let us consider the regular language L = {x | x = a^(2+3k) or x = b^(10+12k), k >= 0}. Which one of the following can be a pumping length (the constant guaranteed by the pumping lemma) for L?",
+    "options": [
+      "3",
+      "5",
+      "9",
+      "24"
+    ],
+    "correctIndex": 3,
+    "explanation": "The pumping lemma states that for any string of length >= p, we can pump a prefix substring. For the a-part, strings have lengths 2, 5, 8, 11, ... (arithmetic sequence with difference 3). For the b-part, strings have lengths 10, 22, 34, ... (difference 12). The pumping length p must be large enough that pumping works for all strings of length >= p in both components. The LCM of 3 and 12 is 12, and we need p > the initial offsets; p=24 works because it encompasses both components and any substring of length <= 24 can be pumped to stay within valid lengths. Values 3, 5, 9 are too small to serve as valid pumping lengths for both components simultaneously.",
+    "distractorRationales": [
+      "p=3 is too small; the string 'bb' (length 2, not in L... actually b^10 is the shortest b-string) — for a-strings, a^2 has length 2 < 3, but pumping from a^2 with p=3 fails since a^2 is shorter than p.",
+      "p=5 fails because strings like a^2 (length 2) are shorter than 5, but the pumping lemma applies to strings of length >= p; however the period for b-strings (12) is not accommodated.",
+      "p=9 is insufficient because the b-strings have period 12, and a pumping length less than 12 cannot guarantee pumping for b-strings.",
+      ""
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "processes-threads",
+    "difficulty": "hard",
+    "questionText": "The following C program is executed on a Unix/Linux system. The total number of child processes created is.",
+    "codeSnippet": "#include <unistd.h>\nint main() {\n    int i;\n    for (i = 0; i < 10; i++)\n        if (i % 2 == 0) fork();\n    return 0;\n}",
+    "options": [
+      "31",
+      "63",
+      "5",
+      "6"
+    ],
+    "correctIndex": 0,
+    "explanation": "fork() is called when i is even: i = 0, 2, 4, 6, 8 (five times). At i=0: 1 process -> 2 processes (1 new child). At i=2: 2 processes each fork -> 4 processes (2 new children). At i=4: 4 processes each fork -> 8 (4 new). At i=6: 8 -> 16 (8 new). At i=8: 16 -> 32 (16 new). Total processes = 32, so total child processes = 32 - 1 (original) = 31.",
+    "distractorRationales": [
+      "",
+      "63 would result if fork() were called 6 times (2^6-1=63 children), but there are only 5 even values in [0,9].",
+      "5 is just the number of fork() calls, not the total number of child processes created.",
+      "6 is close to 5 but also incorrect; it ignores the exponential growth of processes with each fork()."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "Consider the following C program. The value printed by program is.",
+    "codeSnippet": "#include <stdio.h>\nint jumble(int x, int y) {\n    x = 2 * x + y;\n    return x;\n}\nint main() {\n    int x = 2, y = 5;\n    y = jumble(y, x);\n    x = jumble(y, x);\n    printf(\"%d\\n\", x);\n    return 0;\n}",
+    "options": [
+      "26",
+      "2",
+      "5",
+      "12"
+    ],
+    "correctIndex": 0,
+    "explanation": "Initially x=2, y=5. First call: jumble(y=5, x=2) -> 2*5+2=12, so y becomes 12. Second call: jumble(y=12, x=2) -> 2*12+2=26, so x becomes 26. printf prints 26.",
+    "distractorRationales": [
+      "",
+      "2 is the initial value of x before any computation; it is overwritten by the second jumble call.",
+      "5 is the initial value of y; after the first jumble call y becomes 12, not 5.",
+      "12 is the intermediate result of the first jumble call (stored in y), but x is then updated to 26 by the second call."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "c-pointers-memory",
+    "difficulty": "easy",
+    "questionText": "Consider the following C program. The number that will be displayed on execution of the program is.",
+    "codeSnippet": "#include<stdio.h>\nint main(){\n    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 5}, *ip = arr + 4;\n    printf(\"%d\\n\", ip[1]);\n    return 0;\n}",
+    "options": [
+      "6",
+      "5",
+      "4",
+      "segmentation error"
+    ],
+    "correctIndex": 0,
+    "explanation": "ip = arr + 4 means ip points to arr[4] which is 5. ip[1] is equivalent to *(ip+1) = arr[5] = 6. Therefore the program prints 6.",
+    "distractorRationales": [
+      "",
+      "5 is the value at arr[4] (where ip points), but ip[1] accesses one element beyond ip, which is arr[5]=6.",
+      "4 is the index used to initialize ip (arr+4), not the value at ip[1].",
+      "No segmentation fault occurs because ip[1] = arr[5] is well within the 13-element array bounds."
+    ],
+    "examName": "GATE CS 2019",
+    "year": 2019,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

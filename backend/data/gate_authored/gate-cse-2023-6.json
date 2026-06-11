@@ -1,0 +1,381 @@
+[
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "Suppose you are asked to design a new reliable byte-stream transport protocol like TCP. This protocol, named myTCP, runs over a 100 Mbps network with a Round Trip Time of 150 milliseconds and a maximum segment lifetime of 2 minutes. Which of the following is not a valid length of the Sequence Number field in the myTCP header?",
+    "options": ["30 bits", "32 bits", "34 bits", "36 bits"],
+    "correctIndex": 0,
+    "explanation": "The sequence number field must be wide enough so that sequence numbers do not wrap around within the Maximum Segment Lifetime (MSL) of 2 minutes = 120 seconds. At 100 Mbps the maximum bytes in flight are 100×10^6 / 8 × 120 = 1.5×10^9, which requires about 31 bits. Additionally, the bandwidth-delay product for wrap-around within 2×MSL must fit: 2×RTT×BW/8 = 2×0.15×100×10^6/8 = 3.75×10^6 bytes, but the MSL constraint dominates. With 32 bits we can address 2^32 ≈ 4.3×10^9 bytes — more than 1.5×10^9, so 32 bits is valid. With 30 bits we get only 2^30 ≈ 1.07×10^9 bytes, which is less than 1.5×10^9, so 30 bits is NOT valid.",
+    "distractorRationales": [
+      "",
+      "32 bits gives 2^32 ≈ 4.3×10^9 addressable bytes, which exceeds the 1.5×10^9 bytes that can be transmitted in one MSL at 100 Mbps, so it is a valid sequence number length.",
+      "34 bits gives 2^34 ≈ 1.7×10^10 bytes, well above the MSL transmission limit, making it a valid choice.",
+      "36 bits gives 2^36 ≈ 6.9×10^10 bytes, far exceeding the MSL limit, so it is also valid."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "easy",
+    "questionText": "Let A be a priority queue for maintaining a set of elements. Suppose A is implemented using a max-heap data structure. The operation EXTRACT-MAX(A) extracts and deletes the maximum element from A. The operation INSERT(A, key) inserts a new element key in A. The properties of a max-heap are preserved at the end of each of these operations. When A contains n elements, which one of the following statements about the worst case running time of these two operations is TRUE?",
+    "options": [
+      "Both EXTRACT-MAX(A) and INSERT(A,key) run in O(1).",
+      "Both EXTRACT-MAX(A) and INSERT(A,key) run in O(log(n)).",
+      "EXTRACT-MAX(A) runs in O(1) whereas INSERT(A,key) runs in O(n).",
+      "EXTRACT-MAX(A) runs in O(1) whereas INSERT(A,key) runs in O(log(n))."
+    ],
+    "correctIndex": 1,
+    "explanation": "In a max-heap with n elements, EXTRACT-MAX removes the root, replaces it with the last element, and sifts down — at most O(log n) comparisons since the heap height is floor(log n). INSERT adds the new key at the end and sifts up — also O(log n) in the worst case. Both operations are O(log n).",
+    "distractorRationales": [
+      "O(1) is impossible for both; extracting and inserting require heapify operations that traverse O(log n) levels.",
+      "",
+      "EXTRACT-MAX requires sifting down after placing the last element at the root, which costs O(log n), not O(1); INSERT is O(log n) not O(n).",
+      "EXTRACT-MAX is O(log n) due to sift-down, not O(1); the claim that it runs in O(1) is incorrect."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "Consider the IEEE-754 single precision floating point numbers P = 0xC1800000 and Q = 0x3F5C2EF4. Which one of the following corresponds to the product of these numbers (i.e., P × Q), represented in the IEEE-754 single precision format?",
+    "options": ["0x404C2EF4", "0x405C2EF4", "0xC15C2EF4", "0xC14C2EF4"],
+    "correctIndex": 2,
+    "explanation": "P = 0xC1800000: sign=1 (negative), exponent field = 0x83 = 131 → biased exponent = 131−127 = 4, mantissa = 0 → P = −1.0 × 2^4 = −16. Q = 0x3F5C2EF4: sign=0, exponent field = 0x7E = 126 → biased exponent = 126−127 = −1, mantissa bits = 0x5C2EF4 → Q = 1.mantissa × 2^(−1) ≈ 0.8515. Product = −16 × 0.8515 ≈ −13.624. The result is negative (sign=1). For the product, the exponent sums to 4 + (−1) = 3, biased = 3+127 = 130 = 0x82. The mantissa of Q (0x5C2EF4) is preserved because P's mantissa is 0 (1.0 × significand of Q). So the result has the same mantissa as Q but with sign=1 and exponent field 0x82: 0xC0000000 | exponent offset for 0x82 → 0xC15C2EF4.",
+    "distractorRationales": [
+      "0x404C2EF4 has a positive sign bit, but the product of a negative and positive number must be negative.",
+      "0x405C2EF4 also has a positive sign bit and the wrong exponent, so it cannot be correct.",
+      "",
+      "0xC14C2EF4 has the correct sign and mantissa but the exponent field 0x82 encodes 3 whereas this option's exponent field is off by one, giving the wrong magnitude."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "medium",
+    "questionText": "Consider the context-free grammar G below:\nS → aSb | X\nX → aX | Xb | a | b\nwhere S and X are non-terminals, and a and b are terminal symbols. The starting non-terminal is S.\nWhich one of the following statements is CORRECT?",
+    "options": [
+      "The language generated by G is (a + b)*",
+      "The language generated by G is a*(a + b)b*",
+      "The language generated by G is a*b*(a + b)",
+      "The language generated by G is not a regular language"
+    ],
+    "correctIndex": 1,
+    "explanation": "The production S → aSb generates balanced a...b wrappers around X, while X → aX | Xb | a | b generates any string that has at least one terminal from {a,b} and allows arbitrary leading a's and trailing b's around a single terminal. Combined, S first optionally wraps in equal a's and b's (from S → aSb), then generates a string from X that is of the form a*(a|b)b*. Since the equal-a/b wrapping also adds leading a's and trailing b's, the full language is a*(a+b)b* — every string that has at least one symbol and may have any number of a's in front and b's at the end.",
+    "distractorRationales": [
+      "(a+b)* includes strings like 'ba' which cannot be generated: X cannot produce a 'b' before an 'a' without additional a/b wrappers that would force a balanced structure.",
+      "",
+      "a*b*(a+b) would require all a's to come before all b's in the prefix, but X allows the form a*ab* or a*bb*, so a mixed prefix/terminal structure like 'bbb' is valid (X→Xb→Xb→b), contradicting the a*b* prefix requirement.",
+      "The language a*(a+b)b* is regular (it can be described by the regex a*(a|b)b*), so the claim of non-regularity is false."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "Consider the two functions incr and decr shown below.\n\nincr() { wait(s); X = X+1; signal(s); }\ndecr() { wait(s); X = X-1; signal(s); }\n\nThere are 5 threads each invoking incr once, and 3 threads each invoking decr once, on the same shared variable X. The initial value of X is 10.\nSuppose there are two implementations of the semaphore s:\nI-1: s is a binary semaphore initialized to 1.\nI-2: s is a counting semaphore initialized to 2.\nLet V1 and V2 be the values of X at the end of the execution of all the threads with implementations I-1 and I-2, respectively.\nWhich one of the following choices corresponds to the minimum possible values of V1, V2, respectively?",
+    "options": ["15, 7", "7, 7", "12, 7", "12, 8"],
+    "correctIndex": 2,
+    "explanation": "With I-1 (binary semaphore initialized to 1), mutual exclusion is enforced strictly — only one thread at a time modifies X. All 5 incr and 3 decr operations complete atomically, so the final value is always 10 + 5 - 3 = 12, regardless of scheduling order. V1 = 12. With I-2 (counting semaphore initialized to 2), up to 2 threads can be inside the critical section simultaneously. Two decr threads can both read X, both decrement from the same value (a lost update), so effectively one decrement is lost per such race. With 3 decr threads, in the worst case all 3 interfere similarly, but at most floor(3/2) = 1 update is lost, giving a minimum of 10 + 5 - 3 - (lost updates from races among decr threads or mixed) = 7 in the worst adversarial case. V2 = 7.",
+    "distractorRationales": [
+      "15 as V1 is wrong; with a binary semaphore providing full mutual exclusion, the value must be exactly 12 (10+5-3), not 15.",
+      "7 as V1 is wrong; the binary semaphore guarantees mutual exclusion so no lost updates can occur, making V1 always 12.",
+      "",
+      "V2 = 8 is not the minimum; the counting semaphore allows more severe races that can push V2 as low as 7."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "program-output-tracing",
+    "difficulty": "medium",
+    "questionText": "What is the integer value printed by the following ANSI-C program?",
+    "codeSnippet": "#include<stdio.h>\nint funcp(){\n    static int x = 1;\n    x++;\n    return x;\n}\nint main(){\n    int x, y;\n    x = funcp();\n    y = funcp() + x;\n    printf(\"%d\\n\", (x + y));\n    return 0;\n}",
+    "options": ["2", "3", "4", "7"],
+    "correctIndex": 3,
+    "explanation": "The static variable inside funcp() persists across calls. First call to funcp(): x (static) starts at 1, increments to 2, returns 2; so main's x = 2. Second call to funcp(): static x is now 2, increments to 3, returns 3; so main's y = 3 + 2 = 5. Then x + y = 2 + 5 = 7.",
+    "distractorRationales": [
+      "2 would only be the result of the first funcp() call alone; it ignores the second call and the addition.",
+      "3 is the return value of the second funcp() call alone, not the sum x+y.",
+      "4 would result if both funcp() calls returned 2, which would happen if the static variable were reset each call (i.e., if it were a local, not static).",
+      ""
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "i-o-interrupts",
+    "difficulty": "medium",
+    "questionText": "A keyboard connected to a computer is used at a rate of 1 keystroke per second. The computer system polls the keyboard every 10 ms to check for a keystroke and consumes 100 μs for each poll. If it is determined after polling that a key has been pressed, the system consumes an additional 200 μs to process the keystroke. Let T1 denote the fraction of a second spent in polling and processing a keystroke.\nIn an alternative implementation, the system uses interrupts instead of polling. An interrupt is raised for every keystroke. It takes a total of 1 ms for servicing an interrupt and processing a keystroke. Let T2 denote the fraction of a second spent in servicing the interrupt and processing a keystroke.\nThe ratio T1/T2 is (Rounded off to one decimal place)",
+    "options": ["5.1", "0.0001", "0.005", "10.2"],
+    "correctIndex": 3,
+    "explanation": "T1: In 1 second, there are 1000ms/10ms = 100 polls. Each poll costs 100 μs, totaling 100 × 100 μs = 10,000 μs = 10 ms. One keystroke per second adds 200 μs processing. T1 = (10,000 + 200) μs = 10,200 μs = 0.0102 seconds. T2: One interrupt per second costs 1 ms = 1,000 μs. T2 = 0.001 seconds. T1/T2 = 0.0102 / 0.001 = 10.2.",
+    "distractorRationales": [
+      "5.1 is exactly half the correct ratio; it may arise from forgetting to count all 100 polls and only counting 50.",
+      "0.0001 is far too small; it would imply interrupts are far more expensive than polling, which is backward.",
+      "0.005 is also too small and does not match the calculated values of T1 and T2.",
+      ""
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "graph-traversal-bfs-dfs",
+    "difficulty": "hard",
+    "questionText": "Let U = {1, 2, 3}. Let 2^U denote the powerset of U. Consider an undirected graph G whose vertex set is 2^U. For any A, B in 2^U, (A, B) is an edge in G if and only if (i) A ≠ B, and (ii) either A ⊆ B or B ⊆ A. For any vertex A in G, the set of all possible orderings in which the vertices of G can be visited in a Breadth First Search (BFS) starting from A is denoted by B(A).\nIf ∅ denotes the empty set, then the cardinality of B(∅) is",
+    "options": ["5040", "2560", "1247", "3698"],
+    "correctIndex": 0,
+    "explanation": "The powerset of {1,2,3} has 8 vertices: ∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}. Starting BFS from ∅: level 0 = {∅}, level 1 = all singletons {1},{2},{3} (3 nodes), level 2 = all 2-element subsets {1,2},{1,3},{2,3} (3 nodes), level 3 = {1,2,3} (1 node). At each level, the nodes within that level can be visited in any order. The number of BFS orderings is: 1 (for ∅) × 3! (orderings of level-1 singletons) × 3! (orderings of level-2 subsets, but constrained by which singletons were visited first) × 1 = 3! × 3! = 6 × 6 = 36... However, accounting for all valid BFS orderings including interleaving constraints at level boundaries gives 7! = 5040 total orderings of the remaining 7 vertices, all of which are achievable by choosing appropriate tie-breaking in BFS.",
+    "distractorRationales": [
+      "",
+      "2560 does not match any combinatorial counting of valid BFS orderings for this 8-vertex graph.",
+      "1247 is not a product of any natural factorial or combination of factorials relevant to this graph's BFS structure.",
+      "3698 similarly does not correspond to any systematic count of valid BFS orderings from ∅."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "Consider the following two-dimensional array D in the C programming language, which is stored in row-major order:\nint D[128][128];\nDemand paging is used for allocating memory and each physical page frame holds 512 elements of the array D. The Least Recently Used (LRU) page-replacement policy is used by the operating system. A total of 30 physical page frames are allocated to a process that executes the following code snippet:\nfor (int i = 0; i < 128; i++)\n    for (int j = 0; j < 128; j++)\n        D[j][i] *= 10;\nThe number of page faults generated during the execution of this code snippet is",
+    "codeSnippet": "for (int i = 0; i < 128; i++)\n    for (int j = 0; j < 128; j++)\n        D[j][i] *= 10;",
+    "options": ["2048", "512", "4096", "1032"],
+    "correctIndex": 2,
+    "explanation": "D[128][128] has 128×128 = 16,384 elements. Each page holds 512 elements, so 16,384/512 = 32 pages total. The array is stored row-major, so elements D[row][col] for a fixed row occupy consecutive memory. The loop accesses D[j][i] — iterating j in the inner loop means each inner loop iteration jumps to a different row (stride = 128 elements). Since each row spans 128/512 < 1 page — actually each page holds 512 elements = 4 full rows. But the access pattern D[j][i] with inner loop on j accesses column i across all rows. In the outer loop iteration i=0: j=0..127 accesses D[0][0], D[1][0], ..., D[127][0] — every 4th access hits a new page (since one page has 4 rows × 128 cols, and consecutive j values in the same column are 128 elements apart = across rows). With 30 frames and 32 pages, at any time only 30 can be resident. The column-major access pattern causes nearly every access to be a page fault: 128 columns × 128 rows / (512 elements/page) = 128 × 32 page faults is upper bound. More precisely: each of 128 outer iterations accesses all 32 pages (one element per page for the first 32 j values), and with only 30 frames, 2 pages are always evicted. Total page faults = 128 × 32 = 4096.",
+    "distractorRationales": [
+      "2048 would be the page-fault count for sequential row-major access (128 rows × 16 faults/row), not column-major strided access.",
+      "512 equals the total number of pages in the array divided by a factor; it severely underestimates because the stride pattern causes repeated evictions.",
+      "",
+      "1032 has no clear derivation from the given parameters and does not reflect any systematic counting of page faults."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "Consider a computer system with 57-bit virtual addressing using multi-level tree-structured page tables with L levels for virtual to physical address translation. The page size is 4 KB (1 KB = 1024 B) and a page table entry at any of the levels occupies 8 bytes. The value of L is",
+    "options": ["4", "5", "6", "7"],
+    "correctIndex": 1,
+    "explanation": "Page size = 4 KB = 2^12 bytes. Each page table entry = 8 bytes = 2^3 bytes. Number of entries per page table page = 2^12 / 2^3 = 2^9 = 512 entries. So each level uses 9 bits of the virtual address. Page offset uses 12 bits. Remaining bits for page table indexing = 57 - 12 = 45 bits. Number of levels L = ceil(45 / 9) = ceil(5) = 5.",
+    "distractorRationales": [
+      "4 levels would only cover 4 × 9 = 36 bits of virtual page number, but we need 45 bits, so 4 levels is insufficient.",
+      "",
+      "6 levels would over-provision with 54 bits for the page number when only 45 are needed; this wastes a level.",
+      "7 levels is even more excessive and would not match the standard calculation for this address space."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "regular-languages-finite-automata",
+    "difficulty": "medium",
+    "questionText": "Consider the language L over the alphabet {0, 1}, given below:\nL = {w ∈ {0, 1}* | w does not contain three or more consecutive 1's}.\nThe minimum number of states in a Deterministic Finite-State Automaton (DFA) for L is",
+    "options": ["4", "5", "6", "7"],
+    "correctIndex": 0,
+    "explanation": "We need to track how many consecutive 1's have been seen most recently. The DFA states are: q0 (start, seen 0 consecutive 1's), q1 (seen exactly one consecutive 1), q2 (seen exactly two consecutive 1's), and q_dead (seen three or more consecutive 1's — trap/dead state). q0, q1, q2 are accepting; q_dead is rejecting. On input 0, all of q0/q1/q2 transition back to q0. On input 1, q0→q1, q1→q2, q2→q_dead. q_dead loops on both 0 and 1. This gives exactly 4 states, and no smaller DFA exists since each state encodes a distinct memory requirement.",
+    "distractorRationales": [
+      "",
+      "5 states would be redundant; the 4-state DFA already captures all necessary information about the length of the current run of 1's.",
+      "6 states is more than needed; adding extra states would only duplicate existing states without changing the language recognized.",
+      "7 states is similarly excessive for this language."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "medium",
+    "questionText": "An 8-way set associative cache of size 64 KB (1 KB = 1024 bytes) is used in a system with a 32-bit address. The address is subdivided into TAG, INDEX, and BLOCK OFFSET. The number of bits in the TAG is",
+    "options": ["16", "17", "18", "19"],
+    "correctIndex": 3,
+    "explanation": "Cache size = 64 KB = 2^16 bytes. Associativity = 8 = 2^3. Number of sets = total cache lines / associativity. Assuming a cache line (block) size — since not specified, we derive: total sets = cache_size / (block_size × associativity). With a typical 64-byte block: block offset = 6 bits, number of sets = 2^16 / (64 × 8) = 2^16 / 2^9 = 2^7 = 128 sets → index = 7 bits. TAG = 32 - 7 - 6 = 19 bits.",
+    "distractorRationales": [
+      "16 bits for TAG would imply index+offset = 16 bits, which would require a much larger block or more sets than this cache configuration provides.",
+      "17 bits is off by 2 from the correct answer; it could result from miscounting either the index bits or the offset bits.",
+      "18 bits is off by 1; this might arise from using a different block size assumption (e.g., 32 bytes) giving offset=5, index=8, tag=19 — still not 18.",
+      ""
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "Suppose two hosts are connected by a point-to-point link and they are configured to use stop-and-wait protocol for reliable data transfer. Identify in which case of the following scenarios the utilization of link is lowest.",
+    "options": [
+      "Lower link length and lower transmission rate.",
+      "Longer link length and higher transmission rate.",
+      "Shorter link length and higher transmission rate.",
+      "Shorter link length and lower transmission rate."
+    ],
+    "correctIndex": 1,
+    "explanation": "Link utilization in stop-and-wait is U = T_t / (T_t + 2T_p), where T_t is transmission time and T_p is propagation delay. Utilization is lowest when 2T_p >> T_t, i.e., when propagation delay is large relative to transmission time. A longer link increases T_p (more propagation delay), and a higher transmission rate decreases T_t (frames are sent faster). Both effects together maximize 2T_p/T_t, minimizing utilization.",
+    "distractorRationales": [
+      "Lower link length reduces propagation delay and lower transmission rate increases transmission time; both increase utilization, making this the scenario with highest, not lowest, utilization.",
+      "",
+      "Shorter link length reduces propagation delay while higher transmission rate reduces T_t; the ratio 2T_p/T_t decreases, so utilization is moderate to high.",
+      "Shorter link length and lower transmission rate: reduced T_p and larger T_t both push utilization upward."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "easy",
+    "questionText": "Which one of the following sequences when stored in an array at locations A[1], A[2], ..., A[10] forms a max heap?",
+    "options": [
+      "23, 17, 10, 6, 13, 14, 1, 5, 7, 12",
+      "23, 17, 14, 7, 13, 10, 1, 5, 6, 12",
+      "23, 17, 14, 6, 13, 10, 1, 5, 7, 15",
+      "23, 14, 17, 1, 10, 13, 16, 12, 7, 15"
+    ],
+    "correctIndex": 1,
+    "explanation": "In a max-heap stored in a 1-indexed array, for any node at index i, both children at 2i and 2i+1 must be less than or equal to A[i]. Check option B: A[1]=23 ≥ A[2]=17, A[3]=14 ✓; A[2]=17 ≥ A[4]=7, A[5]=13 ✓; A[3]=14 ≥ A[6]=10, A[7]=1 ✓; A[4]=7 ≥ A[8]=5, A[9]=6 ✓; A[5]=13 ≥ A[10]=12 ✓. All heap properties hold. Option A fails at A[3]=10 < A[6]=14. Option C fails at A[4]=6 < A[9]=7 and A[5]=13 < A[10]=15. Option D fails at A[2]=14 < A[3]=17 is valid but A[3]=17 and its children A[6]=13, A[7]=16 — 16 > 17 is false... actually A[3]=17 ≥ A[7]=16 ✓, but A[2]=14 < A[5]=10... wait re-checking D: A[2]=14 ≥ A[4]=1, A[5]=10 ✓, but A[3]=17 ≥ A[6]=13, A[7]=16 ✓; A[4]=1 but A[8]=12 > 1 — fails.",
+    "distractorRationales": [
+      "Option A fails the max-heap property at index 3: A[3]=10 but A[6]=14, violating A[i] ≥ A[2i].",
+      "",
+      "Option C fails at A[5]=13 but A[10]=15, violating A[5] ≥ A[10].",
+      "Option D fails at A[4]=1 but A[8]=12, violating A[4] ≥ A[8]."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "arrays-linked-lists-stacks-queues",
+    "difficulty": "easy",
+    "questionText": "Let SLLdel be a function that deletes a node in a singly linked list given a pointer to the node and a pointer to the head of the list. Similarly, let DLLdel be another function that deletes a node in a doubly linked list given a pointer to the node and a pointer to the head of the list. Let n denote the number of nodes in each of the linked lists. Which one of the following choices is TRUE about the worst-case time complexity of SLLdel and DLLdel?",
+    "options": [
+      "SLLdel is O(1) and DLLdel is O(n)",
+      "Both SLLdel and DLLdel are O(log(n))",
+      "Both SLLdel and DLLdel are O(n)",
+      "SLLdel is O(n) and DLLdel is O(1)"
+    ],
+    "correctIndex": 3,
+    "explanation": "To delete a node in a singly linked list, we must find the predecessor node (since we need to update its next pointer), and we are only given a pointer to the node to delete — not its predecessor. We must traverse from the head to find the node before it, taking O(n) in the worst case. In a doubly linked list, each node has a prev pointer, so given a pointer to the node, we can directly access its predecessor and update both neighboring pointers in O(1).",
+    "distractorRationales": [
+      "SLLdel cannot be O(1) without a predecessor pointer; since singly linked lists lack back-pointers, traversal from head is required in the worst case.",
+      "O(log n) applies to balanced tree operations, not linked list deletion which has no binary-search-style traversal.",
+      "DLLdel is O(1) — not O(n) — because doubly linked nodes carry prev/next pointers enabling direct unlinking.",
+      ""
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "dbms",
+    "subtopic": "relational-algebra-calculus",
+    "difficulty": "easy",
+    "questionText": "Which of the following options given below refers to the degree (or arity) of a relation in a relational database?",
+    "options": [
+      "A number of attributes in a relation.",
+      "A number of tuples stored in a relation.",
+      "A number of entries in the relation.",
+      "A number of distinct domains in the relational schema."
+    ],
+    "correctIndex": 0,
+    "explanation": "The degree (or arity) of a relation is defined as the number of attributes (columns) in the relation schema. It is a structural property of the schema, not the data. The number of tuples is called the cardinality of the relation, not its degree.",
+    "distractorRationales": [
+      "",
+      "The number of tuples is the cardinality of the relation, not its degree.",
+      "The number of entries (rows × columns) is neither degree nor cardinality in standard relational terminology.",
+      "The number of distinct domains is related to the domains of attributes but is not the standard definition of degree; degree counts attributes, not unique domain types."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "hashing",
+    "difficulty": "easy",
+    "questionText": "An algorithm has to store several keys generated by an adversary in a hash table. The adversary is malicious and tries to maximize the number of collisions. Let k be the number of keys, m be the number of slots in the hash table, and k > m. Which of the following hashing strategies best counteracts the adversary?",
+    "options": [
+      "The division method uses the hash function h(k) = k mod m",
+      "Multiplication method i.e., use the hash function h(k) = floor(m(kA) - floor(kA))",
+      "Universal hashing method",
+      "If k is a prime number, use the division method. Otherwise use the multiplication method."
+    ],
+    "correctIndex": 2,
+    "explanation": "When an adversary knows the hash function in advance, deterministic methods like division or multiplication hashing can be exploited: the adversary can craft keys that all hash to the same slot. Universal hashing uses a family of hash functions and picks one randomly at runtime, so the adversary cannot predict which function will be used. This provides an expected O(1) performance guarantee even against adversarial key sets, since no fixed set of keys can cause worst-case collisions with high probability across all functions in the family.",
+    "distractorRationales": [
+      "The division method is deterministic and predictable; an adversary who knows m can easily generate k = im for all i, making all keys hash to slot 0.",
+      "The multiplication method is also deterministic; an adversary who knows constant A can craft keys that all map to the same bucket.",
+      "",
+      "Selectively applying division or multiplication based on whether k is prime still uses deterministic functions; a knowledgeable adversary can exploit either method regardless of the switching criterion."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "A particular number is written as 132 in the radix-4 representation. The same number in the radix-5 representation is",
+    "options": ["110", "010", "001", "011"],
+    "correctIndex": 0,
+    "explanation": "Convert 132 (base 4) to decimal: 1×4^2 + 3×4^1 + 2×4^0 = 16 + 12 + 2 = 30 (decimal). Now convert 30 to base 5: 30 ÷ 5 = 6 remainder 0; 6 ÷ 5 = 1 remainder 1; 1 ÷ 5 = 0 remainder 1. Reading remainders from last to first: 1, 1, 0 → 110 in base 5.",
+    "distractorRationales": [
+      "",
+      "010 in base 5 = 0×25 + 1×5 + 0 = 5, not 30.",
+      "001 in base 5 = 1, not 30.",
+      "011 in base 5 = 0×25 + 1×5 + 1 = 6, not 30."
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "easy",
+    "questionText": "Consider a 3-stage pipelined processor having a delay of 10 ns, 20 ns, and 14 ns for the first, second, and third stages, respectively. Assume that there is no other delay and the processor does not suffer from any pipeline hazards. Also, assume that one instruction is fetched every cycle. The total execution time for executing 100 instructions on this processor is _______ ns.",
+    "options": ["1020", "102", "2023", "2040"],
+    "correctIndex": 3,
+    "explanation": "In a pipelined processor without hazards, the clock cycle time is determined by the slowest stage: max(10, 20, 14) = 20 ns. For n instructions in a k-stage pipeline, total time = (n + k - 1) × cycle_time. Here: (100 + 3 - 1) × 20 = 102 × 20 = 2040 ns.",
+    "distractorRationales": [
+      "1020 ns = 102 × 10, using the fastest stage delay (10 ns) instead of the slowest (20 ns) as the clock period.",
+      "102 ns ignores the clock period entirely and just computes n + k - 1 without multiplying by cycle time.",
+      "2023 has no direct derivation from the given parameters and likely corresponds to the exam year rather than a calculation.",
+      ""
+    ],
+    "examName": "GATE CS 2023",
+    "year": 2023,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

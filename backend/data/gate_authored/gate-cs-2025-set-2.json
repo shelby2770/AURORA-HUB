@@ -1,0 +1,346 @@
+[
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "medium",
+    "questionText": "Consider a binary tree T in which every node has either zero or two children. Let n > 0 be the number of nodes in T. Which ONE of the following is the number of nodes in T that have exactly two children?",
+    "options": ["(n-2)/2", "(n-1)/2", "n/2", "(n+1)/2"],
+    "correctIndex": 1,
+    "explanation": "In a full binary tree (every node has 0 or 2 children), if I is the number of internal (two-child) nodes and L is the number of leaves, then L = I + 1. The total number of nodes n = I + L = I + (I + 1) = 2I + 1, which gives I = (n - 1) / 2. Therefore the number of nodes with exactly two children is (n-1)/2.",
+    "distractorRationales": [
+      "This formula (n-2)/2 would imply L = I + 2, which violates the leaf-internal relationship in a full binary tree.",
+      "",
+      "n/2 would require n to always be even, but a full binary tree always has an odd number of nodes (n = 2I + 1), so this is never an integer in valid cases.",
+      "(n+1)/2 overcounts; it equals the number of leaves L, not internal nodes."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "easy",
+    "questionText": "Consider the following statements:\n(i) Address Resolution Protocol (ARP) provides a mapping from an IP address to the corresponding hardware (link-layer) address.\n(ii) A single TCP segment from a sender S to a receiver R cannot carry both data from S to R and acknowledgement for a segment from R to S.\nWhich ONE of the following is CORRECT?",
+    "options": [
+      "Both (i) and (ii) are TRUE",
+      "(i) is TRUE and (ii) is FALSE",
+      "(i) is FALSE and (ii) is TRUE",
+      "Both (i) and (ii) are FALSE"
+    ],
+    "correctIndex": 1,
+    "explanation": "Statement (i) is true: ARP resolves an IP address to its corresponding MAC (hardware/link-layer) address on the local network segment. Statement (ii) is false: TCP supports piggybacking, meaning a single segment can simultaneously carry data from S to R in the payload and carry an acknowledgement for data previously received from R (the ACK field in the TCP header).",
+    "distractorRationales": [
+      "Statement (ii) is false because TCP piggybacking allows data and ACK to coexist in one segment.",
+      "",
+      "Statement (i) is true — ARP does map IP addresses to hardware addresses.",
+      "Statement (i) is correctly true, so both cannot be false."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "ip-addressing-subnetting",
+    "difficulty": "medium",
+    "questionText": "A machine receives an IPv4 datagram. The protocol field of the IPv4 header has the protocol number of a protocol X. Which ONE of the following is NOT a possible candidate for X?",
+    "options": [
+      "Internet Control Message Protocol (ICMP)",
+      "Internet Group Management Protocol (IGMP)",
+      "Open Shortest Path First (OSPF)",
+      "Routing Information Protocol (RIP)"
+    ],
+    "correctIndex": 3,
+    "explanation": "The IPv4 protocol field identifies the upper-layer protocol encapsulated directly in the IP datagram. ICMP (protocol 1), IGMP (protocol 2), and OSPF (protocol 89) are all directly encapsulated in IP and have assigned protocol numbers. RIP, however, runs as an application-layer protocol over UDP (port 520); it is not directly encapsulated in IP, so it does not appear in the IPv4 protocol field.",
+    "distractorRationales": [
+      "ICMP is directly encapsulated in IPv4 with protocol number 1, so it is a valid candidate.",
+      "IGMP is directly encapsulated in IPv4 with protocol number 2, so it is a valid candidate.",
+      "OSPF is directly encapsulated in IPv4 with protocol number 89, so it is a valid candidate.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "programming",
+    "subtopic": "c-pointers-memory",
+    "difficulty": "hard",
+    "questionText": "Consider the following C program. Which ONE of the following will be the output of the program?",
+    "codeSnippet": "#include <stdio.h>\nvoid stringcopy(char *, char *);\nint main()\n{\n    char a[30] = \"@#Hello World!\";\n    stringcopy(a, a + 2);\n    printf(\"%s\\n\", a);\n    return 0;\n}\nvoid stringcopy(char *s, char *t)\n{\n    while(*t)\n        *s++ = *t++;\n}",
+    "options": [
+      "@#Hello World!",
+      "Hello World!",
+      "ello World!",
+      "Hello World!d!"
+    ],
+    "correctIndex": 3,
+    "explanation": "The call stringcopy(a, a+2) copies from a+2 ('H') into a[0] onwards. The source string starting at a+2 is \"Hello World!\" (12 characters). After copying these 12 bytes into positions 0-11, the function stops because it encounters the null terminator at the original position 14 (a+14). No null terminator is written by the function, so the characters at positions 12 and 13 of the original string ('d' and '!') remain, giving \"Hello World!d!\" before the null at position 14.",
+    "distractorRationales": [
+      "The copy overwrites the first two '@#' bytes, so the original string is not preserved.",
+      "\"Hello World!\" would be the result only if a null terminator were written after the copy; the function does not write one.",
+      "The copy starts from 'H' (a+2), not 'e' (a+3), so the first character is 'H', not 'e'.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "sorting-searching",
+    "difficulty": "easy",
+    "questionText": "Consider an unordered list of N distinct integers. What is the minimum number of element comparisons required to find an integer in the list that is NOT the largest in the list?",
+    "options": ["1", "N-1", "N", "2N-1"],
+    "correctIndex": 0,
+    "explanation": "Comparing any two elements takes exactly 1 comparison. The element with the smaller value in that comparison cannot be the largest element in the list (since the larger element is at least as big), so it is guaranteed to be a non-largest element. For N >= 2, one comparison is sufficient to identify a non-largest element.",
+    "distractorRationales": [
+      "",
+      "N-1 comparisons would be needed to find the actual maximum; we only need a non-maximum, which requires far fewer comparisons.",
+      "N comparisons would scan the whole list unnecessarily; a single comparison already produces a non-largest candidate.",
+      "2N-1 comparisons is the cost of finding both minimum and maximum simultaneously, which is not required here."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "ip-addressing-subnetting",
+    "difficulty": "hard",
+    "questionText": "Consider a network that uses Ethernet and IPv4. Assume that IPv4 headers do not use any options field. Each Ethernet frame can carry a maximum of 1500 bytes in its data field. A UDP segment is transmitted. The payload (data) in the UDP segment is 7488 bytes. Which ONE of the following choices has the CORRECT total number of fragments transmitted and the size of the last fragment including IPv4 header?",
+    "options": [
+      "5 fragments, 1488 bytes",
+      "6 fragments, 88 bytes",
+      "6 fragments, 108 bytes",
+      "6 fragments, 116 bytes"
+    ],
+    "correctIndex": 3,
+    "explanation": "The total IP payload is 7488 (UDP data) + 8 (UDP header) = 7496 bytes. With a 20-byte IPv4 header (no options), the maximum data per fragment is 1500 - 20 = 1480 bytes, and fragment data must be a multiple of 8 bytes (for the fragment offset field), so 1480 bytes per fragment is valid. The first 5 fragments carry 5 x 1480 = 7400 bytes. The remaining data is 7496 - 7400 = 96 bytes, yielding a 6th fragment of 96 + 20 (IPv4 header) = 116 bytes. Total: 6 fragments, last fragment 116 bytes.",
+    "distractorRationales": [
+      "5 fragments would only cover 5 x 1480 = 7400 bytes, leaving 96 bytes unaccounted for; a 6th fragment is needed.",
+      "88 bytes for the last fragment would mean only 68 bytes of data in the last fragment (88-20), but 7496 - 5x1480 = 96 bytes remain.",
+      "108 bytes for the last fragment would imply 88 bytes of data, but 96 bytes of data remain after the first 5 fragments.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "context-free-grammars-pushdown-automata",
+    "difficulty": "medium",
+    "questionText": "Which ONE of the following languages is accepted by a deterministic pushdown automaton?",
+    "options": [
+      "Any regular language",
+      "Any context-free language.",
+      "Any language accepted by a non-deterministic pushdown automaton",
+      "Any decidable language"
+    ],
+    "correctIndex": 0,
+    "explanation": "Deterministic PDAs (DPDAs) accept exactly the deterministic context-free languages (DCFLs), a strict subset of CFLs. Every regular language is also a DCFL: given a DFA for a regular language, a DPDA can simulate it by ignoring the stack. Therefore any regular language is accepted by a DPDA. Options B and C are false because not all CFLs are deterministic (e.g., the language of palindromes requires nondeterminism). Option D is false because decidable languages include non-CFL languages that DPDAs cannot recognize.",
+    "distractorRationales": [
+      "",
+      "Not all CFLs are accepted by DPDAs; the class of DCFLs is strictly contained within CFLs.",
+      "Languages accepted by NPDAs include all CFLs, but DPDAs are strictly weaker than NPDAs.",
+      "Decidable languages vastly exceed what a DPDA can recognize; a DPDA only accepts DCFLs."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "theory-of-computation",
+    "subtopic": "turing-machines-decidability",
+    "difficulty": "medium",
+    "questionText": "Let G1, G2 be Context Free Grammars (CFGs) and R be a regular expression. For a grammar G, let L(G) denote the language generated by G. Which ONE among the following questions is decidable?",
+    "options": [
+      "Is L(G1) = L(G2)?",
+      "Is L(G1) ∩ L(G2) = ∅?",
+      "Is L(G1) = L(R)?",
+      "Is L(G1) = ∅?"
+    ],
+    "correctIndex": 3,
+    "explanation": "Emptiness of a context-free language is decidable: given a CFG, one can determine in finite time whether it generates any strings (e.g., by checking for productive non-terminals). Equality of two CFLs (option A) is undecidable. Intersection-emptiness of two CFLs (option B) is undecidable because CFL intersection is not closed and deciding emptiness of the intersection reduces to known undecidable problems. Equality of a CFL with a regular language (option C) is also undecidable in general.",
+    "distractorRationales": [
+      "CFL equality is undecidable; there is no algorithm that decides whether two CFGs generate the same language.",
+      "Deciding whether the intersection of two CFLs is empty is undecidable because it can encode the Post Correspondence Problem.",
+      "Deciding whether a CFL equals a given regular language is undecidable in general.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "hard",
+    "questionText": "Processes P1, P2, P3, P4 arrive in that order at times 0, 1, 2, and 8 milliseconds respectively, and have execution times of 10, 13, 6, and 9 milliseconds respectively. Shortest Remaining Time First (SRTF) algorithm is used as the CPU scheduling policy. Ignore context switching times. Which ONE of the following correctly gives the average turnaround time of the four processes in milliseconds?",
+    "options": ["22", "15", "37", "19"],
+    "correctIndex": 3,
+    "explanation": "Simulating SRTF: P1 runs from t=0 to t=2 (P3 arrives with burst 6 < P1 remaining 8). P3 runs from t=2 to t=8 (finishes; TAT=6). At t=8, P1 remaining=8, P4 arrives with burst=9; P1 continues. P1 runs from t=8 to t=16 (finishes; TAT=16). At t=16, P4 remaining=9 < P2 remaining=13; P4 runs from t=16 to t=25 (finishes; TAT=17). P2 runs from t=25 to t=38 (finishes; TAT=37). Average TAT = (16 + 37 + 6 + 17) / 4 = 76 / 4 = 19 ms.",
+    "distractorRationales": [
+      "22 ms does not correspond to any correct simulation of SRTF for these processes.",
+      "15 ms is too low; P2 alone has a turnaround of 37 ms which pulls the average well above 15.",
+      "37 ms is the turnaround of P2 alone, not the average across all four processes.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "easy",
+    "questionText": "Which of the following is/are part of an Instruction Set Architecture of a processor?",
+    "options": [
+      "The size of the cache memory",
+      "The clock frequency of the processor",
+      "The number of cache memory levels",
+      "The total number of registers"
+    ],
+    "correctIndex": 3,
+    "explanation": "The Instruction Set Architecture (ISA) defines the programmer-visible aspects of a processor: the set of instructions, data types, addressing modes, registers, and memory model. The total number of (architectural) registers is part of the ISA because software must know which registers are available. Cache size, clock frequency, and cache hierarchy levels are microarchitectural implementation details that are transparent to the ISA.",
+    "distractorRationales": [
+      "Cache size is a microarchitectural implementation detail; different processor implementations of the same ISA can have different cache sizes.",
+      "Clock frequency is a physical implementation characteristic; the same ISA can be implemented at different clock speeds.",
+      "The number of cache levels is a microarchitectural design choice that is not visible to the ISA programmer model.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Suppose we are transmitting frames between two nodes using Stop-and-Wait protocol. The frame size is 3000 bits. The transmission rate of the channel is 2000 bps (bits/second) and the propagation delay between the two nodes is 100 milliseconds. Assume that the processing times at the source and destination are negligible. Also, assume that the size of the acknowledgement packet is negligible. Which ONE of the following most accurately gives the channel utilization for the above scenario in percentage?",
+    "options": ["88.23", "93.75", "85.44", "66.67"],
+    "correctIndex": 0,
+    "explanation": "Transmission time Tt = 3000 bits / 2000 bps = 1.5 seconds. Propagation delay Tp = 0.1 seconds. In Stop-and-Wait, the sender transmits one frame and waits for an ACK; the total cycle time is Tt + 2*Tp = 1.5 + 0.2 = 1.7 seconds. Channel utilization = Tt / (Tt + 2*Tp) = 1.5 / 1.7 = 0.8824 = 88.24%, which rounds to 88.23%.",
+    "distractorRationales": [
+      "",
+      "93.75% would result from a much smaller round-trip delay relative to transmission time, which is not the case here.",
+      "85.44% does not correspond to the correct formula applied to the given parameters.",
+      "66.67% would correspond to Tt = 2*Tp (equal transmission and round-trip times), which does not match the given values."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "medium",
+    "questionText": "Let G be an edge-weighted undirected graph with positive edge weights. Suppose a positive constant alpha is added to the weight of every edge. Which ONE of the following statements is TRUE about the minimum spanning trees (MSTs) and shortest paths (SPs) in G before and after the edge weight update?",
+    "options": [
+      "Every MST remains an MST, and every SP remains an SP.",
+      "MSTs need not remain MSTs, and every SP remains an SP.",
+      "Every MST remains an MST, and SPs need not remain SPs.",
+      "MSTs need not remain MSTs, and SPs need not remain SPs."
+    ],
+    "correctIndex": 2,
+    "explanation": "Adding a constant alpha to every edge: for MSTs, any spanning tree's total weight increases by (n-1)*alpha (since all spanning trees have exactly n-1 edges), so the relative ordering of spanning trees is preserved and every MST before remains an MST after. For shortest paths, a path with k edges increases in total weight by k*alpha; paths with fewer edges are penalized less, so a longer-edge-count path that was previously shortest may no longer be, meaning SPs can change.",
+    "distractorRationales": [
+      "While MSTs are preserved, shortest paths are not necessarily preserved because paths with different numbers of edges are affected differently.",
+      "MSTs are in fact preserved because all spanning trees have the same number of edges (n-1) and thus increase equally.",
+      "",
+      "MSTs are preserved (same number of edges in every spanning tree), so the claim that MSTs need not remain MSTs is false."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "hard",
+    "questionText": "A meld operation on two instances of a data structure combines them into one single instance of the same data structure. Consider the following data structures:\nP: Unsorted doubly linked list with pointers to the head node and tail node of the list.\nQ: Min-heap implemented using an array.\nR: Binary Search Tree.\nWhich ONE of the following options gives the worst-case time complexities for meld operation on instances of size n of these data structures?",
+    "options": [
+      "P: Theta(1), Q: Theta(n), R: Theta(n)",
+      "P: Theta(1), Q: Theta(n log n), R: Theta(n)",
+      "P: Theta(n), Q: Theta(n log n), R: Theta(n^2)",
+      "P: Theta(1), Q: Theta(n), R: Theta(n log n)"
+    ],
+    "correctIndex": 0,
+    "explanation": "For P (unsorted doubly linked list with head/tail pointers): melding is done in O(1) by linking the tail of one list to the head of the other and updating the tail pointer. For Q (array-based min-heap): concatenate the two arrays and run build-heap, which takes O(n) time. For R (BST of size n): convert each BST to a sorted array via in-order traversal (O(n) each), merge the two sorted arrays (O(n)), then build a balanced BST from the merged array (O(n)), giving O(n) overall.",
+    "distractorRationales": [
+      "",
+      "Q can be melded in O(n) using build-heap on the combined array, not O(n log n); inserting elements one by one would be O(n log n) but is not the optimal approach.",
+      "P requires only O(1) (pointer update), not O(n); R can be done in O(n) using the sorted-array approach.",
+      "R can be melded in O(n) via sorted array conversion and rebuild, not O(n log n)."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "cache-memory-hierarchy",
+    "difficulty": "medium",
+    "questionText": "For a direct-mapped cache, 4 bits are used for the tag field and 12 bits are used to index into a cache block. The size of each cache block is one byte. Assume that there is no other information stored for each cache block. Which ONE of the following is the CORRECT option for the sizes of the main memory and the cache memory in this system (byte addressable), respectively?",
+    "options": [
+      "64 KB and 4 KB",
+      "128 KB and 16 KB",
+      "64 KB and 8 KB",
+      "128 KB and 6 KB"
+    ],
+    "correctIndex": 0,
+    "explanation": "The physical address consists of tag bits + index bits + block offset bits. With a block size of 1 byte, the block offset is 0 bits. Total address bits = 4 (tag) + 12 (index) + 0 (offset) = 16 bits, so main memory = 2^16 bytes = 64 KB. The cache has 2^12 = 4096 blocks, each 1 byte, so cache size = 4096 bytes = 4 KB.",
+    "distractorRationales": [
+      "",
+      "128 KB main memory would require 17 address bits (4+12+1), implying a 2-byte block offset; but the block size is 1 byte, giving 0 offset bits.",
+      "8 KB cache would require 13 index bits (8192 blocks), not 12 as specified.",
+      "128 KB main memory and 6 KB cache are both inconsistent with the given 4-bit tag and 12-bit index with 1-byte blocks."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "sorting-searching",
+    "difficulty": "medium",
+    "questionText": "An array A of length n with distinct elements is said to be bitonic if there is an index 1 <= i <= n such that A[1..i] is sorted in the non-decreasing order and A[i+1..n] is sorted in the non-increasing order. Which ONE of the following represents the best possible asymptotic bound for the worst-case number of comparisons by an algorithm that searches for an element in a bitonic array A?",
+    "options": ["Theta(n)", "Theta(1)", "Theta(log^2 n)", "Theta(log n)"],
+    "correctIndex": 3,
+    "explanation": "A bitonic array can be searched in O(log n) time. The key observation is that binary search can first find the peak element in O(log n), then binary search is applied on the ascending left half or the descending right half (or both if needed), each taking O(log n). The overall complexity is O(log n) in the worst case, which is also a lower bound for comparison-based searching in a sorted structure of size n.",
+    "distractorRationales": [
+      "Theta(n) would be a linear scan; binary search exploits the sorted structure of each half to achieve logarithmic performance.",
+      "Theta(1) is impossible in the worst case for searching in an unsorted or partially sorted array of n distinct elements.",
+      "Theta(log^2 n) would be the cost if two sequential O(log n) operations were needed independently; however a careful O(log n) algorithm exists.",
+      ""
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "arrays-linked-lists-stacks-queues",
+    "difficulty": "medium",
+    "questionText": "Consider a stack data structure into which we can PUSH and POP records. Assume that each record pushed in the stack has a positive integer key and that all keys are distinct. We wish to augment the stack data structure with an O(1) time MIN operation that returns a pointer to the record with smallest key present in the stack (1) without deleting the corresponding record, and (2) without increasing the complexities of the standard stack operations. Which one or more of the following approach(es) can achieve it?",
+    "options": [
+      "Keep with every record in the stack, a pointer to the record with the smallest key below it.",
+      "Keep a pointer to the record with the smallest key in the stack",
+      "Keep an auxiliary array in which the key values of the records in the stack are maintained in sorted order.",
+      "Keep a Min-Heap in which the key values of the records in the stack are maintained."
+    ],
+    "correctIndex": 0,
+    "explanation": "Option A works: when pushing a record, store alongside it a pointer to the current minimum (i.e., the minimum of all records at or below it). This requires O(1) time per PUSH (compare new key with current top's min-pointer). MIN returns the min-pointer of the top record in O(1). POP is unchanged. When the minimum record is popped, the new top's stored min-pointer correctly reflects the next minimum. Option B fails because when the current minimum is popped, the single pointer becomes stale and finding the new minimum requires O(n) time.",
+    "distractorRationales": [
+      "",
+      "A single global min-pointer becomes invalid when the minimum element is popped; updating it requires O(n) scan of the stack.",
+      "Maintaining a sorted auxiliary array requires O(n) time per PUSH/POP to insert or remove from sorted order, violating the O(1) requirement.",
+      "Inserting and deleting from a min-heap costs O(log n), not O(1), so heap operations would increase the complexity of PUSH and POP."
+    ],
+    "examName": "GATE CS 2025 Set 2",
+    "year": 2025,
+    "verifiedBy": "claude-sonnet-4-6"
+  }
+]

@@ -41,3 +41,9 @@ __pycache__/
 
 # Python build metadata
 *.egg-info/
+
+# GATE ingestion: raw GfG cache holds third-party copyrighted prose — never commit.
+# gate_ingest/ + taxonomy.json are derived. gate_authored/ (our own records) IS tracked.
+backend/data/gate_raw/
+backend/data/gate_ingest/
+backend/data/taxonomy.json

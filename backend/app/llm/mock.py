@@ -38,6 +38,7 @@ class MockProvider(LLMProvider):
         thinking: bool = True,
         effort: str = "high",
         max_tokens: int = 8000,
+        json_mode: bool = False,
     ) -> str:
         self.calls.append({"system": system, "prompt": prompt})
         if self._complete_fn is not None:

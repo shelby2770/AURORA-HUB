@@ -74,6 +74,7 @@ Configure it in `backend/.env` (template in [`.env.example`](./.env.example)):
 | Generator | Gemini | `LLM_GENERATOR_PROVIDER=gemini`, `GEMINI_API_KEY` | Google AI Studio |
 | Cross-check verifier | Groq | `LLM_VERIFIER_PROVIDER=groq`, `GROQ_API_KEY` | independent re-solve; set `GROQ_VERIFIER_MODEL` |
 | Embeddings (dedup) | Gemini | `LLM_EMBEDDING_PROVIDER=gemini` | Groq/Claude have **no** embeddings API |
+| Parser (cheap) | = generator | `LLM_PARSER_PROVIDER` | Ingestion classify/parse; set `=groq` for bulk (Gemini free tier ≈ 20/day) |
 
 Generator and verifier **should differ** so the verification re-solve is genuinely independent.
 Claude stays pluggable (`=claude` + `ANTHROPIC_API_KEY`) but needs no key for the default stack.
@@ -102,7 +103,22 @@ poll `GET /authoring/jobs/{id}`.
 | `python -m app.scripts.seed` | Seed 9 courses + subtopics (idempotent) |
 | `python -m app.scripts.author_questions [json]` | Load hand-authored exemplar questions (default `data/authored_questions.json`, idempotent) |
 | `python -m app.scripts.ingest_exemplars <path>…` | Ingest provided PYQs/notes → exemplars |
+| `python -m app.ingest.scrape_gfg [--force]` | Fetch GATE CS PYQ quizzes (GfG JSON API) → `data/gate_raw/` |
+| `python -m app.ingest.gfg_normalize` | Filter + normalize cached papers → ingest-ready `data/gate_ingest/` |
 | `python -m app.scripts.generate <course> <subtopic> <difficulty> <n>` | Few-shot generate + verify + dedup |
+
+### GATE PYQ ingestion (see [`GATE_INGEST.md`](./GATE_INGEST.md))
+
+```bash
+python -m app.ingest.scrape_gfg                       # cache raw quizzes (run once, polite)
+python -m app.ingest.gfg_normalize                    # filter NAT/MSQ/image, keep 4-option MCQs
+LLM_PARSER_PROVIDER=groq \
+  python -m app.scripts.ingest_exemplars data/gate_ingest/   # classify + verify + insert
+```
+
+> **Bulk-ingest tip:** Gemini's free tier is only ~20 requests/day, so set
+> `LLM_PARSER_PROVIDER=groq` for the cheap parse path (Groq free tier is ~1000/day). Only the
+> question + options + answer key are used; explanations are **regenerated** (GfG prose is not copied).
 
 ## Mobile (Capacitor)
 

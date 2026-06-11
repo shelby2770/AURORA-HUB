@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     llm_generator_provider: str = "gemini"
     llm_verifier_provider: str = "groq"
     llm_embedding_provider: str = "gemini"
+    # The cheap categorize/parse path (ingestion). Defaults to the generator,
+    # but can point elsewhere — e.g. Groq, whose free tier is far more generous
+    # than Gemini's (20 requests/day) for bulk exemplar ingestion.
+    llm_parser_provider: str = ""  # empty -> use the generator provider
 
     gemini_api_key: str = ""
     groq_api_key: str = ""

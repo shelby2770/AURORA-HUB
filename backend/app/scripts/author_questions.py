@@ -77,8 +77,10 @@ async def load_authored(path: Path) -> tuple[int, int, list[str]]:
                 explanation=item["explanation"],
                 distractorRationales=item.get("distractorRationales", []),
                 source=QuestionSource.exemplar,
+                examName=item.get("examName"),
+                year=item.get("year"),
                 verified=True,
-                verifiedBy=VERIFIED_BY,
+                verifiedBy=item.get("verifiedBy", VERIFIED_BY),
             )
             await q.insert()
             inserted += 1
