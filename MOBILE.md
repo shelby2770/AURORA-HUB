@@ -22,7 +22,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 | 0 | Infra — Capacitor install, config, `android/` committed, smoke script | ✅ | Capacitor 8.4 + Android platform; `npm run smoke` @375px green |
 | 1 | Mobile shell & navigation — safe-area, status bar, splash, keyboard + back managers | ✅ | No tab bar (linear flow); native bootstrap + safe-area on all fixed bars |
 | 2 | Config / quiz-setup flow — touch-fixed selects, tap targets | ✅ | No free-text inputs; dropdown options ≥44px + 16px text |
-| 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ⬜ | |
+| 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ✅ | Built in web P3; added instant timer re-sync on app resume |
 | 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ⬜ | |
 | 5 | Account/settings/billing screens — payments via rule 7 (if applicable) | ⬜ | May be N/A (no auth yet) |
 | 6 | Polish — real-notch safe-area, iOS zoom/overscroll, Android `env()=0` floor audit, asset sizes | ⬜ | |
@@ -121,10 +121,10 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 - **Pending device verification:** soft-keyboard behavior on focus, select tap on iOS.
 
 ### Phase 3 — Exam runtime (one question per screen)
-- [ ] Framer Motion question transitions.
-- [ ] KaTeX math blocks `overflow-x:auto`; Shiki code blocks scroll horizontally.
-- [ ] Zustand timer survives WebView backgrounding (recompute from `startedAt`, not interval ticks).
-- [ ] Big tap targets for options; `:active` feedback (rule 10).
+- [x] Framer Motion question transitions (`AnimatePresence` in quiz page).
+- [x] KaTeX math blocks `overflow-x:auto` (`math-text` + latex block); Shiki code blocks scroll horizontally (`code-block`).
+- [x] Zustand timer survives WebView backgrounding — recomputes from `startedAt` each tick **+ instant recompute on `visibilitychange`→visible** so it snaps on resume (no catch-up lag).
+- [x] Big tap targets for options (`min-h-14`); `:active` feedback (rule 10).
 - **Gate:** build + `cap sync` + smoke.
 - **Pending device verification:** timer accuracy after backgrounding, long-math/code horizontal scroll.
 

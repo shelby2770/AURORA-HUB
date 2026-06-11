@@ -34,7 +34,19 @@ export function useExamTimer(
 
     compute();
     const id = setInterval(compute, 500);
-    return () => clearInterval(id);
+
+    // Mobile WebViews throttle/suspend intervals while backgrounded. Recompute
+    // the instant the app returns to the foreground so the clock snaps to the
+    // correct wall-clock value with no visible catch-up lag.
+    const onVisible = () => {
+      if (document.visibilityState === "visible") compute();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      clearInterval(id);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, [startedAtMs, durationSeconds]);
 
   return remaining;
