@@ -100,6 +100,7 @@ poll `GET /authoring/jobs/{id}`.
 | Script | Purpose |
 |--------|---------|
 | `python -m app.scripts.seed` | Seed 9 courses + subtopics (idempotent) |
+| `python -m app.scripts.author_questions [json]` | Load hand-authored exemplar questions (default `data/authored_questions.json`, idempotent) |
 | `python -m app.scripts.ingest_exemplars <path>…` | Ingest provided PYQs/notes → exemplars |
 | `python -m app.scripts.generate <course> <subtopic> <difficulty> <n>` | Few-shot generate + verify + dedup |
 

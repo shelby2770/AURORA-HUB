@@ -1,0 +1,316 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "medium",
+    "questionText": "Three processes arrive at time 0 in the order P1, P2, P3 with CPU burst times of 24, 3, and 3 ms. Under First-Come-First-Served (FCFS) scheduling, what is the average waiting time?",
+    "options": ["3 ms", "17 ms", "18 ms", "27 ms"],
+    "correctIndex": 1,
+    "explanation": "FCFS runs P1, then P2, then P3. Waiting times are P1=0, P2=24, P3=27, so the average is (0+24+27)/3 = 17 ms. FCFS suffers the convoy effect: the long P1 delays the two short jobs.",
+    "distractorRationales": [
+      "3 ms is the average waiting time you would get under SJF (run the two short jobs first), not FCFS.",
+      "Correct: (0+24+27)/3 = 17 ms.",
+      "18 ms comes from miscounting one of the waiting times.",
+      "27 ms is P3's individual waiting time (the maximum), not the average."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "cpu-scheduling",
+    "difficulty": "hard",
+    "questionText": "Four processes have (arrival, burst) of P1(0,8), P2(1,4), P3(2,9), P4(3,5). Under non-preemptive Shortest-Job-First, what is the average turnaround time?",
+    "options": ["7.75 ms", "12.0 ms", "14.25 ms", "16.0 ms"],
+    "correctIndex": 2,
+    "explanation": "P1 runs 0-8 (only job at t=0). At t=8 the ready jobs are P2(4), P4(5), P3(9); pick shortest each time: P2 8-12, P4 12-17, P3 17-26. Turnaround = completion - arrival = 8, 11, 14, 24, averaging 57/4 = 14.25 ms.",
+    "distractorRationales": [
+      "7.75 ms is the average WAITING time (turnaround minus burst), a common mix-up with turnaround.",
+      "12.0 ms underestimates P3's long turnaround.",
+      "Correct: (8+11+14+24)/4 = 14.25 ms.",
+      "16.0 ms assumes a different (e.g. FCFS) service order."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "A system with 3 page frames receives the reference string 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5 (frames start empty). Using FIFO page replacement, how many page faults occur?",
+    "options": ["7", "9", "10", "12"],
+    "correctIndex": 1,
+    "explanation": "Tracing FIFO over the 12 references, every reference except the second 1 and second 2 (which are still resident when re-referenced) causes a fault, giving 9 page faults. OPT would give 7 here.",
+    "distractorRationales": [
+      "7 is the OPT (optimal) fault count for this string, not FIFO.",
+      "Correct: FIFO yields 9 faults.",
+      "10 is the FIFO fault count with 4 frames — surprisingly more (Belady's anomaly).",
+      "12 assumes every reference faults, ignoring the two cache hits."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "For the reference string 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5, FIFO produces 9 page faults with 3 frames. How many page faults does FIFO produce with 4 frames?",
+    "options": ["6", "8", "9", "10"],
+    "correctIndex": 3,
+    "explanation": "With 4 frames FIFO faults 10 times — more than the 9 faults with 3 frames. This is Belady's anomaly: for FIFO, adding frames can increase faults. (Stack algorithms like LRU/OPT never show this.)",
+    "distractorRationales": [
+      "6 is the OPT count with 4 frames, not FIFO.",
+      "8 is the LRU count with 4 frames, not FIFO.",
+      "9 wrongly assumes more frames cannot increase FIFO faults.",
+      "Correct: FIFO with 4 frames faults 10 times — Belady's anomaly."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "memory-management-paging",
+    "difficulty": "medium",
+    "questionText": "A system uses 32-bit virtual addresses with a page size of 4 KB. How many entries does a single-level page table contain?",
+    "options": ["2^10 (1024)", "2^12 (4096)", "2^20 (about 1 million)", "2^32"],
+    "correctIndex": 2,
+    "explanation": "A 4 KB page = 2^12 bytes, so the offset is 12 bits. The remaining 32 - 12 = 20 bits index the page table, giving 2^20 = 1,048,576 entries (one per virtual page).",
+    "distractorRationales": [
+      "2^10 uses the wrong split of the address bits.",
+      "2^12 is the page size / offset range, not the entry count.",
+      "Correct: 2^(32-12) = 2^20 entries.",
+      "2^32 is the total number of addressable bytes, not pages."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "memory-management-paging",
+    "difficulty": "easy",
+    "questionText": "On a paged system with a TLB, what does the TLB actually cache?",
+    "options": [
+      "Recent virtual-page-to-physical-frame translations",
+      "Recently accessed file blocks",
+      "Free physical frames available for allocation",
+      "Pending I/O interrupt requests"
+    ],
+    "correctIndex": 0,
+    "explanation": "The Translation Lookaside Buffer caches recent page-table lookups (virtual page number to physical frame), so most address translations skip the page-table walk in memory. A TLB hit makes translation effectively free.",
+    "distractorRationales": [
+      "Correct: the TLB caches address translations.",
+      "File blocks are cached by the buffer/page cache, not the TLB.",
+      "Free frames are tracked by the frame allocator, not the TLB.",
+      "I/O interrupts are handled by the interrupt controller, unrelated to the TLB."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "processes-threads",
+    "difficulty": "medium",
+    "questionText": "Consider the following C fragment, where both fork() calls succeed and there is no exec() or exit():",
+    "codeSnippet": "pid_t a = fork();\npid_t b = fork();\n/* ... both processes continue past here ... */",
+    "options": ["2", "3", "4", "8"],
+    "correctIndex": 2,
+    "explanation": "The first fork() makes 2 processes. Each of those executes the second fork(), doubling to 4. In general n successive forks yield 2^n processes; here 2^2 = 4 (including the original parent).",
+    "distractorRationales": [
+      "2 counts only the first fork().",
+      "3 counts the number of fork() calls plus one, which is not how forking compounds.",
+      "Correct: 2^2 = 4 processes.",
+      "8 would be 2^3 — one fork too many."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "A resource manager is changed so that every process must request resources strictly in increasing order of a global resource ID. Which of the four necessary deadlock conditions does this strategy directly eliminate?",
+    "options": ["Mutual exclusion", "Hold and wait", "No preemption", "Circular wait"],
+    "correctIndex": 3,
+    "explanation": "A global ordering on resource acquisition prevents a cycle in the resource-allocation graph, because you can never be holding a higher-ID resource while waiting for a lower-ID one. That removes the circular-wait condition, and breaking any one of the four conditions prevents deadlock.",
+    "distractorRationales": [
+      "Mutual exclusion is inherent to non-shareable resources and is unaffected by ordering.",
+      "Hold and wait is eliminated by requesting all resources at once, not by ordering.",
+      "No preemption is removed by allowing resources to be forcibly reclaimed, not by ordering.",
+      "Correct: an acquisition order makes a wait cycle impossible, eliminating circular wait."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "The disk head is at cylinder 53. The queue of pending requests (in arrival order) is 98, 183, 37, 122, 14, 124, 65, 67. Under Shortest-Seek-Time-First (SSTF), which request is serviced first?",
+    "options": ["37", "65", "67", "98"],
+    "correctIndex": 1,
+    "explanation": "SSTF picks the request closest to the current head position. From 53 the distances are |65-53|=12, |67-53|=14, |37-53|=16, |98-53|=45; the smallest is 65 (distance 12).",
+    "distractorRationales": [
+      "37 is distance 16 from the head — farther than 65.",
+      "Correct: 65 is the closest request, distance 12.",
+      "67 is distance 14 — close, but 65 is closer.",
+      "98 is distance 45 and would be serviced much later."
+    ]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "A Unix-style inode uses a single-indirect block pointer. The block size is 1 KB and each block pointer is 4 bytes. How much file data can the single-indirect pointer alone address?",
+    "options": ["64 KB", "256 KB", "1 MB", "4 MB"],
+    "correctIndex": 1,
+    "explanation": "A 1 KB indirect block holds 1024/4 = 256 block pointers, and each points to a 1 KB data block, so the single-indirect pointer covers 256 x 1 KB = 256 KB.",
+    "distractorRationales": [
+      "64 KB assumes far fewer pointers per indirect block.",
+      "Correct: 256 pointers x 1 KB = 256 KB.",
+      "1 MB would require a 4 KB block or 8-byte... no, it overcounts pointers.",
+      "4 MB corresponds to a double-indirect contribution, not single-indirect."
+    ]
+  },
+
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "medium",
+    "questionText": "Solve the recurrence T(n) = 2T(n/2) + n (with T(1) = O(1)) for its asymptotic running time.",
+    "latex": "T(n) = 2T(n/2) + n",
+    "options": ["\\Theta(n)", "\\Theta(n \\log n)", "\\Theta(n^2)", "\\Theta(\\log n)"],
+    "correctIndex": 1,
+    "explanation": "Master theorem with a=2, b=2: n^(log_b a) = n^1 = n, which matches f(n) = n (case 2). The result is Theta(n log n) — the same recurrence as merge sort.",
+    "distractorRationales": [
+      "Theta(n) ignores the log factor contributed by the balanced case-2 split.",
+      "Correct: case 2 of the Master theorem gives Theta(n log n).",
+      "Theta(n^2) would require f(n) to dominate, e.g. + n^2.",
+      "Theta(log n) describes halving without the linear combine work."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "asymptotic-recurrence-analysis",
+    "difficulty": "hard",
+    "questionText": "Solve the recurrence T(n) = 4T(n/2) + n^2 for its asymptotic running time.",
+    "latex": "T(n) = 4T(n/2) + n^2",
+    "options": ["\\Theta(n^2)", "\\Theta(n^2 \\log n)", "\\Theta(n^3)", "\\Theta(n \\log n)"],
+    "correctIndex": 1,
+    "explanation": "Master theorem with a=4, b=2: n^(log_2 4) = n^2, which matches f(n) = n^2 (case 2). That adds a logarithmic factor, giving Theta(n^2 log n).",
+    "distractorRationales": [
+      "Theta(n^2) omits the log factor that case 2 introduces when f(n) = n^(log_b a).",
+      "Correct: n^(log_2 4) = n^2 = f(n), so Theta(n^2 log n).",
+      "Theta(n^3) would need a larger a, e.g. T(n)=8T(n/2)+n^2.",
+      "Theta(n log n) badly underestimates the n^2 work per level."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "sorting-searching",
+    "difficulty": "medium",
+    "questionText": "Which comparison sort guarantees O(n log n) worst-case time AND is stable (equal keys keep their input order)?",
+    "options": ["Quick sort", "Heap sort", "Merge sort", "Insertion sort"],
+    "correctIndex": 2,
+    "explanation": "Merge sort is O(n log n) in the worst case and is stable when the merge prefers the left run on ties. Quicksort is O(n^2) worst case, heapsort is O(n log n) but not stable, and insertion sort is O(n^2).",
+    "distractorRationales": [
+      "Quick sort is stable in some variants but its worst case is O(n^2).",
+      "Heap sort is O(n log n) worst case but not stable.",
+      "Correct: merge sort is both O(n log n) worst case and stable.",
+      "Insertion sort is stable but O(n^2) in the worst case."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "trees-binary-search-trees",
+    "difficulty": "medium",
+    "questionText": "The keys 1, 2, 3, 4, 5 are inserted in that exact order into an initially empty binary search tree. What is the height of the resulting tree, measured as the number of edges on the longest root-to-leaf path?",
+    "options": ["2", "3", "4", "5"],
+    "correctIndex": 2,
+    "explanation": "Inserting already-sorted keys makes each new key the right child of the previous one, producing a degenerate chain 1->2->3->4->5. With 5 nodes in a line there are 4 edges on the longest path, so the height is 4.",
+    "distractorRationales": [
+      "2 would be the height of a balanced BST on 5 keys, not this sorted insertion.",
+      "3 undercounts the edges in the degenerate chain.",
+      "Correct: a sorted insertion gives a chain of 5 nodes = 4 edges.",
+      "5 counts nodes, not edges (height is edge count)."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "dynamic-programming",
+    "difficulty": "hard",
+    "questionText": "What is the length of the Longest Common Subsequence (LCS) of the strings X = \"ABCBDAB\" and Y = \"BDCAB\"?",
+    "options": ["3", "4", "5", "2"],
+    "correctIndex": 1,
+    "explanation": "An LCS such as \"BCAB\" (or \"BDAB\") has length 4, and no common subsequence of length 5 exists. The standard DP fills an 8x6 table where each cell is 1 + diagonal on a match, else max(left, up).",
+    "distractorRationales": [
+      "3 is a common subsequence length but not the longest.",
+      "Correct: \"BCAB\"/\"BDAB\" give length 4.",
+      "5 is impossible since Y has only 5 characters and they are not all in order in X.",
+      "2 greatly undercounts the achievable common subsequence."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "graph-traversal-bfs-dfs",
+    "difficulty": "medium",
+    "questionText": "Running Breadth-First Search from a source vertex on an unweighted graph computes which of the following for every reachable vertex?",
+    "options": [
+      "Shortest path measured in number of edges from the source",
+      "A minimum spanning tree of the graph",
+      "A topological ordering of the vertices",
+      "The strongly connected components"
+    ],
+    "correctIndex": 0,
+    "explanation": "BFS explores vertices in non-decreasing order of edge-distance from the source, so the first time it reaches a vertex it has found a path with the fewest edges. That makes BFS the standard single-source shortest-path method for unweighted graphs.",
+    "distractorRationales": [
+      "Correct: BFS gives fewest-edge (shortest) distances from the source.",
+      "MSTs come from Kruskal/Prim on weighted graphs, not plain BFS.",
+      "Topological order requires a DAG and is produced by DFS finish times.",
+      "SCCs need Tarjan/Kosaraju (DFS-based), not a single BFS."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "hashing",
+    "difficulty": "medium",
+    "questionText": "A hash table of size 7 uses open addressing with linear probing and hash function h(k) = k mod 7. The keys 10, 17, and 24 are inserted in that order. At which index does key 24 end up?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 2,
+    "explanation": "10 mod 7 = 3 -> index 3. 17 mod 7 = 3 -> index 3 taken, probe to index 4. 24 mod 7 = 3 -> indices 3 and 4 taken, probe to index 5. So 24 lands at index 5.",
+    "distractorRationales": [
+      "3 is the home slot, already occupied by 10.",
+      "4 is where 17 landed after one probe.",
+      "Correct: 24 probes past 3 and 4 to land at index 5.",
+      "6 is one probe too far."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "heaps-priority-queues",
+    "difficulty": "medium",
+    "questionText": "What is the worst-case time complexity of building a binary heap from n arbitrary elements using the bottom-up (Floyd) build-heap procedure?",
+    "options": ["O(n)", "O(log n)", "O(n log n)", "O(n^2)"],
+    "correctIndex": 0,
+    "explanation": "Although a single sift-down costs O(log n), nodes near the bottom (the majority) sift down only a little. Summing sift-down costs over all levels gives a geometric series bounded by O(n), so build-heap is linear.",
+    "distractorRationales": [
+      "Correct: the level-by-level cost sums to O(n).",
+      "O(log n) is the cost of a single sift-down, not the whole build.",
+      "O(n log n) is the loose bound (n sift-downs) — true but not tight; the tight bound is O(n).",
+      "O(n^2) far overestimates; heap construction is never quadratic."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "shortest-paths-mst",
+    "difficulty": "hard",
+    "questionText": "In an undirected weighted graph with edges A-B=1, A-C=4, B-C=2, B-D=5, and C-D=1, what is the length of the shortest path from A to D (Dijkstra)?",
+    "options": ["3", "4", "5", "6"],
+    "correctIndex": 1,
+    "explanation": "The path A-B-C-D costs 1+2+1 = 4, which beats A-C-D = 4+1 = 5 and A-B-D = 1+5 = 6. Dijkstra settles D at distance 4.",
+    "distractorRationales": [
+      "3 would require a cheaper route than A-B-C-D, which does not exist.",
+      "Correct: A-B-C-D = 1+2+1 = 4.",
+      "5 is the cost of A-C-D, not the minimum.",
+      "6 is the cost of A-B-D, not the minimum."
+    ]
+  },
+  {
+    "course": "data-structures-algorithms",
+    "subtopic": "arrays-linked-lists-stacks-queues",
+    "difficulty": "medium",
+    "questionText": "Starting from an empty stack, the following operations run in order: push(1), push(2), pop(), push(3), push(4), pop(), pop(), push(5). What value is on top of the stack at the end?",
+    "options": ["1", "3", "4", "5"],
+    "correctIndex": 3,
+    "explanation": "Tracing top-of-stack: push1[1], push2[1,2], pop->2 [1], push3[1,3], push4[1,3,4], pop->4 [1,3], pop->3 [1], push5[1,5]. The final top is 5.",
+    "distractorRationales": [
+      "1 is at the bottom of the stack, not the top.",
+      "3 was popped by the second pop().",
+      "4 was popped by the first pop() after the pushes.",
+      "Correct: the last push(5) leaves 5 on top."
+    ]
+  }
+]
