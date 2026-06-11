@@ -135,18 +135,18 @@ One PR per phase minimum; branch naming `web/phase-N-<slug>`.
 - Wire optional async `POST /authoring/generate`.
 - **Tests:** pytest — verifier discards mismatches, dedup rejects near-copies above threshold, no-trivia prompt contract.
 
-### Phase 6 — Web hardening & handoff to mobile
-- Full pytest + Playwright suites green.
-- README run steps: web (`next dev`), backend (`uvicorn`), ingestion, generation, `.env.example`.
+### Phase 6 — Web hardening & handoff to mobile ✅
+- Full pytest + Playwright suites green: **59 pytest + 9 Playwright**.
+- README run steps: web, backend (`uvicorn`), ingestion, generation, providers, `.env.example`.
 - **Web declared stable here** → mobile/native work begins per [`MOBILE.md`](./MOBILE.md).
 
 ---
 
 ## 6. Deliverables checklist
-- [ ] Working monorepo (`/frontend`, `/backend`).
-- [ ] Seed script (courses + subtopics).
-- [ ] Exemplar ingestion script.
-- [ ] Few-shot generation + verification script.
-- [ ] `.env.example` (Mongo URI, provider keys, model names, similarity threshold).
-- [ ] README run steps (web, backend, ingestion, generation, Capacitor builds → see MOBILE.md).
-- [ ] Passing Playwright + pytest suites.
+- [x] Working monorepo (`/frontend`, `/backend`).
+- [x] Seed script (courses + subtopics).
+- [x] Exemplar ingestion script.
+- [x] Few-shot generation + verification script.
+- [x] `.env.example` (Mongo URI, provider keys, model names, similarity threshold).
+- [x] README run steps (web, backend, ingestion, generation, Capacitor builds → see MOBILE.md).
+- [x] Passing Playwright + pytest suites.
