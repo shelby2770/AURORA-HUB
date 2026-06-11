@@ -38,3 +38,6 @@ __pycache__/
 
 # Local agent state
 .claude/
+
+# Python build metadata
+*.egg-info/
