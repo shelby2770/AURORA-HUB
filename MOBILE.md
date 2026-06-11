@@ -25,7 +25,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 | 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ✅ | Built in web P3; added instant timer re-sync on app resume |
 | 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ✅ | Share button: native share sheet (cache file) vs web download |
 | 5 | Account/settings/billing screens — payments via rule 7 (if applicable) | ✅ | **N/A** — no auth/accounts/billing; no external redirects to wire (rule 7) |
-| 6 | Polish — real-notch safe-area, iOS zoom/overscroll, Android `env()=0` floor audit, asset sizes | ⬜ | |
+| 6 | Polish — real-notch safe-area, iOS zoom/overscroll, Android `env()=0` floor audit, asset sizes | ✅ | Toaster safe-area, fixed-chrome floor audit, hover gated by Tailwind v4, asset cleanup |
 | 7 | iOS project + CI/CD — `cap add ios`, GitHub Actions macOS runner, TestFlight, Android APK workflow | ⬜ | No local Mac |
 | 8 | E2E — Playwright suites @375px green + full device checklist (emulator + iOS) + dark-mode pass | ⬜ | Drains Pending-device backlog |
 
@@ -45,7 +45,7 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 | 1 | **No bottom tab bar.** Phase 1 makes the existing linear-flow chrome native-correct instead of adding tabs. | User-selected; the app is Config→Quiz→Results with no sections to tab between (no history/settings screens). | ⬜ |
 | 1 | Safe-area utilities are **additive** (`calc(env() + var(--safe-pad-*, 0))`) and set the per-bar base via a Tailwind arbitrary prop `[--safe-pad-top:1rem]`. | Lets each bar keep its visual padding with zero web regression (env()=0 on web), while the `.native-app` floor still applies the Android inset. | ⬜ |
 | 1 | `keyboard-open` / `.hide-on-keyboard` infra is wired but **dormant** — the app currently has no free-text inputs (selects + buttons only). | Rule 5 says bake it in from the first screen; it activates automatically when/if text inputs are added. | ⬜ |
-| 1 | **Hover gating (rule 10) deferred to Phase 6.** Kept Tailwind `hover:` utilities as-is for now. | All interactive elements already have `:active` feedback; a full `@media (hover:hover)` sweep is cheaper to do once in the polish phase than piecemeal. | ⬜ |
+| 1 | **Hover gating (rule 10) deferred to Phase 6.** Kept Tailwind `hover:` utilities as-is for now. → **Resolved in Phase 6:** Tailwind v4 already gates all `hover:` behind `@media (hover:hover)` (verified in compiled CSS); nothing to rewrite. | All interactive elements already have `:active` feedback; a full `@media (hover:hover)` sweep is cheaper to do once in the polish phase than piecemeal. | ⬜ |
 | 2 | Phase 2's text-input work is **N/A** — app has zero free-text inputs (selects + buttons only). Did the applicable parts instead: select option tap targets ≥44px and 16px text. | Can't add `inputMode`/`autoComplete` to inputs that don't exist; faking a text field to satisfy the checklist would be worse than documenting N/A. | ⬜ |
 | 5 | **Phase 5 entirely N/A** — no settings/auth/billing screen built, `@capacitor/browser` not installed. | Spec excludes accounts/auth/payments; app is dark-only and stateless; grep shows no external links for rule 7. Fabricating these would contradict the spec. **Flagged: if you want a Settings/About screen, say so and I'll add one.** | ⬜ |
 
@@ -142,12 +142,13 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 - **Pending device verification:** none (nothing built).
 
 ### Phase 6 — Polish
-- [ ] Safe-area sweep on a real notch.
-- [ ] iOS input-zoom / overscroll / long-press audit.
-- [ ] Android `env()=0` floor audit across **all** fixed chrome.
-- [ ] Asset-size pass (no multi-MB images).
-- **Gate:** build + `cap sync` + smoke.
-- **Pending device verification:** full visual sweep on notch device.
+- [x] Safe-area sweep — added native safe-area offset for the sonner Toaster (top-center portal) so toasts clear the overlay status bar. Real-notch visual confirmation stays Pending (device).
+- [x] iOS input-zoom / overscroll / long-press — `overscroll-behavior:none` + `-webkit-touch-callout:none` on media (Phase 1, rule 8); input-zoom N/A (no text inputs). iOS-specific behavior Pending (device).
+- [x] Android `env()=0` floor audit — all fixed/sticky chrome carries safe classes: quiz header/footer, config & results CTAs, config/results scroll columns, and now the Toaster. No un-floored fixed chrome remains.
+- [x] Asset-size pass — removed the 5 unused `create-next-app` placeholder SVGs; no raster images anywhere, icons are lucide SVG. Nothing multi-MB.
+- [x] **Hover gating (rule 10) — resolved.** Confirmed in compiled CSS that Tailwind v4 already wraps every `hover:` utility in `@media (hover: hover)` by default; no hand-written hover rules exist. The Phase 1 deferral is closed — nothing to rewrite.
+- **Gate:** build + `cap sync` + smoke + e2e (12) + eslint, all green.
+- **Pending device verification:** full visual sweep on a notch device (toasts, insets, overscroll).
 
 ### Phase 7 — iOS project + CI/CD
 - [ ] `npx cap add ios`.

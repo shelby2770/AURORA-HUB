@@ -174,4 +174,10 @@
   body.keyboard-open .hide-on-keyboard {
     display: none;
   }
+
+  /* Toasts (sonner portal, top-center) must clear the overlay status bar on
+     native. Android floor via max() (env()=0 there); iOS reports real inset. */
+  .native-app [data-sonner-toaster][data-y-position="top"] {
+    top: max(env(safe-area-inset-top), 24px) !important;
+  }
 }
