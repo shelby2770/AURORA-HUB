@@ -21,7 +21,7 @@ Status legend: ⬜ not started · 🔄 in progress · ✅ done · ⚠️ blocked
 |------|------|:----:|------|
 | 0 | Infra — Capacitor install, config, `android/` committed, smoke script | ✅ | Capacitor 8.4 + Android platform; `npm run smoke` @375px green |
 | 1 | Mobile shell & navigation — safe-area, status bar, splash, keyboard + back managers | ✅ | No tab bar (linear flow); native bootstrap + safe-area on all fixed bars |
-| 2 | Config / quiz-setup flow — mobile inputs, touch-fixed selects | ⬜ | |
+| 2 | Config / quiz-setup flow — touch-fixed selects, tap targets | ✅ | No free-text inputs; dropdown options ≥44px + 16px text |
 | 3 | Exam runtime — one-per-screen, Framer Motion, KaTeX/Shiki overflow, timer survives backgrounding | ⬜ | |
 | 4 | Practice feedback & scoring — result screens, share/export (rule 6) | ⬜ | |
 | 5 | Account/settings/billing screens — payments via rule 7 (if applicable) | ⬜ | May be N/A (no auth yet) |
@@ -46,6 +46,7 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 | 1 | Safe-area utilities are **additive** (`calc(env() + var(--safe-pad-*, 0))`) and set the per-bar base via a Tailwind arbitrary prop `[--safe-pad-top:1rem]`. | Lets each bar keep its visual padding with zero web regression (env()=0 on web), while the `.native-app` floor still applies the Android inset. | ⬜ |
 | 1 | `keyboard-open` / `.hide-on-keyboard` infra is wired but **dormant** — the app currently has no free-text inputs (selects + buttons only). | Rule 5 says bake it in from the first screen; it activates automatically when/if text inputs are added. | ⬜ |
 | 1 | **Hover gating (rule 10) deferred to Phase 6.** Kept Tailwind `hover:` utilities as-is for now. | All interactive elements already have `:active` feedback; a full `@media (hover:hover)` sweep is cheaper to do once in the polish phase than piecemeal. | ⬜ |
+| 2 | Phase 2's text-input work is **N/A** — app has zero free-text inputs (selects + buttons only). Did the applicable parts instead: select option tap targets ≥44px and 16px text. | Can't add `inputMode`/`autoComplete` to inputs that don't exist; faking a text field to satisfy the checklist would be worse than documenting N/A. | ⬜ |
 
 ---
 
@@ -113,9 +114,9 @@ Append a row every time you deviate from the plan or make a non-obvious call. Ow
 - **Pending device verification:** notch insets on a real device, status-bar overlay, hardware back.
 
 ### Phase 2 — Config / quiz-setup flow
-- [ ] Create-exam / practice configuration screens (course, subtopic, count, difficulty, mode).
-- [ ] Mobile input attrs: `autoComplete`, `inputMode`, `autoCapitalize`; inputs ≥16px (rule 8).
-- [ ] Touch-fixed selects (`onPointerDown`, rule 4).
+- [x] Create-exam / practice configuration screens (course, subtopic, count, difficulty, mode) — built in web Phase 3.
+- [x] ~~Mobile input attrs~~ → **N/A: no free-text inputs** (flow is selects + buttons only). Rule-8 iOS-zoom / `inputMode` / `autoComplete` have nothing to act on; revisit if a text field is ever added.
+- [x] Touch-fixed selects — base-ui Select handles outside-close via pointer events (rule 4 satisfied). Bumped dropdown options to ≥44px + 16px text; trigger text to 16px.
 - **Gate:** build + `cap sync` + smoke.
 - **Pending device verification:** soft-keyboard behavior on focus, select tap on iOS.
 
