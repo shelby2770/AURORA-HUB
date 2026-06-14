@@ -1,0 +1,202 @@
+[
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "easy",
+  "questionText": "The pumping lemma for regular languages is most commonly used to:",
+  "options": ["Prove that a given language is NOT regular", "Prove that a language is regular", "Construct a DFA for a language", "Minimize a DFA"],
+  "correctIndex": 0,
+  "explanation": "The pumping lemma states a property all regular languages must satisfy. It is used as a tool to prove non-regularity by contradiction — showing a language violates the property. It cannot prove regularity.",
+  "distractorRationales": ["", "Satisfying the lemma does not imply regularity; it is a necessary, not sufficient, condition.", "It does not construct automata; it is a proof technique.", "DFA minimization uses state-equivalence (Myhill-Nerode/Hopcroft), not the pumping lemma."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "easy",
+  "questionText": "In the pumping lemma for regular languages, any string s in L with |s| ≥ p can be written as s = xyz where:",
+  "options": ["|y| ≥ 1, |xy| ≤ p, and xy^i z ∈ L for all i ≥ 0", "|y| = 0 and xz ∈ L", "|x| ≥ p and y is empty", "y can be any substring and need not be pumped"],
+  "correctIndex": 0,
+  "explanation": "The lemma guarantees a decomposition s = xyz with |y| ≥ 1 (non-empty pumped part), |xy| ≤ p (the pump occurs within the first p symbols), and xy^i z ∈ L for every i ≥ 0.",
+  "distractorRationales": ["", "|y| must be at least 1; a zero-length y carries no information.", "The condition is |xy| ≤ p, not |x| ≥ p, and y must be non-empty.", "y is precisely the part that must be pumpable (xy^i z ∈ L); it cannot be arbitrary."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "easy",
+  "questionText": "The constant p in the pumping lemma is often taken to be:",
+  "options": ["The number of states of a DFA recognizing the language", "The length of the longest string in L", "Always 1", "The size of the alphabet"],
+  "correctIndex": 0,
+  "explanation": "The pumping length p can be taken as the number of states of a DFA for L: any accepted string of length ≥ p must revisit a state (pigeonhole), creating a loop that can be pumped.",
+  "distractorRationales": ["", "Infinite languages have no longest string, so p cannot be defined that way.", "p is generally larger than 1; it depends on the automaton's state count.", "The alphabet size is unrelated to the pumping length."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "Which language is the classic example proven non-regular using the pumping lemma?",
+  "options": ["L = { aⁿbⁿ | n ≥ 0 }", "L = { aⁿbᵐ | n, m ≥ 0 }", "L = (a + b)*", "L = { w | w has even length }"],
+  "correctIndex": 0,
+  "explanation": "{ aⁿbⁿ } requires matching counts of a's and b's, which a finite automaton cannot track. Pumping the a-part breaks the equality, contradicting the lemma, so it is non-regular.",
+  "distractorRationales": ["", "{ aⁿbᵐ } with independent n, m is regular (a*b*), so the lemma cannot show non-regularity.", "(a+b)* is regular (all strings), trivially satisfying the lemma.", "Even-length strings form a regular language recognizable by a 2-state DFA."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "To prove L = { aⁿbⁿ } is non-regular, after assuming pumping length p, the standard choice of string s is:",
+  "options": ["s = aᵖbᵖ", "s = aᵖ", "s = (ab)ᵖ", "s = bᵖaᵖ"],
+  "correctIndex": 0,
+  "explanation": "Choosing s = aᵖbᵖ with |xy| ≤ p forces y to consist only of a's. Pumping y (e.g., i = 2) yields more a's than b's, a string not in L — the desired contradiction.",
+  "distractorRationales": ["", "s = aᵖ is not even in L (it has no b's), so it cannot be used.", "s = (ab)ᵖ is in L but the |xy| ≤ p constraint makes the contradiction messier; aᵖbᵖ is the clean standard choice.", "s = bᵖaᵖ is not in L (b's before a's), so it is invalid."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "Why does the condition |xy| ≤ p matter in non-regularity proofs?",
+  "options": ["It forces the pumped substring y to lie within a controlled prefix, so its symbols are known (e.g., all a's in aᵖbᵖ)", "It makes y empty", "It guarantees the language is finite", "It bounds the number of states"],
+  "correctIndex": 0,
+  "explanation": "Because |xy| ≤ p, the entire xy lies in the first p symbols. In aᵖbᵖ those are all a's, pinning y to a's only — which is exactly what lets pumping break the a-b balance.",
+  "distractorRationales": ["", "y is required to be non-empty (|y| ≥ 1), so it is not empty.", "The constraint says nothing about the language being finite; many regular languages are infinite.", "It does not bound states; p is derived from the state count, not the reverse."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "The pumping lemma for CONTEXT-FREE languages decomposes a long string s as s = uvwxy with conditions:",
+  "options": ["|vwx| ≤ p, |vx| ≥ 1, and uvⁱwxⁱy ∈ L for all i ≥ 0", "|w| ≥ p and v, x empty", "|u| ≥ p and only w is pumped", "v and x are pumped independently with no length bound"],
+  "correctIndex": 0,
+  "explanation": "The CFL pumping lemma pumps two substrings v and x together: |vwx| ≤ p, |vx| ≥ 1 (at least one is non-empty), and uvⁱwxⁱy stays in L for all i ≥ 0.",
+  "distractorRationales": ["", "v and x must not both be empty; |vx| ≥ 1 is required.", "Both v and x are pumped (the two 'arms' from a repeated variable), not just w.", "There is a length bound |vwx| ≤ p, and v, x are pumped together with the same exponent i."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "Which language is provably NOT context-free using the CFL pumping lemma?",
+  "options": ["L = { aⁿbⁿcⁿ | n ≥ 0 }", "L = { aⁿbⁿ | n ≥ 0 }", "L = { aⁿbᵐ | n, m ≥ 0 }", "L = { wwᴿ | w ∈ {a,b}* }"],
+  "correctIndex": 0,
+  "explanation": "{ aⁿbⁿcⁿ } requires three matched counts; a PDA's single stack can match two but not three. The CFL pumping lemma yields a contradiction (pumping vx cannot increase all three counts equally), so it is not context-free.",
+  "distractorRationales": ["", "{ aⁿbⁿ } IS context-free (a PDA matches a's and b's with its stack).", "{ aⁿbᵐ } is even regular, hence context-free.", "{ wwᴿ } (even palindromes) is context-free."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "To prove { aⁿbⁿcⁿ } is not context-free, choosing s = aᵖbᵖcᵖ, the contradiction arises because:",
+  "options": ["The substrings v and x (with |vwx| ≤ p) can span at most two of the three symbol types, so pumping cannot keep all three counts equal", "v and x must be empty", "the string s is not in L", "the language has finitely many strings"],
+  "correctIndex": 0,
+  "explanation": "Since |vwx| ≤ p, the window vwx touches at most two distinct symbol blocks (e.g., a's and b's, but not c's). Pumping then changes at most two of the three counts, breaking the n=n=n equality and leaving L.",
+  "distractorRationales": ["", "v and x are not both empty; |vx| ≥ 1 by the lemma.", "s = aᵖbᵖcᵖ is in L by construction; that is the point.", "The language is infinite, and that is irrelevant to the contradiction."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "A language L satisfies the pumping lemma's condition. Can we conclude L is regular?",
+  "options": ["No — the pumping lemma is a necessary but not sufficient condition for regularity", "Yes, always", "Yes, only if L is finite", "No, the lemma never holds for any language"],
+  "correctIndex": 0,
+  "explanation": "Some non-regular languages still satisfy the pumping lemma's pumping condition. The lemma is necessary (all regular languages satisfy it) but not sufficient, so satisfying it does not prove regularity. (The Myhill-Nerode theorem gives an exact characterization.)",
+  "distractorRationales": ["", "There exist non-regular languages that pass the pumping test, so 'always' is false.", "Finiteness is unrelated; finite languages are regular, but the question is about the lemma's sufficiency in general.", "The lemma does hold for all regular languages, so 'never holds' is incorrect."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "Consider L = { aⁱbʲ | i > j }. Using the pumping lemma, which string and pump choice gives a contradiction?",
+  "options": ["s = aᵖ⁺¹bᵖ; pump y down (i = 0) to reduce the a-count to ≤ p, possibly making #a ≤ #b", "s = aᵖbᵖ; this is not in L", "s = bᵖaᵖ; pump up", "s = aᵖ; pump down"],
+  "correctIndex": 0,
+  "explanation": "Take s = aᵖ⁺¹bᵖ ∈ L (i = p+1 > j = p). With |xy| ≤ p, y is all a's. Pumping down (i=0) removes a's; with enough removal the number of a's drops to ≤ the number of b's, leaving L — a contradiction, so L is non-regular.",
+  "distractorRationales": ["", "s = aᵖbᵖ has i = j, which is NOT in L (the language requires i > j).", "s = bᵖaᵖ has the wrong symbol order and is not in this language.", "s = aᵖ has no b's; while in L, it does not yield the clean contradiction that aᵖ⁺¹bᵖ does."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "The pumping lemma is fundamentally a consequence of which principle applied to finite automata?",
+  "options": ["The pigeonhole principle — a path longer than the number of states must repeat a state", "The halting problem", "Rice's theorem", "The Church-Turing thesis"],
+  "correctIndex": 0,
+  "explanation": "If an accepted string is longer than the number of DFA states, by the pigeonhole principle some state repeats, forming a loop. That loop is the pumpable substring y, which can be traversed any number of times.",
+  "distractorRationales": ["", "The halting problem concerns Turing machines and undecidability, not the pumping lemma.", "Rice's theorem is about undecidability of semantic properties, unrelated to pumping.", "The Church-Turing thesis is about the definition of computability, not finite-automaton loops."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "Is L = { aⁿ² | n ≥ 0 } (strings of a's whose length is a perfect square) regular?",
+  "options": ["No — the gaps between consecutive perfect squares grow, so pumping a loop produces a non-square length", "Yes, it is regular", "Yes, because it is a unary language", "It is context-free but not regular"],
+  "correctIndex": 0,
+  "explanation": "Pump a string a^(p²): the pumped substring has length |y| ≤ p, so pumping once adds ≤ p symbols. But consecutive squares near p² differ by about 2p+1 > p, so the new length cannot be a perfect square — contradiction, hence non-regular.",
+  "distractorRationales": ["", "It is not regular; the growing gaps between squares defeat any finite-state loop.", "Being unary does not make it regular; { aⁿ² } is a classic non-regular unary language.", "It is not even context-free; a PDA cannot recognize perfect-square lengths either."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "easy",
+  "questionText": "Pumping a string 'down' refers to choosing the exponent i equal to:",
+  "options": ["0, removing the substring y (i.e., the string xz)", "1, leaving the string unchanged", "2, doubling y", "a negative number"],
+  "correctIndex": 0,
+  "explanation": "Pumping down means setting i = 0 in xyⁱz, giving xz (y removed). The lemma guarantees xz ∈ L too, which is often used to derive contradictions for languages with a 'greater-than' constraint.",
+  "distractorRationales": ["", "i = 1 gives the original string s = xyz, which is no help.", "i = 2 is pumping UP, not down.", "Exponents in the pumping lemma are non-negative integers; i cannot be negative."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "Which of these languages CANNOT be proven non-regular by the pumping lemma (because it actually IS regular)?",
+  "options": ["L = { w ∈ {a,b}* | #a(w) is even }", "L = { aⁿbⁿ | n ≥ 0 }", "L = { aⁿ! | n ≥ 0 }", "L = { ww | w ∈ {a,b}* }"],
+  "correctIndex": 0,
+  "explanation": "Counting a's modulo 2 needs only a 2-state DFA, so { w | #a even } is regular and the pumping lemma cannot show otherwise. The others are non-regular.",
+  "distractorRationales": ["", "{ aⁿbⁿ } is the canonical non-regular language.", "{ aⁿ! } (factorial-length) is non-regular due to growing gaps.", "{ ww } (copy language) is non-regular (and not even context-free)."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "When using the pumping lemma to prove non-regularity, who gets to choose the value of p, and who chooses the string s?",
+  "options": ["The adversary (lemma) fixes p; you choose s of length ≥ p", "You choose p; the adversary chooses s", "Both are chosen by you freely", "Both are fixed in advance independently of L"],
+  "correctIndex": 0,
+  "explanation": "In the proof game, the pumping lemma provides some unknown p (you cannot choose it). You then pick a specific string s ∈ L with |s| ≥ p, and show that no valid decomposition s = xyz can be pumped while staying in L.",
+  "distractorRationales": ["", "You do NOT choose p; it is given by the lemma. You choose s.", "p is not yours to choose; only s (and the pumping exponent i) are.", "p depends on L (e.g., its DFA's state count); it is not fixed independently."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "For L = { aⁿbᵐ | n ≠ m }, which approach proves non-regularity?",
+  "options": ["Use closure: if L were regular, its complement intersected with a*b* would give { aⁿbⁿ }, which is non-regular — contradiction", "Directly pump s = aᵖbᵖ", "Show L is finite", "Build a DFA"],
+  "correctIndex": 0,
+  "explanation": "Direct pumping of { aⁿbᵐ | n≠m } is tricky. A cleaner argument uses closure: regular languages are closed under complement and intersection. The complement of L intersected with a*b* equals { aⁿbⁿ }, which is non-regular, so L cannot be regular.",
+  "distractorRationales": ["", "Pumping s = aᵖbᵖ is awkward here because aᵖbᵖ ∉ L (n = m), so this direct choice fails.", "L is infinite, so it cannot be dismissed as finite.", "If a DFA existed, L would be regular — the proof shows that is impossible."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "medium",
+  "questionText": "The Myhill-Nerode theorem provides an alternative to the pumping lemma that can:",
+  "options": ["Exactly characterize regularity (a language is regular iff it has finitely many equivalence classes under the indistinguishability relation)", "Only prove regularity, never non-regularity", "Prove context-freeness", "Decide the halting problem"],
+  "correctIndex": 0,
+  "explanation": "Myhill-Nerode gives an exact (necessary and sufficient) characterization: L is regular iff the number of equivalence classes of its right-congruence is finite. Unlike the pumping lemma, it can both prove and disprove regularity.",
+  "distractorRationales": ["", "It can prove non-regularity too (infinitely many classes), unlike the one-directional pumping lemma.", "It characterizes regular, not context-free, languages.", "It has nothing to do with the halting problem."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "hard",
+  "questionText": "Consider L = { 0ⁱ1ʲ | i, j ≥ 0 and i = j or i = 2j }. Is L regular?",
+  "options": ["No — pumping breaks the linear relationships between i and j", "Yes, it is regular", "Yes, because it is a union of two languages", "It is regular only for i = j"],
+  "correctIndex": 0,
+  "explanation": "Each clause (i = j and i = 2j) is individually non-regular (a counting relationship between i and j), and their union is also non-regular. Pumping the 0-block changes i without changing j, violating both relations.",
+  "distractorRationales": ["", "It is not regular; the equality/ratio constraints require counting beyond finite states.", "A union of two non-regular languages need not be regular; here it is not.", "The i = j part alone is already non-regular, so restricting to it does not make L regular."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "pumping-lemmas",
+  "difficulty": "easy",
+  "questionText": "The pumping lemma can be applied to a finite language to prove non-regularity?",
+  "options": ["No — every finite language is regular, so the pumping lemma cannot show it non-regular", "Yes, all finite languages are non-regular", "Only if it has more than p strings", "Only for unary alphabets"],
+  "correctIndex": 0,
+  "explanation": "Every finite language is regular (a DFA can simply enumerate its finitely many strings). The pumping lemma trivially holds (choose p larger than the longest string, so no string has length ≥ p), and it can never prove a finite language non-regular.",
+  "distractorRationales": ["", "Finite languages are always regular, not non-regular.", "The number of strings does not change the fact that finite languages are regular.", "This holds for any alphabet, not just unary."]
+ }
+]

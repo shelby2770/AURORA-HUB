@@ -1,0 +1,202 @@
+[
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "What is the decimal value of the binary number 1011?",
+    "options": ["11", "13", "9", "7"],
+    "correctIndex": 0,
+    "explanation": "1011 = 1·8 + 0·4 + 1·2 + 1·1 = 8 + 2 + 1 = 11. Each bit contributes its positional power of two.",
+    "distractorRationales": ["", "13 would be 1101, not 1011.", "9 would be 1001.", "7 would be 0111."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "The hexadecimal number 0x2F equals which decimal value?",
+    "options": ["47", "31", "45", "63"],
+    "correctIndex": 0,
+    "explanation": "0x2F = 2·16 + 15 = 32 + 15 = 47 (F is 15 in hex).",
+    "distractorRationales": ["", "31 is 0x1F, not 0x2F.", "45 is 0x2D.", "63 is 0x3F."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "In 8-bit two's complement, the range of representable integers is:",
+    "options": ["-128 to +127", "-127 to +127", "0 to 255", "-128 to +128"],
+    "correctIndex": 0,
+    "explanation": "n-bit two's complement represents −2^(n-1) to 2^(n-1)−1. For n=8 that is −128 to +127. The asymmetry (one extra negative value) comes from the single representation of zero.",
+    "distractorRationales": ["", "−127 to +127 is the symmetric sign-magnitude range, not two's complement.", "0 to 255 is the unsigned 8-bit range.", "+128 is not representable in 8-bit two's complement (max is +127)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "To negate a number in two's complement, you:",
+    "options": ["Invert all bits and add 1", "Invert all bits only", "Add 1 only", "Flip the sign bit only"],
+    "correctIndex": 0,
+    "explanation": "Two's-complement negation is: complement every bit (one's complement) then add 1. For example, +5 = 0101 → invert 1010 → +1 = 1011 = −5 (in 4 bits).",
+    "distractorRationales": ["", "Inverting bits alone gives one's complement, which has two zeros and is off by one.", "Adding 1 without inverting does not negate.", "Flipping only the sign bit is sign-magnitude negation, not two's complement."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "What is the 8-bit two's complement representation of -20?",
+    "options": ["11101100", "00010100", "11101011", "10010100"],
+    "correctIndex": 0,
+    "explanation": "+20 = 00010100. Invert: 11101011. Add 1: 11101100. So −20 = 11101100 in 8-bit two's complement.",
+    "distractorRationales": ["", "00010100 is +20, not −20.", "11101011 is the one's complement of 20 (missing the +1).", "10010100 is sign-magnitude −20, not two's complement."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "How many bits are needed to represent the decimal number 100 in unsigned binary?",
+    "options": ["7", "6", "8", "5"],
+    "correctIndex": 0,
+    "explanation": "2^6 = 64 < 100 ≤ 127 = 2^7−1, so 7 bits are needed (100 = 1100100). 6 bits max out at 63.",
+    "distractorRationales": ["", "6 bits represent only 0–63, too small for 100.", "8 bits work but are more than the minimum 7.", "5 bits represent only 0–31."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "The octal number 17 (base 8) equals which binary value?",
+    "options": ["001111", "010001", "001110", "001011"],
+    "correctIndex": 0,
+    "explanation": "Each octal digit maps to 3 binary bits: 1 → 001, 7 → 111, giving 001111. (Decimal check: 17 octal = 1·8 + 7 = 15 = 1111.)",
+    "distractorRationales": ["", "010001 is decimal 17 in binary, not octal 17.", "001110 is octal 16 (decimal 14).", "001011 is decimal 11."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "In IEEE 754 single precision (32-bit), the number of bits allocated to the exponent and mantissa (fraction) fields, respectively, are:",
+    "options": ["8 and 23", "11 and 52", "5 and 10", "8 and 24"],
+    "correctIndex": 0,
+    "explanation": "IEEE 754 single precision uses 1 sign bit, 8 exponent bits (bias 127), and 23 fraction (mantissa) bits, totaling 32. Double precision uses 11 exponent and 52 fraction bits.",
+    "distractorRationales": ["", "11 and 52 are the double-precision field sizes.", "5 and 10 correspond to half precision (16-bit).", "The stored fraction is 23 bits; the 24 counts the implicit leading 1, which is not stored."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "Why is two's complement preferred over sign-magnitude for integer arithmetic in CPUs?",
+    "options": ["Addition and subtraction use the same hardware and there is a single representation of zero", "It can represent larger numbers", "It is human-readable", "It avoids using a sign bit"],
+    "correctIndex": 0,
+    "explanation": "In two's complement, the same binary adder handles both positive and negative operands (subtraction is adding the negation), and zero has a unique representation — unlike sign-magnitude's +0 and −0. This simplifies the ALU.",
+    "distractorRationales": ["", "For a given bit width the magnitude range is essentially the same, not larger.", "Sign-magnitude is arguably more human-readable; that is not the advantage.", "Two's complement still uses the most significant bit as a sign indicator."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "Adding the 4-bit two's complement numbers 0111 (+7) and 0001 (+1) gives 1000. This result indicates:",
+    "options": ["Signed overflow (the result -8 is wrong for +7 + +1 = +8)", "Correct result +8", "Correct result -8", "No issue at all"],
+    "correctIndex": 0,
+    "explanation": "+7 + +1 should be +8, but 4-bit two's complement maxes at +7. The sum 1000 represents −8, and adding two positives yielding a negative signals signed overflow (carry into the sign bit differs from carry out).",
+    "distractorRationales": ["", "+8 is not representable in 4-bit two's complement, so 1000 is not +8.", "−8 is the bit pattern obtained, but it is the WRONG answer for +7++1 — the point is the overflow.", "There is definitely an overflow issue here."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "Converting binary 11010 to decimal gives:",
+    "options": ["26", "24", "28", "22"],
+    "correctIndex": 0,
+    "explanation": "11010 = 16 + 8 + 0 + 2 + 0 = 26.",
+    "distractorRationales": ["", "24 is 11000.", "28 is 11100.", "22 is 10110."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "BCD (Binary-Coded Decimal) represents each decimal digit using:",
+    "options": ["4 bits (0000–1001), wasting the codes 1010–1111", "8 bits per digit", "A single bit per digit", "Two's complement"],
+    "correctIndex": 0,
+    "explanation": "BCD encodes each decimal digit 0–9 in its own 4-bit binary code (0000–1001); the six combinations 1010–1111 are unused. It eases decimal display/arithmetic at the cost of storage efficiency.",
+    "distractorRationales": ["", "Standard BCD uses 4 bits per digit, not 8 (that would be wasteful unpacked ASCII-like coding).", "A single bit cannot represent ten digit values.", "BCD is a positional digit encoding, not two's complement."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "In IEEE 754 single precision, the exponent is stored with a bias of:",
+    "options": ["127", "128", "1023", "255"],
+    "correctIndex": 0,
+    "explanation": "Single precision uses a bias of 127: the stored 8-bit exponent E represents an actual exponent of E − 127. (Double precision uses bias 1023.) Biasing lets exponents be compared as unsigned values.",
+    "distractorRationales": ["", "128 is a common off-by-one error; the single-precision bias is 127.", "1023 is the double-precision bias.", "255 is the maximum stored exponent value (reserved for inf/NaN), not the bias."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "Gray code is characterized by the property that consecutive values differ by:",
+    "options": ["Exactly one bit", "Two bits", "All bits", "A variable number of bits"],
+    "correctIndex": 0,
+    "explanation": "In Gray code, adjacent numbers differ in only a single bit position. This minimizes errors in electromechanical encoders and reduces glitches when crossing boundaries, since only one bit changes at a time.",
+    "distractorRationales": ["", "Two-bit changes would defeat the purpose of Gray code's single-bit transition property.", "Standard binary can change many bits at once (e.g., 0111→1000), which Gray code avoids.", "The defining feature is a constant single-bit change, not variable."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "The one's complement of the 8-bit number 00101101 is:",
+    "options": ["11010010", "11010011", "00101110", "11010001"],
+    "correctIndex": 0,
+    "explanation": "One's complement inverts every bit: 00101101 → 11010010. (Two's complement would then add 1 to get 11010011.)",
+    "distractorRationales": ["", "11010011 is the two's complement (one's complement + 1).", "00101110 is just adding 1 to the original, not complementing.", "11010001 is not the bitwise inversion of the given value."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "How is the decimal fraction 0.625 represented in binary?",
+    "options": ["0.101", "0.110", "0.011", "0.111"],
+    "correctIndex": 0,
+    "explanation": "0.625 = 1/2 + 1/8 = 0.5 + 0.125. In binary that is 0.101 (bit weights 1/2, 1/4, 1/8: 1·0.5 + 0·0.25 + 1·0.125 = 0.625).",
+    "distractorRationales": ["", "0.110 = 0.5 + 0.25 = 0.75, not 0.625.", "0.011 = 0.25 + 0.125 = 0.375.", "0.111 = 0.875."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "easy",
+    "questionText": "How many distinct values can be represented with n bits?",
+    "options": ["2^n", "2n", "n^2", "2^n - 1"],
+    "correctIndex": 0,
+    "explanation": "Each bit doubles the number of combinations, so n bits encode 2^n distinct values (e.g., 8 bits → 256 values, 0–255). 2^n − 1 is the maximum unsigned value, not the count.",
+    "distractorRationales": ["", "2n is linear and far too small.", "n^2 is polynomial, not the exponential count.", "2^n − 1 is the largest representable unsigned value, one less than the count of values."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "In IEEE 754, a stored exponent of all 1s with a nonzero mantissa represents:",
+    "options": ["NaN (Not a Number)", "Zero", "The largest normal number", "A denormalized number"],
+    "correctIndex": 0,
+    "explanation": "All-ones exponent with a nonzero fraction encodes NaN; with a zero fraction it encodes ±infinity. An all-zeros exponent with nonzero fraction encodes denormalized (subnormal) numbers, and all-zeros with zero fraction is ±0.",
+    "distractorRationales": ["", "Zero is all-zeros exponent and zero fraction, not all-ones exponent.", "The largest normal number has the maximum normal exponent (all-ones is reserved).", "Denormals use the all-zeros exponent, not all-ones."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "hard",
+    "questionText": "Converting decimal 156 to hexadecimal gives:",
+    "options": ["0x9C", "0x9B", "0xA6", "0x8C"],
+    "correctIndex": 0,
+    "explanation": "156 / 16 = 9 remainder 12. 9 → 9 and 12 → C, so 156 = 0x9C. (Check: 9·16 + 12 = 144 + 12 = 156.)",
+    "distractorRationales": ["", "0x9B = 155, one less.", "0xA6 = 166, too large.", "0x8C = 140, too small."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "number-systems-data-representation",
+    "difficulty": "medium",
+    "questionText": "Sign extension when widening a negative two's-complement number from 8 to 16 bits requires:",
+    "options": ["Copying the sign bit (1) into all the new high-order bit positions", "Padding the high bits with zeros", "Reversing the bits", "Adding 1 to the value"],
+    "correctIndex": 0,
+    "explanation": "To preserve a two's-complement value when widening, the sign bit is replicated into the new upper bits (sign extension). A negative number (sign bit 1) gets 1s in the new positions; a positive number gets 0s. Zero-padding would corrupt negatives.",
+    "distractorRationales": ["", "Zero-padding works only for non-negative values; it changes a negative number's value.", "Reversing bits is unrelated to width extension.", "Adding 1 would alter the value, not preserve it."]
+  }
+]

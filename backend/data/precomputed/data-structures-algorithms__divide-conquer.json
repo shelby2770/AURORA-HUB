@@ -1,0 +1,202 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "easy",
+  "questionText": "The divide-and-conquer paradigm solves a problem by:",
+  "options": ["Dividing it into smaller subproblems of the same type, solving them recursively, and combining their results", "Iterating once over the input", "Greedily picking a local optimum at each step", "Storing all subproblem results in a table and filling bottom-up"],
+  "correctIndex": 0,
+  "explanation": "Divide-and-conquer breaks a problem into independent subproblems of the same kind, solves them recursively, and merges their solutions. Merge sort and quicksort are classic examples.",
+  "distractorRationales": ["", "A single iteration is a linear scan, not the recursive decomposition of divide-and-conquer.", "Greedy local choices define the greedy paradigm, not divide-and-conquer.", "Filling a table bottom-up over overlapping subproblems is dynamic programming; divide-and-conquer subproblems are typically independent."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "easy",
+  "questionText": "Which of the following is a divide-and-conquer sorting algorithm?",
+  "options": ["Merge sort", "Insertion sort", "Bubble sort", "Counting sort"],
+  "correctIndex": 0,
+  "explanation": "Merge sort splits the array in half, recursively sorts each half, and merges them — the textbook divide-and-conquer sort. Quicksort is another.",
+  "distractorRationales": ["", "Insertion sort builds the sorted prefix incrementally; it is incremental, not divide-and-conquer.", "Bubble sort repeatedly swaps adjacent elements; it is not divide-and-conquer.", "Counting sort is a non-comparison distribution sort, not divide-and-conquer."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "easy",
+  "questionText": "The recurrence for merge sort's running time is:",
+  "options": ["T(n) = 2T(n/2) + O(n)", "T(n) = T(n−1) + O(1)", "T(n) = 2T(n/2) + O(1)", "T(n) = T(n/2) + O(n)"],
+  "correctIndex": 0,
+  "explanation": "Merge sort makes two recursive calls on halves (2T(n/2)) and merges in linear time (O(n)), giving T(n) = 2T(n/2) + O(n) = O(n log n).",
+  "distractorRationales": ["", "T(n−1)+O(1) describes a single linear recursion (e.g., naive factorial), not splitting into halves.", "2T(n/2)+O(1) would give O(n) by the master theorem, but merging costs O(n), not O(1).", "T(n/2)+O(n) has only one recursive call (like binary search variants), not two."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "easy",
+  "questionText": "Binary search on a sorted array is a divide-and-conquer algorithm with recurrence:",
+  "options": ["T(n) = T(n/2) + O(1), giving O(log n)", "T(n) = 2T(n/2) + O(1)", "T(n) = T(n−1) + O(1)", "T(n) = T(n/2) + O(n)"],
+  "correctIndex": 0,
+  "explanation": "Binary search discards half the array and recurses on the other half, doing O(1) work per level: T(n) = T(n/2) + O(1) = O(log n).",
+  "distractorRationales": ["", "Two recursive calls (2T(n/2)) would explore both halves, defeating the purpose of binary search.", "T(n−1)+O(1) is linear recursion, not halving.", "T(n/2)+O(n) would give O(n); binary search does only O(1) work per level, not O(n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "Using the Master Theorem on T(n) = 2T(n/2) + O(n), the solution is:",
+  "options": ["Θ(n log n)", "Θ(n)", "Θ(n²)", "Θ(log n)"],
+  "correctIndex": 0,
+  "explanation": "Here a = 2, b = 2, so n^(log_b a) = n^1 = n, and f(n) = Θ(n) matches — Case 2 of the Master Theorem gives Θ(n^(log_b a) · log n) = Θ(n log n).",
+  "distractorRationales": ["", "Θ(n) ignores the extra logarithmic factor from the balanced (Case 2) split.", "Θ(n²) would require f(n) growing like n² or a much higher branching factor.", "Θ(log n) is the cost of single-call halving (binary search), not two calls plus linear merge."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "Karatsuba's algorithm multiplies two n-digit numbers using 3 recursive multiplications of n/2-digit numbers. Its recurrence and complexity are:",
+  "options": ["T(n) = 3T(n/2) + O(n), giving Θ(n^log2(3)) ≈ Θ(n^1.585)", "T(n) = 4T(n/2) + O(n), giving Θ(n²)", "T(n) = 2T(n/2) + O(n), giving Θ(n log n)", "T(n) = 3T(n/3) + O(n), giving Θ(n)"],
+  "correctIndex": 0,
+  "explanation": "Karatsuba reduces 4 sub-multiplications to 3: T(n) = 3T(n/2) + O(n). By the Master Theorem, n^(log_2 3) ≈ n^1.585 dominates the linear term, giving Θ(n^1.585) — faster than the schoolbook Θ(n²).",
+  "distractorRationales": ["", "4T(n/2)+O(n) is the naive grade-school recurrence giving Θ(n²); Karatsuba's improvement is using 3 calls.", "2T(n/2) would be even fewer multiplications than Karatsuba achieves and does not match the algorithm.", "3T(n/3) describes a different split (thirds), not Karatsuba's halving with 3 multiplications."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "Strassen's matrix multiplication algorithm multiplies two n×n matrices with the recurrence T(n) = 7T(n/2) + O(n²). Its complexity is:",
+  "options": ["Θ(n^log2(7)) ≈ Θ(n^2.81)", "Θ(n³)", "Θ(n²)", "Θ(n² log n)"],
+  "correctIndex": 0,
+  "explanation": "Strassen uses 7 recursive multiplications of n/2 matrices instead of 8. n^(log_2 7) ≈ n^2.807 dominates the O(n²) combine cost, so the result is Θ(n^2.81), beating the naive Θ(n³).",
+  "distractorRationales": ["", "Θ(n³) is the naive 8-multiplication algorithm; Strassen's whole point is to do better.", "Θ(n²) is the cost of just adding matrices, not multiplying them; no known general algorithm achieves it.", "Θ(n² log n) would arise from 4T(n/2)+O(n²), which is not Strassen's recurrence."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "The maximum-subarray problem can be solved by divide-and-conquer by considering the max subarray entirely in the left half, entirely in the right half, or:",
+  "options": ["Crossing the midpoint (computed in linear time)", "Only at the array endpoints", "By sorting the array first", "By a single greedy pass that never recurses"],
+  "correctIndex": 0,
+  "explanation": "The divide-and-conquer solution combines results from the two halves plus the best subarray crossing the midpoint, found in O(n). This yields T(n)=2T(n/2)+O(n)=O(n log n). (Kadane's algorithm solves it in O(n), but the D&C version uses the crossing case.)",
+  "distractorRationales": ["", "Restricting to endpoints would miss most candidate subarrays.", "Sorting destroys the contiguity that defines a subarray, so it cannot be used.", "A single greedy pass is Kadane's algorithm, not the divide-and-conquer formulation being described."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "Quicksort's worst-case time complexity and the situation that triggers it are:",
+  "options": ["O(n²), when the pivot is always the smallest or largest element (e.g., already sorted input with naive pivot)", "O(n log n) always", "O(n), with a random pivot", "O(log n), regardless of input"],
+  "correctIndex": 0,
+  "explanation": "If each partition is maximally unbalanced (pivot is the extreme element), the recurrence becomes T(n)=T(n−1)+O(n)=O(n²). Randomized or median-of-three pivots make this worst case very unlikely; average is O(n log n).",
+  "distractorRationales": ["", "Quicksort is not O(n log n) in the worst case; unbalanced partitions degrade it to O(n²).", "No comparison sort can sort in O(n) in general; quicksort's best/average is O(n log n).", "O(log n) is impossible — a sort must at least examine all n elements."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "The number of inversions in an array can be counted in O(n log n) by modifying which divide-and-conquer algorithm?",
+  "options": ["Merge sort (count cross-inversions during the merge step)", "Bubble sort", "Heap sort", "Counting sort"],
+  "correctIndex": 0,
+  "explanation": "During merge sort's merge, whenever an element from the right half is placed before remaining elements of the left half, those remaining left elements each form an inversion with it. Summing these counts gives total inversions in O(n log n).",
+  "distractorRationales": ["", "Bubble sort can count inversions but only in O(n²), not O(n log n).", "Heap sort does not naturally expose cross-half inversions during its operation.", "Counting sort is a distribution sort and does not compare/merge halves to detect inversions."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "hard",
+  "questionText": "Solve T(n) = 2T(n/2) + n/log n. Which is the correct asymptotic bound? (Master Theorem does not apply directly here.)",
+  "options": ["Θ(n log log n)", "Θ(n log n)", "Θ(n)", "Θ(n²)"],
+  "correctIndex": 0,
+  "explanation": "This falls in the Master Theorem 'gap' (f(n)=n/log n is between n and n log n). Summing the work per level: each of the log n levels contributes about n/log(level-size), and the sum telescopes to Θ(n log log n).",
+  "distractorRationales": ["", "Θ(n log n) would be the answer if the combine cost were exactly Θ(n), but here it is the smaller n/log n.", "Θ(n) underestimates; the per-level work summed over log n levels exceeds linear.", "Θ(n²) is far too large for a combine cost below linear-times-log."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "hard",
+  "questionText": "The closest-pair-of-points problem in 2D is solved by divide-and-conquer in:",
+  "options": ["O(n log n), by splitting on the x-coordinate and checking a constant number of points in the strip around the dividing line", "O(n²) only", "O(n), with a single scan", "O(n log² n) with no better bound possible"],
+  "correctIndex": 0,
+  "explanation": "Sort by x, recurse on each half, then check pairs within a vertical strip of width 2δ around the split line. A geometric argument shows each point need only be compared with a constant number of neighbors (sorted by y), giving O(n) combine and overall O(n log n).",
+  "distractorRationales": ["", "O(n²) is the brute-force bound; divide-and-conquer improves on it.", "A single linear scan cannot guarantee finding the global closest pair in the plane.", "The classic algorithm achieves O(n log n), better than O(n log² n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "hard",
+  "questionText": "The median-of-medians selection algorithm finds the k-th smallest element in worst-case:",
+  "options": ["O(n) time", "O(n log n) time", "O(n²) time", "O(log n) time"],
+  "correctIndex": 0,
+  "explanation": "Median-of-medians chooses a pivot guaranteeing a constant-fraction split, yielding T(n) ≤ T(n/5) + T(7n/10) + O(n), which solves to O(n). It gives deterministic linear-time selection.",
+  "distractorRationales": ["", "O(n log n) is sorting-based selection; median-of-medians beats it with linear time.", "O(n²) is naive quickselect's worst case, which median-of-medians specifically avoids.", "O(log n) is impossible since the algorithm must examine all n elements at least once."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "hard",
+  "questionText": "Solve T(n) = T(n/3) + T(2n/3) + O(n). What is the asymptotic complexity?",
+  "options": ["Θ(n log n)", "Θ(n)", "Θ(n^1.5)", "Θ(n²)"],
+  "correctIndex": 0,
+  "explanation": "The two subproblem sizes sum to n at each level, so each level does Θ(n) total work. The recursion tree's longest path has depth Θ(log_{3/2} n) = Θ(log n). Total = Θ(n) × Θ(log n) = Θ(n log n).",
+  "distractorRationales": ["", "Θ(n) would require constant depth, but the unbalanced split still gives logarithmic depth.", "Θ(n^1.5) does not arise from a recurrence whose per-level work is linear.", "Θ(n²) requires per-level work to grow, but here each level sums to Θ(n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "In the Master Theorem T(n) = aT(n/b) + f(n), which case applies when f(n) is polynomially smaller than n^(log_b a)?",
+  "options": ["Case 1: T(n) = Θ(n^(log_b a))", "Case 2: T(n) = Θ(n^(log_b a) log n)", "Case 3: T(n) = Θ(f(n))", "None — the theorem never applies then"],
+  "correctIndex": 0,
+  "explanation": "Case 1 applies when f(n) = O(n^(log_b a − ε)) for some ε > 0 (work dominated by the leaves). The result is T(n) = Θ(n^(log_b a)).",
+  "distractorRationales": ["", "Case 2 applies when f(n) is Θ(n^(log_b a)), i.e., comparable, not polynomially smaller.", "Case 3 applies when f(n) is polynomially larger (and the regularity condition holds), not smaller.", "The theorem does apply; this is precisely its Case 1."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "Computing a^n (exponentiation by squaring) uses divide-and-conquer to achieve:",
+  "options": ["O(log n) multiplications", "O(n) multiplications", "O(n log n) multiplications", "O(1) multiplications"],
+  "correctIndex": 0,
+  "explanation": "Exponentiation by squaring uses a^n = (a^(n/2))² for even n (and one extra multiply for odd n), halving the exponent each step: T(n) = T(n/2) + O(1) = O(log n) multiplications.",
+  "distractorRationales": ["", "Naive repeated multiplication uses O(n) multiplications; squaring is the faster divide-and-conquer method.", "O(n log n) overstates the cost; halving the exponent gives only O(log n).", "O(1) is impossible; at least log n squarings are needed."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "hard",
+  "questionText": "The Fast Fourier Transform (FFT) computes the Discrete Fourier Transform of n points using divide-and-conquer in:",
+  "options": ["O(n log n) time", "O(n²) time", "O(n) time", "O(n^1.585) time"],
+  "correctIndex": 0,
+  "explanation": "FFT splits the polynomial into even- and odd-indexed coefficients, recursing on two size-n/2 transforms and combining in O(n): T(n) = 2T(n/2) + O(n) = O(n log n), versus O(n²) for the direct DFT.",
+  "distractorRationales": ["", "O(n²) is the naive DFT; the FFT's purpose is to beat it.", "O(n) is too fast; the recursion contributes a logarithmic factor.", "O(n^1.585) is Karatsuba's bound, not the FFT's."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "easy",
+  "questionText": "Which statement correctly contrasts divide-and-conquer with dynamic programming?",
+  "options": ["Divide-and-conquer subproblems are typically independent, whereas dynamic programming exploits overlapping subproblems by memoizing", "They are identical techniques", "Dynamic programming subproblems are always independent", "Divide-and-conquer always uses a table of stored results"],
+  "correctIndex": 0,
+  "explanation": "Divide-and-conquer partitions a problem into independent subproblems solved once each. Dynamic programming applies when subproblems overlap, so it stores (memoizes) results to avoid recomputation.",
+  "distractorRationales": ["", "They differ precisely in how subproblems relate (independent vs. overlapping).", "Dynamic programming's defining feature is overlapping (not independent) subproblems.", "Plain divide-and-conquer does not store results; that table is the hallmark of dynamic programming."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "medium",
+  "questionText": "Solve T(n) = 4T(n/2) + n by the Master Theorem.",
+  "options": ["Θ(n²)", "Θ(n log n)", "Θ(n² log n)", "Θ(n)"],
+  "correctIndex": 0,
+  "explanation": "a = 4, b = 2, so n^(log_2 4) = n². Since f(n) = n is polynomially smaller than n², Case 1 applies and T(n) = Θ(n²).",
+  "distractorRationales": ["", "Θ(n log n) corresponds to a = 2 (balanced Case 2), not a = 4.", "Θ(n² log n) would require f(n) = Θ(n²), but here f(n) = n is smaller.", "Θ(n) ignores the large branching factor of 4 that dominates the cost."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "divide-conquer",
+  "difficulty": "hard",
+  "questionText": "For the recurrence T(n) = 2T(n/2) + Θ(n²), the Master Theorem gives:",
+  "options": ["Θ(n²) — Case 3, since f(n) = n² dominates n^(log_b a) = n", "Θ(n log n)", "Θ(n²  log n)", "Θ(n)"],
+  "correctIndex": 0,
+  "explanation": "a = 2, b = 2 gives n^(log_2 2) = n. Here f(n) = n² is polynomially larger than n and satisfies the regularity condition (2·(n/2)² = n²/2 ≤ c·n²), so Case 3 applies: T(n) = Θ(n²).",
+  "distractorRationales": ["", "Θ(n log n) is Case 2, which requires f(n) = Θ(n), not Θ(n²).", "Θ(n² log n) would apply only if f(n) = Θ(n²) equalled n^(log_b a); here n² strictly dominates n, so no extra log.", "Θ(n) ignores the dominating quadratic combine cost."]
+ }
+]

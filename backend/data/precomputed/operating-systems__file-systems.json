@@ -1,0 +1,182 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "easy",
+    "questionText": "In contiguous file allocation, a file's blocks are stored:",
+    "options": ["In consecutive blocks on disk", "Scattered with each block pointing to the next", "In a separate index block of pointers", "Only in memory"],
+    "correctIndex": 0,
+    "explanation": "Contiguous allocation places a file in a run of consecutive disk blocks, giving excellent sequential and random access (block = start + offset). Its drawbacks are external fragmentation and difficulty growing a file when neighboring blocks are taken.",
+    "distractorRationales": ["", "Scattered blocks with next-pointers describe linked allocation.", "A separate index block of pointers is indexed allocation.", "Files are stored on disk; allocation strategy concerns disk layout, not memory."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "A key disadvantage of linked allocation is that it:",
+    "options": ["Provides poor random (direct) access because reaching block k requires traversing k pointers", "Suffers severe external fragmentation", "Cannot grow files", "Wastes an entire index block per file"],
+    "correctIndex": 0,
+    "explanation": "Linked allocation stores a next-block pointer in each block, so accessing the k-th block means following the chain from the start — O(k) — making random access slow. Its advantages are no external fragmentation and easy file growth. (FAT mitigates the access cost by keeping the links in a table.)",
+    "distractorRationales": ["", "Linked allocation avoids external fragmentation; contiguous allocation suffers it.", "Linked allocation makes growing files easy, not impossible.", "An index block per file is indexed allocation's overhead, not linked allocation's."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "A Unix inode stores all of the following EXCEPT:",
+    "options": ["The file's name", "File size and permissions", "Pointers to the file's data blocks", "Timestamps and owner ID"],
+    "correctIndex": 0,
+    "explanation": "The inode holds a file's metadata — size, permissions, owner, timestamps, and data-block pointers — but NOT the file name. Names live in directory entries that map names to inode numbers, which is what allows hard links (multiple names for one inode).",
+    "distractorRationales": ["", "Size and permissions are core inode metadata.", "Data-block pointers (direct and indirect) are stored in the inode.", "Timestamps and owner ID are stored in the inode."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "An inode has 10 direct block pointers, 1 single-indirect, and 1 double-indirect pointer. Block size is 1 KB and each pointer is 4 bytes (so 256 pointers per block). The maximum file size is approximately:",
+    "options": ["About 64 MB", "About 256 KB", "About 1 MB", "About 16 GB"],
+    "correctIndex": 0,
+    "explanation": "Direct: 10×1 KB = 10 KB. Single-indirect: 256×1 KB = 256 KB. Double-indirect: 256×256×1 KB = 65,536 KB = 64 MB. The total is dominated by the double-indirect term, ≈ 64 MB.",
+    "distractorRationales": ["", "256 KB is only the single-indirect contribution, ignoring the double-indirect's 64 MB.", "1 MB greatly underestimates the double-indirect capacity.", "16 GB would require a triple-indirect pointer, which this inode lacks."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "easy",
+    "questionText": "A hard link and a symbolic (soft) link differ in that a symbolic link:",
+    "options": ["Stores a path to the target file and breaks if the target is deleted", "Shares the same inode as the target", "Cannot point to files", "Increases the target's link count"],
+    "correctIndex": 0,
+    "explanation": "A symbolic link is a special file containing a pathname to its target; if the target is removed, the symlink dangles. A hard link is another directory entry pointing to the same inode, sharing the data and incrementing the inode's link count; the data persists until all hard links are removed.",
+    "distractorRationales": ["", "Sharing the same inode describes a hard link, not a symbolic link.", "Symbolic links can point to files (and directories).", "Only hard links increment the inode link count; symlinks do not."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "The File Allocation Table (FAT) scheme improves on plain linked allocation by:",
+    "options": ["Keeping all the block links in a table cached in memory, speeding random access", "Storing files contiguously", "Using indirect index blocks per file", "Eliminating the need for a directory"],
+    "correctIndex": 0,
+    "explanation": "FAT pulls the next-block pointers out of the data blocks into a single table (FAT) that can be cached in memory. Traversing the chain then happens in memory rather than via disk reads per block, greatly improving random-access performance over naive linked allocation.",
+    "distractorRationales": ["", "FAT still uses a linked structure, not contiguous storage.", "Per-file index blocks are indexed allocation (e.g., inodes), not FAT.", "FAT still relies on directories to map names to starting clusters."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "Journaling file systems improve crash recovery by:",
+    "options": ["Writing intended changes to a log (journal) before applying them, so recovery can replay or roll back", "Storing two full copies of every file", "Disabling all caching", "Defragmenting on every write"],
+    "correctIndex": 0,
+    "explanation": "A journaling file system first records metadata (and optionally data) changes in a journal, then applies them to the main structures. After a crash, it replays committed journal entries (or discards incomplete ones), restoring consistency quickly without a full disk scan (fsck).",
+    "distractorRationales": ["", "Journaling logs changes, not full duplicate copies of every file.", "Journaling is compatible with caching; it does not disable it.", "Journaling does not defragment on every write."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "Free-space on disk can be tracked with a bit vector (bitmap). Its main advantage is:",
+    "options": ["Simplicity and easy location of contiguous free blocks via fast bit scanning", "It uses no disk space at all", "It works only for contiguous allocation", "It avoids the need for any metadata"],
+    "correctIndex": 0,
+    "explanation": "A bitmap uses one bit per block (1 = free, 0 = used). It is simple and lets the system find runs of free blocks efficiently using word-level bit operations. Its drawback is that the bitmap itself grows with disk size and ideally is kept in memory.",
+    "distractorRationales": ["", "The bitmap itself occupies disk/memory space proportional to the number of blocks.", "Bitmaps work with any allocation method, not only contiguous.", "The bitmap is itself metadata; it does not eliminate metadata."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "easy",
+    "questionText": "A directory in a file system is essentially:",
+    "options": ["A table mapping file names to their metadata (e.g., inode numbers)", "The raw data of all its files concatenated", "A region of physical memory", "A hardware device"],
+    "correctIndex": 0,
+    "explanation": "A directory is a special file whose contents map human-readable names to the file system's internal identifiers (inode numbers in Unix). This indirection lets multiple names refer to one inode (hard links) and separates naming from storage.",
+    "distractorRationales": ["", "A directory holds name-to-metadata entries, not the files' data itself.", "Directories live on disk as files, not in physical memory.", "A directory is a data structure/file, not a hardware device."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "Indexed allocation (e.g., an index block per file) primarily improves over linked allocation by:",
+    "options": ["Supporting efficient direct (random) access via the index block", "Eliminating internal fragmentation", "Removing the need for a free-space map", "Guaranteeing contiguous storage"],
+    "correctIndex": 0,
+    "explanation": "Indexed allocation gathers all of a file's block pointers into an index block, so the i-th block is found by reading entry i of the index — enabling fast direct access without chain traversal. The cost is the space overhead of the index block, especially for small files.",
+    "distractorRationales": ["", "Indexed allocation does not eliminate internal fragmentation in the last block.", "A free-space map is still needed to find unused blocks.", "Indexed allocation allows non-contiguous blocks; it does not guarantee contiguity."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "The open-file table maintained by the OS exists to:",
+    "options": ["Track per-process and system-wide state (e.g., file position, inode) of currently open files", "Store the entire contents of open files", "List every file on disk", "Replace the directory structure"],
+    "correctIndex": 0,
+    "explanation": "When a file is opened, the OS records its state (such as the current file offset and a reference to the inode) in open-file tables — typically a per-process table of descriptors plus a system-wide table. This avoids re-resolving the path on every read/write and tracks the access position.",
+    "distractorRationales": ["", "It tracks state and pointers, not the full contents of files.", "It lists only currently open files, not every file on disk.", "It complements, not replaces, the on-disk directory structure."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "easy",
+    "questionText": "Internal fragmentation in a block-based file system occurs because:",
+    "options": ["Files rarely fill their last allocated block exactly, wasting the remainder", "Free blocks are scattered across the disk", "Two files share a block", "The directory is too large"],
+    "correctIndex": 0,
+    "explanation": "Disk space is allocated in whole blocks (clusters), so a file's final block is usually only partly used, wasting the rest — internal fragmentation. Larger block sizes worsen this waste but improve throughput, a classic trade-off.",
+    "distractorRationales": ["", "Scattered free blocks relate to external fragmentation, which block allocation avoids.", "Standard file systems do not let two files share a data block.", "Directory size is unrelated to internal fragmentation of file data."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "A file system uses 4 KB blocks and 4-byte block pointers. How many data blocks can a single single-indirect block address?",
+    "options": ["1024", "4096", "256", "512"],
+    "correctIndex": 0,
+    "explanation": "A 4 KB block holds 4096 / 4 = 1024 pointers, so a single-indirect block can point to 1024 data blocks (4 MB of data with 4 KB blocks). Pointers-per-block = block size / pointer size is the key relation for indirect-block capacity.",
+    "distractorRationales": ["", "4096 is the block size in bytes, not the number of 4-byte pointers it holds.", "256 would be the count for 1 KB blocks (1024/4), not 4 KB blocks.", "512 corresponds to 8-byte pointers in a 4 KB block, not 4-byte pointers."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "Why do larger disk block sizes generally improve sequential throughput but worsen space efficiency?",
+    "options": ["Larger blocks transfer more data per seek but waste more on partially-filled last blocks", "Larger blocks reduce seek time to zero", "Larger blocks eliminate the file allocation table", "Larger blocks remove internal fragmentation"],
+    "correctIndex": 0,
+    "explanation": "Bigger blocks amortize the fixed seek/rotational cost over more bytes, raising sequential throughput; but each file still wastes up to one block at the end, so larger blocks increase internal fragmentation. Block size is thus a throughput-vs-utilization trade-off.",
+    "distractorRationales": ["", "Larger blocks reduce the number of seeks but cannot make seek time zero.", "Block size does not eliminate allocation metadata like a FAT.", "Larger blocks increase, not remove, internal fragmentation."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "easy",
+    "questionText": "When a file is deleted in a typical file system, what usually happens to its data blocks immediately?",
+    "options": ["They are marked free in the free-space map but the data is not necessarily erased", "Every byte is overwritten with zeros instantly", "They are moved to another disk", "They become read-only"],
+    "correctIndex": 0,
+    "explanation": "Deletion typically just removes the directory entry and marks the file's blocks as free in the free-space structure; the actual data remains on disk until those blocks are reallocated and overwritten. This is why deleted files can sometimes be recovered.",
+    "distractorRationales": ["", "Standard deletion does not zero the data; secure-erase is a separate, slower operation.", "Blocks are not relocated to another disk on deletion.", "Freed blocks are available for reuse, not made read-only."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "hard",
+    "questionText": "The main reason Unix separates file names (in directories) from inodes is to:",
+    "options": ["Allow multiple names (hard links) to refer to the same file data with a shared link count", "Make files larger", "Avoid using a free-space map", "Speed up the CPU"],
+    "correctIndex": 0,
+    "explanation": "By storing metadata and data pointers in the inode and keeping names in directory entries that reference the inode number, Unix lets several directory entries (hard links) point to one inode. The inode's link count tracks how many names reference it; the data is freed only when the count reaches zero.",
+    "distractorRationales": ["", "The separation does not change maximum file size.", "A free-space map is still required regardless of this separation.", "It is a structural design choice, unrelated to CPU speed."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "Tracking free space with a linked list of free blocks, compared with a bitmap, has the drawback that:",
+    "options": ["Finding contiguous free space is inefficient because the free list is not ordered/compact", "It requires far more memory than a bitmap", "It cannot represent free blocks", "It works only on SSDs"],
+    "correctIndex": 0,
+    "explanation": "A free list chains free blocks together, which makes allocating a single block easy but locating a run of contiguous free blocks awkward, since the list does not reveal adjacency. A bitmap, by contrast, makes scanning for contiguous runs straightforward.",
+    "distractorRationales": ["", "A free list can actually use little extra space (links stored in the free blocks themselves).", "A free list precisely represents which blocks are free.", "Free lists are independent of the underlying storage technology."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "file-systems",
+    "difficulty": "medium",
+    "questionText": "Memory-mapped files allow a process to:",
+    "options": ["Access file contents via ordinary memory loads/stores, with the OS paging data in on demand", "Store files only in registers", "Bypass the file system entirely", "Compress files automatically"],
+    "correctIndex": 0,
+    "explanation": "Memory mapping (mmap) maps a file's contents into the process's address space, so reads and writes become ordinary memory accesses; the virtual-memory system loads pages from the file on demand and writes dirty pages back. This avoids explicit read/write calls and enables easy sharing.",
+    "distractorRationales": ["", "Files are far larger than the register set; mapping uses the address space, not registers.", "Memory mapping uses the file system's data; it does not bypass it.", "Mapping does not perform automatic compression."]
+  }
+]

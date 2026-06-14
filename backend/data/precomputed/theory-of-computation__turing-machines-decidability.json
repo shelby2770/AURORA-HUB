@@ -1,0 +1,162 @@
+[
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "easy",
+  "questionText": "A standard (deterministic) Turing machine differs from a finite automaton primarily because it has:",
+  "options": ["An unbounded tape it can read from and write to, moving in both directions", "More states", "A faster clock", "A stack instead of a tape"],
+  "correctIndex": 0,
+  "explanation": "A Turing machine has an infinite tape with read/write capability and a head that moves left or right, giving it unbounded memory. A finite automaton has only finite state memory and reads input once.",
+  "distractorRationales": ["", "The number of states is finite for both; the tape (unbounded memory) is the key difference.", "Computational power, not clock speed, distinguishes the models.", "A stack characterizes a pushdown automaton; a TM uses a read/write tape, which is strictly more powerful."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "easy",
+  "questionText": "The Church-Turing thesis asserts that:",
+  "options": ["Any function that is effectively computable can be computed by a Turing machine", "Turing machines are faster than all other models", "Every problem is decidable", "Finite automata can compute anything a TM can"],
+  "correctIndex": 0,
+  "explanation": "The Church-Turing thesis is the claim that the intuitive notion of 'effective/algorithmic computation' coincides exactly with what Turing machines (equivalently, lambda calculus, recursive functions) can compute.",
+  "distractorRationales": ["", "It is about computability, not speed.", "It does not claim universal decidability; many problems are undecidable.", "Finite automata are strictly weaker than Turing machines."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "easy",
+  "questionText": "A language is 'Turing-decidable' (recursive) if there exists a Turing machine that:",
+  "options": ["Halts on every input and correctly accepts or rejects", "Accepts strings in the language but may loop on others", "Never halts", "Only works on finite inputs"],
+  "correctIndex": 0,
+  "explanation": "A decidable (recursive) language has a TM that always halts, accepting members and rejecting non-members. This 'always halts' guarantee distinguishes it from merely recognizable (r.e.) languages.",
+  "distractorRationales": ["", "Accepting members but possibly looping on non-members describes a recognizer (r.e.), not a decider.", "A decider must halt; never halting contradicts decidability.", "All TM inputs are finite strings; that is not the distinguishing feature."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "A nondeterministic Turing machine (NTM) is, in terms of computational power, ___ a deterministic Turing machine (DTM).",
+  "options": ["Equivalent to (recognizes exactly the same languages as)", "Strictly more powerful than", "Strictly weaker than", "Incomparable with"],
+  "correctIndex": 0,
+  "explanation": "Any NTM can be simulated by a DTM (by systematically exploring its computation tree), so they recognize the same class of languages. Nondeterminism may affect efficiency but not computability.",
+  "distractorRationales": ["", "NTMs are not more powerful in what they can compute; a DTM can simulate any NTM.", "NTMs are at least as powerful as DTMs (a DTM is a special NTM), so not weaker.", "They are directly comparable — in fact equivalent — in computational power."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "A universal Turing machine (UTM) is a Turing machine that:",
+  "options": ["Takes the encoding of any TM M and an input w, and simulates M on w", "Solves the halting problem", "Has infinitely many states", "Recognizes only regular languages"],
+  "correctIndex": 0,
+  "explanation": "A UTM takes ⟨M, w⟩ as input and simulates the behavior of machine M on input w. Its existence underlies the idea of a stored-program computer and is central to undecidability proofs.",
+  "distractorRationales": ["", "A UTM does not solve the halting problem — that remains undecidable even with a UTM.", "A UTM has finitely many states like any TM; it gains generality from simulation, not infinite states.", "A UTM is Turing-complete, far beyond regular languages."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "A multi-tape Turing machine is, in computational power, ___ a single-tape Turing machine.",
+  "options": ["Equivalent to (though possibly with a polynomial slowdown when simulated on one tape)", "Strictly more powerful than", "Strictly weaker than", "Able to decide undecidable problems"],
+  "correctIndex": 0,
+  "explanation": "A multi-tape TM can be simulated by a single-tape TM, so they recognize the same languages. The simulation may incur up to a quadratic time slowdown, but computability is unchanged.",
+  "distractorRationales": ["", "Multiple tapes give no extra computational power, only potential efficiency.", "A single tape can simulate multiple tapes, so multi-tape is not weaker.", "Extra tapes cannot make undecidable problems decidable."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "The class of languages recognized by Turing machines is exactly the:",
+  "options": ["Recursively enumerable (recognizable) languages", "Regular languages", "Context-free languages", "Finite languages"],
+  "correctIndex": 0,
+  "explanation": "Turing machines recognize precisely the recursively enumerable (r.e.) languages — those for which a TM halts and accepts members (but may loop on non-members). The decidable languages are the subset where the TM always halts.",
+  "distractorRationales": ["", "Regular languages are recognized by finite automata, a strictly weaker model.", "Context-free languages are recognized by pushdown automata, also weaker than TMs.", "Finite languages are a trivial subset; TMs recognize far more."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "Which of the following is true about decidable languages?",
+  "options": ["They are closed under union, intersection, and complement", "They are not closed under complement", "They are closed under union but not intersection", "They are closed under no operations"],
+  "correctIndex": 0,
+  "explanation": "Decidable (recursive) languages are closed under union, intersection, complement, concatenation, and Kleene star — you can build deciders that always halt for the combined operations (e.g., swap accept/reject for complement).",
+  "distractorRationales": ["", "Decidable languages ARE closed under complement (swap accepting and rejecting states of the always-halting decider).", "They are closed under intersection too (run both deciders).", "They are closed under many operations, not none."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "hard",
+  "questionText": "Recursively enumerable (r.e.) languages are closed under which operation but NOT under another?",
+  "options": ["Closed under union and intersection, but NOT under complement", "Closed under complement but not union", "Closed under all Boolean operations", "Closed under no operations"],
+  "correctIndex": 0,
+  "explanation": "R.e. languages are closed under union and intersection (run recognizers in parallel / sequentially), but NOT under complement — if both L and L̄ were r.e., L would be decidable, which fails for languages like A_TM.",
+  "distractorRationales": ["", "R.e. languages are NOT closed under complement; this reverses the truth.", "They fail closure under complement, so not all Boolean operations.", "They are closed under union and intersection, so 'no operations' is false."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "hard",
+  "questionText": "A linear bounded automaton (LBA) is a Turing machine restricted to use:",
+  "options": ["Only the tape cells occupied by the input (linear space)", "Only one direction of head movement", "No tape writes", "A read-only input"],
+  "correctIndex": 0,
+  "explanation": "An LBA is a TM whose tape head is confined to the portion of tape holding the input (up to a linear factor). LBAs recognize exactly the context-sensitive languages.",
+  "distractorRationales": ["", "The restriction is on space (tape used), not on head-movement direction.", "An LBA can write to its (bounded) tape; that is essential to its power.", "A read-only input head with finite control is a finite automaton, not an LBA."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "hard",
+  "questionText": "Which problem is DECIDABLE for context-free languages but UNDECIDABLE for Turing machines?",
+  "options": ["Emptiness of the language", "Membership of a string", "Whether the description has a given number of states", "Whether the input alphabet is binary"],
+  "correctIndex": 0,
+  "explanation": "Emptiness is decidable for CFLs (check if the start symbol derives a terminal string) but undecidable for TMs (E_TM). Membership is decidable for both. The other options are syntactic and decidable for both.",
+  "distractorRationales": ["", "Membership is decidable for both CFLs (CYK) and TMs (run for the relevant steps when it halts — though for general TMs membership/acceptance is undecidable, the contrast intended here is emptiness).", "State count is a syntactic property, decidable in both cases.", "Alphabet inspection is syntactic and decidable for both."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "hard",
+  "questionText": "The Chomsky hierarchy associates each grammar class with a machine model. Type-0 (unrestricted) grammars correspond to:",
+  "options": ["Turing machines (recursively enumerable languages)", "Finite automata", "Pushdown automata", "Linear bounded automata"],
+  "correctIndex": 0,
+  "explanation": "In the Chomsky hierarchy: Type-3 (regular) ↔ finite automata; Type-2 (context-free) ↔ pushdown automata; Type-1 (context-sensitive) ↔ linear bounded automata; Type-0 (unrestricted) ↔ Turing machines (r.e. languages).",
+  "distractorRationales": ["", "Finite automata correspond to Type-3 regular grammars.", "Pushdown automata correspond to Type-2 context-free grammars.", "Linear bounded automata correspond to Type-1 context-sensitive grammars."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "A 'decider' that always halts can be obtained from a recognizer if:",
+  "options": ["We also have a recognizer for the complement (running both in parallel)", "The language is infinite", "The recognizer is fast", "The alphabet is unary"],
+  "correctIndex": 0,
+  "explanation": "If both L and L̄ are recognizable, run both recognizers in parallel; exactly one will accept, letting you decide membership and always halt. This is the recursive = r.e. ∩ co-r.e. characterization.",
+  "distractorRationales": ["", "Infiniteness of the language does not help build a decider.", "Speed does not turn a possibly-looping recognizer into a guaranteed-halting decider.", "Alphabet size is irrelevant to obtaining a decider."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "hard",
+  "questionText": "Which statement about the relationship between decidable, r.e., and co-r.e. languages is correct?",
+  "options": ["Decidable = r.e. ∩ co-r.e.", "Decidable = r.e. ∪ co-r.e.", "r.e. = co-r.e. always", "Every co-r.e. language is decidable"],
+  "correctIndex": 0,
+  "explanation": "A language is decidable iff it is both recognizable (r.e.) and co-recognizable (co-r.e.). The intersection of these two classes is exactly the recursive (decidable) languages.",
+  "distractorRationales": ["", "The union is larger than the decidable class (e.g., A_TM is r.e. but not decidable).", "r.e. ≠ co-r.e. in general; A_TM is r.e. but not co-r.e.", "Co-r.e. languages (like HALT̄) can be undecidable."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "easy",
+  "questionText": "A Turing machine's configuration (instantaneous description) is fully captured by:",
+  "options": ["The current state, the tape contents, and the head position", "The current state only", "The number of steps executed", "The input length"],
+  "correctIndex": 0,
+  "explanation": "A TM configuration consists of the current control state, the contents of the tape, and the position of the read/write head. These three together determine the machine's future behavior.",
+  "distractorRationales": ["", "The state alone omits the tape contents and head position, which are essential.", "The step count does not capture the machine's data (tape) or position.", "Input length is static and does not describe the evolving computation."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "turing-machines-decidability",
+  "difficulty": "medium",
+  "questionText": "Which of the following models is NOT Turing-complete (equivalent in power to a Turing machine)?",
+  "options": ["Deterministic finite automaton (DFA)", "Lambda calculus", "Two-stack pushdown automaton", "Counter machine with two counters"],
+  "correctIndex": 0,
+  "explanation": "A DFA has only finite memory and cannot simulate a Turing machine, so it is not Turing-complete. Lambda calculus, a two-stack PDA, and a two-counter (Minsky) machine are all Turing-complete.",
+  "distractorRationales": ["", "Lambda calculus is Turing-complete (Church's model).", "A PDA with two stacks can simulate a TM tape and is Turing-complete.", "A two-counter machine is Turing-complete (Minsky's result)."]
+ }
+]

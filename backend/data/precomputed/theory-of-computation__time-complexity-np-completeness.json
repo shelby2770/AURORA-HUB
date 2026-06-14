@@ -1,0 +1,202 @@
+[
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "easy",
+  "questionText": "The complexity class P consists of decision problems solvable by a deterministic Turing machine in:",
+  "options": ["Polynomial time", "Exponential time", "Constant time", "Logarithmic space"],
+  "correctIndex": 0,
+  "explanation": "P is the class of decision problems solvable in time bounded by a polynomial in the input size on a deterministic Turing machine. These are considered 'efficiently solvable'.",
+  "distractorRationales": ["", "Exponential time defines EXP, a much larger class than P.", "Constant time is far too restrictive to define P.", "Logarithmic space defines L, a space class, not the time class P."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "easy",
+  "questionText": "The class NP is best characterized as decision problems whose 'yes' instances have:",
+  "options": ["Certificates verifiable in polynomial time by a deterministic machine", "Solutions findable in polynomial time deterministically", "No known algorithm at all", "Only exponential-size inputs"],
+  "correctIndex": 0,
+  "explanation": "NP = problems for which a proposed solution (certificate/witness) can be VERIFIED in polynomial time. Equivalently, they are solvable in polynomial time by a nondeterministic Turing machine.",
+  "distractorRationales": ["", "Finding the solution deterministically in polynomial time is the definition of P, not NP (whether P = NP is open).", "NP problems do have algorithms (e.g., brute force); the question is efficiency.", "Input size is not what defines NP; verifiability of certificates is."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "easy",
+  "questionText": "A problem is NP-complete if it is in NP and:",
+  "options": ["Every problem in NP reduces to it in polynomial time (it is NP-hard)", "It is solvable in polynomial time", "It is undecidable", "It is in P but not NP"],
+  "correctIndex": 0,
+  "explanation": "An NP-complete problem is in NP and is NP-hard: every NP problem polynomial-time reduces to it. Thus it is among the 'hardest' problems in NP — if any one is in P, then P = NP.",
+  "distractorRationales": ["", "If an NP-complete problem were known to be in polynomial time, that would prove P = NP, which is unresolved.", "NP-complete problems are decidable; undecidability is a separate notion.", "Every NP-complete problem is in NP by definition; the phrasing 'in P but not NP' is contradictory."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "easy",
+  "questionText": "Which problem was the first proven NP-complete (Cook-Levin theorem)?",
+  "options": ["Boolean satisfiability (SAT)", "Sorting", "Shortest path", "Minimum spanning tree"],
+  "correctIndex": 0,
+  "explanation": "The Cook-Levin theorem (1971) established that Boolean satisfiability (SAT) is NP-complete by directly simulating any polynomial-time nondeterministic Turing machine with a Boolean formula.",
+  "distractorRationales": ["", "Sorting is solvable in O(n log n), comfortably in P.", "Shortest path (single-source, non-negative) is in P via Dijkstra's algorithm.", "Minimum spanning tree is in P via Kruskal's or Prim's algorithm."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "The relationship between P and NP that is currently known (proven) is:",
+  "options": ["P ⊆ NP", "P = NP", "P ⊋ NP", "P and NP are disjoint"],
+  "correctIndex": 0,
+  "explanation": "It is proven that P ⊆ NP (any problem solvable deterministically in polynomial time can have its solution verified in polynomial time). Whether the inclusion is strict (P ≠ NP) is the famous open question.",
+  "distractorRationales": ["", "P = NP is unproven (and widely conjectured false); it is the open Millennium Prize problem.", "P cannot properly contain NP; the containment goes the other way.", "P and NP overlap (P ⊆ NP), so they are not disjoint."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "To prove a new problem X is NP-complete, the standard two-step strategy is to show:",
+  "options": ["X ∈ NP, and reduce a known NP-complete problem to X in polynomial time", "X ∈ P, and reduce X to SAT", "X is undecidable, and reduce X to the halting problem", "X requires exponential space"],
+  "correctIndex": 0,
+  "explanation": "Membership in NP (verify certificates in poly time) plus a polynomial-time reduction FROM a known NP-complete problem TO X (establishing NP-hardness) together prove X is NP-complete.",
+  "distractorRationales": ["", "Showing X ∈ P would not prove NP-completeness; and you reduce a known NP-complete problem TO X, not X to SAT.", "Undecidability and the halting problem concern computability, not NP-completeness.", "Space requirements relate to PSPACE/EXPSPACE, not the NP-completeness proof method."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "Which of the following is NOT known to be NP-complete?",
+  "options": ["Linear programming (LP) with rational data", "3-SAT", "Hamiltonian cycle", "Vertex cover"],
+  "correctIndex": 0,
+  "explanation": "Linear programming is solvable in polynomial time (e.g., interior-point or ellipsoid methods), so it is in P, not NP-complete. 3-SAT, Hamiltonian cycle, and vertex cover are all classic NP-complete problems.",
+  "distractorRationales": ["", "3-SAT is the canonical NP-complete problem.", "Hamiltonian cycle is a well-known NP-complete problem.", "Vertex cover is a standard NP-complete problem."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "A polynomial-time reduction from problem A to problem B (A ≤ₚ B) implies that:",
+  "options": ["If B is in P, then A is in P (and if A is hard, B is at least as hard)", "A is always harder than B", "A and B are unrelated", "B is undecidable"],
+  "correctIndex": 0,
+  "explanation": "A ≤ₚ B means instances of A can be transformed into instances of B in polynomial time. So a polynomial algorithm for B yields one for A — B is at least as hard as A.",
+  "distractorRationales": ["", "The reduction makes B at least as hard as A, not A harder than B.", "The reduction precisely relates their difficulties; they are not unrelated.", "Reductions among NP problems do not imply undecidability."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "The class co-NP consists of:",
+  "options": ["Problems whose complements are in NP (NO instances have poly-time verifiable certificates)", "Problems not in NP", "Problems solvable in constant time", "The same as P always"],
+  "correctIndex": 0,
+  "explanation": "co-NP is the class of decision problems whose complement is in NP — i.e., the 'no' answers have short, poly-time verifiable certificates. Whether NP = co-NP is open. (Tautology checking is a classic co-NP problem.)",
+  "distractorRationales": ["", "co-NP is a specific class defined via complements, not simply 'everything not in NP'.", "Constant-time solvability is unrelated to co-NP.", "co-NP equals P only if certain open conjectures hold; it is not known to equal P."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "If a single NP-complete problem were shown to be solvable in polynomial time, the consequence would be:",
+  "options": ["P = NP, because all NP problems reduce to it in polynomial time", "Only that one problem becomes easy; others stay hard", "NP becomes undecidable", "P would become a subset of co-NP only"],
+  "correctIndex": 0,
+  "explanation": "Every NP problem reduces in polynomial time to any NP-complete problem. A polynomial algorithm for one NP-complete problem could solve every NP problem in polynomial time, proving P = NP.",
+  "distractorRationales": ["", "Because of completeness, solving one efficiently solves all of NP, not just that one.", "It would make NP problems efficiently solvable, not undecidable.", "It would collapse P and NP entirely, a far stronger consequence than a co-NP subset relation."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "Which statement about the relationship between NP-hard and NP-complete is correct?",
+  "options": ["Every NP-complete problem is NP-hard, but some NP-hard problems are not in NP (so not NP-complete)", "Every NP-hard problem is NP-complete", "NP-hard problems are always in P", "NP-complete is a strict superset of NP-hard"],
+  "correctIndex": 0,
+  "explanation": "NP-hard means 'at least as hard as every NP problem' but need not be in NP (e.g., the halting problem is NP-hard but undecidable). NP-complete = NP-hard AND in NP. So NP-complete ⊆ NP-hard.",
+  "distractorRationales": ["", "An NP-hard problem must also be in NP to be NP-complete; not all NP-hard problems are in NP.", "NP-hard problems are believed not to be in P (unless P = NP); some are even undecidable.", "It is the reverse: NP-complete is a subset of NP-hard, not a superset."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "The Cook-Levin theorem is significant because it shows:",
+  "options": ["SAT is NP-complete, providing the first 'anchor' from which other NP-completeness proofs follow by reduction", "SAT is in P", "Every NP problem is undecidable", "Polynomial reductions do not exist"],
+  "correctIndex": 0,
+  "explanation": "Cook-Levin established SAT as the first NP-complete problem by encoding any nondeterministic poly-time computation as a Boolean formula. This anchor lets one prove other problems NP-complete by reducing SAT (or known NP-complete problems) to them.",
+  "distractorRationales": ["", "It does not show SAT is in P; that would resolve P vs NP.", "NP problems are decidable; the theorem is about completeness, not undecidability.", "Polynomial reductions are central to the theorem, not shown nonexistent."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "Which complexity relationship is known with certainty?",
+  "options": ["P ⊆ NP ⊆ PSPACE ⊆ EXPTIME, with P ⊊ EXPTIME proven", "P = NP = PSPACE", "NP = PSPACE proven", "P = EXPTIME"],
+  "correctIndex": 0,
+  "explanation": "The chain P ⊆ NP ⊆ PSPACE ⊆ EXPTIME holds, and the time hierarchy theorem proves P ⊊ EXPTIME (strict). So at least one inclusion in the chain must be strict, though which ones are unknown.",
+  "distractorRationales": ["", "P = NP = PSPACE is not proven; these are major open questions.", "NP = PSPACE is unproven (and conjectured false).", "P ⊊ EXPTIME is proven, so P ≠ EXPTIME."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "The time hierarchy theorem essentially states that:",
+  "options": ["Given more time, a deterministic machine can solve strictly more problems (e.g., DTIME(n) ⊊ DTIME(n³))", "All time bounds give the same computational power", "Polynomial time equals exponential time", "Time complexity is undecidable"],
+  "correctIndex": 0,
+  "explanation": "The time hierarchy theorem shows that with asymptotically more time (a 'time-constructible' increase), strictly more decision problems become solvable. This is what guarantees, for instance, P ⊊ EXPTIME.",
+  "distractorRationales": ["", "More time strictly increases power; bounds are not all equivalent.", "Polynomial and exponential time differ (P ⊊ EXP), as the theorem implies.", "The theorem is a proven mathematical result, not a statement about undecidability."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "Which is a correct example of a problem in P (polynomial time)?",
+  "options": ["Determining whether a number is prime (AKS primality test)", "Boolean satisfiability (SAT)", "Travelling salesman decision problem", "Subset sum"],
+  "correctIndex": 0,
+  "explanation": "Primality testing was shown to be in P by the AKS algorithm (2002). SAT, the TSP decision problem, and subset sum are all NP-complete.",
+  "distractorRationales": ["", "SAT is NP-complete, not known to be in P.", "The TSP decision problem is NP-complete.", "Subset sum is NP-complete."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "A 'pseudo-polynomial' time algorithm (like the DP for subset sum, O(nS)) is NOT a true polynomial-time algorithm because:",
+  "options": ["Its runtime is polynomial in the numeric VALUE of the input (S), not in the input's bit-length (log S)", "It uses too much memory", "It is randomized", "It only works on small inputs"],
+  "correctIndex": 0,
+  "explanation": "Subset sum's O(nS) DP is polynomial in S, but S is given in binary using only log S bits. Relative to input size, the runtime is exponential, so it is pseudo-polynomial — subset sum remains NP-complete.",
+  "distractorRationales": ["", "The issue is the dependence on the value's magnitude, not memory usage.", "Pseudo-polynomial algorithms are typically deterministic; randomness is unrelated.", "It works on all inputs but is slow when numeric values are large relative to input length."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "Reducing 3-SAT to the Independent Set problem demonstrates that:",
+  "options": ["Independent Set is NP-hard (and being in NP, NP-complete)", "3-SAT is in P", "Independent Set is in P", "3-SAT is undecidable"],
+  "correctIndex": 0,
+  "explanation": "A polynomial reduction FROM the known NP-complete 3-SAT TO Independent Set shows Independent Set is at least as hard as 3-SAT, i.e., NP-hard. Since Independent Set is also in NP, it is NP-complete.",
+  "distractorRationales": ["", "The reduction says nothing about putting 3-SAT in P.", "It shows Independent Set is NP-hard, evidence it is NOT in P (unless P = NP).", "3-SAT is decidable; the reduction concerns NP-completeness, not undecidability."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "medium",
+  "questionText": "A 'verifier' for a problem in NP, given input x and a certificate c, must:",
+  "options": ["Run in time polynomial in |x| and accept some certificate exactly when x is a yes-instance", "Run in exponential time", "Ignore the certificate", "Solve the problem from scratch without c"],
+  "correctIndex": 0,
+  "explanation": "A polynomial-time verifier checks a candidate certificate c against input x; for yes-instances there exists a c that makes it accept (in poly time), and for no-instances no c works. This certificate-verification view defines NP.",
+  "distractorRationales": ["", "The verifier must run in polynomial, not exponential, time.", "The certificate is essential; the verifier uses it to check the answer quickly.", "The point of a verifier is to check a given certificate, not to solve the problem independently."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "easy",
+  "questionText": "Which of the following best describes an 'intractable' problem in complexity theory?",
+  "options": ["A problem with no known polynomial-time algorithm (e.g., NP-hard problems, assuming P ≠ NP)", "A problem solvable in O(n) time", "A problem with a small input", "Any decidable problem"],
+  "correctIndex": 0,
+  "explanation": "Intractable problems are those lacking efficient (polynomial-time) algorithms. NP-hard problems are the standard examples, believed intractable under the widely held conjecture that P ≠ NP.",
+  "distractorRationales": ["", "An O(n) algorithm is efficient — the opposite of intractable.", "Input size alone does not determine intractability.", "Many decidable problems are tractable (in P); decidability does not imply intractability."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "time-complexity-np-completeness",
+  "difficulty": "hard",
+  "questionText": "If P ≠ NP, then for NP-complete problems we know that:",
+  "options": ["No polynomial-time algorithm exists for them", "They become decidable", "They can be solved in logarithmic time", "They are no longer in NP"],
+  "correctIndex": 0,
+  "explanation": "If P ≠ NP, then by definition no NP-complete problem can be in P, so none has a polynomial-time algorithm. (They remain decidable and in NP regardless.)",
+  "distractorRationales": ["", "NP-complete problems are already decidable; P ≠ NP does not change that.", "Logarithmic time is far below polynomial; this is impossible for NP-complete problems.", "They remain in NP by definition; P ≠ NP does not remove them from NP."]
+ }
+]

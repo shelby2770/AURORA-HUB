@@ -44,7 +44,12 @@ export default function RootLayout({
         <PlatformClass />
         <NativeBootstrap />
         <Providers>{children}</Providers>
-        <Toaster position="top-center" richColors />
+        <Toaster
+          position="top-center"
+          richColors
+          closeButton
+          duration={3500}
+        />
       </body>
     </html>
   );

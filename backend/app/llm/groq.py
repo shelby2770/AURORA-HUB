@@ -12,10 +12,15 @@ import asyncio
 from app.llm.base import LLMError, LLMProvider
 
 _TRANSIENT = ("429", "rate", "limit", "503", "502", "500", "overloaded", "timeout")
+# A 413 "request too large" / TPM-size rejection is NOT transient — retrying the
+# same oversized request fails identically. Fail fast so a fallback can take over.
+_NON_TRANSIENT = ("413", "too large", "reduce your message", "request_too_large")
 
 
 def _is_transient(err: Exception) -> bool:
     msg = str(err).lower()
+    if any(tok in msg for tok in _NON_TRANSIENT):
+        return False
     return any(tok in msg for tok in _TRANSIENT)
 
 

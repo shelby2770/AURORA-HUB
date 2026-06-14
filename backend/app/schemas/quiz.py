@@ -15,9 +15,8 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from app.models.enums import Difficulty, QuizMode
 from app.models.question import Question
 
-# Counts always selectable; 50 is allowed only for whole-course scope.
-BASE_COUNTS = {10, 20, 30, 40}
-WHOLE_COURSE_EXTRA = {50}
+# Selectable question counts (same for every scope).
+ALLOWED_COUNTS = {5, 10, 20, 30, 40}
 SECONDS_PER_QUESTION = 90
 
 
@@ -75,14 +74,10 @@ class QuizStartRequest(BaseModel):
     mode: QuizMode
 
     @model_validator(mode="after")
-    def _validate_count_for_scope(self) -> "QuizStartRequest":
-        whole_course = self.subtopicId is None
-        allowed = BASE_COUNTS | (WHOLE_COURSE_EXTRA if whole_course else set())
-        if self.count not in allowed:
-            scope = "whole-course" if whole_course else "subtopic"
+    def _validate_count(self) -> "QuizStartRequest":
+        if self.count not in ALLOWED_COUNTS:
             raise ValueError(
-                f"count {self.count} not allowed for {scope} scope; "
-                f"allowed: {sorted(allowed)}"
+                f"count {self.count} not allowed; allowed: {sorted(ALLOWED_COUNTS)}"
             )
         return self
 
@@ -94,6 +89,35 @@ class QuizStartResponse(BaseModel):
     count: int  # actual number of questions served (may be < requested)
     durationSeconds: int | None = None  # exam timer; None for practice
     questions: list[QuestionOut]
+
+
+class QuizFillRequest(BaseModel):
+    """Ask whether a scope has enough verified questions; if short (and a
+    subtopic is chosen), kick off on-demand generation to fill the gap."""
+
+    courseId: PydanticObjectId
+    subtopicId: PydanticObjectId | None = None
+    count: int
+    difficulty: RequestDifficulty
+
+    @model_validator(mode="after")
+    def _validate_count(self) -> "QuizFillRequest":
+        if self.count not in ALLOWED_COUNTS:
+            raise ValueError(
+                f"count {self.count} not allowed; allowed: {sorted(ALLOWED_COUNTS)}"
+            )
+        return self
+
+    def generation_difficulty(self) -> Difficulty:
+        """Concrete difficulty for generation; 'random' generates at medium."""
+        return self.difficulty.as_model_difficulty() or Difficulty.medium
+
+
+class QuizFillResponse(BaseModel):
+    ready: bool          # true -> enough already; start immediately
+    available: int       # verified questions matching the scope right now
+    target: int          # requested count
+    jobId: str | None = None  # present when ready=false (a fill job is running)
 
 
 class QuizSubmitRequest(BaseModel):

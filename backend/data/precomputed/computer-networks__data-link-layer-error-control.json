@@ -1,0 +1,182 @@
+[
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "easy",
+    "questionText": "The primary purpose of a parity bit is to:",
+    "options": ["Detect single-bit errors in a group of bits", "Correct all errors", "Compress data", "Encrypt data"],
+    "correctIndex": 0,
+    "explanation": "A single parity bit makes the total number of 1s even (even parity) or odd; a single bit flip changes the parity, allowing detection of any odd number of bit errors. It cannot correct errors or detect an even number of flips.",
+    "distractorRationales": ["", "A single parity bit cannot correct errors, only detect them.", "Parity adds a bit; it does not compress.", "Parity is for error detection, not encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Cyclic Redundancy Check (CRC) detects errors by:",
+    "options": ["Appending the remainder of binary division by a generator polynomial", "Counting the number of 1 bits", "Adding all bytes together", "Encrypting the frame"],
+    "correctIndex": 0,
+    "explanation": "CRC treats the message as a polynomial, divides it (modulo-2) by a fixed generator polynomial, and appends the remainder. The receiver re-divides; a nonzero remainder indicates an error. CRC catches burst errors well and is widely used (e.g., Ethernet FCS).",
+    "distractorRationales": ["", "Counting 1 bits is parity-style detection, far weaker than CRC.", "Summing bytes is a simple checksum, less robust than CRC.", "CRC is error detection, not encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "For a CRC with a generator polynomial of degree r, how many bits are appended to the message (the FCS), and what is a key error-detection guarantee?",
+    "options": ["r bits appended; all burst errors of length ≤ r are detected", "1 bit appended; detects all errors", "r+1 bits appended; corrects all errors", "0 bits appended"],
+    "correctIndex": 0,
+    "explanation": "A degree-r generator produces an r-bit remainder (FCS) appended to the frame. Among its guarantees, any burst error of length ≤ r is always detected, plus all single/double-bit errors and any odd number of errors if the polynomial has a factor (x+1).",
+    "distractorRationales": ["", "A single bit (parity) cannot match CRC's strong burst-error guarantees.", "CRC detects but does not generally correct errors; it appends r (not r+1) bits.", "CRC appends r bits; zero would provide no check."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Hamming codes can:",
+    "options": ["Detect and correct single-bit errors", "Only detect, never correct", "Correct any number of errors", "Compress the data"],
+    "correctIndex": 0,
+    "explanation": "Hamming codes add parity bits at power-of-two positions so that the syndrome of failed parity checks points to the position of a single flipped bit, enabling single-bit error correction (and double-bit detection with an extra overall parity bit).",
+    "distractorRationales": ["", "Hamming codes do correct single-bit errors, not merely detect.", "They correct only single-bit errors, not arbitrarily many.", "They add redundancy for correction, not compression."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "easy",
+    "questionText": "The Stop-and-Wait ARQ protocol requires the sender to:",
+    "options": ["Send one frame and wait for its acknowledgment before sending the next", "Send all frames then wait", "Never wait for acknowledgments", "Send frames out of order"],
+    "correctIndex": 0,
+    "explanation": "In Stop-and-Wait ARQ, the sender transmits a single frame and pauses until it receives an ACK (or times out and retransmits) before sending the next. It is simple but inefficient on high-bandwidth-delay links because the channel sits idle while waiting.",
+    "distractorRationales": ["", "Sending all frames at once is windowed/pipelined ARQ, not stop-and-wait.", "Reliable ARQ does wait for/depend on acknowledgments.", "Stop-and-wait sends one ordered frame at a time, not out of order."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "On a link with one-way propagation delay 10 ms and frame transmission time 1 ms, the Stop-and-Wait efficiency (utilization) is approximately:",
+    "options": ["1/21 ≈ 4.8%", "1/2 = 50%", "1/11 ≈ 9%", "100%"],
+    "correctIndex": 0,
+    "explanation": "Utilization = Tt / (Tt + 2·Tp) = 1 / (1 + 2·10) = 1/21 ≈ 4.8%. The sender is busy only 1 ms out of every 21 ms cycle (transmit + round-trip wait), showing why sliding-window protocols are needed on high-delay links.",
+    "distractorRationales": ["", "50% would require 2·Tp ≈ Tt, not 20× larger.", "1/11 mistakenly uses one-way (Tp) instead of round-trip (2·Tp) in the denominator.", "100% would require negligible propagation delay."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Go-Back-N ARQ handles a lost or errored frame by:",
+    "options": ["Retransmitting that frame and all subsequent frames in the window", "Retransmitting only the lost frame", "Ignoring the loss", "Closing the connection"],
+    "correctIndex": 0,
+    "explanation": "In Go-Back-N, the receiver discards out-of-order frames, so when frame N is lost the sender, after a timeout, retransmits frame N and every frame sent after it. This is simpler than Selective Repeat but wastes bandwidth re-sending correctly-received frames.",
+    "distractorRationales": ["", "Retransmitting only the lost frame is Selective Repeat, not Go-Back-N.", "ARQ does not ignore losses; it recovers them.", "It retransmits rather than tearing down the connection."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "Selective Repeat ARQ improves on Go-Back-N by:",
+    "options": ["Retransmitting only the specific frames that are lost/errored, buffering out-of-order frames at the receiver", "Sending frames one at a time", "Never using acknowledgments", "Using a window size of 1"],
+    "correctIndex": 0,
+    "explanation": "Selective Repeat retransmits only the individual frames that were not correctly received, while the receiver buffers correctly-received out-of-order frames. This is more bandwidth-efficient than Go-Back-N but requires buffering and more complex sequence-number management at the receiver.",
+    "distractorRationales": ["", "One-at-a-time sending is stop-and-wait, not Selective Repeat.", "Selective Repeat relies on (selective) acknowledgments.", "A window size of 1 reduces it to stop-and-wait, not Selective Repeat."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "easy",
+    "questionText": "Framing at the data link layer is needed to:",
+    "options": ["Mark the boundaries (start and end) of each frame in the bit stream", "Encrypt the data", "Choose a route", "Assign IP addresses"],
+    "correctIndex": 0,
+    "explanation": "Framing delimits where each frame begins and ends within the continuous bit stream from the physical layer, using techniques like byte/bit stuffing or special flag patterns, so the receiver can extract discrete frames.",
+    "distractorRationales": ["", "Framing delimits frames; encryption is a separate function.", "Route selection is a network-layer task.", "IP address assignment is a network-layer/DHCP concern, not framing."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "For Go-Back-N with sequence numbers using k bits, the maximum sender window size is:",
+    "options": ["2^k - 1", "2^k", "2^(k-1)", "k"],
+    "correctIndex": 0,
+    "explanation": "Go-Back-N requires the window size ≤ 2^k − 1 (one less than the sequence-number space) so the receiver can unambiguously distinguish new frames from retransmissions. With 2^k it could not tell a full new window from a fully retransmitted old one.",
+    "distractorRationales": ["", "2^k (the full space) causes ambiguity between new and retransmitted frames.", "2^(k-1) is the Selective Repeat limit (half the space), not Go-Back-N's.", "k is the number of bits, not the window size."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Byte stuffing is used in framing to:",
+    "options": ["Insert an escape byte before any data byte that matches the flag byte, so flags are unambiguous", "Compress the frame", "Add error correction", "Encrypt the payload"],
+    "correctIndex": 0,
+    "explanation": "When a special flag byte delimits frames, any flag-valued byte appearing in the data is preceded by an escape (ESC) byte so the receiver does not mistake it for a real frame boundary; ESC bytes in data are likewise escaped. This keeps framing transparent to arbitrary data.",
+    "distractorRationales": ["", "Byte stuffing adds bytes for transparency, not compression.", "It is a framing/transparency mechanism, not error correction.", "It is unrelated to encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "easy",
+    "questionText": "ARQ (Automatic Repeat reQuest) error-control schemes rely on:",
+    "options": ["Acknowledgments and retransmission of lost/errored frames", "Forward error correction only", "Encryption", "Compression"],
+    "correctIndex": 0,
+    "explanation": "ARQ achieves reliability by having the receiver acknowledge correctly received frames and the sender retransmit (after timeout or NAK) any frames that are lost or corrupted. It contrasts with forward error correction (FEC), which adds redundancy to correct errors without retransmission.",
+    "distractorRationales": ["", "FEC corrects without retransmission; ARQ specifically uses retransmission.", "ARQ is about reliability, not encryption.", "ARQ does not perform compression."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "A Hamming code to correct single-bit errors in m data bits needs r parity bits satisfying:",
+    "options": ["2^r ≥ m + r + 1", "r ≥ m", "2^r = m", "r = m + 1"],
+    "correctIndex": 0,
+    "explanation": "The r parity bits must produce enough distinct syndromes to identify any of the m + r total bit positions as the error location, plus the no-error case: 2^r ≥ m + r + 1. For example, m=4 needs r=3 (2^3=8 ≥ 4+3+1=8).",
+    "distractorRationales": ["", "r ≥ m is not the requirement; far fewer parity bits suffice.", "2^r = m ignores the parity bits themselves and the no-error syndrome.", "r = m + 1 vastly over-provisions parity bits."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Piggybacking in data link protocols refers to:",
+    "options": ["Carrying an acknowledgment within an outgoing data frame to improve efficiency", "Sending duplicate frames", "Encrypting acknowledgments", "Dropping acknowledgments"],
+    "correctIndex": 0,
+    "explanation": "Instead of sending a separate ACK frame, piggybacking attaches the acknowledgment to a data frame traveling in the reverse direction, reducing the number of frames and overhead. It introduces a small delay if there is no data ready to carry the ACK.",
+    "distractorRationales": ["", "Piggybacking is about combining ACK with data, not duplicating frames.", "It concerns where the ACK is carried, not encryption.", "It delivers ACKs efficiently, not drops them."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "easy",
+    "questionText": "A checksum (as used in IP/TCP/UDP headers) differs from CRC in that it is:",
+    "options": ["A simpler sum-based scheme, weaker at detecting certain errors", "Stronger than CRC", "Used only for encryption", "Unable to detect any errors"],
+    "correctIndex": 0,
+    "explanation": "Internet checksums add up 16-bit words (with end-around carry) and store the one's-complement; they are easy to compute but miss some error patterns that CRC would catch (e.g., reordered words). CRC is preferred where stronger detection is needed, like the Ethernet frame check sequence.",
+    "distractorRationales": ["", "Checksums are generally weaker than CRC at error detection.", "Checksums are for error detection, not encryption.", "Checksums do detect many errors, just not as robustly as CRC."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "For Selective Repeat with k-bit sequence numbers, the maximum window size is:",
+    "options": ["2^(k-1)", "2^k - 1", "2^k", "k/2"],
+    "correctIndex": 0,
+    "explanation": "Selective Repeat needs the sender and receiver windows to not overlap in sequence space, so each can be at most half the sequence-number space: window ≤ 2^(k-1). This prevents the receiver from confusing a retransmitted old frame with a new one.",
+    "distractorRationales": ["", "2^k − 1 is the Go-Back-N limit; Selective Repeat is stricter (half the space).", "2^k (the full space) causes ambiguity in either protocol.", "k/2 confuses the bit count with the sequence-space size."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "medium",
+    "questionText": "Flow control at the data link layer ensures that:",
+    "options": ["A fast sender does not overwhelm a slow receiver's buffer", "Packets take the shortest route", "Errors are corrected", "Addresses are resolved"],
+    "correctIndex": 0,
+    "explanation": "Flow control (e.g., sliding windows) paces the sender so it does not transmit faster than the receiver can accept and buffer, preventing buffer overflow and frame loss. It is distinct from error control (which handles corruption) and routing (network layer).",
+    "distractorRationales": ["", "Choosing routes is a network-layer (routing) function.", "Error correction is error control, a separate data-link function.", "Address resolution (ARP) is a separate concern from flow control."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "data-link-layer-error-control",
+    "difficulty": "hard",
+    "questionText": "Bit stuffing in HDLC inserts a 0 after every sequence of five consecutive 1s in the data. This is done to:",
+    "options": ["Prevent the data from accidentally matching the frame flag 01111110", "Compress runs of 1s", "Add error correction", "Synchronize the clock"],
+    "correctIndex": 0,
+    "explanation": "HDLC uses the flag 01111110 to delimit frames. By stuffing a 0 after five 1s in the payload, the data can never contain six consecutive 1s, so the flag pattern only ever appears as a real boundary. The receiver removes the stuffed 0s (destuffing).",
+    "distractorRationales": ["", "Bit stuffing adds bits (it does not compress runs of 1s).", "It provides framing transparency, not error correction.", "Clock synchronization is a physical-layer concern, not the purpose of bit stuffing."]
+  }
+]

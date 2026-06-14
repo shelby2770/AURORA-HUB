@@ -1,0 +1,202 @@
+[
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "easy",
+  "questionText": "Which relational-algebra operation selects a subset of ROWS (tuples) satisfying a predicate?",
+  "options": ["Selection (σ)", "Projection (π)", "Cartesian product (×)", "Rename (ρ)"],
+  "correctIndex": 0,
+  "explanation": "Selection σ_predicate(R) returns the tuples (rows) of R that satisfy the predicate. Projection π picks columns; selection picks rows.",
+  "distractorRationales": ["", "Projection π chooses columns (attributes), not rows.", "Cartesian product combines every tuple of one relation with every tuple of another; it does not filter rows.", "Rename ρ only changes relation/attribute names."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "easy",
+  "questionText": "The projection operation π in relational algebra:",
+  "options": ["Selects specified columns and removes duplicate tuples from the result", "Selects rows that match a predicate", "Keeps duplicate rows", "Joins two relations"],
+  "correctIndex": 0,
+  "explanation": "Projection π_{A,B}(R) keeps only the listed attributes and, because relational algebra works on sets, eliminates duplicate tuples in the result.",
+  "distractorRationales": ["", "Selecting rows by predicate is the selection operation σ, not projection.", "Pure relational algebra produces sets, so projection removes duplicates (unlike SQL's default).", "Combining two relations is a join or product, not projection."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "easy",
+  "questionText": "Which set of operations forms a complete basis (any other relational-algebra operation can be expressed using only these)?",
+  "options": ["{σ, π, ×, ∪, −}", "{σ, π} only", "{⋈, ÷}", "{∩, ⋈}"],
+  "correctIndex": 0,
+  "explanation": "The primitive (complete) set of relational-algebra operations is selection, projection, Cartesian product, union, and set difference. Join, intersection, and division can all be derived from these.",
+  "distractorRationales": ["", "Selection and projection alone cannot combine two relations (no product/union), so they are not complete.", "Join and division are themselves derived operations, not a complete primitive basis.", "Intersection and join are both derivable; they do not form the complete primitive set."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "easy",
+  "questionText": "For the natural join R ⋈ S to behave like an intersection-style match, the join is performed on:",
+  "options": ["All attributes common (same name) to both R and S", "Only the primary key of R", "All attributes of R and S", "Randomly chosen attributes"],
+  "correctIndex": 0,
+  "explanation": "The natural join automatically equates attributes that share the same name in both relations, keeps one copy of each shared attribute, and combines matching tuples.",
+  "distractorRationales": ["", "It uses all commonly named attributes, not just R's primary key.", "It matches on shared attributes only; non-shared attributes are simply carried over, not matched.", "The matching attributes are determined by shared names, not chosen randomly."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "Tuple relational calculus (TRC) and relational algebra are equivalent in expressive power for which subset of TRC?",
+  "options": ["Safe expressions (those guaranteed to produce finite results)", "All TRC expressions including unsafe ones", "Only existentially quantified expressions", "Only expressions without quantifiers"],
+  "correctIndex": 0,
+  "explanation": "Relational algebra is equivalent to the SAFE subset of tuple (and domain) relational calculus. Unsafe calculus expressions can denote infinite relations (e.g., {t | ¬(t ∈ R)}), which algebra cannot produce.",
+  "distractorRationales": ["", "Unsafe expressions may yield infinite results, which relational algebra cannot express.", "Both existential and universal quantification are expressible; restricting to existential is unnecessary and incomplete.", "Quantifier-free expressions are too weak; quantifiers are needed to match algebra's power."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "The relational-algebra division R ÷ S is typically used to answer queries of the form:",
+  "options": ["'Find entities associated with ALL elements of S'", "'Find entities associated with ANY element of S'", "'Count the tuples in S'", "'Sort R by S'"],
+  "correctIndex": 0,
+  "explanation": "Division expresses universal quantification: R ÷ S returns the values in R that are related to every tuple in S — e.g., 'students enrolled in all required courses'.",
+  "distractorRationales": ["", "'Associated with ANY element' is existential and is handled by a join/semijoin, not division.", "Counting tuples is an aggregate operation, not division.", "Division is not a sorting operation; ordering is not part of pure relational algebra."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "Given R(A, B) and S(B, C), what is the schema (attributes) of the natural join R ⋈ S?",
+  "options": ["(A, B, C)", "(A, B, B, C)", "(A, C)", "(B)"],
+  "correctIndex": 0,
+  "explanation": "The natural join matches on the common attribute B and keeps a single copy of it, producing the schema (A, B, C).",
+  "distractorRationales": ["", "Natural join keeps only one copy of the shared attribute B, not two.", "The result retains B (the join attribute), so (A, C) drops a needed attribute.", "(B) discards A and C, which natural join preserves."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "A left outer join R ⟕ S differs from the inner natural join R ⋈ S in that the left outer join:",
+  "options": ["Also keeps tuples of R that have no matching tuple in S, padding S's attributes with nulls", "Keeps only matching tuples", "Discards tuples of R without a match", "Keeps unmatched tuples of S, not R"],
+  "correctIndex": 0,
+  "explanation": "A left outer join preserves every tuple of the left relation R; for R tuples with no match in S, the S attributes are filled with nulls. The inner join would drop those unmatched R tuples.",
+  "distractorRationales": ["", "Keeping only matches describes the inner join, not the outer join.", "Discarding unmatched R tuples is exactly what the left outer join avoids.", "A LEFT outer join preserves unmatched tuples of the LEFT relation R, not of S."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "Which relational-algebra expression is equivalent to R ∩ S (set intersection)?",
+  "options": ["R − (R − S)", "R − S", "R ∪ S", "R × S"],
+  "correctIndex": 0,
+  "explanation": "Intersection can be derived from difference: R ∩ S = R − (R − S). Removing from R the tuples not in S leaves exactly the tuples in both.",
+  "distractorRationales": ["", "R − S yields tuples in R but not in S — the complement of intersection within R, not the intersection.", "R ∪ S is the union (all tuples in either), far larger than the intersection.", "R × S is the Cartesian product, an entirely different operation."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "For set union R ∪ S to be valid in relational algebra, R and S must be:",
+  "options": ["Union-compatible: same number of attributes with corresponding domains matching", "Identical relations", "Disjoint in their tuples", "Sorted on the same key"],
+  "correctIndex": 0,
+  "explanation": "Union, intersection, and difference require union compatibility: both relations must have the same arity (number of attributes) and the corresponding attributes must be drawn from the same domains.",
+  "distractorRationales": ["", "They need not be identical — union combines two possibly different relations of the same structure.", "They need not be disjoint; overlapping tuples simply appear once in the set union.", "Sorting is irrelevant to set operations in (unordered) relational algebra."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "hard",
+  "questionText": "Consider relations Enrolled(sid, cid) and Course(cid). The query 'sids of students enrolled in every course' is expressed as:",
+  "options": ["Enrolled ÷ Course", "Enrolled ⋈ Course", "π_sid(Enrolled) − Course", "Enrolled ∪ Course"],
+  "correctIndex": 0,
+  "explanation": "Division gives universal quantification: Enrolled(sid, cid) ÷ Course(cid) returns the sids that appear paired with every cid in Course — exactly students enrolled in all courses.",
+  "distractorRationales": ["", "A natural join finds students enrolled in some matching course, not all courses.", "A set difference between sids and courses is type-incompatible and does not express 'all courses'.", "Union merely combines tuples and cannot express universal quantification."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "hard",
+  "questionText": "The 'safety' condition in domain relational calculus is required to ensure:",
+  "options": ["The result is finite and depends only on values appearing in the database (or the query)", "The query runs in polynomial time", "Every variable is universally quantified", "No joins are used"],
+  "correctIndex": 0,
+  "explanation": "A calculus expression is safe if it produces a finite result drawn from the active domain (constants in the database or query). This prevents expressions like {x | ¬P(x)} that would range over an infinite domain.",
+  "distractorRationales": ["", "Safety guarantees finiteness, not a polynomial-time bound; it is about well-definedness, not efficiency.", "Safety does not mandate universal quantification; both quantifiers are allowed.", "Joins (via shared variables) are permitted; safety is unrelated to forbidding joins."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "hard",
+  "questionText": "Let R(A, B) have 100 tuples and S(B, C) have 50 tuples, with attribute B common. The maximum possible number of tuples in R ⋈ S (natural join) is:",
+  "options": ["5000 (if all tuples share a single B value)", "100", "50", "150"],
+  "correctIndex": 0,
+  "explanation": "In the worst case every tuple of R and every tuple of S share the same single B value, so each of 100 R tuples matches each of 50 S tuples: 100 × 50 = 5000 tuples (the join degenerates to a Cartesian product on that value).",
+  "distractorRationales": ["", "100 would be the maximum only if B were a key of S (each R tuple matches at most one S tuple).", "50 underestimates; many R tuples can match the same S tuple.", "150 = 100 + 50 is not how join cardinality is bounded."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "hard",
+  "questionText": "Which statement comparing relational algebra and SQL is TRUE?",
+  "options": ["Relational algebra is set-based and removes duplicates by default, whereas SQL is multiset (bag)-based and keeps duplicates unless DISTINCT is used", "Both remove duplicates by default", "SQL is strictly less expressive than relational algebra", "Relational algebra keeps duplicates by default"],
+  "correctIndex": 0,
+  "explanation": "Pure relational algebra operates on sets, so results are duplicate-free. SQL uses bag (multiset) semantics, preserving duplicate rows unless DISTINCT is applied. This is a key practical difference.",
+  "distractorRationales": ["", "SQL does NOT remove duplicates by default; only relational algebra does.", "SQL adds aggregation, grouping, and ordering, so it is at least as expressive (arguably more) than basic relational algebra.", "Relational algebra is set-based and removes duplicates, not keeps them."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "hard",
+  "questionText": "The semijoin R ⋉ S returns:",
+  "options": ["The tuples of R that have at least one matching tuple in S (projected onto R's attributes)", "All attributes of both R and S for matching tuples", "Tuples of R with no match in S", "The Cartesian product of R and S"],
+  "correctIndex": 0,
+  "explanation": "A semijoin R ⋉ S yields exactly those R tuples that join with some tuple in S, keeping only R's attributes. It is widely used in distributed query optimization to reduce data transfer.",
+  "distractorRationales": ["", "Keeping all attributes of both relations describes a full (natural) join, not a semijoin.", "Tuples of R with NO match form an antijoin, the opposite of a semijoin.", "The Cartesian product matches every pair regardless of a condition, unlike a semijoin."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "The rename operation ρ_{X(A1,...,An)}(R) is used to:",
+  "options": ["Give relation R (and optionally its attributes) new names, useful for self-joins", "Delete attributes from R", "Sort R", "Aggregate values in R"],
+  "correctIndex": 0,
+  "explanation": "Rename ρ assigns a new name to a relation and/or its attributes. It is essential for self-joins, where the same relation must appear under two different names to be combined with itself.",
+  "distractorRationales": ["", "Deleting attributes is the job of projection, not rename.", "Sorting is not part of pure relational algebra and is unrelated to rename.", "Aggregation is an extended operation; rename only changes names."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "A theta join R ⋈_θ S is defined as:",
+  "options": ["σ_θ(R × S) — a Cartesian product followed by a selection on condition θ", "π_θ(R ∪ S)", "R − σ_θ(S)", "ρ_θ(R ⋈ S)"],
+  "correctIndex": 0,
+  "explanation": "A theta join combines all pairs from R × S and keeps those satisfying the arbitrary predicate θ (which may use =, <, >, etc.). When θ is equality on attributes it is an equijoin.",
+  "distractorRationales": ["", "Projection over a union does not represent a join condition between two relations' tuples.", "Set difference with a selection does not produce paired tuples from R and S.", "A theta join is not a rename of a natural join; it is product plus selection."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "easy",
+  "questionText": "The degree (arity) of the Cartesian product R × S, where R has m attributes and S has n attributes, is:",
+  "options": ["m + n", "m × n", "m − n", "max(m, n)"],
+  "correctIndex": 0,
+  "explanation": "The Cartesian product concatenates each tuple of R with each tuple of S, so the resulting schema has all m attributes of R plus all n of S: degree m + n. (The number of TUPLES is m_tuples × n_tuples, but the degree is m + n.)",
+  "distractorRationales": ["", "m × n is the number of resulting tuples (cardinality), not the degree (attribute count).", "m − n could be negative and has no meaning for combined schemas.", "max(m, n) ignores the attributes contributed by the smaller relation."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "medium",
+  "questionText": "Which relational calculus query is UNSAFE?",
+  "options": ["{t | ¬(t ∈ R)} — all tuples not in R", "{t | t ∈ R ∧ t.A > 5}", "{t | t ∈ R ∨ t ∈ S}", "{t | t ∈ R ∧ ¬(t ∈ S)}"],
+  "correctIndex": 0,
+  "explanation": "{t | ¬(t ∈ R)} denotes every possible tuple not in R, which is infinite — an unsafe expression. The others are bounded by the finite relations R and S, hence safe.",
+  "distractorRationales": ["", "This selects from the finite relation R with a condition, so it is safe.", "Union of two finite relations R and S is finite, hence safe.", "Difference R − S is finite (bounded by R), hence safe."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "relational-algebra-calculus",
+  "difficulty": "hard",
+  "questionText": "Cascading two selections σ_{c1}(σ_{c2}(R)) is equivalent to:",
+  "options": ["σ_{c1 ∧ c2}(R), and selections are commutative: σ_{c1}(σ_{c2}(R)) = σ_{c2}(σ_{c1}(R))", "σ_{c1 ∨ c2}(R)", "σ_{c1}(R) ∪ σ_{c2}(R)", "Only valid if c1 = c2"],
+  "correctIndex": 0,
+  "explanation": "A cascade of selections combines into a single selection with the conjunction of conditions, and the order of selections does not matter (they commute): σ_{c1}(σ_{c2}(R)) = σ_{c1 ∧ c2}(R) = σ_{c2}(σ_{c1}(R)).",
+  "distractorRationales": ["", "Nesting selections applies both conditions (AND), not OR; OR would be a union of the two selections.", "A union corresponds to OR of conditions, not the conjunction produced by nesting.", "The equivalence holds for any conditions, not only when they are equal."]
+ }
+]

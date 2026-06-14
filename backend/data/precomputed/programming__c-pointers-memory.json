@@ -1,0 +1,366 @@
+[
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "easy",
+  "questionText": "In C, the operator that yields the address of a variable is:",
+  "options": [
+   "& (address-of)",
+   "* (dereference)",
+   "-> (arrow)",
+   "sizeof"
+  ],
+  "correctIndex": 0,
+  "explanation": "The unary & operator returns the memory address of its operand (e.g., &x). The * operator does the reverse — dereferencing a pointer to access the pointed-to value.",
+  "distractorRationales": [
+   "",
+   "* dereferences a pointer; it does not take an address.",
+   "-> accesses a struct member through a pointer, not an address.",
+   "sizeof gives a type/object size, not an address."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 1)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 5;\n    int *p = &x;\n    *p = 10;\n    printf(\"%d\", x);\n    return 0;\n}",
+  "options": [
+   "10",
+   "5",
+   "address of x",
+   "0"
+  ],
+  "correctIndex": 0,
+  "explanation": "p holds the address of x, so *p = 10 writes 10 into x's storage. Printing x gives 10. Modifying through a pointer changes the pointed-to variable.",
+  "distractorRationales": [
+   "",
+   "5 ignores the write through the pointer.",
+   "%d prints the integer value of x, not an address.",
+   "x is set to 10, not 0."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "A 'dangling pointer' is a pointer that:",
+  "options": [
+   "Points to memory that has been freed or is otherwise no longer valid",
+   "Has never been declared",
+   "Points to a valid integer",
+   "Is always NULL"
+  ],
+  "correctIndex": 0,
+  "explanation": "A dangling pointer references storage that has been deallocated (e.g., via free() or a returned local's stack frame). Dereferencing it is undefined behavior. Setting freed pointers to NULL is a common defensive practice.",
+  "distractorRationales": [
+   "",
+   "An undeclared name is a compile error, not a dangling pointer.",
+   "Pointing to a valid integer is a normal, non-dangling pointer.",
+   "A dangling pointer typically holds a stale non-NULL address, not NULL."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 2)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a = 1, b = 2;\n    int *p = &a, *q = &b;\n    p = q;\n    *p = 9;\n    printf(\"%d %d\", a, b);\n    return 0;\n}",
+  "options": [
+   "1 9",
+   "9 2",
+   "9 9",
+   "1 2"
+  ],
+  "correctIndex": 0,
+  "explanation": "After p = q, both p and q point to b. So *p = 9 modifies b, not a. a remains 1 and b becomes 9, printing '1 9'.",
+  "distractorRationales": [
+   "",
+   "9 2 would require *p to still point at a, but p was reassigned to b.",
+   "9 9 would need both a and b modified; only b is.",
+   "1 2 ignores the write through p entirely."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "easy",
+  "questionText": "What does the C standard library function malloc(n) return on success?",
+  "options": [
+   "A pointer to at least n bytes of uninitialized heap memory",
+   "n bytes of zeroed memory",
+   "An integer count",
+   "A stack address"
+  ],
+  "correctIndex": 0,
+  "explanation": "malloc allocates n bytes on the heap and returns a void pointer to the block; the contents are uninitialized (indeterminate). calloc, in contrast, zero-initializes. On failure malloc returns NULL.",
+  "distractorRationales": [
+   "",
+   "malloc does not zero the memory; calloc does.",
+   "It returns a pointer, not a numeric count.",
+   "malloc allocates heap memory, not stack."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "hard",
+  "questionText": "What is the value of **pp after this code?\nint x = 7; int *p = &x; int **pp = &p;",
+  "options": [
+   "7",
+   "address of x",
+   "address of p",
+   "Undefined"
+  ],
+  "correctIndex": 0,
+  "explanation": "pp is a pointer to p; *pp gives p (the address of x); **pp dereferences again to give x's value, 7. Double dereference of a pointer-to-pointer reaches the original variable.",
+  "distractorRationales": [
+   "",
+   "*pp (single dereference) gives the address of x, but **pp gives the value 7.",
+   "pp itself holds the address of p; **pp does not.",
+   "The chain is fully defined: **pp = 7."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "Calling free(p) twice on the same pointer (double free) in C results in:",
+  "options": [
+   "Undefined behavior (often heap corruption)",
+   "Safely freeing nothing the second time",
+   "Automatically setting p to NULL",
+   "A guaranteed clean error message"
+  ],
+  "correctIndex": 0,
+  "explanation": "Freeing the same allocation twice is undefined behavior and frequently corrupts the heap's bookkeeping, leading to crashes or exploitable bugs. free does not modify the pointer, so p still holds the stale address — setting it to NULL after freeing prevents accidental reuse.",
+  "distractorRationales": [
+   "",
+   "The second free is not a safe no-op; it is undefined behavior.",
+   "free does not set the pointer to NULL.",
+   "There is no guaranteed clean diagnostic; behavior is undefined."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 3)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int arr[] = {10, 20, 30};\n    int *p = arr;\n    printf(\"%d\", *(p + 1) + 1);\n    return 0;\n}",
+  "options": [
+   "21",
+   "20",
+   "30",
+   "11"
+  ],
+  "correctIndex": 0,
+  "explanation": "*(p + 1) is arr[1] = 20. Adding 1 (outside the dereference) gives 21. The +1 inside the parentheses indexes the array; the +1 outside adds to the resulting value.",
+  "distractorRationales": [
+   "",
+   "20 is *(p+1) before adding 1.",
+   "30 would be *(p+2), the wrong index.",
+   "11 would result from *(p+1) being 10 (i.e., index 0), but p+1 is index 1."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "easy",
+  "questionText": "Dereferencing a NULL pointer in C typically causes:",
+  "options": [
+   "Undefined behavior, usually a segmentation fault at runtime",
+   "The value 0 to be returned safely",
+   "A compile-time error",
+   "The pointer to be allocated automatically"
+  ],
+  "correctIndex": 0,
+  "explanation": "NULL points to no valid object; dereferencing it is undefined behavior, in practice usually a segmentation fault (memory access violation). Always check pointers for NULL before dereferencing when they might be null.",
+  "distractorRationales": [
+   "",
+   "It does not safely return 0; it is undefined behavior.",
+   "The compiler cannot generally detect a runtime NULL dereference.",
+   "Dereferencing does not allocate memory for the pointer."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "On a 64-bit system, sizeof(int*) (a pointer to int) is typically:",
+  "options": [
+   "8 bytes (the pointer holds a 64-bit address)",
+   "4 bytes (the size of int)",
+   "Equal to sizeof(int)",
+   "1 byte"
+  ],
+  "correctIndex": 0,
+  "explanation": "A pointer stores a memory address, whose width matches the architecture's address size — 8 bytes on a 64-bit system — regardless of the pointed-to type. So all object-pointer types are typically 8 bytes there, even though int is 4 bytes.",
+  "distractorRationales": [
+   "",
+   "4 bytes is the size of int, not the 64-bit pointer.",
+   "Pointer size depends on address width, not on sizeof(int).",
+   "1 byte is far too small for a 64-bit address."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "hard",
+  "questionText": "A memory leak in C occurs when:",
+  "options": [
+   "Dynamically allocated memory is never freed and its pointer is lost",
+   "A pointer is set to NULL",
+   "An array is declared on the stack",
+   "free() is called correctly"
+  ],
+  "correctIndex": 0,
+  "explanation": "A leak happens when heap memory allocated by malloc/calloc is no longer reachable (the last pointer to it is overwritten or goes out of scope) without being freed. The memory remains reserved until the program ends, gradually exhausting available memory in long-running programs.",
+  "distractorRationales": [
+   "",
+   "Setting a pointer to NULL after freeing is good practice, not a leak (the leak is losing the pointer before freeing).",
+   "Stack arrays are automatically reclaimed; they do not leak.",
+   "Correctly calling free() prevents leaks rather than causing them."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "Given int a[10]; the expression sizeof(a) / sizeof(a[0]) computes:",
+  "options": [
+   "The number of elements in the array (10)",
+   "The size of the array in bytes",
+   "The size of one element",
+   "Always 1"
+  ],
+  "correctIndex": 0,
+  "explanation": "sizeof(a) is the whole array's byte size and sizeof(a[0]) is one element's size; dividing gives the element count, 10. (This works only where a is a true array, not a pointer parameter where the array has decayed.)",
+  "distractorRationales": [
+   "",
+   "The byte size is sizeof(a) alone, not the quotient.",
+   "One element's size is sizeof(a[0]), the denominator.",
+   "The result is 10 here, not 1; it would be 1 only if both sizeof's were equal."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "easy",
+  "questionText": "The difference between calloc and malloc is that calloc:",
+  "options": [
+   "Zero-initializes the allocated memory (and takes count and size separately)",
+   "Allocates on the stack",
+   "Cannot fail",
+   "Frees memory"
+  ],
+  "correctIndex": 0,
+  "explanation": "calloc(count, size) allocates count*size bytes and initializes them all to zero, whereas malloc leaves the memory uninitialized. Both allocate on the heap and both can return NULL on failure.",
+  "distractorRationales": [
+   "",
+   "calloc allocates on the heap, not the stack.",
+   "calloc can fail and return NULL, like malloc.",
+   "Freeing memory is done by free(), not calloc."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 4)",
+  "codeSnippet": "#include <stdio.h>\nvoid f(int *p) { p = NULL; }\nint main() {\n    int x = 5;\n    int *ptr = &x;\n    f(ptr);\n    printf(\"%d\", *ptr);\n    return 0;\n}",
+  "options": [
+   "5",
+   "0",
+   "Segmentation fault",
+   "Garbage"
+  ],
+  "correctIndex": 0,
+  "explanation": "f receives a COPY of the pointer; setting that local copy to NULL does not change ptr in main. ptr still points to x, so *ptr prints 5. To null the caller's pointer you would need a pointer-to-pointer (int **).",
+  "distractorRationales": [
+   "",
+   "0 would require x to be modified, but only a local pointer copy was changed.",
+   "No NULL dereference occurs in main; ptr is unchanged, so no segfault.",
+   "ptr still validly points to x, so the value is 5, not garbage."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "A 'void *' (generic pointer) in C:",
+  "options": [
+   "Can hold the address of any object type but must be cast before dereferencing",
+   "Can be dereferenced directly",
+   "Points only to functions",
+   "Has size zero"
+  ],
+  "correctIndex": 0,
+  "explanation": "void* is a generic pointer that can store any object pointer (malloc returns one), but because it has no associated type, it cannot be dereferenced or used in pointer arithmetic until cast to a concrete pointer type.",
+  "distractorRationales": [
+   "",
+   "void* cannot be dereferenced without a cast, since its target type is unknown.",
+   "void* points to objects/data generally, not specifically functions.",
+   "void* has the normal pointer size, not zero."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "hard",
+  "questionText": "Pointer arithmetic p + n, where p is of type T*, advances the address by:",
+  "options": [
+   "n * sizeof(T) bytes",
+   "n bytes",
+   "n bits",
+   "Always 4 bytes"
+  ],
+  "correctIndex": 0,
+  "explanation": "Adding an integer n to a typed pointer advances it by n elements, i.e., n * sizeof(T) bytes. This is why incrementing an int* on a 32-bit-int system moves the address by 4, while a char* moves by 1.",
+  "distractorRationales": [
+   "",
+   "It moves by n elements (scaled by sizeof(T)), not n raw bytes (unless T is char).",
+   "Pointer arithmetic is in bytes/elements, not bits.",
+   "The step size depends on sizeof(T), not a fixed 4 bytes."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "medium",
+  "questionText": "realloc(p, newsize) in C is used to:",
+  "options": [
+   "Resize a previously allocated block, possibly moving it and returning the new address",
+   "Free p only",
+   "Allocate stack memory",
+   "Zero a block of memory"
+  ],
+  "correctIndex": 0,
+  "explanation": "realloc changes the size of an existing heap allocation. It may grow it in place or allocate a new block, copy the old contents, and free the old one — so you must use its return value (and check for NULL, keeping the old pointer until success).",
+  "distractorRationales": [
+   "",
+   "realloc resizes; it does not merely free (that is free()).",
+   "It manages heap memory, not stack.",
+   "Zeroing memory is memset's job, not realloc's."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "c-pointers-memory",
+  "difficulty": "easy",
+  "questionText": "A function pointer in C is a pointer that stores:",
+  "options": [
+   "The address of a function, allowing it to be called indirectly",
+   "The return value of a function",
+   "A function's source code",
+   "The number of parameters"
+  ],
+  "correctIndex": 0,
+  "explanation": "A function pointer holds the entry address of a function with a matching signature, enabling indirect calls (e.g., callbacks, dispatch tables). For example, int (*fp)(int) = &square; then fp(3) calls square(3).",
+  "distractorRationales": [
+   "",
+   "It stores the function's address, not its return value.",
+   "It does not contain source code, only the runtime entry address.",
+   "Parameter count is part of the type signature, not the stored value."
+  ]
+ }
+]

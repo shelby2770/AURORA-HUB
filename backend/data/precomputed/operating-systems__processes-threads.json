@@ -1,0 +1,362 @@
+[
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "easy",
+  "questionText": "Which of the following is NOT part of a process's context that must be saved on a context switch?",
+  "options": [
+   "The source code of the program on disk",
+   "The program counter",
+   "The CPU registers",
+   "The stack pointer"
+  ],
+  "correctIndex": 0,
+  "explanation": "A context switch saves the volatile execution state — program counter, registers, stack pointer, and other CPU state — into the PCB so the process can resume later. The program's source code on disk is static and never part of the saved runtime context.",
+  "distractorRationales": [
+   "",
+   "The program counter is essential saved state so execution resumes at the right instruction.",
+   "CPU registers hold live values that must be preserved across the switch.",
+   "The stack pointer must be saved to restore the process's stack position."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "Threads of the same process share all of the following EXCEPT:",
+  "options": [
+   "Their individual stacks and register sets",
+   "The code (text) segment",
+   "The heap and global data",
+   "Open file descriptors"
+  ],
+  "correctIndex": 0,
+  "explanation": "Threads within a process share the address space — code, heap, global data, and open files. What each thread keeps private is its own stack, register set, and program counter, so concurrent threads can execute independently.",
+  "distractorRationales": [
+   "",
+   "The code/text segment is shared by all threads of a process.",
+   "The heap and globals are shared, which is why thread synchronization is needed.",
+   "Open file descriptors belong to the process and are shared across its threads."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "In the many-to-one thread model (user threads mapped to a single kernel thread), a major drawback is that:",
+  "options": [
+   "A blocking system call by one thread blocks the entire process",
+   "Threads cannot share memory",
+   "It cannot run on a uniprocessor",
+   "Each thread needs its own address space"
+  ],
+  "correctIndex": 0,
+  "explanation": "With many-to-one, the kernel sees only one schedulable entity, so if any user thread issues a blocking system call, the whole process blocks (no other user thread can run). It also cannot exploit multiple CPUs in parallel. The one-to-one model avoids this at higher kernel overhead.",
+  "distractorRationales": [
+   "",
+   "Threads do share memory in this model; that is unaffected.",
+   "It runs fine on a uniprocessor; the issue is blocking and lack of parallelism.",
+   "Threads share one address space; they do not each get their own."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "hard",
+  "questionText": "Consider: a process calls fork() three times in sequence (no exec/exit, all succeed):\nfork(); fork(); fork();\nIncluding the original, how many processes exist after the three calls?",
+  "options": [
+   "8",
+   "6",
+   "4",
+   "3"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each fork() doubles the number of processes. Starting with 1: after the first fork there are 2, after the second 4, after the third 8. In general n sequential forks yield 2^n processes total.",
+  "distractorRationales": [
+   "",
+   "6 would result from incorrectly adding rather than doubling.",
+   "4 is the count after only two forks, not three.",
+   "3 counts the number of fork calls, not the resulting processes."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "easy",
+  "questionText": "A 'zombie' process is one that:",
+  "options": [
+   "Has terminated but whose exit status has not yet been reaped by its parent via wait()",
+   "Is running an infinite loop",
+   "Has been swapped out to disk",
+   "Holds a resource needed by another process"
+  ],
+  "correctIndex": 0,
+  "explanation": "A zombie (defunct) process has finished execution, but its entry remains in the process table until the parent collects its exit status with wait(). It consumes only a table slot, no CPU or memory for execution.",
+  "distractorRationales": [
+   "",
+   "An infinite loop is a busy running process, not a zombie.",
+   "Being swapped to disk is a memory state, not the zombie condition.",
+   "Holding a needed resource relates to deadlock, not zombies."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "An 'orphan' process is a process whose:",
+  "options": [
+   "Parent has terminated, so it is re-parented (adopted by init/systemd)",
+   "Child has terminated",
+   "Memory has been freed prematurely",
+   "Priority has dropped to zero"
+  ],
+  "correctIndex": 0,
+  "explanation": "When a parent process exits before its child, the child becomes an orphan and is adopted by the init/systemd process (PID 1), which will eventually reap it. This prevents orphans from becoming permanent zombies.",
+  "distractorRationales": [
+   "",
+   "A terminated child relates to zombies, not orphans.",
+   "Orphaning is about parent termination, not premature memory freeing.",
+   "Priority changes are unrelated to the orphan definition."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "hard",
+  "questionText": "Which statement about user-level threads vs kernel-level threads is correct?",
+  "options": [
+   "User-level thread switching is faster (no mode switch) but the kernel cannot schedule them across CPUs independently",
+   "Kernel-level threads are always faster to switch",
+   "User-level threads can run on multiple CPUs in true parallel without kernel support",
+   "Kernel-level threads cannot block"
+  ],
+  "correctIndex": 0,
+  "explanation": "User-level threads are managed by a library in user space, so switching avoids a kernel mode change and is fast; however, the kernel sees one process and cannot schedule those threads on different CPUs or independently when one blocks. Kernel threads allow true parallelism and independent blocking at higher switching cost.",
+  "distractorRationales": [
+   "",
+   "Kernel-thread switches involve a mode switch and are generally slower, not always faster.",
+   "Pure user-level threads cannot achieve true multiprocessor parallelism without kernel scheduling support.",
+   "Kernel-level threads certainly can block; that is one of their advantages over many-to-one."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "The fork() system call returns:",
+  "options": [
+   "0 to the child and the child's PID (>0) to the parent",
+   "The child's PID to both processes",
+   "0 to both processes",
+   "-1 to the child on success"
+  ],
+  "correctIndex": 0,
+  "explanation": "On success, fork() returns 0 in the child process and the newly created child's PID (a positive number) in the parent. This lets a single code path distinguish which process it is executing in. A return of -1 indicates failure (in the parent).",
+  "distractorRationales": [
+   "",
+   "Only the parent receives the child's PID; the child receives 0.",
+   "The parent does not receive 0; it gets the child PID.",
+   "-1 indicates failure and is returned in the parent, not the child on success."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "easy",
+  "questionText": "Which information is stored in a Process Control Block (PCB)?",
+  "options": [
+   "Process state, PID, program counter, registers, and scheduling/accounting info",
+   "Only the process's output data",
+   "The full source code",
+   "Just the process priority"
+  ],
+  "correctIndex": 0,
+  "explanation": "The PCB is the kernel's per-process record holding the process state, identifier, saved program counter and registers, memory-management info, open files, and scheduling/accounting data. It is what the kernel saves and restores on a context switch.",
+  "distractorRationales": [
+   "",
+   "Output data is application content, not the control metadata in a PCB.",
+   "Source code is not stored in the PCB.",
+   "Priority is just one of many fields in the PCB."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "hard",
+  "questionText": "A process executes the following:\nif (fork()) { fork(); }\nIncluding the original, how many processes exist when all have finished forking?",
+  "options": [
+   "4",
+   "3",
+   "2",
+   "8"
+  ],
+  "correctIndex": 1,
+  "explanation": "Start with process P. The first fork() creates child C1. fork() returns a nonzero pid in the parent and 0 in the child, so the if-condition is true only in P. Thus P enters the body and runs the inner fork(), creating C2; C1 skips the body. Final processes: P, C1, C2 = 3.",
+  "distractorRationales": [
+   "4 would require both the parent and the first child to run the inner fork, but the child gets fork()==0 and skips it.",
+   "",
+   "2 counts only the first fork's result, missing the parent's inner fork.",
+   "8 would require three unconditional forks; here the inner fork runs in only one process."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "Which process state transition occurs when a running process issues an I/O request?",
+  "options": [
+   "Running → Blocked (waiting)",
+   "Running → Ready",
+   "Ready → Running",
+   "Blocked → Running"
+  ],
+  "correctIndex": 0,
+  "explanation": "When a running process must wait for I/O to complete, it moves from Running to Blocked (waiting); the CPU is given to another ready process. When the I/O completes, it transitions Blocked → Ready, not directly to Running.",
+  "distractorRationales": [
+   "",
+   "Running → Ready happens on preemption/quantum expiry, not on an I/O request.",
+   "Ready → Running is the dispatcher scheduling a process, unrelated to issuing I/O.",
+   "A process cannot go Blocked → Running directly; it must pass through Ready."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "easy",
+  "questionText": "Inter-process communication (IPC) via shared memory is generally faster than message passing because:",
+  "options": [
+   "After setup, processes exchange data directly without kernel involvement on each transfer",
+   "It encrypts the data automatically",
+   "It requires no synchronization",
+   "Messages are compressed"
+  ],
+  "correctIndex": 0,
+  "explanation": "Once a shared-memory region is mapped, the processes read/write it directly in user space, avoiding the per-message system-call and copy overhead of message passing. The trade-off is that the application must provide its own synchronization to avoid races.",
+  "distractorRationales": [
+   "",
+   "Shared memory does not automatically encrypt data.",
+   "It actually requires explicit synchronization, which is a drawback, not a benefit.",
+   "Compression is unrelated to why shared memory is fast."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "The exec() family of system calls is used to:",
+  "options": [
+   "Replace the current process image with a new program",
+   "Create a new child process",
+   "Terminate the calling process",
+   "Suspend a process"
+  ],
+  "correctIndex": 0,
+  "explanation": "exec() loads a new program into the current process's address space, replacing the existing image (code, data, stack) while keeping the same PID. It is typically called by a child right after fork() to run a different program. It does not create a new process.",
+  "distractorRationales": [
+   "",
+   "Creating a child is fork()'s job, not exec()'s.",
+   "Termination is done by exit(), not exec().",
+   "Suspension is unrelated; exec replaces the program image."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "hard",
+  "questionText": "Why does creating a process generally cost much more than creating a thread within an existing process?",
+  "options": [
+   "A new process needs a separate address space and resource set, while a thread reuses the parent's",
+   "Threads require a new page table each",
+   "Processes share the stack, threads do not",
+   "Threads always require disk I/O to create"
+  ],
+  "correctIndex": 0,
+  "explanation": "Process creation must set up a fresh address space (page tables), copy or COW the memory, and allocate a new resource set. A thread shares the existing process's address space and resources, so only a stack and register/control state are created — far cheaper.",
+  "distractorRationales": [
+   "",
+   "Threads do NOT each get a new page table; they share the process's.",
+   "Processes have separate stacks; threads each have their own private stack too, but the address space is what's shared.",
+   "Thread creation is an in-memory operation and does not inherently require disk I/O."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "easy",
+  "questionText": "A context switch is considered pure overhead because during it:",
+  "options": [
+   "The CPU does no useful user work while saving/restoring state",
+   "User processes run faster",
+   "Memory is defragmented",
+   "The disk is reorganized"
+  ],
+  "correctIndex": 0,
+  "explanation": "While the kernel saves the outgoing process's state and loads the incoming one, no user computation progresses, so context-switch time is pure overhead. Minimizing switch frequency and cost is therefore important for performance.",
+  "distractorRationales": [
+   "",
+   "Processes do not run during the switch itself; that is the overhead.",
+   "Context switching does not defragment memory.",
+   "It does not reorganize the disk."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "On a copy-on-write (COW) fork, the child's pages are:",
+  "options": [
+   "Shared read-only with the parent until either writes, then that page is copied",
+   "Immediately fully duplicated at fork time",
+   "Never writable by the child",
+   "Stored only on disk"
+  ],
+  "correctIndex": 0,
+  "explanation": "Copy-on-write makes fork() cheap: parent and child initially share the same physical pages marked read-only. A page is physically copied only when one of them attempts to write to it, deferring (and often avoiding) the expensive duplication.",
+  "distractorRationales": [
+   "",
+   "Immediate full duplication is exactly what COW avoids.",
+   "The child can write; the write triggers a private copy.",
+   "Pages remain in memory; COW does not force them to disk."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "hard",
+  "questionText": "A multithreaded web server using a thread pool, rather than spawning a new thread per request, primarily benefits from:",
+  "options": [
+   "Bounded resource use and avoidance of repeated thread-creation overhead",
+   "Eliminating the need for synchronization",
+   "Guaranteeing requests never wait",
+   "Running each request in its own process"
+  ],
+  "correctIndex": 0,
+  "explanation": "A thread pool reuses a fixed set of pre-created worker threads, capping concurrency (protecting against overload) and amortizing thread-creation cost across many requests. Requests may queue when all workers are busy, and shared state still needs synchronization.",
+  "distractorRationales": [
+   "",
+   "Shared data structures still require synchronization with a pool.",
+   "Requests can wait in the queue when all pool threads are busy.",
+   "A thread pool uses threads within one process, not a process per request."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "processes-threads",
+  "difficulty": "medium",
+  "questionText": "Which scheduler controls the degree of multiprogramming by deciding which jobs are admitted into the ready queue from the job pool?",
+  "options": [
+   "Long-term scheduler (job scheduler)",
+   "Short-term scheduler (CPU scheduler)",
+   "Medium-term scheduler",
+   "Dispatcher"
+  ],
+  "correctIndex": 0,
+  "explanation": "The long-term (job) scheduler selects processes from the pool of submitted jobs and loads them into memory/ready queue, thereby controlling the degree of multiprogramming. The short-term scheduler picks among ready processes for the CPU; the medium-term handles swapping.",
+  "distractorRationales": [
+   "",
+   "The short-term scheduler chooses which ready process runs next, not admission.",
+   "The medium-term scheduler swaps processes in/out of memory to control load, not initial admission.",
+   "The dispatcher performs the actual context switch, not admission decisions."
+  ]
+ }
+]

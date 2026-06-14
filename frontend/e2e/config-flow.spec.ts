@@ -28,9 +28,10 @@ test("config flow: build a quiz and start it", async ({ page }) => {
   await expect(page.getByTestId("timer")).toBeVisible();
 });
 
-test("whole-course scope exposes the 50 option", async ({ page }) => {
+test("count options range from 5 to 40", async ({ page }) => {
   await page.goto("/");
   await selectCourse(page, "Operating Systems");
-  // Default subtopic is "Whole course" → 50 available.
-  await expect(page.getByTestId("count-50")).toBeVisible();
+  await expect(page.getByTestId("count-5")).toBeVisible();
+  await expect(page.getByTestId("count-40")).toBeVisible();
+  await expect(page.getByTestId("count-50")).toHaveCount(0);
 });

@@ -12,6 +12,7 @@ import { useExamTimer, formatTime } from "@/hooks/use-exam-timer";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuestionView } from "@/components/quiz/question-view";
+import { QuestionNavigator } from "@/components/quiz/question-navigator";
 import { ExplanationPanel } from "@/components/quiz/explanation-panel";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +29,7 @@ export default function QuizPage() {
     selectAnswer,
     goNext,
     goPrev,
+    goTo,
     setResult,
   } = useQuizStore();
 
@@ -113,6 +115,13 @@ export default function QuizPage() {
           )}
         </div>
         <Progress value={((currentIndex + 1) / questions.length) * 100} />
+        <QuestionNavigator
+          questions={questions}
+          answers={answers}
+          currentIndex={currentIndex}
+          isPractice={isPractice}
+          onJump={goTo}
+        />
       </header>
 
       {/* Question */}
@@ -145,16 +154,17 @@ export default function QuizPage() {
         <Button
           variant="outline"
           size="lg"
-          className="h-12"
+          className="h-12 flex-1"
           onClick={goPrev}
           disabled={currentIndex === 0}
           data-testid="prev"
         >
-          <ChevronLeft className="size-5" />
+          <ChevronLeft className="size-5" /> Previous
         </Button>
 
         {isLast ? (
           <Button
+            variant="outline"
             size="lg"
             className="h-12 flex-1"
             onClick={finish}
@@ -164,11 +174,12 @@ export default function QuizPage() {
             {submit.isPending ? (
               <Loader2 className="size-5 animate-spin" />
             ) : (
-              `Finish · ${answeredCount}/${questions.length} answered`
+              `Finish · ${answeredCount}/${questions.length}`
             )}
           </Button>
         ) : (
           <Button
+            variant="outline"
             size="lg"
             className="h-12 flex-1"
             onClick={goNext}

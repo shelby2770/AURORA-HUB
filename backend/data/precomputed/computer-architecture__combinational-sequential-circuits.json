@@ -1,0 +1,202 @@
+[
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "The key difference between combinational and sequential circuits is that sequential circuits:",
+    "options": ["Have memory: outputs depend on current inputs AND past state", "Have no inputs", "Use only AND gates", "Cannot store data"],
+    "correctIndex": 0,
+    "explanation": "Combinational circuits' outputs depend only on the present inputs. Sequential circuits include memory elements (flip-flops/latches), so their outputs depend on both current inputs and the stored past state. Counters and registers are sequential.",
+    "distractorRationales": ["", "Sequential circuits do have inputs; the distinction is the added memory.", "They use various gates plus storage elements, not only AND.", "Storing data is precisely what sequential circuits can do via flip-flops."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "A 4-to-1 multiplexer requires how many select lines?",
+    "options": ["2", "1", "4", "3"],
+    "correctIndex": 0,
+    "explanation": "A multiplexer with 2^n data inputs needs n select lines to choose among them. For 4 inputs, n = 2 select lines (2^2 = 4).",
+    "distractorRationales": ["", "1 select line can choose between only 2 inputs.", "4 would be the number of data inputs, not select lines.", "3 select lines address 8 inputs, more than needed."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "An n-to-2^n decoder:",
+    "options": ["Activates exactly one of its 2^n outputs based on the n-bit input code", "Combines 2^n inputs into n outputs", "Stores n bits", "Adds two n-bit numbers"],
+    "correctIndex": 0,
+    "explanation": "A decoder takes an n-bit binary input and asserts exactly one of its 2^n output lines (the one corresponding to the input value). It is the inverse of an encoder and is used for address decoding and minterm generation.",
+    "distractorRationales": ["", "Combining 2^n inputs into n outputs describes an encoder, the inverse.", "A decoder is combinational and stores nothing.", "Adding numbers is an adder's job, not a decoder's."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "hard",
+    "questionText": "A full adder takes inputs A, B, and Cin. Its sum output S equals:",
+    "options": ["A ⊕ B ⊕ Cin", "A · B · Cin", "A + B + Cin (OR)", "A ⊕ B only"],
+    "correctIndex": 0,
+    "explanation": "The full adder's sum is the XOR of all three inputs: S = A ⊕ B ⊕ Cin (1 when an odd number of inputs are 1). The carry-out is Cout = A·B + Cin·(A ⊕ B).",
+    "distractorRationales": ["", "A·B·Cin (AND) is not the sum; it is part of carry generation at most.", "A logical OR does not produce the correct arithmetic sum bit.", "A ⊕ B alone ignores the carry-in Cin."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "A flip-flop is a 1-bit memory element that is:",
+    "options": ["Edge-triggered (changes state on a clock edge)", "Purely combinational", "Always transparent to its input", "Unable to hold a value"],
+    "correctIndex": 0,
+    "explanation": "A flip-flop is a clocked, edge-triggered storage element that captures its input only at a clock edge and holds the value otherwise. A latch, by contrast, is level-sensitive (transparent while enabled).",
+    "distractorRationales": ["", "A flip-flop is sequential (has state), not purely combinational.", "Being transparent to the input describes a latch, not an edge-triggered flip-flop.", "Holding a value is exactly what a flip-flop does."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "The characteristic behavior of a JK flip-flop when both J=1 and K=1 is to:",
+    "options": ["Toggle (complement) its current state on the clock edge", "Hold the current state", "Reset to 0", "Become indeterminate"],
+    "correctIndex": 0,
+    "explanation": "The JK flip-flop resolves the SR flip-flop's forbidden input: with J=K=1 it toggles (Q→Q') on each clock edge. J=0,K=0 holds; J=1,K=0 sets; J=0,K=1 resets.",
+    "distractorRationales": ["", "Holding occurs for J=K=0, not J=K=1.", "Reset occurs for J=0, K=1.", "Unlike SR's 1,1 case, JK's 1,1 is well-defined (toggle), not indeterminate."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "hard",
+    "questionText": "An n-bit ripple-carry adder is slow primarily because:",
+    "options": ["Each stage's carry-out must propagate to the next, giving O(n) carry-propagation delay", "It uses too many XOR gates", "It cannot add negative numbers", "It needs a clock"],
+    "correctIndex": 0,
+    "explanation": "In a ripple-carry adder the carry produced by each full adder feeds the next, so the carry ripples through all n stages — worst-case delay grows linearly with n. Carry-lookahead adders reduce this to roughly O(log n) by computing carries in parallel.",
+    "distractorRationales": ["", "The gate count is not the cause; the serial carry chain is.", "Two's-complement ripple adders handle negatives fine.", "A ripple-carry adder is combinational and needs no clock."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "An encoder with 2^n inputs and n outputs has a problem if more than one input is active. A 'priority encoder' solves this by:",
+    "options": ["Outputting the code of the highest-priority active input", "Outputting all codes simultaneously", "Ignoring all inputs", "Storing the inputs"],
+    "correctIndex": 0,
+    "explanation": "A plain encoder gives ambiguous output when multiple inputs are asserted. A priority encoder resolves this by encoding only the highest-priority (e.g., highest-numbered) active input, and often provides a 'valid' output to indicate any input is active.",
+    "distractorRationales": ["", "It cannot output multiple codes at once on n lines unambiguously.", "It does respond to inputs; it just prioritizes among them.", "An encoder is combinational and does not store inputs."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "A register that can shift its stored bits left or right on each clock pulse is called a:",
+    "options": ["Shift register", "Multiplexer", "Decoder", "Comparator"],
+    "correctIndex": 0,
+    "explanation": "A shift register is a chain of flip-flops that moves data one position per clock edge, used for serial-to-parallel conversion, delays, and arithmetic shifts. It is a sequential circuit.",
+    "distractorRationales": ["", "A multiplexer selects one of several inputs; it does not shift stored data.", "A decoder activates one output line; it has no shifting memory.", "A comparator compares values; it does not shift bits."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "hard",
+    "questionText": "A modulo-N counter built from flip-flops needs at least how many flip-flops?",
+    "options": ["⌈log2(N)⌉", "N", "N/2", "2N"],
+    "correctIndex": 0,
+    "explanation": "Each flip-flop stores 1 bit, giving 2 states; k flip-flops represent 2^k states. To count N distinct states you need 2^k ≥ N, i.e., k = ⌈log2 N⌉ flip-flops. For example, a mod-10 counter needs ⌈log2 10⌉ = 4 flip-flops.",
+    "distractorRationales": ["", "N flip-flops vastly overcounts; each adds exponentially more states.", "N/2 still grossly overestimates the needed count.", "2N is even larger and incorrect."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "A D (data) flip-flop's next state Q(next) is:",
+    "options": ["Equal to the D input at the clock edge", "The complement of D", "The previous Q always", "The AND of D and Q"],
+    "correctIndex": 0,
+    "explanation": "The D flip-flop captures the value on its D input at the active clock edge and outputs it: Q(next) = D. It is the simplest storage element and is widely used for registers and pipeline stages.",
+    "distractorRationales": ["", "It stores D as-is, not its complement.", "It updates to D, not always holds the old Q.", "It does not AND D with Q; it simply latches D."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "hard",
+    "questionText": "The difference between a Mealy and a Moore finite-state machine is that a Mealy machine's outputs depend on:",
+    "options": ["Both the current state and the current inputs", "Only the current state", "Only the clock", "Only the previous output"],
+    "correctIndex": 0,
+    "explanation": "In a Mealy FSM, outputs are a function of the present state and the current inputs, so outputs can change between clock edges and the machine often needs fewer states. A Moore FSM's outputs depend only on the current state, giving glitch-free, input-synchronized outputs.",
+    "distractorRationales": ["", "Depending only on the current state describes a Moore machine.", "Outputs depend on state/inputs, not the clock signal directly.", "Outputs are not a function of the previous output in either model."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "A 1-bit magnitude comparator's 'A = B' output for inputs A and B is implemented by which gate?",
+    "options": ["XNOR (equivalence)", "XOR", "OR", "NAND"],
+    "correctIndex": 0,
+    "explanation": "A equals B (for single bits) exactly when they are the same value, which is the XNOR (equivalence) function: output 1 when both are 0 or both are 1. XOR would instead detect inequality.",
+    "distractorRationales": ["", "XOR outputs 1 when A and B differ, the inequality condition.", "OR does not test equality.", "NAND does not implement bit equality."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "A 'race condition' / hazard in a combinational circuit can cause:",
+    "options": ["A momentary incorrect output (glitch) due to unequal gate/path delays", "Permanent loss of data", "A clock to stop", "The circuit to become sequential"],
+    "correctIndex": 0,
+    "explanation": "When a single input change reaches an output through paths with different delays, the output may briefly glitch before settling — a static or dynamic hazard. Hazards are removed by adding redundant (consensus) terms or by sampling outputs only after they stabilize.",
+    "distractorRationales": ["", "Combinational hazards cause transient glitches, not permanent data loss.", "Hazards do not stop the clock.", "A hazard is a timing glitch; it does not turn a circuit sequential."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "hard",
+    "questionText": "A T (toggle) flip-flop with T held at 1 and driven by a clock acts as a:",
+    "options": ["Divide-by-2 frequency divider (output frequency is half the clock)", "Constant-1 source", "Multiplexer", "Buffer with no state change"],
+    "correctIndex": 0,
+    "explanation": "With T=1, the flip-flop toggles every clock edge, so its output completes one full cycle every two clock cycles — its frequency is the clock's divided by 2. Cascading such stages forms a ripple (binary) counter.",
+    "distractorRationales": ["", "It alternates 0/1, not stuck at constant 1.", "A multiplexer selects inputs; that is unrelated.", "It does change state every edge, so it is not a static buffer."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "Setup time of a flip-flop is the minimum time the data input must be stable:",
+    "options": ["Before the active clock edge", "After the active clock edge", "Between two clock pulses only", "While the clock is low"],
+    "correctIndex": 0,
+    "explanation": "Setup time is the interval before the clock edge during which D must remain stable so it is reliably captured. Hold time is the interval after the edge during which D must remain stable. Violating either can cause metastability.",
+    "distractorRationales": ["", "Stability required after the edge is the hold-time requirement, not setup.", "It is specifically referenced to the active clock edge, not just any inter-pulse gap.", "Setup is relative to the clock edge, not the clock-low level."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "A 2-to-1 multiplexer with select S, inputs I0, I1, implements the function:",
+    "options": ["Y = S'·I0 + S·I1", "Y = S·I0 + S'·I1", "Y = I0 · I1", "Y = I0 + I1"],
+    "correctIndex": 0,
+    "explanation": "A 2:1 MUX outputs I0 when S=0 and I1 when S=1, i.e., Y = S'·I0 + S·I1. The select line steers exactly one input to the output.",
+    "distractorRationales": ["", "This swaps the select polarity, choosing the wrong input for each S value.", "I0 · I1 is an AND, not a selectable routing of inputs.", "I0 + I1 is an OR and ignores the select line."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "hard",
+    "questionText": "The maximum clock frequency of a sequential circuit is limited by:",
+    "options": ["The longest register-to-register combinational path delay (plus setup time)", "The number of flip-flops only", "The supply voltage label", "The number of inputs"],
+    "correctIndex": 0,
+    "explanation": "Between clock edges, signals must traverse the worst-case combinational path from one register's output to the next register's input and satisfy setup time. The clock period must be at least (clk-to-Q + longest logic delay + setup), so the critical path sets the maximum frequency.",
+    "distractorRationales": ["", "The raw flip-flop count does not directly cap frequency; the critical path does.", "A voltage label is not the timing constraint; path delay is.", "Input count alone does not determine the clock limit."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "medium",
+    "questionText": "A demultiplexer (DEMUX) performs the inverse of a multiplexer by:",
+    "options": ["Routing a single input to one of several outputs selected by control lines", "Combining several inputs into one", "Storing the input", "Adding inputs together"],
+    "correctIndex": 0,
+    "explanation": "A 1-to-2^n demultiplexer takes one data input and directs it to exactly one of 2^n output lines chosen by n select lines; the other outputs are inactive. It is the functional inverse of a multiplexer.",
+    "distractorRationales": ["", "Combining several inputs into one is a multiplexer's role.", "A DEMUX is combinational and does not store the input.", "Adding inputs is an adder's function."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "combinational-sequential-circuits",
+    "difficulty": "easy",
+    "questionText": "Metastability in a flip-flop refers to:",
+    "options": ["An unstable intermediate output state that can occur when setup/hold timing is violated", "A permanent stuck-at fault", "Normal toggling behavior", "The reset condition"],
+    "correctIndex": 0,
+    "explanation": "If data changes too close to the clock edge (violating setup/hold), the flip-flop can enter a metastable state — output hovering between 0 and 1 for an unpredictable time before resolving. Synchronizer chains reduce the probability of metastable failures crossing clock domains.",
+    "distractorRationales": ["", "It is a transient resolving state, not a permanent stuck fault.", "It is abnormal, caused by timing violations, not normal toggling.", "It is unrelated to the reset condition."]
+  }
+]

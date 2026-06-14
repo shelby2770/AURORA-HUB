@@ -1,0 +1,182 @@
+[
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "easy",
+    "questionText": "In A* search, the evaluation function used to order the frontier is:",
+    "options": ["f(n) = g(n) + h(n)", "f(n) = h(n) only", "f(n) = g(n) only", "f(n) = g(n) - h(n)"],
+    "correctIndex": 0,
+    "explanation": "A* orders nodes by f(n) = g(n) + h(n), where g(n) is the cost from the start to n and h(n) is the heuristic estimate from n to the goal. Using only h(n) is greedy best-first; using only g(n) is uniform-cost search.",
+    "distractorRationales": ["", "Using only h(n) gives greedy best-first search, which is not optimal.", "Using only g(n) gives uniform-cost search, which ignores the heuristic.", "Subtracting h(n) is not a valid evaluation function and would misguide the search."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "A heuristic h is 'admissible' if, for every node n, it:",
+    "options": ["Never overestimates the true cost to the nearest goal (h(n) ≤ h*(n))", "Always equals the true cost", "Is monotonically non-decreasing along any path", "Never underestimates the cost"],
+    "correctIndex": 0,
+    "explanation": "Admissibility means h(n) ≤ h*(n) for all n, i.e., the heuristic is optimistic — it never overestimates the actual minimum cost to a goal. Admissibility guarantees A* (tree search) returns an optimal solution.",
+    "distractorRationales": ["", "Equalling the true cost is the perfect heuristic, a special (and stronger) case, not the definition.", "Non-decreasing f along a path is consistency, a related but stronger property.", "Never underestimating would make it inadmissible and could break optimality."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "A heuristic h is 'consistent' (monotone) if for every node n and successor n' reached by action with cost c(n, n'):",
+    "options": ["h(n) ≤ c(n, n') + h(n')", "h(n) ≥ c(n, n') + h(n')", "h(n) = h(n') always", "h(n) ≤ g(n')"],
+    "correctIndex": 0,
+    "explanation": "Consistency requires the triangle-inequality condition h(n) ≤ c(n, n') + h(n') for every edge. It implies admissibility and ensures that f(n) is non-decreasing along any path, so A* graph search never needs to re-open closed nodes.",
+    "distractorRationales": ["", "The inequality direction is reversed; ≥ would violate the triangle inequality.", "Requiring equality everywhere is far too strong and generally false.", "Comparing to g(n') confuses path cost with the heuristic relationship."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "hard",
+    "questionText": "Greedy best-first search expands the node with the smallest h(n). Why is it not optimal in general?",
+    "options": ["It ignores the cost already incurred g(n), so it can commit to a cheap-looking but ultimately costly path", "It always expands the deepest node", "It overestimates heuristics deliberately", "It uses a FIFO queue"],
+    "correctIndex": 0,
+    "explanation": "Greedy best-first chases the lowest estimated remaining cost h(n) but disregards g(n), the cost paid so far. It can be lured down a path that looks close to the goal yet is expensive overall, so the solution it finds may not be cheapest. A* fixes this by adding g(n).",
+    "distractorRationales": ["", "It expands by lowest h, not by depth.", "It uses the given heuristic; it does not deliberately overestimate.", "It uses a priority queue on h(n), not a FIFO queue."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "easy",
+    "questionText": "A* search with h(n) = 0 for all nodes reduces to which algorithm?",
+    "options": ["Uniform-cost search", "Greedy best-first search", "Depth-first search", "Breadth-first search regardless of costs"],
+    "correctIndex": 0,
+    "explanation": "If h(n) = 0 everywhere, then f(n) = g(n), so A* expands nodes purely by path cost — exactly uniform-cost search. (UCS in turn equals BFS only when all step costs are equal.) A zero heuristic is trivially admissible.",
+    "distractorRationales": ["", "Greedy best-first ignores g(n); A* with h=0 does the opposite (uses only g).", "DFS is unrelated to ordering by path cost.", "BFS equals UCS only with equal step costs, which is not assumed here."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "hard",
+    "questionText": "Consider the 8-puzzle. Which statement comparing the 'misplaced tiles' heuristic (h1) and the 'Manhattan distance' heuristic (h2) is correct?",
+    "options": ["Both are admissible and h2 dominates h1 (h2 ≥ h1), so h2 expands no more nodes than h1", "h1 dominates h2", "h2 is inadmissible", "Neither is admissible"],
+    "correctIndex": 0,
+    "explanation": "Both heuristics never overestimate, so both are admissible. Manhattan distance (sum of each tile's grid distance to its goal) is always at least the count of misplaced tiles, so h2 ≥ h1 — h2 dominates and, being a better estimate, expands no more nodes than h1 in A*.",
+    "distractorRationales": ["", "It is h2 (Manhattan) that dominates h1, not the reverse.", "Manhattan distance never overestimates moves needed, so it is admissible.", "Both are classic admissible heuristics for the 8-puzzle."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "IDA* (Iterative-Deepening A*) is often preferred over A* because it:",
+    "options": ["Uses memory linear in the solution depth, unlike A*'s exponential frontier storage", "Always expands fewer nodes than A*", "Does not need a heuristic", "Guarantees a faster wall-clock time"],
+    "correctIndex": 0,
+    "explanation": "IDA* performs successive depth-first searches bounded by an increasing f-cost threshold, so it stores only the current path — O(d) memory — instead of A*'s exponential open list. The trade-off is that it may regenerate nodes across iterations, so it can do more work.",
+    "distractorRationales": ["", "IDA* may re-expand nodes across thresholds, so it does not expand fewer nodes than A*.", "IDA* still uses the heuristic via the f-cost threshold.", "Due to re-expansion, IDA* is not guaranteed to be faster in wall-clock time."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "Weighted A* uses f(n) = g(n) + w·h(n) with w > 1. The main effect of increasing w is to:",
+    "options": ["Find solutions faster (more greedily) at the cost of optimality (solutions within factor w of optimal)", "Guarantee strictly optimal solutions", "Turn A* into uniform-cost search", "Make the heuristic admissible"],
+    "correctIndex": 0,
+    "explanation": "Inflating the heuristic by w > 1 biases the search toward the goal, usually expanding far fewer nodes, but it can return suboptimal paths — bounded by a factor of w from optimal. It trades optimality for speed; it does not make h admissible.",
+    "distractorRationales": ["", "w > 1 sacrifices the optimality guarantee; only w = 1 keeps it (with admissible h).", "Uniform-cost search corresponds to w = 0 (ignoring h), not w > 1.", "Weighting does not change admissibility of the underlying h."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "easy",
+    "questionText": "Which property does consistency (monotonicity) guarantee that mere admissibility does not?",
+    "options": ["A* graph search is optimal without needing to re-open already-closed nodes", "The heuristic equals the true cost", "The search is faster than BFS", "The frontier stays constant size"],
+    "correctIndex": 0,
+    "explanation": "With a consistent heuristic, f-values are non-decreasing along any path, so when A* graph search closes a node it has already found its optimal g-value — no re-opening is required for optimality. Plain admissibility can require re-opening closed nodes in graph search.",
+    "distractorRationales": ["", "Consistency does not make h exact; it just satisfies the triangle inequality.", "Consistency concerns correctness of graph search, not a blanket speed guarantee.", "Frontier size is not held constant by consistency."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "hard",
+    "questionText": "If h1 and h2 are both admissible, which combined heuristic is also admissible AND dominates both?",
+    "options": ["h(n) = max(h1(n), h2(n))", "h(n) = h1(n) + h2(n)", "h(n) = min(h1(n), h2(n))", "h(n) = (h1(n) + h2(n)) / 2"],
+    "correctIndex": 0,
+    "explanation": "The maximum of two admissible heuristics is still ≤ h*(n) (so admissible) and is at least as large as each, so it dominates both — giving the most informed estimate. The sum can overestimate (inadmissible); the min is admissible but weaker; the average is also weaker than the max.",
+    "distractorRationales": ["", "Adding two admissible heuristics can exceed the true cost, making it inadmissible.", "The minimum is admissible but is the least informed combination, not dominating.", "The average is admissible but smaller than the max, so it does not dominate both."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "Hill climbing is a local search that moves to the neighbor with the best objective value. A classic failure mode is getting stuck at a:",
+    "options": ["Local maximum (or plateau/ridge) that is not the global optimum", "Goal node", "Frontier of size zero", "Consistent heuristic"],
+    "correctIndex": 0,
+    "explanation": "Hill climbing only moves uphill, so it halts at any local maximum, plateau, or ridge even if better solutions exist elsewhere. Random restarts or simulated annealing are used to escape these traps.",
+    "distractorRationales": ["", "Reaching the goal is success, not a failure mode.", "An empty frontier is a concept from systematic search, not the hill-climbing trap.", "A consistent heuristic is a property of informed systematic search, unrelated to hill-climbing local optima."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "Simulated annealing escapes local optima primarily by:",
+    "options": ["Occasionally accepting worse moves with a probability that decreases as 'temperature' drops", "Always accepting only improving moves", "Expanding nodes in order of f(n)", "Maintaining a closed set of visited states"],
+    "correctIndex": 0,
+    "explanation": "Simulated annealing sometimes accepts downhill (worse) moves, with acceptance probability roughly e^(-ΔE/T) that shrinks as the temperature T is lowered. Early high-temperature exploration escapes local optima; later low-temperature behavior converges like hill climbing.",
+    "distractorRationales": ["", "Accepting only improving moves is plain hill climbing, which gets stuck.", "Ordering by f(n) is A*, a systematic informed search, not annealing.", "A closed set is a feature of graph search, not the annealing mechanism."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "hard",
+    "questionText": "Why can A* with an inadmissible (overestimating) heuristic return a suboptimal solution?",
+    "options": ["It may declare a goal optimal while a cheaper path is still on the frontier with an inflated f-value", "It runs out of memory", "It cannot use a priority queue", "It becomes depth-first search"],
+    "correctIndex": 0,
+    "explanation": "Optimality requires that A* not pop a goal before any cheaper path is fully explored. An overestimating heuristic can inflate the f-value of nodes on the true optimal path, pushing them back in the queue so a costlier goal is expanded first and returned as 'optimal'.",
+    "distractorRationales": ["", "Suboptimality from inadmissibility is about ordering, not memory exhaustion.", "A* still uses a priority queue regardless of admissibility.", "An inadmissible heuristic does not turn A* into DFS; it just misorders expansions."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "easy",
+    "questionText": "A pattern database is a technique to build heuristics by:",
+    "options": ["Precomputing exact solution costs of relaxed subproblems and storing them in a lookup table", "Storing the entire state space in memory", "Recording every path the search has taken", "Averaging random heuristic values"],
+    "correctIndex": 0,
+    "explanation": "Pattern databases solve a relaxed subproblem (e.g., a subset of tiles in the 15-puzzle) exhaustively and store the cost of every subproblem configuration. Looking up the current state's pattern yields an admissible heuristic that is often far more informed than simple formulas.",
+    "distractorRationales": ["", "It stores costs for an abstracted subproblem, not the full state space.", "It does not log the search's own paths; it precomputes subproblem costs offline.", "Values are exact relaxed-subproblem costs, not random averages."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "Beam search with beam width k limits memory by:",
+    "options": ["Keeping only the k best nodes at each level and discarding the rest", "Expanding all nodes but storing none", "Using a heuristic of zero", "Searching backward from the goal"],
+    "correctIndex": 0,
+    "explanation": "Beam search is a memory-bounded variant of best-first search: at each level it retains only the k most promising nodes (by evaluation function) and prunes the others. This bounds memory but sacrifices completeness and optimality, since the goal's ancestor might be pruned.",
+    "distractorRationales": ["", "It must store the k retained nodes; it does not store zero nodes.", "Beam search relies on a heuristic to rank nodes; a zero heuristic would make ranking meaningless.", "Beam search is a forward best-first variant, not a backward search."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "hard",
+    "questionText": "For A* graph search to be guaranteed optimal, the safest sufficient condition on the heuristic is:",
+    "options": ["Consistency (monotonicity)", "Admissibility alone", "That it equals breadth-first ordering", "That h(n) > h*(n) everywhere"],
+    "correctIndex": 0,
+    "explanation": "In graph search (with a closed list), consistency guarantees optimality without re-opening closed nodes. Admissibility alone guarantees optimality for tree search, but in graph search it may require re-opening closed nodes to stay optimal, so consistency is the clean sufficient condition.",
+    "distractorRationales": ["", "Admissibility alone is sufficient for tree search but needs extra care (re-opening) in graph search.", "Breadth-first ordering is unrelated to heuristic-based optimality guarantees.", "h(n) > h*(n) is overestimating (inadmissible) and breaks optimality."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "easy",
+    "questionText": "The 'effective branching factor' b* of a heuristic search is used to:",
+    "options": ["Measure heuristic quality — a value near 1 means very few nodes expanded per solution depth", "Count the goal states", "Set the beam width", "Compute the step costs"],
+    "correctIndex": 0,
+    "explanation": "If A* expands N nodes to find a solution at depth d, b* is the branching factor a uniform tree of depth d would need to contain N+1 nodes. A b* close to 1 indicates a highly informed heuristic that prunes the search dramatically; large b* means weak guidance.",
+    "distractorRationales": ["", "It does not count goal states; it summarizes search efficiency.", "Beam width is a separate algorithm parameter, not derived from b*.", "Step costs are part of the problem, not what b* computes."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "informed-heuristic-search",
+    "difficulty": "medium",
+    "questionText": "Generating an admissible heuristic by solving a 'relaxed problem' works because:",
+    "options": ["The optimal cost of a relaxed (less-constrained) problem is a lower bound on the original's cost", "Relaxed problems have no solutions", "Relaxation always equals the true cost", "Relaxed problems are harder to solve"],
+    "correctIndex": 0,
+    "explanation": "Removing constraints can only make a problem easier, so the optimal solution cost of the relaxed problem never exceeds that of the original — it is a valid lower bound, hence an admissible heuristic. For example, allowing 8-puzzle tiles to move freely yields the misplaced-tiles heuristic.",
+    "distractorRationales": ["", "Relaxed problems do have solutions; in fact they are easier to solve.", "Relaxation gives a lower bound, generally less than (not equal to) the true cost.", "Relaxed problems are easier, which is why their costs are cheap to compute."]
+  }
+]

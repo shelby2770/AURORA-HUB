@@ -4,8 +4,9 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, BackgroundTasks, HTTPException
 
+from app.api.authoring import get_ondemand_providers, start_fill_job
 from app.models.course import Course, Subtopic
 from app.models.enums import QuizMode
 from app.models.question import Question
@@ -14,18 +15,55 @@ from app.schemas.quiz import (
     SECONDS_PER_QUESTION,
     QuestionOut,
     QuestionReview,
+    QuizFillRequest,
+    QuizFillResponse,
     QuizResultResponse,
     QuizStartRequest,
     QuizStartResponse,
     QuizSubmitRequest,
 )
 from app.services.quiz import (
+    count_available,
     order_questions_by_ids,
     score_answers,
     select_questions,
 )
 
 router = APIRouter(tags=["quiz"], prefix="/quiz")
+
+
+@router.post("/fill", response_model=QuizFillResponse)
+async def fill_quiz(
+    req: QuizFillRequest, background: BackgroundTasks
+) -> QuizFillResponse:
+    """Pre-flight before starting: is the verified pool big enough, and if not
+    (for a subtopic), launch on-demand generation. Whole-course requests are
+    always 'ready' (they serve whatever exists, never generating)."""
+    course = await Course.get(req.courseId)
+    if course is None or not course.isActive:
+        raise HTTPException(status_code=404, detail="Course not found")
+
+    model_difficulty = req.difficulty.as_model_difficulty()
+    available = await count_available(req.courseId, req.subtopicId, model_difficulty)
+
+    if req.subtopicId is None or available >= req.count:
+        return QuizFillResponse(ready=True, available=available, target=req.count)
+
+    subtopic = await Subtopic.get(req.subtopicId)
+    if subtopic is None or subtopic.courseId != req.courseId:
+        raise HTTPException(status_code=404, detail="Subtopic not found for this course")
+
+    job_id = start_fill_job(
+        subtopic_id=req.subtopicId,
+        difficulty=req.generation_difficulty(),
+        available=available,
+        target=req.count,
+        providers=get_ondemand_providers(),
+        background=background,
+    )
+    return QuizFillResponse(
+        ready=False, available=available, target=req.count, jobId=job_id
+    )
 
 
 @router.post("/start", response_model=QuizStartResponse, response_model_exclude_none=True)

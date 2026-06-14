@@ -1,0 +1,182 @@
+[
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "easy",
+    "questionText": "In immediate addressing mode, the operand is:",
+    "options": ["A constant value contained within the instruction itself", "In a register named by the instruction", "At a memory address given in the instruction", "At the address held in a register"],
+    "correctIndex": 0,
+    "explanation": "Immediate addressing embeds the operand as a literal constant inside the instruction (e.g., ADD R1, #5). No memory or register lookup is needed for that operand, making it the fastest to access but limited in size.",
+    "distractorRationales": ["", "An operand in a named register is register (direct) addressing.", "An operand at a memory address in the instruction is direct (absolute) addressing.", "An operand at an address held in a register is register-indirect addressing."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "In register-indirect addressing, the effective address of the operand is:",
+    "options": ["The contents of a specified register (the register holds a pointer)", "The register number itself", "A constant in the instruction", "The program counter"],
+    "correctIndex": 0,
+    "explanation": "Register-indirect addressing uses a register as a pointer: the operand's memory address is the value stored in that register (e.g., LOAD R1, (R2) loads from the address in R2). It is key for traversing arrays and following pointers.",
+    "distractorRationales": ["", "The register number selects which register, but the address is its contents, not the number.", "A constant in the instruction is immediate/direct addressing.", "The PC is used for relative addressing, not general register-indirect."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "Indexed addressing computes the effective address as:",
+    "options": ["A base address plus the contents of an index register", "Only the index register value", "The instruction opcode", "A fixed constant"],
+    "correctIndex": 0,
+    "explanation": "Indexed addressing adds an index register's value to a base address: EA = base + index. It is ideal for array access, where the base is the array start and the index selects the element.",
+    "distractorRationales": ["", "The index alone omits the base address.", "The opcode specifies the operation, not the address.", "Indexed addressing is dynamic (base + varying index), not a fixed constant."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "PC-relative addressing (used for branches) computes the target address as:",
+    "options": ["The program counter plus a signed offset in the instruction", "An absolute address in the instruction", "A register's contents only", "A constant operand"],
+    "correctIndex": 0,
+    "explanation": "PC-relative addressing forms the branch target as PC + signed displacement. This makes code position-independent (relocatable) and keeps branch fields small, since most branches are to nearby addresses.",
+    "distractorRationales": ["", "An absolute address would not be position-independent and is a different mode.", "Using only a register's contents is register-indirect, not PC-relative.", "A constant operand is immediate addressing, used for data not branch targets."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "easy",
+    "questionText": "A key characteristic of a RISC instruction set compared with CISC is that RISC:",
+    "options": ["Uses a small set of simple, fixed-length instructions with a load/store memory model", "Has many complex variable-length instructions", "Accesses memory in most instructions", "Has no registers"],
+    "correctIndex": 0,
+    "explanation": "RISC emphasizes simple, uniform, fixed-length instructions that execute in (ideally) one cycle, with memory accessed only by dedicated load/store instructions and arithmetic done register-to-register. This simplicity aids pipelining.",
+    "distractorRationales": ["", "Many complex variable-length instructions describe CISC, not RISC.", "RISC restricts memory access to load/store, not most instructions.", "RISC architectures typically have many general-purpose registers."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "An instruction set has 32 distinct opcodes and operates on 64 registers, with a 2-register instruction format. The minimum instruction width (in bits) needed is:",
+    "options": ["17", "12", "16", "11"],
+    "correctIndex": 0,
+    "explanation": "Opcode needs ⌈log2 32⌉ = 5 bits; each register field needs ⌈log2 64⌉ = 6 bits, and there are two register operands (12 bits). Total = 5 + 6 + 6 = 17 bits.",
+    "distractorRationales": ["", "12 counts only the two register fields, omitting the 5-bit opcode.", "16 underestimates; the exact requirement is 17 bits.", "11 mistakenly uses only one register field plus opcode."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "In a stack-based (zero-address) instruction set, an ADD instruction:",
+    "options": ["Pops the top two stack operands, adds them, and pushes the result", "Names two registers to add", "Contains both operands as immediates", "Adds to the program counter"],
+    "correctIndex": 0,
+    "explanation": "Zero-address (stack) architectures take operands implicitly from the top of the stack: ADD pops the two top values, computes their sum, and pushes it back. Operands are referenced via PUSH/POP rather than explicit address fields.",
+    "distractorRationales": ["", "Naming two registers is a two/three-address register architecture, not a stack machine.", "Carrying both operands as immediates is not how a stack ADD works.", "ADD operates on data operands, not the PC."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "Memory-indirect addressing differs from register-indirect addressing in that the effective address is:",
+    "options": ["Found by reading a memory location whose address is in the instruction (an extra memory access)", "The instruction's opcode", "A register's contents", "A constant"],
+    "correctIndex": 0,
+    "explanation": "In memory-indirect addressing, the instruction gives a memory address that holds a pointer to the actual operand, requiring two memory accesses (one to fetch the pointer, one to fetch the operand). Register-indirect keeps the pointer in a register, needing only one memory access.",
+    "distractorRationales": ["", "The opcode specifies the operation, not the operand address.", "Using a register's contents as the address is register-indirect, the mode being contrasted.", "A constant operand is immediate addressing."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "easy",
+    "questionText": "The opcode field of an instruction specifies:",
+    "options": ["The operation to be performed", "The result's memory address", "The clock speed", "The number of registers in the CPU"],
+    "correctIndex": 0,
+    "explanation": "The opcode encodes which operation the instruction performs (ADD, LOAD, BRANCH, etc.). Other fields specify the operands/addresses. The number of distinct operations determines the opcode field width.",
+    "distractorRationales": ["", "The result's address is given by an operand/address field, not the opcode.", "Clock speed is a hardware property, not encoded per instruction.", "The register count is fixed by the architecture, not in the opcode."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "Auto-increment addressing mode is particularly useful for:",
+    "options": ["Sequentially stepping through array elements (the pointer advances after each access)", "Branching to subroutines", "Immediate constants", "Halting the CPU"],
+    "correctIndex": 0,
+    "explanation": "Auto-increment uses a register as a pointer and automatically increments it (by the operand size) after the access, so successive instructions naturally walk through consecutive memory locations — ideal for array/stream traversal. Auto-decrement does the reverse, useful for stacks.",
+    "distractorRationales": ["", "Subroutine branching uses PC-relative/absolute addressing, not auto-increment of a data pointer.", "Immediate constants are embedded, not pointer-stepped.", "Auto-increment is an operand-access mode, unrelated to halting."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "In a 3-address instruction format (op dest, src1, src2), compared with a 1-address (accumulator) format, the main advantage is:",
+    "options": ["Fewer instructions are needed since results need not pass through a single accumulator", "Shorter instructions", "No need for registers", "Faster clock speed"],
+    "correctIndex": 0,
+    "explanation": "Three-address instructions can specify two sources and a distinct destination in one instruction, avoiding the extra loads/stores that an accumulator (one-address) machine needs to shuffle data through the accumulator — so programs use fewer instructions, at the cost of longer instruction encodings.",
+    "distractorRationales": ["", "Three-address instructions are longer, not shorter, than one-address.", "They use more register references, not fewer.", "Instruction format does not set the clock speed."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "easy",
+    "questionText": "Direct (absolute) addressing means the instruction contains:",
+    "options": ["The memory address of the operand", "The operand value itself", "A register number", "An offset from the PC"],
+    "correctIndex": 0,
+    "explanation": "In direct (absolute) addressing, the address field holds the exact memory address where the operand resides, so the operand is fetched directly from that location. It is simple but ties the code to fixed addresses.",
+    "distractorRationales": ["", "Containing the operand value itself is immediate addressing.", "A register number indicates register addressing.", "A PC offset is PC-relative addressing."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "Which of the following belongs to a processor's Instruction Set Architecture (ISA)?",
+    "options": ["The set of instructions, registers, and addressing modes visible to the programmer", "The cache size in kilobytes", "The clock frequency", "The number of pipeline stages"],
+    "correctIndex": 0,
+    "explanation": "The ISA is the programmer/compiler-visible contract: the instructions, register set, data types, addressing modes, and memory model. Cache size, clock speed, and pipeline depth are microarchitecture (implementation) details hidden behind the ISA.",
+    "distractorRationales": ["", "Cache size is a microarchitectural choice, not part of the ISA.", "Clock frequency is an implementation property, not the ISA.", "Pipeline depth is microarchitecture, invisible at the ISA level."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "A processor uses a 16-bit instruction with a 4-bit opcode. If it must support both register operands (3-bit register fields, two of them) and an immediate field in the same width, the immediate field can be at most:",
+    "options": ["6 bits (when only the opcode and two register fields are not both present)", "16 bits", "12 bits", "4 bits"],
+    "correctIndex": 0,
+    "explanation": "With a 4-bit opcode and two 3-bit register fields (4 + 3 + 3 = 10 bits) used, 16 − 10 = 6 bits remain for an immediate. Trade-offs between register fields and immediate width within a fixed instruction length are a core ISA design concern.",
+    "distractorRationales": ["", "16 bits is the whole instruction; the opcode and registers consume part of it.", "12 bits would leave no room for the opcode and both register fields.", "4 bits is the opcode size, not the leftover immediate width."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "easy",
+    "questionText": "Register (direct) addressing is faster than memory addressing modes because:",
+    "options": ["Operands are already in CPU registers, avoiding a memory access", "It uses larger operands", "It needs no opcode", "It accesses the disk directly"],
+    "correctIndex": 0,
+    "explanation": "Register addressing names a CPU register holding the operand, so no (slow) memory access is required — register access is far faster than main memory. This is why RISC designs keep frequently used values in registers.",
+    "distractorRationales": ["", "Register operands are not larger; speed comes from avoiding memory.", "Every instruction still needs an opcode.", "Registers are on-chip; this has nothing to do with disk access."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "The 'load/store architecture' principle means that:",
+    "options": ["Only load and store instructions access memory; arithmetic uses registers", "Every instruction can access memory", "There are no load or store instructions", "Memory is accessed only by the OS"],
+    "correctIndex": 0,
+    "explanation": "In a load/store (register-register) architecture, arithmetic and logic operate solely on registers, and memory is touched only by explicit load and store instructions. This regularity simplifies pipelining and is central to RISC.",
+    "distractorRationales": ["", "Allowing every instruction to access memory is the CISC (register-memory/memory-memory) style.", "Load/store architectures specifically rely on load and store instructions.", "User programs use loads/stores directly; it is not an OS-only operation."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "hard",
+    "questionText": "Variable-length instruction encoding (as in CISC) has the disadvantage that:",
+    "options": ["Decoding and fetching are more complex, complicating pipelining", "It always wastes memory", "It cannot represent immediates", "It limits the number of opcodes to 16"],
+    "correctIndex": 0,
+    "explanation": "Variable-length instructions can save code space but make the fetch/decode stages harder — the CPU must determine each instruction's length before knowing where the next begins, which complicates pipelined, parallel decoding. Fixed-length RISC encodings avoid this.",
+    "distractorRationales": ["", "Variable-length encodings often SAVE memory (denser code), not waste it.", "They can certainly encode immediates of various sizes.", "Opcode count is not capped at 16 by variable-length encoding."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "instruction-set-addressing-modes",
+    "difficulty": "medium",
+    "questionText": "Base-plus-displacement (based) addressing computes EA = base register + displacement. It is especially useful for:",
+    "options": ["Accessing fields of a structure or local variables relative to a frame pointer", "Storing immediate constants", "Encoding the opcode", "Setting the clock"],
+    "correctIndex": 0,
+    "explanation": "Based (base + displacement) addressing adds a fixed offset to a base register, ideal for accessing struct members at known offsets or local variables relative to a stack/frame pointer. It combines a register pointer with a compile-time-known displacement.",
+    "distractorRationales": ["", "Immediate constants are stored via immediate addressing, not base+displacement.", "The opcode is a separate field, unrelated to this address computation.", "It is an addressing mode for operands, not a clock control."]
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "Which logic gate outputs 1 only when ALL of its inputs are 1?",
+    "options": ["AND", "OR", "NAND", "XOR"],
+    "correctIndex": 0,
+    "explanation": "The AND gate outputs 1 exactly when every input is 1; any 0 input gives output 0. OR outputs 1 if any input is 1; NAND is the complement of AND; XOR outputs 1 for an odd number of 1s.",
+    "distractorRationales": ["", "OR outputs 1 when at least one input is 1, not only when all are.", "NAND outputs 0 (not 1) when all inputs are 1.", "XOR outputs 1 for an odd count of 1s, not for all-1s with even inputs."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "De Morgan's theorem states that NOT(A AND B) is equivalent to:",
+    "options": ["(NOT A) OR (NOT B)", "(NOT A) AND (NOT B)", "A OR B", "NOT(A OR B)"],
+    "correctIndex": 0,
+    "explanation": "De Morgan's law: the complement of a product is the sum of the complements: (A·B)' = A' + B'. Likewise (A+B)' = A'·B'. These laws let you push NOTs through AND/OR and are essential for converting between gate types.",
+    "distractorRationales": ["", "(NOT A) AND (NOT B) equals NOT(A OR B), the other De Morgan form.", "A OR B is unrelated to the complement of A AND B.", "NOT(A OR B) = (NOT A)(NOT B), not (NOT A)+(NOT B)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "Why are NAND and NOR called 'universal' gates?",
+    "options": ["Any Boolean function can be implemented using only NAND gates (or only NOR gates)", "They are the fastest gates", "They use the fewest transistors always", "They have no truth table"],
+    "correctIndex": 0,
+    "explanation": "NAND (and NOR) are functionally complete: AND, OR, and NOT can each be built from NAND alone (e.g., NOT = NAND with tied inputs), so any logic function can be realized using only NAND gates. This simplifies manufacturing to one gate type.",
+    "distractorRationales": ["", "Universality is about functional completeness, not raw speed.", "Transistor count varies; that is not why they are universal.", "They have well-defined truth tables; that statement is false."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "The XOR function A ⊕ B equals 1 when:",
+    "options": ["A and B differ (exactly one is 1)", "A and B are both 1", "A and B are both 0", "A and B are equal"],
+    "correctIndex": 0,
+    "explanation": "XOR outputs 1 when its inputs differ and 0 when they are equal. It is used in adders (sum bit), parity generators, and comparators. Its complement, XNOR, is the equality function.",
+    "distractorRationales": ["", "Both being 1 gives XOR = 0, not 1.", "Both being 0 gives XOR = 0.", "Equal inputs give XOR = 0; that describes XNOR's 1 condition."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "hard",
+    "questionText": "Simplify the Boolean expression F = A·B + A·B' using Boolean algebra.",
+    "options": ["A", "B", "A + B", "1"],
+    "correctIndex": 0,
+    "explanation": "Factor out A: A·B + A·B' = A·(B + B') = A·1 = A, since B + B' = 1 (complement law). The value of B becomes irrelevant.",
+    "distractorRationales": ["", "B cancels out, so the result depends only on A, not B.", "A + B is not equivalent; F is 0 when A=0 regardless of B.", "F is not always 1 (it is 0 when A=0)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "The Boolean identity A + A·B = A is known as:",
+    "options": ["The absorption law", "De Morgan's law", "The distributive law", "The complement law"],
+    "correctIndex": 0,
+    "explanation": "Absorption: A + A·B = A (and dually A·(A+B) = A). The term A·B is 'absorbed' because whenever A·B is 1, A is already 1. This is a common simplification step.",
+    "distractorRationales": ["", "De Morgan's law concerns complements of products/sums, not absorption.", "The distributive law expands products over sums.", "The complement law is A + A' = 1, a different identity."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "A function expressed as a sum of minterms (SOP) corresponds to which canonical form?",
+    "options": ["Sum-of-Products (each product term is a minterm where the function is 1)", "Product-of-Sums", "A single literal", "A don't-care table"],
+    "correctIndex": 0,
+    "explanation": "The canonical Sum-of-Products form ORs together one minterm for each input combination where the function outputs 1. The dual, Product-of-Sums, ANDs maxterms for the 0-outputs. Both can then be minimized (e.g., via Karnaugh maps).",
+    "distractorRationales": ["", "Product-of-Sums uses maxterms, the dual representation.", "Canonical SOP generally has multiple terms, not one literal.", "Don't-care entries are a separate concept from the canonical SOP."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "hard",
+    "questionText": "Using a Karnaugh map to minimize F(A,B,C) with minterms where F=1 at (A,B,C) = 000,001,010,011, the simplified expression is:",
+    "options": ["A'", "A", "B'", "C"],
+    "correctIndex": 0,
+    "explanation": "The four minterms 000,001,010,011 are exactly all combinations where A=0 (B and C take all values). They group into a single cube independent of B and C, giving F = A'.",
+    "distractorRationales": ["", "A would be true for A=1 minterms, the opposite set.", "B' covers only B=0 cases, but the given set includes B=1 (010,011).", "C is not constant across the set (it varies between 0 and 1)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "How many rows are there in the truth table of a Boolean function with n input variables?",
+    "options": ["2^n", "n^2", "2n", "n!"],
+    "correctIndex": 0,
+    "explanation": "Each of the n variables can be 0 or 1 independently, so there are 2^n distinct input combinations and thus 2^n rows in the truth table.",
+    "distractorRationales": ["", "n^2 grows polynomially, far slower than the exponential row count.", "2n is linear and incorrect.", "n! does not count binary input combinations."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "A NOT gate (inverter) can be built from a single NAND gate by:",
+    "options": ["Tying both NAND inputs together (or tying one input to 1)", "Connecting two NANDs in series", "Using a NAND with no inputs", "Adding an OR gate"],
+    "correctIndex": 0,
+    "explanation": "NAND(A, A) = (A·A)' = A', producing the inverse of A. Equivalently, holding one input at logic 1 gives NAND(A,1) = (A·1)' = A'. This is the basis of NAND universality.",
+    "distractorRationales": ["", "Two NANDs in series can make AND, not a simple inverter.", "A NAND requires inputs; an input-less gate is meaningless.", "Adding an OR gate is unnecessary; one NAND suffices to invert."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "hard",
+    "questionText": "The Boolean expression (A + B)·(A + C) simplifies (by the distributive law) to:",
+    "options": ["A + B·C", "A·B + C", "A + B + C", "A·B·C"],
+    "correctIndex": 0,
+    "explanation": "By the distributive law for Boolean algebra, (A+B)(A+C) = A + B·C. This is the dual of the familiar arithmetic distribution and is a standard identity used in POS-to-SOP conversions.",
+    "distractorRationales": ["", "A·B + C does not match; the correct factoring yields A + B·C.", "A + B + C drops the AND between B and C.", "A·B·C is unrelated to the given sum-of-products expansion."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "What is the output of a 2-input NOR gate when both inputs are 0?",
+    "options": ["1", "0", "Undefined", "Floating"],
+    "correctIndex": 0,
+    "explanation": "NOR is NOT(OR). With both inputs 0, OR gives 0, and NOT(0) = 1. NOR outputs 1 only when all inputs are 0.",
+    "distractorRationales": ["", "0 would be the OR output, not the NOR output.", "The output is well-defined for valid logic inputs.", "A driven gate output is not floating."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "'Don't-care' conditions in a Karnaugh map are useful because they:",
+    "options": ["Can be treated as 0 or 1, whichever yields a simpler minimized expression", "Must always be set to 1", "Indicate circuit faults", "Increase the number of literals"],
+    "correctIndex": 0,
+    "explanation": "Don't-care entries (input combinations that never occur or whose output is irrelevant) can be grouped as 1s to form larger cubes or left as 0s — chosen freely to minimize the logic, often reducing gate and literal count.",
+    "distractorRationales": ["", "They are flexible, not forced to 1.", "They denote irrelevant outputs, not faults.", "Used well, they reduce (not increase) literals."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "hard",
+    "questionText": "How many 2-input NAND gates are minimally needed to implement a 2-input AND gate?",
+    "options": ["2", "1", "3", "4"],
+    "correctIndex": 0,
+    "explanation": "NAND gives (A·B)'. To get A·B you invert that output with a second NAND used as an inverter (inputs tied). So 2 NAND gates: one to compute (A·B)' and one to invert it back to A·B.",
+    "distractorRationales": ["", "One NAND gives (A·B)', the complement — not AND.", "3 is more than necessary; 2 suffice.", "4 greatly overcounts the gates needed."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "The identity A·1 = A and A·0 = 0 are examples of which Boolean laws?",
+    "options": ["Identity (A·1=A) and null/annulment (A·0=0) laws", "Commutative laws", "Associative laws", "Distributive laws"],
+    "correctIndex": 0,
+    "explanation": "A·1 = A is the identity law (1 is the AND identity element), and A·0 = 0 is the null (annulment/domination) law. Their OR duals are A+0 = A and A+1 = 1.",
+    "distractorRationales": ["", "Commutative laws concern operand order (A·B = B·A).", "Associative laws concern grouping ((A·B)·C = A·(B·C)).", "Distributive laws relate AND over OR (and vice versa)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "The complement (NOT) of the XOR function (i.e., XNOR) outputs 1 when:",
+    "options": ["The inputs are equal", "The inputs differ", "Both inputs are 0 only", "Both inputs are 1 only"],
+    "correctIndex": 0,
+    "explanation": "XNOR (equivalence) is the complement of XOR: it outputs 1 when inputs are equal (both 0 or both 1) and 0 when they differ. It is used as a 1-bit equality comparator.",
+    "distractorRationales": ["", "Differing inputs give XNOR = 0; that is XOR's 1 condition.", "Both 0 gives 1, but so does both 1 — 'only both 0' is incomplete.", "Both 1 gives 1, but so does both 0 — 'only both 1' is incomplete."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "hard",
+    "questionText": "For the function F = A'BC + AB'C + ABC' + ABC, which simplification is correct?",
+    "options": ["F = AB + AC + BC (majority function)", "F = A + B + C", "F = ABC", "F = A'B'C'"],
+    "correctIndex": 0,
+    "explanation": "These four minterms are exactly the input combinations with two or more 1s — the 3-input majority function. It minimizes to AB + BC + AC (output 1 when any two inputs are 1).",
+    "distractorRationales": ["", "A + B + C would be 1 for a single 1 input, but majority needs at least two 1s.", "ABC covers only the all-ones case, missing the other three minterms.", "A'B'C' is the all-zeros minterm, not in the set."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "easy",
+    "questionText": "A buffer gate's output is:",
+    "options": ["Equal to its input (it just restores/strengthens the signal)", "The inverse of its input", "Always 1", "Always 0"],
+    "correctIndex": 0,
+    "explanation": "A (non-inverting) buffer outputs the same logic value as its input; it provides no logical change but is used for signal restoration, increased fan-out drive, or isolation. A tri-state buffer adds a high-impedance disabled state.",
+    "distractorRationales": ["", "Inverting the input is an inverter (NOT gate), not a buffer.", "A buffer follows its input; it is not stuck at 1.", "It is not stuck at 0 either; it mirrors the input."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "medium",
+    "questionText": "The consensus theorem states A·B + A'·C + B·C = A·B + A'·C. The term B·C is redundant because:",
+    "options": ["It is already covered by the other two terms for every input combination", "B·C is always 0", "B·C equals A·B", "Consensus only applies to OR gates"],
+    "correctIndex": 0,
+    "explanation": "The consensus term B·C contributes no new 1s: whenever B·C = 1, either A=1 (so A·B=1) or A=0 (so A'·C=1). Thus B·C is redundant and can be dropped, simplifying the expression.",
+    "distractorRationales": ["", "B·C is not always 0; it just adds no coverage beyond the other terms.", "B·C does not equal A·B in general.", "The consensus theorem is a Boolean identity, not specific to OR-gate hardware."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "boolean-algebra-logic-gates",
+    "difficulty": "hard",
+    "questionText": "How many distinct Boolean functions of 2 variables are there?",
+    "options": ["16", "4", "8", "256"],
+    "correctIndex": 0,
+    "explanation": "A 2-variable truth table has 2^2 = 4 rows, and each row's output can be 0 or 1 independently, so there are 2^(2^2) = 2^4 = 16 distinct functions (AND, OR, XOR, NAND, constants, etc.).",
+    "distractorRationales": ["", "4 is the number of input rows, not the number of functions.", "8 = 2^3 does not match 2^4.", "256 = 2^(2^3) is the count for 3-variable functions, not 2-variable."]
+  }
+]

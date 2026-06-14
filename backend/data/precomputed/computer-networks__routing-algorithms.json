@@ -1,0 +1,202 @@
+[
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "easy",
+    "questionText": "Distance-vector routing protocols (e.g., RIP) work by each router:",
+    "options": ["Sharing its routing table (distance estimates) with its directly connected neighbors", "Flooding the full network topology to everyone", "Computing shortest paths from a global map", "Using only static routes"],
+    "correctIndex": 0,
+    "explanation": "In distance-vector routing, each router periodically tells its neighbors its current estimated distances to all destinations; routers update their own tables based on neighbors' vectors (Bellman-Ford style). No router has a full map of the network.",
+    "distractorRationales": ["", "Flooding full topology to everyone is link-state behavior, not distance-vector.", "Computing from a global map is link-state (Dijkstra), not distance-vector.", "Distance-vector protocols are dynamic, not purely static."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "Link-state routing protocols (e.g., OSPF) differ from distance-vector in that each router:",
+    "options": ["Floods link-state info to build a complete topology map, then runs Dijkstra locally", "Only knows its neighbors' tables", "Never recomputes routes", "Uses hop count as the only metric"],
+    "correctIndex": 0,
+    "explanation": "Link-state routers flood Link-State Advertisements describing their own links to all routers, so each builds an identical map of the whole network and independently runs Dijkstra's shortest-path algorithm. This converges faster and avoids many distance-vector loop problems.",
+    "distractorRationales": ["", "Knowing only neighbors' tables is distance-vector, not link-state.", "Link-state routers recompute when topology changes.", "Link-state metrics are typically cost-based, not limited to hop count (that is RIP)."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "The 'count-to-infinity' problem afflicts which type of routing and why?",
+    "options": ["Distance-vector routing — slow convergence lets routers incrementally raise a failed route's cost", "Link-state routing — too much flooding", "Static routing — no updates", "Source routing — host chooses path"],
+    "correctIndex": 0,
+    "explanation": "When a link fails in distance-vector routing, routers may keep advertising stale, slightly-increasing distances to each other through a loop, counting upward slowly toward 'infinity'. Mitigations include split horizon, poison reverse, and a small 'infinity' bound (RIP uses 16).",
+    "distractorRationales": ["", "Link-state routing avoids count-to-infinity because each router has the full map.", "Static routing has no dynamic updates and thus no count-to-infinity dynamics.", "Source routing is unrelated to this convergence problem."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "The 'split horizon' technique helps prevent routing loops by:",
+    "options": ["Not advertising a route back to the neighbor from which it was learned", "Flooding all routes everywhere", "Increasing the update frequency", "Using larger packets"],
+    "correctIndex": 0,
+    "explanation": "Split horizon stops a router from announcing a route back out the interface it learned the route on, preventing two routers from bouncing a now-invalid route between them. Poison reverse strengthens this by advertising such routes with infinite metric.",
+    "distractorRationales": ["", "Flooding everywhere is unrelated; split horizon restricts advertisements.", "Faster updates alone do not prevent the loop; selective advertising does.", "Packet size is irrelevant to split horizon."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "easy",
+    "questionText": "Dijkstra's algorithm, used in link-state routing, computes:",
+    "options": ["The shortest path from a source to all destinations (no negative weights)", "The longest path", "A minimum spanning tree only", "Paths only for unweighted graphs"],
+    "correctIndex": 0,
+    "explanation": "Dijkstra's algorithm finds shortest paths from one source to all other nodes in a graph with non-negative edge weights, which suits link costs. Each link-state router runs it on the topology map to build its forwarding table.",
+    "distractorRationales": ["", "Dijkstra finds shortest, not longest, paths.", "It computes a shortest-path tree, which is generally different from a minimum spanning tree.", "It handles weighted graphs (with non-negative weights), not only unweighted ones."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "Distance-vector routing is essentially a distributed version of which classic algorithm?",
+    "options": ["Bellman-Ford", "Dijkstra", "Kruskal", "Floyd-Warshall (single source)"],
+    "correctIndex": 0,
+    "explanation": "Distance-vector routing applies the Bellman-Ford recurrence in a distributed, iterative manner: each node updates its distance to a destination as the minimum over neighbors of (cost to neighbor + neighbor's distance). Bellman-Ford also tolerates the iterative neighbor-exchange model.",
+    "distractorRationales": ["", "Dijkstra requires a global view and is used in link-state routing, not distance-vector.", "Kruskal builds a minimum spanning tree, not routing distances.", "Floyd-Warshall computes all-pairs shortest paths centrally, not the distributed neighbor-exchange of distance-vector."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "The Border Gateway Protocol (BGP) is best classified as a(n):",
+    "options": ["Path-vector, inter-domain (between autonomous systems) routing protocol", "Link-state intra-domain protocol", "Distance-vector intra-domain protocol", "Application-layer file-transfer protocol"],
+    "correctIndex": 0,
+    "explanation": "BGP routes between autonomous systems (inter-domain) using a path-vector approach: it advertises the full AS-path to each destination, which both prevents loops and enables policy-based routing. OSPF/IS-IS (link-state) and RIP (distance-vector) are intra-domain (IGP) protocols.",
+    "distractorRationales": ["", "BGP is inter-domain; OSPF is the link-state intra-domain example.", "BGP is path-vector, not plain distance-vector, and it is inter-domain.", "BGP is a routing protocol, not a file-transfer protocol."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "In a network where each router runs Dijkstra on an identical link-state database, the routing tables are guaranteed loop-free because:",
+    "options": ["All routers compute consistent shortest paths from the same global topology", "Routers never exchange information", "Hop counts are capped at 16", "Each router uses a random next hop"],
+    "correctIndex": 0,
+    "explanation": "Since every router has the same complete map and runs the same shortest-path computation, their forwarding decisions are mutually consistent, so packets always make progress toward the destination without looping (once the databases are synchronized).",
+    "distractorRationales": ["", "Link-state routers do exchange (flood) link-state info; that is how they get the map.", "Capping hop count at 16 is RIP's count-to-infinity fix, not why link-state is loop-free.", "Routers use computed shortest paths, never random next hops."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "easy",
+    "questionText": "A routing table entry maps a destination network to:",
+    "options": ["The next-hop router (and outgoing interface) toward that destination", "The application port number", "The MAC address of the source", "The TCP sequence number"],
+    "correctIndex": 0,
+    "explanation": "Each routing-table entry tells the router, for a given destination prefix, which next-hop router (and interface) to forward the packet to. Forwarding uses longest-prefix match to pick the most specific matching entry.",
+    "distractorRationales": ["", "Port numbers are transport-layer demultiplexing, not routing-table contents.", "Routing is based on destination IP/prefix, not the source MAC address.", "TCP sequence numbers are transport-layer state, unrelated to routing tables."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "Flooding as a routing technique means:",
+    "options": ["Every incoming packet is sent out on all links except the one it arrived on", "Packets are dropped when buffers fill", "Routers compute shortest paths", "Only one path is ever used"],
+    "correctIndex": 0,
+    "explanation": "In flooding, a router forwards each received packet out every interface except the incoming one, guaranteeing the packet reaches the destination but generating many duplicates. Controlled flooding (with hop limits or sequence numbers) is used to distribute link-state updates.",
+    "distractorRationales": ["", "Dropping packets when buffers fill is congestion-related tail-drop, not flooding.", "Computing shortest paths is the goal of routing algorithms, not flooding itself.", "Flooding uses all paths, not a single one."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "RIP limits the maximum hop count to 15 (16 = infinity) primarily to:",
+    "options": ["Bound the count-to-infinity problem so invalid routes are detected quickly", "Increase the network size it supports", "Reduce packet size", "Encrypt routes"],
+    "correctIndex": 0,
+    "explanation": "By treating 16 as unreachable, RIP caps how high the distance metric can climb during count-to-infinity, so a broken route reaches 'infinity' (and is discarded) in a bounded number of update cycles. The cost is that RIP cannot route across networks more than 15 hops in diameter.",
+    "distractorRationales": ["", "The cap actually LIMITS network diameter (≤15 hops), not increases it.", "It is about convergence/loop control, not packet size.", "Hop limiting has nothing to do with encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "easy",
+    "questionText": "Static routing differs from dynamic routing in that static routes:",
+    "options": ["Are manually configured and do not adapt automatically to topology changes", "Are computed by Dijkstra at runtime", "Change every few seconds", "Require a routing protocol"],
+    "correctIndex": 0,
+    "explanation": "Static routes are entered by an administrator and remain fixed until manually changed, so they do not react to link failures. Dynamic routing protocols (RIP, OSPF, BGP) automatically discover and adapt routes as the network changes.",
+    "distractorRationales": ["", "Dijkstra-at-runtime is dynamic (link-state) routing, not static.", "Static routes do not change automatically.", "Static routing needs no routing protocol; that is the point of dynamic routing."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "Hierarchical routing (e.g., OSPF areas, AS-level routing) is used mainly to:",
+    "options": ["Reduce routing table size and update overhead in large networks", "Guarantee the shortest possible path always", "Eliminate the need for IP addresses", "Speed up the physical links"],
+    "correctIndex": 0,
+    "explanation": "Hierarchical routing groups routers into regions/areas/autonomous systems, so a router keeps detailed routes only within its region and summarized routes for others. This dramatically shrinks routing tables and update traffic, at the cost of occasionally non-optimal paths.",
+    "distractorRationales": ["", "Hierarchy can sacrifice some path optimality for scalability, not guarantee shortest paths.", "It still relies on IP addressing; it organizes routing, not removes addresses.", "It is about routing scalability, not physical link speed."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "Poison reverse strengthens split horizon by:",
+    "options": ["Advertising routes learned from a neighbor back to that neighbor with an infinite metric", "Never sending any updates", "Doubling the update frequency", "Using larger hop counts"],
+    "correctIndex": 0,
+    "explanation": "Instead of merely omitting a learned route (split horizon), poison reverse explicitly advertises it back with metric = infinity, immediately telling the neighbor 'do not route through me to reach this destination.' This speeds up loop avoidance compared with plain split horizon.",
+    "distractorRationales": ["", "It sends updates (with poisoned metrics), not none.", "It is about the metric advertised, not the update frequency.", "It uses an infinite metric specifically, not generally larger hop counts."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "easy",
+    "questionText": "Longest-prefix matching is used by routers to:",
+    "options": ["Select the most specific matching route for a destination IP", "Find the shortest physical cable", "Compress the routing table", "Encrypt the packet"],
+    "correctIndex": 0,
+    "explanation": "When multiple routing entries match a destination address, the router chooses the one with the longest (most specific) matching prefix, since it most precisely describes the destination network. This is fundamental to CIDR-based forwarding.",
+    "distractorRationales": ["", "It concerns address prefixes, not physical cable length.", "It is a selection rule, not a table-compression method (route aggregation does that).", "It is unrelated to encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "Convergence in a routing protocol refers to:",
+    "options": ["All routers reaching a consistent, up-to-date view of the network after a change", "Two cables meeting at a router", "Packets arriving in order", "The link reaching maximum speed"],
+    "correctIndex": 0,
+    "explanation": "Convergence is the process by which, after a topology change (link up/down), all routers update and agree on consistent routing information. Faster convergence means less time with potential loops or black holes. Link-state generally converges faster than distance-vector.",
+    "distractorRationales": ["", "It is a routing-state concept, not about physical cables meeting.", "In-order packet arrival is a transport-layer concern, not routing convergence.", "It is about routing consistency, not link throughput."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "Compared with distance-vector, a disadvantage of link-state routing is that it:",
+    "options": ["Requires more memory/CPU to store the full topology and run Dijkstra, and generates flooding traffic", "Cannot detect link failures", "Always produces routing loops", "Uses only static routes"],
+    "correctIndex": 0,
+    "explanation": "Link-state routing's full topology database and per-router Dijkstra computation demand more memory and CPU, and flooding link-state advertisements adds control traffic. Its benefits — fast convergence and loop avoidance — usually justify this in large networks.",
+    "distractorRationales": ["", "Link-state routing detects failures quickly via LSA flooding.", "Link-state routing is designed to avoid loops, not always produce them.", "Link-state is a dynamic protocol, not static routing."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "easy",
+    "questionText": "The metric used by the RIP routing protocol is:",
+    "options": ["Hop count", "Bandwidth-based cost", "Geographic distance", "Latency in milliseconds"],
+    "correctIndex": 0,
+    "explanation": "RIP uses hop count (number of routers traversed) as its sole metric, choosing the path with the fewest hops. This is simple but ignores link speed/load — OSPF instead uses a configurable cost typically derived from bandwidth.",
+    "distractorRationales": ["", "Bandwidth-based cost is OSPF's typical metric, not RIP's.", "RIP does not use physical geographic distance.", "RIP counts hops, not measured latency."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "medium",
+    "questionText": "A 'default route' (0.0.0.0/0) in a routing table is used:",
+    "options": ["When no more specific route matches the destination", "Only for broadcast traffic", "To block all traffic", "For loopback addresses only"],
+    "correctIndex": 0,
+    "explanation": "The default route (0.0.0.0/0) matches any destination but with the shortest prefix, so longest-prefix matching uses it only when no more specific entry applies — typically forwarding such packets toward an upstream gateway/the Internet.",
+    "distractorRationales": ["", "It is a catch-all for unmatched destinations, not specific to broadcast.", "It forwards (to the default gateway), not blocks, unmatched traffic.", "Loopback uses 127.0.0.0/8, not the default route."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "routing-algorithms",
+    "difficulty": "hard",
+    "questionText": "Why does BGP use a path-vector (advertising the full AS path) rather than a simple distance metric?",
+    "options": ["The AS path enables loop detection and supports policy-based route selection across administrative domains", "Path vectors are smaller than distance metrics", "It guarantees the lowest-latency path", "It avoids the need for any routing table"],
+    "correctIndex": 0,
+    "explanation": "By carrying the list of autonomous systems a route traverses, BGP can reject any advertisement containing its own AS (loop prevention) and let operators apply business/policy preferences (e.g., prefer customer routes) rather than just shortest distance — essential for inter-domain routing.",
+    "distractorRationales": ["", "Path vectors are larger (they list ASes), not smaller, than a single distance metric.", "BGP optimizes for policy, not necessarily lowest latency.", "BGP still builds routing/forwarding tables; it does not eliminate them."]
+  }
+]

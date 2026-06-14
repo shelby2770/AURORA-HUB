@@ -1,0 +1,445 @@
+[
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "In C, what is the result of the integer expression 7 / 2?",
+  "options": [
+   "3",
+   "3.5",
+   "4",
+   "2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Both operands are integers, so C performs integer division, discarding the fractional part (truncating toward zero). 7 / 2 = 3. To get 3.5 you would need a floating-point operand, e.g., 7.0 / 2.",
+  "distractorRationales": [
+   "",
+   "3.5 would require floating-point division; integer division truncates the fraction.",
+   "Integer division truncates rather than rounds, so it is 3, not 4.",
+   "2 would be 7 % ... no; the quotient is 3, not 2."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "What is the value of the C expression 17 % 5?",
+  "options": [
+   "2",
+   "3",
+   "3.4",
+   "0"
+  ],
+  "correctIndex": 0,
+  "explanation": "The modulo operator % returns the remainder of integer division. 17 / 5 = 3 with remainder 2, so 17 % 5 = 2.",
+  "distractorRationales": [
+   "",
+   "3 is the quotient 17/5, not the remainder.",
+   "% yields an integer remainder, not a fractional value.",
+   "The remainder is 2, not 0 (17 is not divisible by 5)."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "In C, given int a = 5; the expression (a++ + ++a) — assuming left-to-right evaluation of the two operands — uses which values for a in each subexpression?",
+  "options": [
+   "a++ yields 5 (a becomes 6), then ++a makes a 7 and yields 7; sum = 12",
+   "Both yield 5; sum = 10",
+   "a++ yields 6, ++a yields 6; sum = 12",
+   "The result is always 11"
+  ],
+  "correctIndex": 0,
+  "explanation": "Post-increment a++ uses the current value 5 then increments a to 6. Pre-increment ++a first increments a to 7 then uses 7. So the sum is 5 + 7 = 12. (Note: combining multiple modifications of one variable in a single expression is actually undefined behavior in standard C; this question assumes the common left-to-right interpretation.)",
+  "distractorRationales": [
+   "",
+   "Both yielding 5 ignores that ++a increments before use.",
+   "a++ yields its pre-increment value 5, not 6.",
+   "The value depends on the increments; it is not fixed at 11."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "When an int and a double are combined in a C arithmetic expression, the usual arithmetic conversions cause:",
+  "options": [
+   "The int to be promoted to double before the operation",
+   "The double to be truncated to int",
+   "A compile error",
+   "Both to be converted to char"
+  ],
+  "correctIndex": 0,
+  "explanation": "C's usual arithmetic conversions promote the operand of 'lower rank' to the type of higher rank. double outranks int, so the int is converted to double and the arithmetic is done in double precision, yielding a double result.",
+  "distractorRationales": [
+   "",
+   "The double is not truncated; rather the int is widened to double.",
+   "Mixing int and double is legal in C; no compile error occurs.",
+   "Neither is converted to char; conversion goes toward the higher-ranked double."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "hard",
+  "questionText": "In C, assuming 8-bit char, what is the value of (char)200 when char is signed (two's complement)?",
+  "options": [
+   "-56",
+   "200",
+   "56",
+   "-200"
+  ],
+  "correctIndex": 0,
+  "explanation": "A signed 8-bit char holds −128..127. 200 in 8 bits is 11001000. Interpreted as two's complement, that is 200 − 256 = −56. So (char)200 stores the bit pattern that represents −56.",
+  "distractorRationales": [
+   "",
+   "200 exceeds the signed char maximum of 127, so it cannot be stored as 200.",
+   "56 ignores the sign bit; the top bit is set, making it negative.",
+   "-200 is out of range for an 8-bit value; the wrap-around result is −56."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "Which C operator has higher precedence: multiplication (*) or addition (+)?",
+  "options": [
+   "Multiplication (*)",
+   "Addition (+)",
+   "They have equal precedence",
+   "Precedence depends on operand types"
+  ],
+  "correctIndex": 0,
+  "explanation": "Multiplicative operators (* / %) bind tighter than additive operators (+ -). So 2 + 3 * 4 evaluates the multiplication first, giving 2 + 12 = 14, not (2+3)*4 = 20.",
+  "distractorRationales": [
+   "",
+   "Addition has lower precedence than multiplication.",
+   "They are at different precedence levels, not equal.",
+   "Operator precedence in C is fixed by the grammar, independent of operand types."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "What does the C expression 5 & 3 evaluate to (bitwise AND)?",
+  "options": [
+   "1",
+   "7",
+   "8",
+   "2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Bitwise AND compares bits: 5 = 101, 3 = 011. AND gives 001 = 1 (only the lowest bit is set in both). Note this differs from logical AND (&&).",
+  "distractorRationales": [
+   "",
+   "7 (111) would be the bitwise OR (5 | 3), not AND.",
+   "8 does not result from ANDing these 3-bit values.",
+   "2 (010) is not the AND; only the lowest bit is common to both operands."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "In C, the expression 1 << 4 (left shift) evaluates to:",
+  "options": [
+   "16",
+   "5",
+   "8",
+   "32"
+  ],
+  "correctIndex": 0,
+  "explanation": "Left-shifting 1 by 4 bit positions multiplies it by 2^4 = 16. In general, x << n equals x · 2^n (for non-overflowing values).",
+  "distractorRationales": [
+   "",
+   "5 confuses shifting with addition.",
+   "8 is 1 << 3, one shift too few.",
+   "32 is 1 << 5, one shift too many."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "hard",
+  "questionText": "In C, what is printed?",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    unsigned int a = 1;\n    int b = -1;\n    if (a > b) printf(\"greater\");\n    else printf(\"not greater\");\n    return 0;\n}",
+  "options": [
+   "not greater",
+   "greater",
+   "Compilation error",
+   "Undefined / random"
+  ],
+  "correctIndex": 0,
+  "explanation": "When comparing unsigned and signed of the same rank, the signed value is converted to unsigned. b = -1 becomes a very large unsigned value (UINT_MAX). So a (1) is NOT greater than that huge value, and 'not greater' is printed. This signed/unsigned pitfall is a classic C gotcha.",
+  "distractorRationales": [
+   "",
+   "'greater' would hold only if -1 stayed negative, but it converts to UINT_MAX.",
+   "The code compiles fine (with possibly a warning).",
+   "The behavior is well-defined by the unsigned conversion rules, not random."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "Which of these is the correct ranking of typical C type sizes (smallest to largest)?",
+  "options": [
+   "char ≤ short ≤ int ≤ long ≤ long long",
+   "int ≤ char ≤ short",
+   "long ≤ int ≤ char",
+   "double ≤ char"
+  ],
+  "correctIndex": 0,
+  "explanation": "The C standard guarantees the non-decreasing size ordering char ≤ short ≤ int ≤ long ≤ long long (sizeof(char) is always 1). Exact sizes are implementation-defined, but this ordering always holds.",
+  "distractorRationales": [
+   "",
+   "char is the smallest; int is not smaller than char.",
+   "char is not larger than long; this ordering is reversed.",
+   "double is a floating type and is not smaller than char."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "The C ternary expression (x > 0) ? 1 : (x < 0) ? -1 : 0 returns:",
+  "options": [
+   "The sign of x: 1 if positive, -1 if negative, 0 if zero",
+   "Always 1",
+   "x itself",
+   "The absolute value of x"
+  ],
+  "correctIndex": 0,
+  "explanation": "This nested conditional implements the signum function: it yields 1 when x>0, otherwise checks x<0 to yield -1, otherwise 0. The ?: operator is right-associative, so the second ternary is the else-branch of the first.",
+  "distractorRationales": [
+   "",
+   "It returns -1 or 0 for non-positive x, not always 1.",
+   "It returns a sign value (−1/0/1), not x itself.",
+   "Absolute value would never be negative; this returns -1 for negatives."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "hard",
+  "questionText": "In C, what is the value of the expression sizeof('A') on a typical system (where sizeof(int) = 4)?",
+  "options": [
+   "4 — character constants have type int in C",
+   "1",
+   "2",
+   "Undefined"
+  ],
+  "correctIndex": 0,
+  "explanation": "In C (unlike C++), a character constant like 'A' has type int, not char, so sizeof('A') equals sizeof(int) = 4. This is a subtle difference from C++, where sizeof('A') is 1.",
+  "distractorRationales": [
+   "",
+   "1 is correct in C++ but not in C, where character constants are ints.",
+   "2 does not match either int or char sizes here.",
+   "The value is well-defined: it is sizeof(int) in C."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "The logical AND operator && in C exhibits 'short-circuit' evaluation, meaning:",
+  "options": [
+   "If the left operand is false (0), the right operand is not evaluated",
+   "Both operands are always evaluated",
+   "It performs a bitwise AND",
+   "It evaluates right to left"
+  ],
+  "correctIndex": 0,
+  "explanation": "&& evaluates its left operand first; if that is 0 (false), the whole expression is false and the right operand is skipped (not evaluated). This is widely used for safe guards like (p != NULL && p->x).",
+  "distractorRationales": [
+   "",
+   "Short-circuiting specifically avoids evaluating the right operand when the result is already determined.",
+   "&& is logical, not bitwise (that is &).",
+   "&& evaluates left to right with a sequence point after the left operand."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "What is printed by this C program?",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    float f = 0.1f;\n    if (f == 0.1) printf(\"equal\");\n    else printf(\"not equal\");\n    return 0;\n}",
+  "options": [
+   "not equal",
+   "equal",
+   "Compilation error",
+   "0.1"
+  ],
+  "correctIndex": 0,
+  "explanation": "0.1f is a float, but the literal 0.1 (without f) is a double. The float f is promoted to double for the comparison, but 0.1 is not exactly representable in binary, and the float-then-double value differs from the direct double value. So they compare unequal — a classic floating-point pitfall.",
+  "distractorRationales": [
+   "",
+   "Due to differing float vs double rounding of 0.1, they are not exactly equal.",
+   "The code compiles correctly.",
+   "The program prints a comparison result string, not the number 0.1."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "hard",
+  "questionText": "Assuming 32-bit int, what is the result of the C expression (1 << 31) when int is signed?",
+  "options": [
+   "Undefined behavior (overflow of signed shift into the sign bit)",
+   "2147483648",
+   "-2147483648 always",
+   "0"
+  ],
+  "correctIndex": 0,
+  "explanation": "Shifting 1 into the sign bit of a 32-bit signed int (1 << 31) overflows the representable positive range and is undefined behavior in standard C. The often-observed value is INT_MIN (−2147483648), but relying on it is non-portable; the standard-correct answer is undefined behavior.",
+  "distractorRationales": [
+   "",
+   "2147483648 exceeds INT_MAX (2147483647) and cannot be a valid signed int result.",
+   "Although −2147483648 is commonly observed, the standard does not guarantee it — the behavior is undefined.",
+   "The shifted bit does not vanish; the result is not 0."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "In C, what is the type and approximate value of the expression 9.0 / 2?",
+  "options": [
+   "double, 4.5",
+   "int, 4",
+   "int, 5",
+   "double, 4.0"
+  ],
+  "correctIndex": 0,
+  "explanation": "9.0 is a double literal, so the division is floating-point (the int 2 is promoted to double). The result is a double equal to 4.5.",
+  "distractorRationales": [
+   "",
+   "Because one operand is a double, the division is not integer division.",
+   "It is floating-point division, giving 4.5, not 5.",
+   "The fractional part is retained; the value is 4.5, not 4.0."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "The bitwise XOR operator (^) applied as a ^ a (for any integer a) gives:",
+  "options": [
+   "0",
+   "a",
+   "1",
+   "2a"
+  ],
+  "correctIndex": 0,
+  "explanation": "XOR of a value with itself is 0, because each bit XORed with itself is 0. This property is the basis of the XOR swap trick and of finding a unique element among pairs.",
+  "distractorRationales": [
+   "",
+   "a ^ 0 would give a, but a ^ a cancels to 0.",
+   "The result is 0 for all a, not the constant 1.",
+   "XOR is bitwise, not arithmetic doubling."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "In C, implicit conversion of a double to an int (e.g., int x = 3.99;) results in:",
+  "options": [
+   "Truncation toward zero, so x = 3",
+   "Rounding to nearest, so x = 4",
+   "A compile error",
+   "Undefined behavior always"
+  ],
+  "correctIndex": 0,
+  "explanation": "Converting a floating-point value to an integer type discards the fractional part (truncates toward zero), so 3.99 becomes 3 and -3.99 becomes -3. It is well-defined as long as the integer part fits in the target type.",
+  "distractorRationales": [
+   "",
+   "C truncates rather than rounds to nearest, so 3.99 → 3.",
+   "The conversion is allowed (often with a warning), not a compile error.",
+   "It is well-defined when the value fits; it is not always undefined."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "hard",
+  "questionText": "What does this C program print?",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 10;\n    printf(\"%d\", x > 5 ? x < 8 ? 1 : 2 : 3);\n    return 0;\n}",
+  "options": [
+   "2",
+   "1",
+   "3",
+   "10"
+  ],
+  "correctIndex": 0,
+  "explanation": "?: is right-associative, so this parses as x>5 ? (x<8 ? 1 : 2) : 3. x=10 > 5 is true, so evaluate the inner ternary: x<8 is false (10<8), giving 2. The program prints 2.",
+  "distractorRationales": [
+   "",
+   "1 would require x<8 to be true, but 10 is not less than 8.",
+   "3 is the outer else-branch, taken only if x>5 were false.",
+   "The expression yields a small selector value, not x itself."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "In C, what is the value of the expression -7 % 3 (on a standard C99/C11 compiler)?",
+  "options": [
+   "-1",
+   "1",
+   "2",
+   "-2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Since C99, integer division truncates toward zero and the result of % takes the sign of the dividend. -7 / 3 = -2 (truncated), and -7 - (-2*3) = -7 + 6 = -1.",
+  "distractorRationales": [
+   "",
+   "1 would result from a mathematical 'modulo' that always returns a non-negative result, which C's % does not guarantee.",
+   "2 is the Python-style modulo result (sign of divisor), not C's.",
+   "-2 is the quotient -7/3 truncated, not the remainder."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "medium",
+  "questionText": "In C, comparing a signed int and an unsigned int (e.g., int a = -1; unsigned b = 1; a < b) can give a surprising result because:",
+  "options": [
+   "The signed value is converted to unsigned, so -1 becomes a very large number and a < b is false",
+   "Both are compared as signed, so the result is true",
+   "The comparison is undefined behavior",
+   "unsigned values are converted to signed"
+  ],
+  "correctIndex": 0,
+  "explanation": "In mixed signed/unsigned comparisons, the usual arithmetic conversions convert the signed operand to unsigned. -1 becomes UINT_MAX, so (a < b) evaluates to false (UINT_MAX < 1 is false) — a classic C pitfall.",
+  "distractorRationales": [
+   "",
+   "The operands are NOT both treated as signed; the signed one is converted to unsigned.",
+   "The comparison is well-defined (implementation-defined value of -1 as unsigned is UINT_MAX), not undefined behavior.",
+   "Conversion goes the other way: the signed operand becomes unsigned, not vice versa."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "data-types-operators-type-conversion",
+  "difficulty": "easy",
+  "questionText": "In C, what is the value of the expression 10 > 5 (a relational comparison)?",
+  "options": [
+   "1 (true)",
+   "true (a boolean keyword)",
+   "0",
+   "-1"
+  ],
+  "correctIndex": 0,
+  "explanation": "In C, relational and equality operators yield an int: 1 for true and 0 for false. So 10 > 5 evaluates to the integer 1. (C does not have a built-in boolean literal in C89; <stdbool.h> adds true/false as macros for 1/0.)",
+  "distractorRationales": [
+   "",
+   "Plain C relational operators produce the int 1, not a 'true' keyword (that is a C99 <stdbool.h> macro for 1).",
+   "0 is the value for a false comparison; 10 > 5 is true.",
+   "-1 is not how C represents boolean true; it uses 1."
+  ]
+ }
+]

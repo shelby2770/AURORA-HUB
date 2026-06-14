@@ -1,0 +1,182 @@
+[
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "easy",
+    "questionText": "Which of the following is an example of an UNsupervised learning task?",
+    "options": ["Clustering customers into groups based on purchasing behavior", "Predicting house prices from labeled examples", "Classifying emails as spam or not spam using labeled data", "Forecasting tomorrow's temperature from labeled history"],
+    "correctIndex": 0,
+    "explanation": "Clustering finds structure in unlabeled data, grouping similar instances without target labels — the hallmark of unsupervised learning. The other three use labeled targets (prices, spam/ham, temperatures), making them supervised tasks.",
+    "distractorRationales": ["", "House-price prediction from labeled data is supervised regression.", "Spam classification with labels is supervised classification.", "Temperature forecasting from labeled history is supervised regression."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "A model that performs very well on the training set but poorly on unseen test data is exhibiting:",
+    "options": ["Overfitting (high variance)", "Underfitting (high bias)", "Perfect generalization", "Data leakage from the test set"],
+    "correctIndex": 0,
+    "explanation": "Overfitting means the model has learned noise and idiosyncrasies of the training data, so it fails to generalize — high training accuracy but poor test accuracy. This is the high-variance regime, mitigated by regularization, more data, or simpler models.",
+    "distractorRationales": ["", "Underfitting shows poor performance on BOTH training and test sets, not strong training performance.", "Good generalization would mean test performance close to training performance.", "Data leakage would inflate test scores, not depress them."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "L2 (ridge) regularization reduces overfitting by adding a penalty term proportional to:",
+    "options": ["The sum of squared weights", "The number of training examples", "The learning rate", "The sum of the absolute values of the inputs"],
+    "correctIndex": 0,
+    "explanation": "L2 regularization adds λ·Σ wi² to the loss, shrinking large weights toward zero and producing smoother models that generalize better. L1 (lasso) instead penalizes Σ|wi| and tends to produce sparse weights.",
+    "distractorRationales": ["", "The number of training examples is not part of the regularization penalty.", "The learning rate is an optimization hyperparameter, not the penalty term.", "L2 penalizes the squared model weights, not the absolute values of the inputs."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "hard",
+    "questionText": "In the bias-variance decomposition of expected prediction error, increasing model complexity generally:",
+    "options": ["Decreases bias but increases variance", "Decreases both bias and variance", "Increases bias and decreases variance", "Has no effect on either"],
+    "correctIndex": 0,
+    "explanation": "More complex models fit training data more flexibly, lowering bias, but become more sensitive to the particular training sample, raising variance. The total error is minimized at an intermediate complexity that balances the two — the bias-variance trade-off.",
+    "distractorRationales": ["", "Reducing both simultaneously is generally not possible by complexity alone; that is the essence of the trade-off.", "Increasing complexity lowers bias and raises variance, not the reverse.", "Complexity clearly affects both terms, so 'no effect' is wrong."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "k-fold cross-validation is used to:",
+    "options": ["Estimate generalization performance by training/testing on k different data splits", "Increase the size of the training set permanently", "Replace the need for a loss function", "Guarantee zero test error"],
+    "correctIndex": 0,
+    "explanation": "k-fold cross-validation partitions the data into k folds, trains on k-1 and validates on the held-out fold, rotating k times and averaging. This gives a more reliable estimate of out-of-sample performance and reduces dependence on a single train/test split.",
+    "distractorRationales": ["", "It reuses the same data across folds; it does not permanently enlarge the dataset.", "A loss function is still required to train and evaluate each fold.", "No method guarantees zero test error; it only estimates expected performance."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "hard",
+    "questionText": "A classifier on an imbalanced dataset (95% negative, 5% positive) achieves 95% accuracy by predicting 'negative' for everything. Which metric best reveals this failure?",
+    "options": ["Recall (for the positive class)", "Overall accuracy", "Training-set size", "Number of features"],
+    "correctIndex": 0,
+    "explanation": "Recall for the positive class = TP/(TP+FN). The all-negative classifier has TP=0, so recall = 0, exposing that it never finds positives despite 95% accuracy. Accuracy is misleading on imbalanced data; recall, precision, and F1 are more informative.",
+    "distractorRationales": ["", "Accuracy is exactly the metric being fooled here (95% looks good but is useless).", "Training-set size is not a performance metric of the classifier.", "The feature count does not measure predictive quality."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "The F1 score is defined as:",
+    "options": ["The harmonic mean of precision and recall", "The arithmetic mean of precision and recall", "Precision divided by recall", "True positives over total examples"],
+    "correctIndex": 0,
+    "explanation": "F1 = 2·(precision·recall)/(precision+recall), the harmonic mean of precision and recall. The harmonic mean penalizes extreme imbalance, so a high F1 requires both precision and recall to be reasonably high.",
+    "distractorRationales": ["", "F1 uses the harmonic, not arithmetic, mean, precisely to penalize imbalance between the two.", "F1 is a balanced combination, not a simple ratio of precision to recall.", "TP over total examples is closer to accuracy, not F1."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "easy",
+    "questionText": "Gradient descent updates model parameters by moving them in the direction of:",
+    "options": ["The negative gradient of the loss function", "The positive gradient of the loss function", "A random direction each step", "The largest parameter value"],
+    "correctIndex": 0,
+    "explanation": "Gradient descent minimizes the loss by stepping opposite to the gradient (the direction of steepest increase), i.e., along the negative gradient, scaled by the learning rate. Moving along the positive gradient would increase the loss.",
+    "distractorRationales": ["", "Moving along the positive gradient maximizes (increases) the loss, the opposite of the goal.", "Random directions describe stochastic search, not gradient descent.", "It moves by the gradient, not toward the largest parameter."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "hard",
+    "questionText": "If the learning rate in gradient descent is set far too large, the typical consequence is that the loss:",
+    "options": ["Oscillates or diverges instead of converging to a minimum", "Converges faster with no downside", "Stays exactly constant", "Becomes negative"],
+    "correctIndex": 0,
+    "explanation": "An overly large learning rate causes the updates to overshoot the minimum, so the loss can oscillate wildly or diverge to infinity rather than settle. Too small a rate, conversely, converges very slowly. Tuning the learning rate is therefore critical.",
+    "distractorRationales": ["", "A too-large rate harms convergence; it is not free speed.", "The loss does not stay constant; it bounces around or grows.", "A standard non-negative loss does not become negative from a large step."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "The k-means clustering algorithm alternates between which two steps until convergence?",
+    "options": ["Assign each point to its nearest centroid, then recompute each centroid as the mean of its points", "Sort the data, then split it in half", "Build a decision tree, then prune it", "Compute the gradient, then backpropagate"],
+    "correctIndex": 0,
+    "explanation": "k-means iterates: (1) assignment — each point joins the cluster of the nearest centroid; (2) update — each centroid moves to the mean of its assigned points. It converges to a local optimum of within-cluster sum of squares; the result depends on initialization.",
+    "distractorRationales": ["", "Sorting and splitting is not how k-means forms clusters.", "Decision-tree building and pruning is a supervised method, unrelated to k-means.", "Gradients and backpropagation belong to neural-network training, not k-means."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "easy",
+    "questionText": "In supervised learning, the dataset consists of:",
+    "options": ["Input features paired with known target outputs (labels)", "Inputs only, with no labels", "Rewards received from an environment", "Randomly generated noise"],
+    "correctIndex": 0,
+    "explanation": "Supervised learning trains on labeled examples (input, target) pairs and learns a mapping from inputs to outputs. Unsupervised learning uses unlabeled inputs; reinforcement learning learns from rewards.",
+    "distractorRationales": ["", "Inputs with no labels describe unsupervised learning.", "Learning from rewards is reinforcement learning, not supervised learning.", "Random noise is not a meaningful training signal."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "hard",
+    "questionText": "Why does a logistic regression model use the sigmoid function on its linear output for binary classification?",
+    "options": ["To map any real-valued score into a (0,1) probability", "To make the model non-differentiable", "To enforce integer outputs", "To remove the need for weights"],
+    "correctIndex": 0,
+    "explanation": "The sigmoid σ(z) = 1/(1+e^(-z)) squashes the linear score z = w·x + b into the interval (0,1), interpretable as the probability of the positive class. It is smooth and differentiable, enabling gradient-based training with the cross-entropy loss.",
+    "distractorRationales": ["", "The sigmoid is smooth and differentiable, which aids training, not the opposite.", "It produces continuous probabilities, not integers.", "The model still learns weights; the sigmoid only transforms their linear combination."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "The Gini impurity used in decision-tree splitting (e.g., CART) for a node with class proportions pi is computed as:",
+    "options": ["1 - Σ pi²", "Σ pi·log2(pi)", "Σ |pi - 0.5|", "max(pi)"],
+    "correctIndex": 0,
+    "explanation": "Gini impurity is 1 - Σ pi², measuring the probability of misclassifying a randomly chosen sample if labeled by the node's class distribution. It is 0 for a pure node and is maximized for a uniform distribution. Entropy (-Σ pi log pi) is an alternative split criterion.",
+    "distractorRationales": ["", "Σ pi·log2(pi) (negated) is entropy, a different impurity measure.", "Σ|pi - 0.5| is not a standard impurity measure.", "max(pi) is the majority-class proportion, not the Gini impurity."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "easy",
+    "questionText": "Reinforcement learning differs from supervised learning in that the agent learns from:",
+    "options": ["Rewards/penalties received by interacting with an environment", "A fixed set of labeled examples", "Clustered unlabeled data", "Predefined decision trees"],
+    "correctIndex": 0,
+    "explanation": "In reinforcement learning, an agent takes actions in an environment and receives scalar reward signals, learning a policy that maximizes cumulative reward over time. There are no explicit input-output labels; feedback is evaluative and often delayed.",
+    "distractorRationales": ["", "Learning from fixed labeled examples is supervised learning.", "Clustering unlabeled data is unsupervised learning.", "Decision trees are a model class, not the source of the learning signal in RL."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "hard",
+    "questionText": "An ensemble method like Random Forest reduces variance compared with a single decision tree primarily by:",
+    "options": ["Averaging many de-correlated trees trained on bootstrapped samples and random feature subsets", "Growing one extremely deep tree", "Using a single feature for all splits", "Removing the training data"],
+    "correctIndex": 0,
+    "explanation": "Random Forest trains many trees on bootstrap samples (bagging) while restricting each split to a random subset of features, which de-correlates the trees. Averaging their predictions cancels much of the individual trees' variance, improving generalization over a single high-variance tree.",
+    "distractorRationales": ["", "One very deep tree has high variance — the problem the forest mitigates.", "Restricting to a single feature for all splits would cripple the model, not reduce variance via diversity.", "Random Forest very much relies on the training data via bootstrap samples."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "The 'curse of dimensionality' refers to the problem that, as the number of features grows:",
+    "options": ["Data becomes sparse and the volume of the space grows exponentially, hurting many learning methods", "Models always train faster", "Accuracy is guaranteed to increase", "Distances between points become identical to zero"],
+    "correctIndex": 0,
+    "explanation": "In high dimensions the space's volume grows exponentially, so a fixed dataset becomes increasingly sparse and distance-based notions lose discriminative power. This degrades methods like kNN and requires exponentially more data, motivating dimensionality reduction and feature selection.",
+    "distractorRationales": ["", "More features generally slow training and worsen data sparsity.", "Adding features does not guarantee higher accuracy; it can cause overfitting.", "Distances tend to concentrate (become similar), not collapse exactly to zero."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "easy",
+    "questionText": "Splitting available data into separate training and test sets is done to:",
+    "options": ["Estimate how well the model generalizes to unseen data", "Increase the model's number of parameters", "Speed up gradient descent", "Eliminate the need for a validation set"],
+    "correctIndex": 0,
+    "explanation": "Holding out a test set that the model never trains on lets us estimate generalization performance honestly. Evaluating on the training data alone is optimistic because the model has already seen it. A separate validation set is still used for tuning hyperparameters.",
+    "distractorRationales": ["", "The split does not change the model's parameter count.", "Splitting the data does not inherently speed up optimization.", "A validation set is still needed for model selection/tuning, distinct from the final test set."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "machine-learning-basics",
+    "difficulty": "medium",
+    "questionText": "Principal Component Analysis (PCA) reduces dimensionality by projecting data onto directions that:",
+    "options": ["Capture the maximum variance in the data (the top eigenvectors of the covariance matrix)", "Minimize the variance in the data", "Are chosen at random", "Correspond to the class labels"],
+    "correctIndex": 0,
+    "explanation": "PCA finds orthogonal directions (principal components) along which the data varies most — the leading eigenvectors of the covariance matrix. Projecting onto the top few retains most of the variance while reducing dimensionality. It is unsupervised, ignoring any class labels.",
+    "distractorRationales": ["", "PCA keeps the high-variance directions, not the minimum-variance ones.", "The components are determined by the data's covariance, not random.", "PCA is unsupervised and does not use class labels (that would be LDA)."]
+  }
+]

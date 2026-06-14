@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from app.core.config import settings
 from app.generate.crosscheck import cross_check
-from app.generate.dedup import is_duplicate
+from app.generate.dedup import is_duplicate, is_duplicate_text
 from app.generate.generator import (
     GENERATION_SYSTEM_PROMPT,
     GeneratedQuestion,
@@ -18,7 +18,7 @@ from app.generate.generator import (
     is_trivia,
     parse_generated,
 )
-from app.llm.base import LLMProvider
+from app.llm.base import LLMError, LLMProvider
 from app.models.course import Course, Subtopic
 from app.models.enums import Difficulty, QuestionSource
 from app.models.question import Question
@@ -78,6 +78,16 @@ async def _dedup_corpus(
     return corpus
 
 
+async def _text_corpus(subtopic_id: PydanticObjectId) -> list[str]:
+    """Question texts of all verified questions in the subtopic — the
+    embedding-free dedup corpus used when no embeddings provider is available."""
+    questions = await Question.find(
+        Question.subtopicId == subtopic_id,
+        Question.verified == True,  # noqa: E712
+    ).to_list()
+    return [q.questionText for q in questions]
+
+
 async def _verify(
     cand: GeneratedQuestion, verifier: LLMProvider
 ) -> tuple[bool, str]:
@@ -118,7 +128,18 @@ async def generate_for(
     course = await Course.get(sub.courseId)
 
     anchors = await _anchors(sub.courseId, subtopic_id, difficulty)
-    corpus = await _dedup_corpus(subtopic_id, embedder)
+
+    # Dedup corpus: prefer embeddings (cosine). Degrade to lexical text matching
+    # if no embeddings provider is available (e.g. Gemini quota spent, Groq can't
+    # embed). Generator/verifier failures are NOT swallowed — they raise LLMError
+    # so the caller (fill job) can tell "providers down" from "low yield".
+    embeddings_off = False
+    corpus: list[list[float]] = []
+    try:
+        corpus = await _dedup_corpus(subtopic_id, embedder)
+    except LLMError:
+        embeddings_off = True
+    text_corpus: list[str] = await _text_corpus(subtopic_id) if embeddings_off else []
 
     prompt = build_generation_prompt(
         course_name=course.name if course else "",
@@ -127,20 +148,35 @@ async def generate_for(
         n=n,
         exemplars=anchors,
     )
+    # json_mode → well-formed JSON array (no fences / truncation); a generous
+    # token budget so reasoning doesn't eat into the answer and truncate it.
     raw = await generator.complete(
-        system=GENERATION_SYSTEM_PROMPT, prompt=prompt, thinking=True
+        system=GENERATION_SYSTEM_PROMPT, prompt=prompt, thinking=True,
+        json_mode=True, max_tokens=16000,
     )
     candidates = parse_generated(raw)
     report.parsed = len(candidates)
 
     accepted_embeddings: list[list[float]] = []
+    accepted_texts: list[str] = []
     for cand in candidates:
         if is_trivia(cand.questionText):
             report._drop("trivia")
             continue
 
-        embedding = (await embedder.embed([cand.questionText]))[0]
-        if is_duplicate(embedding, corpus + accepted_embeddings, threshold):
+        embedding: list[float] | None = None
+        if not embeddings_off:
+            try:
+                embedding = (await embedder.embed([cand.questionText]))[0]
+            except LLMError:  # quota hit mid-run — degrade for the rest
+                embeddings_off = True
+                text_corpus = await _text_corpus(subtopic_id)
+
+        if embeddings_off:
+            if is_duplicate_text(cand.questionText, text_corpus + accepted_texts, threshold):
+                report._drop("duplicate")
+                continue
+        elif is_duplicate(embedding, corpus + accepted_embeddings, threshold):
             report._drop("duplicate")
             continue
 
@@ -165,7 +201,9 @@ async def generate_for(
             verifiedBy=tag,
             embedding=embedding,
         ).insert()
-        accepted_embeddings.append(embedding)
+        if embedding is not None:
+            accepted_embeddings.append(embedding)
+        accepted_texts.append(cand.questionText)
         report.accepted += 1
         report.acceptedIds.append(str(q.id))
 

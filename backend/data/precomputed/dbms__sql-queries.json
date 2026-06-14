@@ -1,0 +1,202 @@
+[
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "easy",
+  "questionText": "Which SQL clause is used to filter rows BEFORE any grouping is applied?",
+  "options": ["WHERE", "HAVING", "GROUP BY", "ORDER BY"],
+  "correctIndex": 0,
+  "explanation": "WHERE filters individual rows before grouping. HAVING filters groups after GROUP BY aggregation. So row-level conditions belong in WHERE.",
+  "distractorRationales": ["", "HAVING filters groups after aggregation, not individual rows before grouping.", "GROUP BY forms groups; it does not filter rows.", "ORDER BY sorts the final result; it does not filter."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "easy",
+  "questionText": "Which SQL aggregate function counts the number of rows where a given column is NOT NULL?",
+  "options": ["COUNT(column)", "COUNT(*)", "SUM(column)", "COUNT(DISTINCT *)"],
+  "correctIndex": 0,
+  "explanation": "COUNT(column) counts only rows where that column is non-null. COUNT(*) counts all rows regardless of nulls. This null-handling distinction is frequently tested.",
+  "distractorRationales": ["", "COUNT(*) counts every row including those with nulls in any column.", "SUM adds numeric values; it does not count rows.", "COUNT(DISTINCT *) is not valid SQL syntax."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "easy",
+  "questionText": "In SQL, the result of the expression (NULL = NULL) is:",
+  "options": ["UNKNOWN (not TRUE)", "TRUE", "FALSE", "An error"],
+  "correctIndex": 0,
+  "explanation": "SQL uses three-valued logic. Any comparison with NULL using = yields UNKNOWN, never TRUE. To test for null you must use IS NULL, not = NULL.",
+  "distractorRationales": ["", "NULL = NULL is not TRUE because NULL represents an unknown value, not a comparable one.", "It is UNKNOWN, not FALSE; treating it as FALSE misstates SQL's three-valued logic.", "It is a legal expression that evaluates to UNKNOWN, not a syntax error."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "easy",
+  "questionText": "Which SQL keyword removes duplicate rows from a query's result set?",
+  "options": ["DISTINCT", "UNIQUE", "DELETE", "DROP"],
+  "correctIndex": 0,
+  "explanation": "SELECT DISTINCT eliminates duplicate rows from the output. UNIQUE is a table constraint (different purpose), while DELETE and DROP modify data/schema.",
+  "distractorRationales": ["", "UNIQUE is a constraint enforcing column uniqueness, not a query-time duplicate remover.", "DELETE removes rows from a table permanently, not duplicates from a result.", "DROP removes database objects like tables, not duplicate rows."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "Consider:  SELECT dept, COUNT(*) FROM emp GROUP BY dept HAVING COUNT(*) > 5;  This returns:",
+  "options": ["Departments that have more than 5 employees, with their employee counts", "All departments and their counts", "Employees in departments larger than 5", "The 5 largest departments"],
+  "correctIndex": 0,
+  "explanation": "GROUP BY dept forms one group per department; HAVING COUNT(*) > 5 keeps only groups whose size exceeds 5. The result is each such department with its count.",
+  "distractorRationales": ["", "HAVING filters out departments with 5 or fewer employees, so not all departments appear.", "The result is one row per qualifying department, not per employee.", "It returns all departments with more than 5 employees, not just the top 5."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "What does an SQL INNER JOIN between two tables return?",
+  "options": ["Only the rows that have matching values in both tables on the join condition", "All rows from the left table plus matches", "All rows from both tables", "Rows from the left table with no match in the right"],
+  "correctIndex": 0,
+  "explanation": "An INNER JOIN returns only the combined rows where the join condition is satisfied in both tables. Unmatched rows from either side are excluded.",
+  "distractorRationales": ["", "Keeping all left rows plus matches describes a LEFT OUTER JOIN.", "Returning all rows from both tables (matched or not) describes a FULL OUTER JOIN.", "Returning left rows with no right match describes an anti-join, not an inner join."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "Which query finds employees who earn more than the average salary of all employees?",
+  "options": ["SELECT name FROM emp WHERE salary > (SELECT AVG(salary) FROM emp);", "SELECT name FROM emp WHERE salary > AVG(salary);", "SELECT name FROM emp GROUP BY name HAVING salary > AVG(salary);", "SELECT name, AVG(salary) FROM emp;"],
+  "correctIndex": 0,
+  "explanation": "A scalar subquery (SELECT AVG(salary) FROM emp) computes the overall average, and the outer WHERE compares each employee's salary against it. Aggregates cannot be used directly in a WHERE clause.",
+  "distractorRationales": ["", "Aggregate functions like AVG are not allowed directly in a WHERE clause; a subquery is required.", "Grouping by name and using AVG(salary) computes each person's own average, not the global average.", "This just lists names with a (misapplied) average and does no filtering."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "The SQL set operator that returns rows appearing in the first query but NOT the second (and removes duplicates) is:",
+  "options": ["EXCEPT (or MINUS)", "UNION", "INTERSECT", "UNION ALL"],
+  "correctIndex": 0,
+  "explanation": "EXCEPT (called MINUS in Oracle) returns the distinct rows from the first result set that are not present in the second — the set-difference operation.",
+  "distractorRationales": ["", "UNION combines rows from both queries (removing duplicates), not their difference.", "INTERSECT returns rows common to both queries, the opposite of difference.", "UNION ALL combines all rows keeping duplicates; it is not a difference."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "Given a table with a column 'grade' that has some NULL values, the query SELECT COUNT(*) FROM students WHERE grade <> 'A';  will:",
+  "options": ["Exclude rows where grade is NULL (they are not counted)", "Count rows where grade is NULL", "Count all rows", "Raise an error"],
+  "correctIndex": 0,
+  "explanation": "For rows with NULL grade, the predicate grade <> 'A' evaluates to UNKNOWN, which the WHERE clause treats as not satisfied. Those rows are excluded from the count.",
+  "distractorRationales": ["", "NULL rows yield UNKNOWN, so they are NOT counted by the WHERE filter.", "The query does not count all rows; only non-null grades different from 'A' qualify.", "The comparison is valid SQL; it produces UNKNOWN for nulls, not an error."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "Which clause order is correct in a single SQL SELECT statement?",
+  "options": ["SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY", "SELECT ... WHERE ... FROM ... ORDER BY ... GROUP BY", "FROM ... SELECT ... HAVING ... WHERE", "SELECT ... GROUP BY ... WHERE ... HAVING"],
+  "correctIndex": 0,
+  "explanation": "The syntactic order is SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY. (The logical evaluation order differs — FROM/WHERE/GROUP BY/HAVING/SELECT/ORDER BY — but the written order is as shown.)",
+  "distractorRationales": ["", "WHERE cannot precede FROM, and GROUP BY cannot follow ORDER BY in valid syntax.", "SELECT must come before FROM in standard SQL syntax.", "WHERE must come before GROUP BY, not after it."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "Consider tables: Student(sid, name) and Took(sid, cid). Which query lists names of students who took NO courses?",
+  "options": ["SELECT name FROM Student WHERE sid NOT IN (SELECT sid FROM Took);", "SELECT name FROM Student WHERE sid IN (SELECT sid FROM Took);", "SELECT name FROM Student, Took WHERE Student.sid = Took.sid;", "SELECT name FROM Student JOIN Took USING(sid);"],
+  "correctIndex": 0,
+  "explanation": "Students with no courses are those whose sid does not appear in Took. NOT IN against the subquery of enrolled sids returns exactly those students (assuming sid in Took is not null).",
+  "distractorRationales": ["", "IN (rather than NOT IN) returns students who DID take at least one course — the opposite.", "An equi-join returns students who took courses, not those who took none.", "A JOIN ... USING(sid) likewise returns only matched (enrolled) students."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "A subtle bug with NOT IN arises when the subquery returns a NULL. SELECT name FROM A WHERE x NOT IN (SELECT y FROM B);  if any y is NULL, the result is:",
+  "options": ["The result becomes empty (no rows), because comparisons with NULL yield UNKNOWN", "Unaffected by the NULL", "All rows of A", "A syntax error"],
+  "correctIndex": 0,
+  "explanation": "NOT IN expands to x <> y1 AND x <> y2 AND .... If any yi is NULL, that comparison is UNKNOWN, so the whole AND can never be TRUE — every row is filtered out, yielding no results. This is a classic NOT IN / NULL pitfall (use NOT EXISTS instead).",
+  "distractorRationales": ["", "The NULL critically affects the result by making the NOT IN condition never TRUE.", "It does not return all rows; rather it returns none.", "It is valid syntax; the issue is semantic (three-valued logic), not a parse error."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "A correlated subquery is one in which:",
+  "options": ["The inner query references a column from the outer query, so it is re-evaluated for each outer row", "The inner query runs once independently of the outer query", "Two queries are combined with UNION", "The query references no tables"],
+  "correctIndex": 0,
+  "explanation": "A correlated subquery depends on the current row of the outer query (it references an outer column), so conceptually it executes once per outer-row. A non-correlated subquery can be evaluated a single time.",
+  "distractorRationales": ["", "Running once independently describes a non-correlated (uncorrelated) subquery.", "Combining with UNION is a set operation, not a correlation.", "A correlated subquery does reference tables — specifically a column from the outer query."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "Tables: Sailor(sid, rating) with rows ratings {10, 8, 8, 5}. What does SELECT COUNT(DISTINCT rating) FROM Sailor; return?",
+  "options": ["3", "4", "2", "1"],
+  "correctIndex": 0,
+  "explanation": "The distinct ratings are {10, 8, 5} — three unique values. COUNT(DISTINCT rating) counts distinct non-null values, giving 3.",
+  "distractorRationales": ["", "4 is COUNT(*) (all rows); DISTINCT removes the duplicate 8.", "2 would undercount; there are three distinct values, not two.", "1 ignores that there are multiple distinct ratings."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "Which statement about the GROUP BY clause and the SELECT list is correct in standard SQL?",
+  "options": ["Every non-aggregated column in the SELECT list must appear in the GROUP BY clause", "You can select any column regardless of GROUP BY", "Aggregated columns must appear in GROUP BY", "GROUP BY forbids aggregate functions in SELECT"],
+  "correctIndex": 0,
+  "explanation": "In standard SQL, any column in the SELECT list that is not inside an aggregate function must be listed in GROUP BY; otherwise the value is ambiguous within a group.",
+  "distractorRationales": ["", "Selecting arbitrary non-grouped, non-aggregated columns is not allowed in standard SQL.", "Aggregated columns are computed per group and must NOT (and need not) be in GROUP BY.", "The whole point of GROUP BY is to allow aggregate functions in SELECT, not forbid them."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "The SQL LIKE pattern 'A%' matches strings that:",
+  "options": ["Start with 'A' followed by zero or more characters", "Contain 'A' anywhere", "Are exactly 'A%'", "End with 'A'"],
+  "correctIndex": 0,
+  "explanation": "In LIKE, % matches any sequence of zero or more characters and _ matches a single character. 'A%' therefore matches any string beginning with 'A'.",
+  "distractorRationales": ["", "Matching 'A' anywhere would require '%A%', not 'A%'.", "It is a wildcard pattern, not a literal match of the two characters 'A%'.", "Ending with 'A' would be '%A'."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "Which query returns each department's name along with its number of employees, including departments with zero employees?",
+  "options": ["SELECT d.name, COUNT(e.eid) FROM Dept d LEFT JOIN Emp e ON d.did = e.did GROUP BY d.name;", "SELECT d.name, COUNT(*) FROM Dept d JOIN Emp e ON d.did = e.did GROUP BY d.name;", "SELECT d.name, COUNT(*) FROM Dept d, Emp e WHERE d.did = e.did GROUP BY d.name;", "SELECT d.name, COUNT(e.eid) FROM Emp e LEFT JOIN Dept d ON d.did = e.did GROUP BY d.name;"],
+  "correctIndex": 0,
+  "explanation": "A LEFT JOIN from Dept to Emp keeps every department even when no employee matches. Using COUNT(e.eid) counts only actual employees (NULLs from unmatched departments are not counted), giving 0 for empty departments.",
+  "distractorRationales": ["", "An inner JOIN drops departments with no employees, so zero-employee departments are missing.", "The comma join with WHERE is an inner join and likewise excludes empty departments.", "Putting Emp on the left of the LEFT JOIN keeps all employees, not all departments — it won't show empty departments."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "Consider SELECT AVG(salary) FROM emp;  where one employee has a NULL salary. SQL computes the average over:",
+  "options": ["Only the non-NULL salaries (NULLs are ignored by aggregate functions)", "All rows, treating NULL as 0", "All rows, treating NULL as the maximum", "It returns NULL because one value is NULL"],
+  "correctIndex": 0,
+  "explanation": "SQL aggregate functions (except COUNT(*)) ignore NULL values. AVG sums the non-null salaries and divides by the count of non-null salaries.",
+  "distractorRationales": ["", "NULL is ignored, not treated as 0; treating it as 0 would lower the average incorrectly.", "NULL is not substituted with the maximum value.", "A single NULL does not poison the whole aggregate; only that value is skipped."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "medium",
+  "questionText": "What is the effect of the SQL statement: DELETE FROM emp;  (with no WHERE clause)?",
+  "options": ["It removes all rows from the emp table but keeps the table structure", "It deletes the table definition entirely", "It deletes only the first row", "It is invalid without a WHERE clause"],
+  "correctIndex": 0,
+  "explanation": "DELETE without a WHERE clause removes every row in the table while leaving the table (its schema, indexes, constraints) intact. To remove the table itself you would use DROP TABLE.",
+  "distractorRationales": ["", "Removing the table definition is done by DROP TABLE, not DELETE.", "Without WHERE, DELETE affects all rows, not just the first.", "DELETE without WHERE is perfectly valid; it simply deletes all rows."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "sql-queries",
+  "difficulty": "hard",
+  "questionText": "To find the second-highest distinct salary from emp, which approach is correct?",
+  "options": ["SELECT MAX(salary) FROM emp WHERE salary < (SELECT MAX(salary) FROM emp);", "SELECT MAX(salary) FROM emp;", "SELECT salary FROM emp ORDER BY salary LIMIT 2;", "SELECT MIN(salary) FROM emp WHERE salary > (SELECT MIN(salary) FROM emp);"],
+  "correctIndex": 0,
+  "explanation": "The inner query finds the highest salary; the outer MAX finds the largest salary strictly below it — the second-highest distinct salary, correctly handling duplicate top salaries.",
+  "distractorRationales": ["", "MAX(salary) alone returns the highest salary, not the second-highest.", "ORDER BY salary LIMIT 2 returns the two LOWEST salaries (ascending) and as two rows, not the second-highest value.", "MIN above the minimum gives the second-LOWEST distinct salary, not the second-highest."]
+ }
+]

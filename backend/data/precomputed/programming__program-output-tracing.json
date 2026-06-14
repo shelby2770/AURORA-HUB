@@ -1,0 +1,380 @@
+[
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "easy",
+  "questionText": "What does this C program print? (Program 1)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int i;\n    int sum = 0;\n    for (i = 1; i <= 5; i++) sum += i;\n    printf(\"%d\", sum);\n    return 0;\n}",
+  "options": [
+   "15",
+   "10",
+   "14",
+   "5"
+  ],
+  "correctIndex": 0,
+  "explanation": "The loop adds 1+2+3+4+5 = 15. The loop runs for i = 1 through 5 inclusive, accumulating into sum.",
+  "distractorRationales": [
+   "",
+   "10 would be 1+2+3+4, missing the final i=5.",
+   "14 would skip 1 (summing 2..5+... ) which is not what the loop does.",
+   "5 is only the last term, not the sum."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 2)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int i = 0;\n    while (i < 5) {\n        if (i == 3) break;\n        printf(\"%d\", i);\n        i++;\n    }\n    return 0;\n}",
+  "options": [
+   "012",
+   "0123",
+   "01234",
+   "123"
+  ],
+  "correctIndex": 0,
+  "explanation": "The loop prints i then increments. At i=3 the break exits before printing, so it prints 0, 1, 2 only — '012'.",
+  "distractorRationales": [
+   "",
+   "0123 would print 3, but break occurs before printing when i==3.",
+   "01234 ignores the break entirely.",
+   "123 wrongly skips 0, which is printed first."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 3)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int i;\n    for (i = 0; i < 5; i++) {\n        if (i % 2 == 0) continue;\n        printf(\"%d\", i);\n    }\n    return 0;\n}",
+  "options": [
+   "13",
+   "024",
+   "1234",
+   "0123"
+  ],
+  "correctIndex": 0,
+  "explanation": "continue skips the printf for even i. For i = 0..4, the odd values 1 and 3 are printed, giving '13'.",
+  "distractorRationales": [
+   "",
+   "024 prints the even numbers, but continue skips exactly those.",
+   "1234 includes even numbers 2 and 4, which are skipped.",
+   "0123 ignores the continue filtering of evens."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 4)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a = 2, b = 3;\n    a = a + b;\n    b = a - b;\n    a = a - b;\n    printf(\"%d %d\", a, b);\n    return 0;\n}",
+  "options": [
+   "3 2",
+   "2 3",
+   "5 3",
+   "0 0"
+  ],
+  "correctIndex": 0,
+  "explanation": "This is the classic swap without a temporary. a = 2+3 = 5; b = 5-3 = 2; a = 5-2 = 3. So a and b are swapped to 3 and 2, printing '3 2'.",
+  "distractorRationales": [
+   "",
+   "2 3 would mean no swap occurred.",
+   "5 3 is the intermediate state after only the first assignment.",
+   "0 0 does not arise from these arithmetic swaps."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "easy",
+  "questionText": "What does this C program print? (Program 5)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 4;\n    printf(\"%d\", x++);\n    printf(\"%d\", x);\n    return 0;\n}",
+  "options": [
+   "45",
+   "44",
+   "55",
+   "54"
+  ],
+  "correctIndex": 0,
+  "explanation": "x++ is post-increment: it prints the current value 4, then increments x to 5. The second printf prints 5. Output is '45'.",
+  "distractorRationales": [
+   "",
+   "44 ignores that x becomes 5 after the post-increment.",
+   "55 would be pre-increment behavior on the first print.",
+   "54 reverses the correct order of values."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 6)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int i, j, count = 0;\n    for (i = 0; i < 3; i++)\n        for (j = 0; j < 3; j++)\n            count++;\n    printf(\"%d\", count);\n    return 0;\n}",
+  "options": [
+   "9",
+   "6",
+   "3",
+   "12"
+  ],
+  "correctIndex": 0,
+  "explanation": "The nested loops each run 3 times, so the inner body executes 3 × 3 = 9 times, incrementing count to 9.",
+  "distractorRationales": [
+   "",
+   "6 would be 3+3, but nested loops multiply, not add.",
+   "3 counts only the outer loop iterations.",
+   "12 overcounts; 3×3 is 9, not 12."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 7)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 10;\n    int y = (x > 5) ? (x < 20 ? 100 : 200) : 300;\n    printf(\"%d\", y);\n    return 0;\n}",
+  "options": [
+   "100",
+   "200",
+   "300",
+   "10"
+  ],
+  "correctIndex": 0,
+  "explanation": "x>5 is true, so evaluate the inner ternary: x<20 is true (10<20), giving 100. y = 100.",
+  "distractorRationales": [
+   "",
+   "200 requires x>=20, but x is 10.",
+   "300 is the else branch, taken only if x<=5.",
+   "y is assigned 100, not x's value 10."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 8)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int n = 5, fact = 1, i;\n    for (i = 1; i <= n; i++) fact *= i;\n    printf(\"%d\", fact);\n    return 0;\n}",
+  "options": [
+   "120",
+   "25",
+   "15",
+   "24"
+  ],
+  "correctIndex": 0,
+  "explanation": "This computes 5! = 1×2×3×4×5 = 120 by multiplying fact by each i from 1 to 5.",
+  "distractorRationales": [
+   "",
+   "25 is 5², not the factorial.",
+   "15 is the sum 1+2+3+4+5, not the product.",
+   "24 is 4!, missing the final ×5."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 9)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a = 5;\n    if (a = 0)\n        printf(\"true\");\n    else\n        printf(\"false\");\n    return 0;\n}",
+  "options": [
+   "false",
+   "true",
+   "5",
+   "Compilation error"
+  ],
+  "correctIndex": 0,
+  "explanation": "Note '=' (assignment), not '==' (comparison). a = 0 assigns 0 to a and the expression's value is 0, which is false, so the else branch runs, printing 'false'. This is the classic assignment-in-condition bug.",
+  "distractorRationales": [
+   "",
+   "'true' would require the condition to be nonzero, but it evaluates to 0.",
+   "The program prints a string, not the number 5.",
+   "It compiles (often with a warning), so it is not a compile error."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 10)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 7;\n    switch (x % 3) {\n        case 0: printf(\"A\"); break;\n        case 1: printf(\"B\"); break;\n        case 2: printf(\"C\"); break;\n    }\n    return 0;\n}",
+  "options": [
+   "B",
+   "A",
+   "C",
+   "nothing"
+  ],
+  "correctIndex": 0,
+  "explanation": "7 % 3 = 1, so the switch matches case 1 and prints 'B', then breaks.",
+  "distractorRationales": [
+   "",
+   "A is case 0, but 7%3 is 1, not 0.",
+   "C is case 2, but the remainder is 1.",
+   "A matching case exists (1), so something is printed."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 11)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 1;\n    switch (x) {\n        case 1: printf(\"1\");\n        case 2: printf(\"2\");\n        case 3: printf(\"3\"); break;\n        default: printf(\"D\");\n    }\n    return 0;\n}",
+  "options": [
+   "123",
+   "1",
+   "1D",
+   "123D"
+  ],
+  "correctIndex": 0,
+  "explanation": "x=1 matches case 1, but there is no break after cases 1 and 2, so execution 'falls through': it prints 1, then 2, then 3, and finally breaks. Output is '123'.",
+  "distractorRationales": [
+   "",
+   "1 alone would require a break after case 1, which is absent.",
+   "1D skips the fall-through to cases 2 and 3.",
+   "default is not reached because the break in case 3 exits first."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 12)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int i = 1;\n    do {\n        printf(\"%d\", i);\n        i++;\n    } while (i <= 3);\n    return 0;\n}",
+  "options": [
+   "123",
+   "1234",
+   "12",
+   "nothing"
+  ],
+  "correctIndex": 0,
+  "explanation": "A do-while runs the body before checking the condition. It prints 1,2,3; after i becomes 4 the condition 4<=3 is false and the loop ends. Output '123'.",
+  "distractorRationales": [
+   "",
+   "1234 would require the condition to allow i=4, but it stops at 3.",
+   "12 stops one iteration too early.",
+   "do-while always executes the body at least once, so something prints."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 13)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int arr[] = {3, 1, 4, 1, 5};\n    int max = arr[0], i;\n    for (i = 1; i < 5; i++)\n        if (arr[i] > max) max = arr[i];\n    printf(\"%d\", max);\n    return 0;\n}",
+  "options": [
+   "5",
+   "4",
+   "3",
+   "1"
+  ],
+  "correctIndex": 0,
+  "explanation": "The loop finds the maximum element. Scanning {3,1,4,1,5}, max updates 3 → 4 → 5. The largest value is 5.",
+  "distractorRationales": [
+   "",
+   "4 is updated past once 5 is seen.",
+   "3 is only the initial max.",
+   "1 is a minimum-ish value, not the max."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 14)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 10, y = 5;\n    printf(\"%d\", x > y ? x - y : y - x);\n    return 0;\n}",
+  "options": [
+   "5",
+   "-5",
+   "10",
+   "15"
+  ],
+  "correctIndex": 0,
+  "explanation": "This computes the absolute difference. x>y is true, so it evaluates x - y = 10 - 5 = 5.",
+  "distractorRationales": [
+   "",
+   "-5 would be the else branch y - x, taken only if x<=y.",
+   "10 is x, not the difference.",
+   "15 is the sum, not the difference."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 15)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int i, n = 4, p = 1;\n    for (i = 0; i < n; i++) p = p * 2;\n    printf(\"%d\", p);\n    return 0;\n}",
+  "options": [
+   "16",
+   "8",
+   "2",
+   "4"
+  ],
+  "correctIndex": 0,
+  "explanation": "p doubles n=4 times starting from 1: 1→2→4→8→16. This computes 2^4 = 16.",
+  "distractorRationales": [
+   "",
+   "8 is 2^3, one doubling short.",
+   "2 is after only one iteration.",
+   "4 is 2^2, two doublings short."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "easy",
+  "questionText": "What does this C program print? (Program 16)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a = 5;\n    int b = a > 3 && a < 10;\n    printf(\"%d\", b);\n    return 0;\n}",
+  "options": [
+   "1",
+   "0",
+   "5",
+   "true"
+  ],
+  "correctIndex": 0,
+  "explanation": "a>3 (true) && a<10 (true) is true. In C, a true logical expression evaluates to the int 1, so b = 1 is printed.",
+  "distractorRationales": [
+   "",
+   "0 would be the result if the condition were false.",
+   "5 is a's value, not the boolean result.",
+   "C prints the integer 1, not the word 'true'."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 17)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int sum = 0, i;\n    for (i = 10; i > 0; i -= 3) sum += i;\n    printf(\"%d\", sum);\n    return 0;\n}",
+  "options": [
+   "22",
+   "25",
+   "19",
+   "10"
+  ],
+  "correctIndex": 0,
+  "explanation": "i takes values 10, 7, 4, 1 (next would be -2, which fails i>0). Sum = 10+7+4+1 = 22.",
+  "distractorRationales": [
+   "",
+   "25 would include an extra term not produced by the step.",
+   "19 omits one of the terms (e.g., the final 1).",
+   "10 is only the first term."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "program-output-tracing",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 18)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int x = 0;\n    for (int i = 0; i < 3; i++)\n        for (int j = i; j < 3; j++)\n            x++;\n    printf(\"%d\", x);\n    return 0;\n}",
+  "options": [
+   "6",
+   "9",
+   "3",
+   "4"
+  ],
+  "correctIndex": 0,
+  "explanation": "Inner loop runs (3-i) times: i=0 → 3, i=1 → 2, i=2 → 1. Total x = 3+2+1 = 6. This counts the upper-triangular iterations.",
+  "distractorRationales": [
+   "",
+   "9 would be the full 3×3 if the inner loop started at 0 each time.",
+   "3 counts only one row of iterations.",
+   "4 does not match the 3+2+1 triangular sum."
+  ]
+ }
+]

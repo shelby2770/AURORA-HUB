@@ -1,0 +1,202 @@
+[
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "Encapsulation in object-oriented programming refers to:",
+    "options": ["Bundling data with the methods that operate on it and hiding internal state", "Deriving one class from another", "A function calling itself", "Converting one type to another"],
+    "correctIndex": 0,
+    "explanation": "Encapsulation groups an object's data (fields) and behavior (methods) together and restricts direct external access to the internal state, exposing a controlled interface. This protects invariants and decouples implementation from use.",
+    "distractorRationales": ["", "Deriving one class from another is inheritance, not encapsulation.", "A function calling itself is recursion, unrelated to encapsulation.", "Type conversion is casting, not encapsulation."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "Inheritance allows a class to:",
+    "options": ["Acquire fields and methods of a parent (base) class and extend or override them", "Hide all of its data", "Run on multiple threads", "Be instantiated without a constructor"],
+    "correctIndex": 0,
+    "explanation": "Inheritance lets a derived (child) class reuse and specialize a base class's members, modeling an 'is-a' relationship. The subclass can add new members and override inherited behavior, promoting code reuse.",
+    "distractorRationales": ["", "Hiding data is encapsulation, not inheritance.", "Multithreading is a concurrency concern, unrelated to inheritance.", "Inheritance does not remove the need for a constructor; constructors are still invoked."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "Runtime (dynamic) polymorphism in OOP is typically achieved through:",
+    "options": ["Method overriding with dynamic dispatch (virtual functions)", "Method overloading resolved at compile time", "Operator precedence", "Static (class) variables"],
+    "correctIndex": 0,
+    "explanation": "Dynamic polymorphism lets a base-class reference invoke the correct overridden method of the actual object type at runtime, via a virtual dispatch mechanism (e.g., a vtable in C++). Overloading, by contrast, is resolved statically at compile time.",
+    "distractorRationales": ["", "Overloading is compile-time (static) polymorphism, not runtime.", "Operator precedence is unrelated to polymorphism.", "Static variables are shared class state, not a polymorphism mechanism."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "The difference between method overloading and method overriding is:",
+    "options": ["Overloading is same name with different parameter lists (compile time); overriding is a subclass redefining a base method with the same signature (runtime)", "They are identical", "Overloading requires inheritance; overriding does not", "Overriding changes the parameter list"],
+    "correctIndex": 0,
+    "explanation": "Overloading defines multiple methods with the same name but different parameter types/counts, chosen at compile time. Overriding provides a new implementation in a subclass for an inherited method with the same signature, selected at runtime by the object's actual type.",
+    "distractorRationales": ["", "They are distinct mechanisms with different binding times.", "It is overriding (not overloading) that requires inheritance.", "Overriding keeps the same signature; changing the parameter list would be overloading."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "hard",
+    "questionText": "An abstract class differs from an interface (in languages that distinguish them) in that an abstract class:",
+    "options": ["Can contain both implemented methods and state (fields), while an interface traditionally declares only method signatures", "Cannot have any methods", "Can be instantiated directly", "Must be final"],
+    "correctIndex": 0,
+    "explanation": "An abstract class may provide some implemented methods and instance fields alongside abstract (unimplemented) methods, and cannot be instantiated directly. A traditional interface specifies a contract of method signatures with no state. (Modern languages blur this with default methods.)",
+    "distractorRationales": ["", "Abstract classes can have methods, including concrete ones.", "Abstract classes cannot be instantiated directly — that is a defining property.", "Abstract and final are contradictory; an abstract class is meant to be subclassed."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "A constructor in OOP is a special method that:",
+    "options": ["Initializes a newly created object's state", "Destroys an object", "Returns the object's type name", "Is called once per class, not per object"],
+    "correctIndex": 0,
+    "explanation": "A constructor runs when an object is created, initializing its fields and establishing class invariants. It typically has the class's name (or a special form) and is invoked per object instantiation.",
+    "distractorRationales": ["", "Destroying an object is the role of a destructor/finalizer, not a constructor.", "Constructors initialize state; they do not return a type name.", "A constructor runs for each object created, not once per class."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "Composition ('has-a') is often preferred over inheritance ('is-a') because composition:",
+    "options": ["Offers more flexible, loosely-coupled designs and avoids fragile deep hierarchies", "Always runs faster", "Eliminates the need for any classes", "Makes all members public"],
+    "correctIndex": 0,
+    "explanation": "Favoring composition lets an object delegate to contained objects, allowing behavior to be combined and changed at runtime without rigid inheritance chains. Deep inheritance hierarchies are brittle (the fragile base class problem); composition reduces coupling.",
+    "distractorRationales": ["", "The advantage is design flexibility, not a guaranteed speed gain.", "Composition still uses classes; it composes objects of them.", "Composition does not force members to be public; encapsulation is preserved."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "hard",
+    "questionText": "The 'diamond problem' in multiple inheritance occurs when:",
+    "options": ["A class inherits from two classes that share a common base, creating ambiguity about the inherited base members", "Two classes have the same name", "A constructor calls itself", "An interface has too many methods"],
+    "correctIndex": 0,
+    "explanation": "If D inherits from B and C, both of which derive from A, then D could inherit two copies of A's members, causing ambiguity (which A?). Languages resolve it via virtual inheritance (C++), method resolution order (Python), or by disallowing multiple class inheritance (Java).",
+    "distractorRationales": ["", "Name clashes are a separate, simpler issue than the diamond inheritance ambiguity.", "Constructor recursion is unrelated to the diamond problem.", "Interface size does not cause the diamond problem."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "The visibility modifier that makes a member accessible only within its own class is:",
+    "options": ["private", "public", "protected", "global"],
+    "correctIndex": 0,
+    "explanation": "A private member is accessible only inside the class that declares it. public exposes it everywhere; protected additionally allows access from subclasses. Private members enforce encapsulation.",
+    "distractorRationales": ["", "public makes a member accessible from anywhere, not restricted to the class.", "protected allows subclass access too, broader than private.", "'global' is not an OOP member-visibility modifier."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "Dynamic dispatch (virtual method call) is typically implemented using:",
+    "options": ["A per-class table of function pointers (vtable) consulted at runtime", "Inlining all methods at compile time", "A global switch statement", "Macro expansion"],
+    "correctIndex": 0,
+    "explanation": "Each polymorphic class has a virtual table (vtable) of pointers to its method implementations; each object stores a pointer to its class's vtable. A virtual call looks up the method in the vtable at runtime, enabling the correct override to run based on the object's actual type.",
+    "distractorRationales": ["", "Inlining fixes the call at compile time, defeating dynamic dispatch.", "A single global switch does not scale and is not how dispatch works.", "Macros are textual substitution, unrelated to runtime method selection."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "hard",
+    "questionText": "According to the Liskov Substitution Principle (LSP), a subclass should:",
+    "options": ["Be usable anywhere its base class is expected, without breaking program correctness", "Always add more public methods than the base", "Override every base method", "Be smaller in memory than the base"],
+    "correctIndex": 0,
+    "explanation": "LSP states that objects of a subclass must be substitutable for objects of the base class without altering the desirable properties (correctness) of the program — i.e., the subclass must honor the base's contract (preconditions not strengthened, postconditions not weakened).",
+    "distractorRationales": ["", "Adding methods is allowed but not required; LSP is about behavioral substitutability.", "Overriding every method is unnecessary and unrelated to LSP.", "Memory size is irrelevant to the substitution principle."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "An object is best described as:",
+    "options": ["An instance of a class, with its own state and shared behavior", "A blueprint for creating instances", "A function with no return value", "A block of unstructured memory"],
+    "correctIndex": 0,
+    "explanation": "A class is the blueprint; an object is a concrete instance created from it, holding its own field values while sharing the class's method definitions. Many objects can be instantiated from one class.",
+    "distractorRationales": ["", "A blueprint for instances is the class, not the object.", "An object is an instance, not merely a void function.", "An object has structured, typed state defined by its class, not unstructured memory."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "Abstraction in OOP primarily means:",
+    "options": ["Exposing only essential features through an interface while hiding implementation details", "Creating many subclasses", "Allocating memory dynamically", "Overloading operators"],
+    "correctIndex": 0,
+    "explanation": "Abstraction focuses on what an object does rather than how, presenting a simplified interface (e.g., abstract classes/interfaces) and hiding complex implementation. It lets clients depend on contracts, not concrete details.",
+    "distractorRationales": ["", "Creating subclasses is inheritance; abstraction is about exposing essentials.", "Dynamic memory allocation is a memory-management concern, not abstraction.", "Operator overloading is a form of polymorphism, not the definition of abstraction."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "hard",
+    "questionText": "Why must a base class destructor be declared virtual in C++ when objects are deleted through base-class pointers?",
+    "options": ["So that deleting via a base pointer invokes the derived destructor, preventing resource leaks", "To make the class abstract", "To enable operator overloading", "To reduce object size"],
+    "correctIndex": 0,
+    "explanation": "If the destructor is non-virtual and you 'delete basePtr' pointing to a derived object, only the base destructor runs — the derived part's resources are not released, causing leaks/undefined behavior. A virtual destructor ensures the full derived-then-base destruction chain executes.",
+    "distractorRationales": ["", "A virtual destructor does not by itself make a class abstract (that needs a pure virtual function).", "It is unrelated to operator overloading.", "Adding a vtable pointer slightly increases, not reduces, object size."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "A 'static' (class) member differs from an instance member in that it:",
+    "options": ["Belongs to the class itself and is shared by all instances", "Is duplicated in every object", "Cannot be accessed by methods", "Is always private"],
+    "correctIndex": 0,
+    "explanation": "A static member is associated with the class rather than any individual object, so a single shared copy exists regardless of how many instances are created. It can be accessed via the class name and is commonly used for counters or constants.",
+    "distractorRationales": ["", "A static member is not duplicated per object; that describes instance members.", "Methods can access static members.", "Static members can have any visibility, not necessarily private."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "A pure virtual function (abstract method) in a base class forces:",
+    "options": ["Derived concrete classes to provide an implementation, and makes the base class non-instantiable", "The base class to be instantiated directly", "All methods to be static", "The function to be called recursively"],
+    "correctIndex": 0,
+    "explanation": "Declaring a pure virtual function makes the class abstract (it cannot be instantiated) and requires any concrete subclass to override that function. It defines a contract that subclasses must fulfill.",
+    "distractorRationales": ["", "An abstract class with a pure virtual function cannot be instantiated directly.", "Pure virtual functions are about dynamic dispatch, not making methods static.", "It does not imply recursion."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "hard",
+    "questionText": "Method overloading is an example of which type of polymorphism?",
+    "options": ["Static (compile-time) polymorphism / ad-hoc polymorphism", "Dynamic (runtime) polymorphism", "Subtype polymorphism", "Parametric polymorphism only"],
+    "correctIndex": 0,
+    "explanation": "Overloading is resolved by the compiler based on the static argument types, making it static (compile-time) ad-hoc polymorphism. Subtype (runtime) polymorphism comes from overriding/virtual dispatch; parametric polymorphism is generics/templates.",
+    "distractorRationales": ["", "Runtime polymorphism is achieved by overriding, not overloading.", "Subtype polymorphism uses inheritance and dynamic dispatch, not overloading.", "Parametric polymorphism (generics) is a different mechanism than overloading."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "The 'this' (or 'self') reference inside an instance method refers to:",
+    "options": ["The current object on which the method was invoked", "The base class", "A static class member", "The most recently created object"],
+    "correctIndex": 0,
+    "explanation": "Within an instance method, 'this' (Java/C++) or 'self' (Python) refers to the particular object the method was called on, allowing the method to access that object's fields and other methods, and to disambiguate from parameters.",
+    "distractorRationales": ["", "Referring to the base class is done with super/base, not this.", "'this' refers to an instance, not a static member.", "It is the receiver of the call, not necessarily the most recently created object."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "easy",
+    "questionText": "Which relationship does inheritance model?",
+    "options": ["'is-a' (a Dog is an Animal)", "'has-a' (a Car has an Engine)", "'uses-a'", "'next-to'"],
+    "correctIndex": 0,
+    "explanation": "Inheritance expresses an 'is-a' relationship: a subclass is a specialized kind of its superclass (a Dog is an Animal). 'has-a' relationships are modeled by composition/aggregation, not inheritance.",
+    "distractorRationales": ["", "'has-a' is composition, not inheritance.", "'uses-a' is a dependency/association, not inheritance.", "'next-to' is not a standard OOP relationship."]
+  },
+  {
+    "course": "programming",
+    "subtopic": "object-oriented-concepts",
+    "difficulty": "medium",
+    "questionText": "Information hiding (a goal of encapsulation) benefits software because:",
+    "options": ["Internal implementation can change without affecting code that uses the public interface", "It makes all code run in parallel", "It removes the need for testing", "It guarantees no bugs"],
+    "correctIndex": 0,
+    "explanation": "By exposing a stable public interface and hiding internal representation, a class's implementation can be modified freely as long as the interface contract holds, limiting the ripple effect of changes and improving maintainability.",
+    "distractorRationales": ["", "Information hiding is about modularity, not parallel execution.", "It does not remove the need for testing.", "It improves maintainability but cannot guarantee bug-free code."]
+  }
+]

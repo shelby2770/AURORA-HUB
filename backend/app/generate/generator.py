@@ -132,15 +132,30 @@ def extract_json_array(text: str) -> list:
     start = text.find("[")
     if start == -1:
         raise ValueError("no JSON array in response")
+    # Balance brackets while ignoring any inside string literals (e.g. code or
+    # math containing `[`/`]`), respecting escapes; strict=False tolerates raw
+    # control chars inside strings.
     depth = 0
+    in_str = False
+    escape = False
     for i in range(start, len(text)):
         c = text[i]
-        if c == "[":
+        if in_str:
+            if escape:
+                escape = False
+            elif c == "\\":
+                escape = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c == "[":
             depth += 1
         elif c == "]":
             depth -= 1
             if depth == 0:
-                return json.loads(text[start : i + 1])
+                return json.loads(text[start : i + 1], strict=False)
     raise ValueError("unterminated JSON array in response")
 
 

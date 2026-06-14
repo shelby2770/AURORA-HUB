@@ -97,6 +97,33 @@ export interface QuizResultResponse {
   questions: QuestionReview[];
 }
 
+export interface QuizFillRequest {
+  courseId: string;
+  subtopicId?: string | null;
+  count: number;
+  difficulty: RequestDifficulty;
+}
+
+export interface QuizFillResponse {
+  ready: boolean; // true → enough already; start immediately
+  available: number;
+  target: number;
+  jobId?: string | null; // present when ready=false (a fill job is running)
+}
+
+export interface JobProgress {
+  done: number;
+  target: number;
+  percent: number;
+}
+
+export interface JobStatus {
+  jobId: string;
+  status: "running" | "done" | "error";
+  progress?: JobProgress | null;
+  error?: string | null;
+}
+
 export interface HealthResponse {
   status: string;
   service: string;
@@ -113,6 +140,15 @@ export const startQuiz = (body: QuizStartRequest) =>
     method: "POST",
     body: JSON.stringify(body),
   });
+
+export const fillQuiz = (body: QuizFillRequest) =>
+  apiFetch<QuizFillResponse>("/quiz/fill", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+
+export const getJob = (jobId: string) =>
+  apiFetch<JobStatus>(`/authoring/jobs/${jobId}`);
 
 export const submitQuiz = (sessionId: string, answers: (number | null)[]) =>
   apiFetch<QuizResultResponse>(`/quiz/${sessionId}/submit`, {

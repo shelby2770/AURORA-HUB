@@ -1,0 +1,182 @@
+[
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "easy",
+    "questionText": "In the MapReduce programming model, the Map function takes a key/value pair and produces:",
+    "options": ["A set of intermediate key/value pairs", "A single sorted output file", "A reduced aggregate value directly", "A modified copy of the input block"],
+    "correctIndex": 0,
+    "explanation": "Map processes each input record and emits zero or more intermediate key/value pairs. The framework groups all values by intermediate key and feeds each group to Reduce, which produces the final aggregated output. Map itself does not reduce or sort the final result.",
+    "distractorRationales": ["", "A single sorted output file is produced after the shuffle/reduce, not by Map.", "Aggregation is the Reduce step's job, not Map's.", "Map emits new key/value pairs, not a modified copy of the input."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "The 'shuffle and sort' phase of MapReduce is responsible for:",
+    "options": ["Grouping all intermediate values by key and routing them to the correct reducers", "Splitting the input file into blocks", "Compiling the user's Map and Reduce code", "Replicating the final output three times"],
+    "correctIndex": 0,
+    "explanation": "Between Map and Reduce, the framework partitions intermediate output by key, transfers (shuffles) it across the network to reducers, and sorts each reducer's input by key so that all values for a key arrive together. This is the data-movement heart of MapReduce.",
+    "distractorRationales": ["", "Input splitting happens before Map, not in the shuffle phase.", "Code compilation is unrelated to the shuffle/sort runtime phase.", "Output replication is HDFS's job after reduce, not part of shuffle/sort."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "In HDFS (Hadoop Distributed File System), the component that stores file metadata (namespace, block locations) is the:",
+    "options": ["NameNode", "DataNode", "JobTracker", "ResourceManager"],
+    "correctIndex": 0,
+    "explanation": "The NameNode is the master that holds the file-system namespace and the mapping from files to blocks and block-to-DataNode locations. DataNodes store the actual block data. Losing the NameNode (without HA) makes the file system inaccessible, so it is a critical single point.",
+    "distractorRationales": ["", "DataNodes store block data, not the metadata namespace.", "JobTracker schedules MapReduce jobs (in Hadoop 1.x), not file metadata.", "ResourceManager is YARN's scheduler, not the HDFS metadata store."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "easy",
+    "questionText": "By default, HDFS replicates each data block how many times for fault tolerance?",
+    "options": ["3", "1", "2", "5"],
+    "correctIndex": 0,
+    "explanation": "The default HDFS replication factor is 3: typically one replica on the local rack, a second on a different rack, and a third on that same remote rack. This balances fault tolerance against network bandwidth and survives single-node and single-rack failures.",
+    "distractorRationales": ["", "A factor of 1 gives no fault tolerance — a single disk failure loses data.", "A factor of 2 tolerates only one failure and risks data loss during re-replication.", "5 is higher than the default; it wastes storage for typical needs."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "hard",
+    "questionText": "MapReduce achieves data locality optimization by:",
+    "options": ["Scheduling Map tasks on (or near) the nodes that already store their input blocks", "Copying all input to a central server first", "Running every Map task on the master node", "Sorting input before distributing it"],
+    "correctIndex": 0,
+    "explanation": "Because moving computation is cheaper than moving data, the scheduler tries to place each Map task on the node holding its input block (or, failing that, a node on the same rack). This minimizes network transfer of the (large) input data.",
+    "distractorRationales": ["", "Centralizing all input would defeat locality and create a bottleneck.", "Running all maps on the master would not scale and ignores where data lives.", "Locality is about task placement relative to data, not pre-sorting input."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "How does MapReduce tolerate the failure of a worker executing a Map task?",
+    "options": ["The master re-schedules the failed Map task on another worker (re-execution)", "It ignores the missing output", "It restarts the entire job from scratch", "It promotes a Reduce task to take over"],
+    "correctIndex": 0,
+    "explanation": "The master detects a worker failure (missed heartbeats) and re-executes that worker's in-progress and completed Map tasks (completed map output is local to the failed node and thus lost) on other healthy workers. Reduce tasks already completed need not rerun since their output is in the distributed store.",
+    "distractorRationales": ["", "Ignoring output would produce incorrect results.", "Only the affected tasks are re-run, not the whole job.", "Reduce tasks have a different role; failed Map work is re-run as Map tasks."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "hard",
+    "questionText": "MapReduce uses 'speculative execution' to combat stragglers. This means:",
+    "options": ["Launching backup copies of slow-running tasks and using whichever finishes first", "Predicting the output without running tasks", "Skipping slow tasks entirely", "Running tasks before the input is ready"],
+    "correctIndex": 0,
+    "explanation": "A 'straggler' is a task running unusually slowly (slow disk, contention). Near the end of a phase, the master starts duplicate (speculative) executions of such tasks on other nodes; the first to finish wins and the other is killed, reducing the impact of slow nodes on job completion time.",
+    "distractorRationales": ["", "It does not predict outputs; it actually runs duplicate tasks.", "Skipping slow tasks would lose their results, producing wrong output.", "Tasks still require their input; speculation is about duplicating, not running early."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "A 'Combiner' in MapReduce is best described as:",
+    "options": ["A local, optional mini-reduce on a mapper's output to reduce data shuffled across the network", "A function that splits the input", "The component that assigns tasks to workers", "A replacement for the Reduce function"],
+    "correctIndex": 0,
+    "explanation": "A combiner runs on the map side to pre-aggregate intermediate values (e.g., partial sums) before the shuffle, cutting the volume of data sent to reducers. It must be safe to apply zero or more times, so it works when the reduce operation is commutative and associative.",
+    "distractorRationales": ["", "Input splitting is done by the input format, not the combiner.", "Task assignment is the scheduler's role.", "A combiner optimizes but does not replace the reducer, which still produces the final result."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "easy",
+    "questionText": "HDFS is optimized for which kind of workload?",
+    "options": ["Large files with streaming (sequential) reads and write-once-read-many access", "Many tiny files with frequent random in-place updates", "Low-latency single-record lookups", "Transactional OLTP with row-level locking"],
+    "correctIndex": 0,
+    "explanation": "HDFS targets batch analytics: huge files read sequentially in large blocks (e.g., 128 MB), written once and read many times. It is poor for many small files (NameNode metadata pressure), random writes, or low-latency point lookups — those need systems like HBase or a database.",
+    "distractorRationales": ["", "Many small files strain the NameNode and waste block overhead.", "Low-latency point lookups are not HDFS's strength; it favors throughput.", "OLTP with row locking is a database workload, not what HDFS targets."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "hard",
+    "questionText": "In a word-count MapReduce job over a 1 TB corpus, the number of Reduce tasks (R) primarily controls:",
+    "options": ["The number of output partitions/files and the parallelism of the reduce phase", "The size of each input split", "The replication factor of the input", "Whether a combiner is used"],
+    "correctIndex": 0,
+    "explanation": "R sets how many reducers run in parallel and therefore how many output files (partitions) are produced; the partition function maps each intermediate key to one of R reducers. Input split size is governed by the input format/block size, independent of R.",
+    "distractorRationales": ["", "Input split size is determined by block size/input format, not R.", "Replication factor is an HDFS setting, unrelated to reducer count.", "Combiner usage is a separate optimization choice, not set by R."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "Why does HDFS use a large block size (e.g., 128 MB) compared to a few KB in traditional file systems?",
+    "options": ["To minimize the ratio of seek time to transfer time and reduce metadata overhead", "To allow random in-place edits", "To store many small files efficiently", "To reduce the replication factor automatically"],
+    "correctIndex": 0,
+    "explanation": "Large blocks make the time spent seeking small relative to the time spent streaming data, maximizing throughput, and they reduce the number of block entries the NameNode must track per file. This suits HDFS's large-file, sequential-access design.",
+    "distractorRationales": ["", "Large blocks do not enable random in-place edits; HDFS is append/write-once oriented.", "Large blocks are inefficient for many tiny files, not better for them.", "Block size does not change the replication factor."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "easy",
+    "questionText": "In the classic Hadoop 1.x architecture, which component was responsible for scheduling MapReduce jobs and monitoring TaskTrackers?",
+    "options": ["JobTracker", "NameNode", "DataNode", "Combiner"],
+    "correctIndex": 0,
+    "explanation": "In Hadoop 1.x the JobTracker handled job scheduling and resource management, dispatching tasks to per-node TaskTrackers and tracking their progress. (Hadoop 2.x replaced it with YARN's ResourceManager and per-application ApplicationMasters.)",
+    "distractorRationales": ["", "The NameNode manages HDFS metadata, not job scheduling.", "DataNodes store blocks; they do not schedule jobs.", "A combiner is an optimization function, not a scheduler."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "hard",
+    "questionText": "The MapReduce model deliberately restricts computation to map and reduce phases. A key consequence for fault tolerance is that:",
+    "options": ["Tasks are deterministic and side-effect-free, so any failed task can simply be re-executed", "Tasks must share mutable global state", "Failures require a global rollback", "The framework cannot recover from any failure"],
+    "correctIndex": 0,
+    "explanation": "Because map and reduce tasks are functional — deterministic and free of inter-task side effects — re-running a failed task on its (replicated, immutable) input reproduces the same result. This makes simple re-execution a sufficient recovery mechanism, a major reason for the model's robustness.",
+    "distractorRationales": ["", "Tasks are intentionally isolated from shared mutable state, which is what enables easy re-execution.", "A global rollback is unnecessary; only the failed task is re-run.", "The framework recovers routinely via re-execution; it is highly fault tolerant."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "Apache Spark improves on classic MapReduce for iterative algorithms mainly by:",
+    "options": ["Keeping intermediate datasets (RDDs) in memory across stages instead of writing to disk each time", "Removing the need for any cluster", "Using a single machine for all computation", "Eliminating fault tolerance to gain speed"],
+    "correctIndex": 0,
+    "explanation": "Classic MapReduce writes intermediate results to HDFS between every job, which is costly for iterative workloads (e.g., machine learning). Spark caches Resilient Distributed Datasets (RDDs) in memory and recomputes lost partitions from lineage, dramatically speeding iteration while retaining fault tolerance.",
+    "distractorRationales": ["", "Spark still runs on a cluster; it does not remove the need for one.", "Spark is distributed across many machines, not single-machine.", "Spark retains fault tolerance via RDD lineage; it does not trade it away."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "easy",
+    "questionText": "What is the role of the partitioning function in MapReduce?",
+    "options": ["To decide which reducer receives each intermediate key (default: hash(key) mod R)", "To split the input file into blocks", "To compress the map output", "To choose the replication factor"],
+    "correctIndex": 0,
+    "explanation": "The partitioner assigns each intermediate key to one of the R reducers, typically via hash(key) mod R, ensuring all values for a key go to the same reducer. A custom partitioner can balance load or co-locate related keys.",
+    "distractorRationales": ["", "Input splitting into blocks is done before mapping by the input format/HDFS.", "Compression is a separate I/O option, not the partitioner's role.", "Replication factor is an HDFS storage setting, unrelated to partitioning."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "hard",
+    "questionText": "A reducer cannot begin its reduce() computation for a key until:",
+    "options": ["All map tasks have completed (so all intermediate values for that key are available)", "The first map task finishes", "The NameNode restarts", "The combiner is disabled"],
+    "correctIndex": 0,
+    "explanation": "Reduce must see all values for a key, which can come from any mapper, so the reduce() function for a key cannot start until every map task has finished (and the shuffle has delivered the data). This map-reduce barrier is why reducers' copy phase can overlap with mapping but the actual reduce waits.",
+    "distractorRationales": ["", "Values for a key may come from later mappers too, so the first finishing is not enough.", "NameNode restarts are unrelated to the reduce barrier.", "Combiner presence does not gate when reduce() can run."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "HDFS places the second and third replicas of a block on a different rack from the first primarily to:",
+    "options": ["Survive the failure of an entire rack while limiting cross-rack write bandwidth", "Maximize the number of network hops", "Guarantee linearizable reads", "Reduce the block size needed"],
+    "correctIndex": 0,
+    "explanation": "Rack-aware placement (one replica local, two on a remote rack) tolerates a whole-rack failure (power/switch) while only paying one cross-rack transfer during writes — a balance of fault tolerance and write bandwidth. Reads can then be served from the nearest replica.",
+    "distractorRationales": ["", "The goal is fault tolerance with bounded cross-rack traffic, not maximizing hops.", "HDFS does not provide linearizable reads via replica placement.", "Replica placement does not change the required block size."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "mapreduce-distributed-storage",
+    "difficulty": "medium",
+    "questionText": "A storage system that partitions data across nodes using consistent hashing (e.g., Dynamo) gains which advantage over simple hash(key) mod N partitioning?",
+    "options": ["Adding or removing a node remaps only a small fraction of keys, not nearly all of them", "It guarantees strong consistency", "It removes the need for replication", "It makes all keys map to one node"],
+    "correctIndex": 0,
+    "explanation": "With hash mod N, changing N (adding/removing a node) reshuffles almost every key. Consistent hashing places nodes and keys on a ring so that a node change only moves the keys in its immediate arc, minimizing data movement — crucial for elastic, large-scale storage.",
+    "distractorRationales": ["", "Consistent hashing addresses partitioning/rebalancing, not consistency strength.", "Replication is still needed for fault tolerance; consistent hashing concerns placement.", "It spreads keys across nodes; it does not funnel them to one node."]
+  }
+]

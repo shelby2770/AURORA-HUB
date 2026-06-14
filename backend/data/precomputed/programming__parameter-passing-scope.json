@@ -1,0 +1,404 @@
+[
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "easy",
+  "questionText": "In pass-by-value parameter passing, a function receives:",
+  "options": [
+   "A copy of the argument, so changes inside do not affect the caller's variable",
+   "A reference to the caller's variable",
+   "The address of the argument",
+   "A pointer that aliases the original"
+  ],
+  "correctIndex": 0,
+  "explanation": "Pass-by-value copies the argument into the parameter; the function manipulates its own copy, so modifications do not propagate back to the caller. C uses pass-by-value for all arguments (passing a pointer by value is how it simulates by-reference effects).",
+  "distractorRationales": [
+   "",
+   "Receiving a reference describes pass-by-reference, not pass-by-value.",
+   "Passing the address is pass-by-reference (or passing a pointer), not by-value of the data.",
+   "An aliasing pointer would let changes affect the original, contradicting pass-by-value."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "In C, to let a function modify a caller's int variable, you must:",
+  "options": [
+   "Pass the variable's address (a pointer) and dereference it inside the function",
+   "Pass the variable by value",
+   "Declare the parameter as const",
+   "Return void"
+  ],
+  "correctIndex": 0,
+  "explanation": "C is strictly pass-by-value, so to mutate a caller's variable the function must receive a pointer to it (&x) and modify *p. The pointer is itself passed by value, but it points to the caller's storage, enabling the change.",
+  "distractorRationales": [
+   "",
+   "Passing by value gives the function only a copy, which it cannot use to change the original.",
+   "const would prevent modification, the opposite of the goal.",
+   "Return type void is unrelated to whether the caller's variable can be modified."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "Under call-by-reference, what does this pseudocode print?\nx = 5; foo(x); print x;\nwhere foo(ref a) { a = a + 10; }",
+  "options": [
+   "15",
+   "5",
+   "10",
+   "Undefined"
+  ],
+  "correctIndex": 0,
+  "explanation": "With call-by-reference, the parameter 'a' is an alias for the caller's x, so 'a = a + 10' modifies x itself. After the call, x = 15.",
+  "distractorRationales": [
+   "",
+   "5 would be the result under call-by-value, where the change is local.",
+   "10 ignores the original value 5 added to the increment.",
+   "The behavior is well-defined under call-by-reference semantics."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "Call-by-value-result (copy-in/copy-out) differs from call-by-reference in that:",
+  "options": [
+   "The argument is copied in, the local copy is modified, and copied back only when the function returns",
+   "Changes are visible immediately during the call",
+   "The parameter aliases the caller's variable throughout",
+   "No copying ever occurs"
+  ],
+  "correctIndex": 0,
+  "explanation": "Call-by-value-result copies the argument into a local parameter, the function works on that copy, and on return the final value is copied back to the caller's variable. Unlike call-by-reference, intermediate changes are NOT reflected in the caller until return, which can give different results when aliasing occurs.",
+  "distractorRationales": [
+   "",
+   "Changes are written back only at return, not immediately, in value-result.",
+   "Value-result uses a separate copy, not a persistent alias.",
+   "Copying does occur (in at call, out at return)."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "Under call-by-name (as in Algol 60), an argument expression is:",
+  "options": [
+   "Re-evaluated each time the parameter is used in the body (textual substitution)",
+   "Evaluated exactly once before the call",
+   "Never evaluated",
+   "Evaluated only on return"
+  ],
+  "correctIndex": 0,
+  "explanation": "Call-by-name substitutes the unevaluated argument expression wherever the parameter appears, so it is (re)evaluated on each use. This can cause an argument with side effects or array indices to behave surprisingly (e.g., Jensen's device), unlike call-by-value's single evaluation.",
+  "distractorRationales": [
+   "",
+   "Single pre-call evaluation is call-by-value, not call-by-name.",
+   "Call-by-name does evaluate the argument — each time it is used.",
+   "Evaluation happens at each use during the call, not at return."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "easy",
+  "questionText": "The 'scope' of a variable is:",
+  "options": [
+   "The region of program text where the variable's name is visible/accessible",
+   "The amount of memory it occupies",
+   "Its data type",
+   "Its initial value"
+  ],
+  "correctIndex": 0,
+  "explanation": "Scope determines where in the source a name refers to a particular declaration. Common kinds are block (local) scope, function scope, and file/global scope. It is distinct from lifetime (how long the storage exists).",
+  "distractorRationales": [
+   "",
+   "Memory size is determined by the type, not by scope.",
+   "Data type is a separate attribute from scope.",
+   "The initial value is unrelated to where the name is visible."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "Static (lexical) scoping resolves a free variable reference based on:",
+  "options": [
+   "The textual (nesting) structure of the program where the function is defined",
+   "The dynamic chain of callers at runtime",
+   "The order of variable declarations only",
+   "The size of the call stack"
+  ],
+  "correctIndex": 0,
+  "explanation": "Under lexical scoping, a non-local name binds to the declaration in the nearest enclosing textual scope where the function is written, regardless of how it is called. Most modern languages (C, Java, Python) use lexical scoping; dynamic scoping instead uses the runtime caller chain.",
+  "distractorRationales": [
+   "",
+   "Using the runtime caller chain is dynamic scoping, not static.",
+   "It uses lexical nesting, not merely declaration order in one place.",
+   "Call-stack size is irrelevant to lexical name resolution."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "Consider this pseudocode with DYNAMIC scoping:\nx = 1;\nfunction f() { print x; }\nfunction g() { x = 2; f(); }\ng();\nWhat is printed?",
+  "options": [
+   "2",
+   "1",
+   "Undefined",
+   "0"
+  ],
+  "correctIndex": 0,
+  "explanation": "Under dynamic scoping, f's free variable x refers to the most recent binding active in the call chain. g sets x = 2 before calling f, so f sees x = 2 and prints 2. (Under lexical scoping it would print 1, the global binding.)",
+  "distractorRationales": [
+   "",
+   "1 would be printed under lexical (static) scoping, not dynamic.",
+   "The result is well-defined under dynamic scoping rules.",
+   "x is bound to 2 in the active chain, never 0."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "In C, a variable declared 'static' inside a function has:",
+  "options": [
+   "Local scope but a lifetime spanning the whole program (retains its value between calls)",
+   "Global scope and global lifetime",
+   "No lifetime; it is destroyed each call",
+   "Scope limited to one statement"
+  ],
+  "correctIndex": 0,
+  "explanation": "A function-local static variable is visible only within that function (local scope) but its storage persists for the program's lifetime, so it keeps its value across successive calls. This is useful for counters or caches local to a function.",
+  "distractorRationales": [
+   "",
+   "It does not have global scope; the name is visible only inside the function.",
+   "It is not destroyed each call; that describes an ordinary automatic variable.",
+   "Its scope is the whole function body, not a single statement."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "easy",
+  "questionText": "An automatic (local, non-static) variable in C has a lifetime that:",
+  "options": [
+   "Begins when its block is entered and ends when the block exits",
+   "Lasts the entire program",
+   "Is determined by the heap allocator",
+   "Never ends"
+  ],
+  "correctIndex": 0,
+  "explanation": "Automatic variables live on the stack: they come into existence when control enters their block (e.g., a function call) and are destroyed when the block exits. Their values are not retained between separate calls.",
+  "distractorRationales": [
+   "",
+   "Program-long lifetime describes static/global variables, not automatic ones.",
+   "Heap allocation lifetime is for dynamically allocated (malloc) memory, not automatics.",
+   "Automatic variables are deallocated on block exit; their lifetime ends."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 1)",
+  "codeSnippet": "#include <stdio.h>\nvoid inc(int n) { n = n + 1; }\nint main() {\n    int x = 10;\n    inc(x);\n    printf(\"%d\", x);\n    return 0;\n}",
+  "options": [
+   "10",
+   "11",
+   "0",
+   "Garbage"
+  ],
+  "correctIndex": 0,
+  "explanation": "C passes arguments by value, so inc receives a copy of x. Incrementing the parameter n changes only the local copy; the caller's x is unaffected and remains 10.",
+  "distractorRationales": [
+   "",
+   "11 would require pass-by-reference; C copies the value, so x is unchanged.",
+   "x is initialized to 10 and not modified, so it is not 0.",
+   "x has a defined value of 10; nothing is uninitialized."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 2)",
+  "codeSnippet": "#include <stdio.h>\nvoid swap(int *a, int *b) { int t = *a; *a = *b; *b = t; }\nint main() {\n    int x = 3, y = 7;\n    swap(&x, &y);\n    printf(\"%d %d\", x, y);\n    return 0;\n}",
+  "options": [
+   "7 3",
+   "3 7",
+   "7 7",
+   "3 3"
+  ],
+  "correctIndex": 0,
+  "explanation": "By passing the addresses of x and y, swap dereferences the pointers to exchange the actual values in main. After the call, x = 7 and y = 3. This is how C achieves by-reference effects through pointers.",
+  "distractorRationales": [
+   "",
+   "3 7 would be the result if the swap had no effect (e.g., swapping copies).",
+   "7 7 would require both to take y's value, which the temp variable prevents.",
+   "3 3 would require both to take x's value, which does not happen."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "When a local variable shadows a global variable of the same name, references in that block resolve to:",
+  "options": [
+   "The local variable (the innermost declaration in scope)",
+   "The global variable",
+   "Both simultaneously",
+   "A compile error"
+  ],
+  "correctIndex": 0,
+  "explanation": "Name resolution picks the innermost enclosing declaration in scope, so a local declaration 'shadows' (hides) an outer/global one of the same name within its block. The global becomes inaccessible by that name there (though reachable via scope-resolution in some languages).",
+  "distractorRationales": [
+   "",
+   "The global is hidden by the inner local within the block.",
+   "Only one binding is in effect for a given name use, not both.",
+   "Shadowing is legal in C; it does not cause a compile error."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "easy",
+  "questionText": "Arrays in C are effectively passed to functions:",
+  "options": [
+   "As a pointer to their first element (the size is not passed)",
+   "By value, copying the whole array",
+   "By reference with bounds checking",
+   "Always as global variables"
+  ],
+  "correctIndex": 0,
+  "explanation": "An array argument 'decays' to a pointer to its first element, so the function receives only the address — modifications affect the caller's array, and the length must be passed separately since sizeof inside the function gives the pointer size, not the array size.",
+  "distractorRationales": [
+   "",
+   "The whole array is not copied; only a pointer is passed.",
+   "C performs no automatic bounds checking on arrays.",
+   "Passing an array does not make it global; it passes a pointer to local/array storage."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "Call-by-reference can produce different results from call-by-value-result specifically when:",
+  "options": [
+   "The same variable is passed to two parameters (aliasing) so the order of write-backs matters",
+   "The function has no parameters",
+   "Arguments are constants",
+   "The function never returns"
+  ],
+  "correctIndex": 0,
+  "explanation": "When the same actual variable is bound to two parameters, call-by-reference makes both aliases update the shared variable immediately, while call-by-value-result keeps two independent copies and writes them back in some order on return — so the final value can differ between the two mechanisms.",
+  "distractorRationales": [
+   "",
+   "With no parameters there is nothing to pass, so no difference arises.",
+   "Constant arguments cannot be written back meaningfully, so aliasing differences do not surface.",
+   "A non-returning function never performs the value-result copy-back, so the comparison is moot."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "The lifetime of memory allocated with malloc() in C ends:",
+  "options": [
+   "When free() is called on it (or the program terminates)",
+   "When the allocating function returns",
+   "At the end of the enclosing block",
+   "Automatically when no pointer references it"
+  ],
+  "correctIndex": 0,
+  "explanation": "Heap memory from malloc persists until explicitly released with free() (or program exit). Unlike automatic variables, it is NOT tied to block or function scope, and C has no garbage collector to reclaim it when references are lost — forgetting free() causes a memory leak.",
+  "distractorRationales": [
+   "",
+   "Heap memory outlives the allocating function's return.",
+   "It is not bound to the enclosing block, unlike automatic variables.",
+   "C does not automatically free unreferenced memory; that requires garbage collection."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "easy",
+  "questionText": "A 'global' variable in C declared at file scope outside any function has:",
+  "options": [
+   "Program-wide lifetime and file (or external) visibility",
+   "Lifetime limited to main()",
+   "No lifetime",
+   "Scope limited to the first function"
+  ],
+  "correctIndex": 0,
+  "explanation": "A global variable exists for the entire program run (static storage duration) and is visible throughout the file (and across files if declared extern). It is initialized once before main begins.",
+  "distractorRationales": [
+   "",
+   "Its lifetime is not limited to main; it persists the whole program.",
+   "It has a well-defined program-long lifetime.",
+   "Its scope is the whole file (from its declaration), not just one function."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "medium",
+  "questionText": "Which parameter-passing mechanism does Java use for object arguments?",
+  "options": [
+   "Pass-by-value of the reference (the reference is copied, but it points to the same object)",
+   "Pure pass-by-reference",
+   "Call-by-name",
+   "Copy-in/copy-out of the whole object"
+  ],
+  "correctIndex": 0,
+  "explanation": "Java passes everything by value; for objects, the value passed is a copy of the reference. So the method can mutate the object through that reference (changes are visible to the caller), but reassigning the parameter does not change which object the caller's variable refers to.",
+  "distractorRationales": [
+   "",
+   "It is not pure pass-by-reference: reassigning the parameter does not affect the caller's variable.",
+   "Java does not use call-by-name evaluation.",
+   "The whole object is not copied; only the reference is."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "hard",
+  "questionText": "Why does returning the address of a local (automatic) variable from a C function lead to undefined behavior?",
+  "options": [
+   "The local's storage is deallocated when the function returns, leaving a dangling pointer",
+   "Local variables cannot have addresses",
+   "The compiler forbids it entirely",
+   "It always returns 0"
+  ],
+  "correctIndex": 0,
+  "explanation": "An automatic variable lives on the stack and is destroyed when the function returns, so a returned pointer to it dangles — it refers to memory that may be reused. Dereferencing it is undefined behavior. To return persistent storage, use malloc or a static variable.",
+  "distractorRationales": [
+   "",
+   "Local variables do have addresses; the problem is their limited lifetime.",
+   "Compilers may warn but generally do not forbid it outright.",
+   "It does not return 0; it returns a pointer to invalid storage."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "parameter-passing-scope",
+  "difficulty": "easy",
+  "questionText": "Block scope means a variable declared inside a pair of braces { } is:",
+  "options": [
+   "Accessible only within that block and any nested blocks",
+   "Accessible from anywhere in the file",
+   "Shared across all functions",
+   "Stored on the heap"
+  ],
+  "correctIndex": 0,
+  "explanation": "A variable with block scope is visible from its declaration to the end of the enclosing block (and inside nested blocks, unless shadowed). It is not accessible outside that block, supporting modular, localized reasoning about code.",
+  "distractorRationales": [
+   "",
+   "File-wide accessibility is global/file scope, not block scope.",
+   "Block-scoped variables are not shared across functions.",
+   "Block scope concerns visibility; such variables are typically on the stack, not the heap."
+  ]
+ }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "easy",
+    "questionText": "The total time to service a disk request is the sum of seek time, rotational latency, and:",
+    "options": ["Data transfer time", "Compilation time", "Context-switch time", "Page-fault time"],
+    "correctIndex": 0,
+    "explanation": "Disk access time = seek time (moving the head to the right cylinder) + rotational latency (waiting for the sector to rotate under the head) + transfer time (reading/writing the data). Seek time usually dominates for random access.",
+    "distractorRationales": ["", "Compilation is unrelated to disk request servicing.", "Context-switch time is a CPU-scheduling cost, not part of disk access time.", "Page-fault time may involve disk I/O but is not a component of a single request's service time formula."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "The SSTF (Shortest-Seek-Time-First) disk scheduling algorithm can cause:",
+    "options": ["Starvation of requests far from the current head position", "External fragmentation", "Deadlock among processes", "Higher seek time than FCFS on average"],
+    "correctIndex": 0,
+    "explanation": "SSTF always serves the closest request, which gives good average seek time but can starve requests located far from the head if a steady stream of nearby requests keeps arriving. SCAN/C-SCAN address this fairness problem.",
+    "distractorRationales": ["", "External fragmentation is a memory/disk-allocation concept, not a scheduling outcome.", "SSTF does not cause process deadlock.", "SSTF generally gives LOWER average seek time than FCFS, not higher."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "hard",
+    "questionText": "The disk head is at cylinder 50, moving toward higher cylinders. Requests: 82, 170, 43, 140, 24, 16, 190. Using SCAN (elevator), it goes up to the end then reverses. What is the order in which requests are first served?",
+    "options": ["82, 140, 170, 190, then 43, 24, 16", "16, 24, 43, 82, 140, 170, 190", "82, 170, 43, 140, 24, 16, 190", "190, 170, 140, 82, 43, 24, 16"],
+    "correctIndex": 0,
+    "explanation": "SCAN services requests in the current direction (upward) first: 82, 140, 170, 190 (continuing to the disk end), then reverses and services the lower requests on the way back: 43, 24, 16.",
+    "distractorRationales": ["", "Pure ascending order ignores the head's starting position of 50 and the downward sweep handling 43,24,16 after the up-sweep.", "This is the original arrival order, not a SCAN-sorted service order.", "Starting downward contradicts the stated upward initial direction."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "C-SCAN (Circular SCAN) differs from SCAN in that, after reaching one end, it:",
+    "options": ["Jumps back to the other end without servicing requests on the return, then scans in the same direction again", "Reverses and services requests on the way back", "Stops at the end and waits", "Randomly picks the next request"],
+    "correctIndex": 0,
+    "explanation": "C-SCAN treats the cylinders as circular: after reaching one end, the head springs back to the opposite end without servicing anything on the return trip, then sweeps in the same direction. This gives a more uniform wait time than SCAN, which favors recently passed cylinders.",
+    "distractorRationales": ["", "Servicing on the return is plain SCAN, not C-SCAN.", "C-SCAN does not stop and wait; it returns to begin a new sweep.", "C-SCAN is deterministic and directional, not random."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "easy",
+    "questionText": "Which disk scheduling algorithm services requests strictly in the order they arrive?",
+    "options": ["FCFS (First-Come-First-Served)", "SSTF", "SCAN", "C-LOOK"],
+    "correctIndex": 0,
+    "explanation": "FCFS serves disk requests in arrival order, which is simple and fair (no starvation) but can cause large, inefficient head movements (wild swings) when consecutive requests are far apart.",
+    "distractorRationales": ["", "SSTF reorders requests by proximity to the head, not arrival order.", "SCAN sweeps in cylinder order, not arrival order.", "C-LOOK also reorders requests by position, not arrival order."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "hard",
+    "questionText": "A disk rotates at 7200 RPM. What is its average rotational latency?",
+    "options": ["About 4.17 ms", "About 8.33 ms", "About 2.08 ms", "About 7.2 ms"],
+    "correctIndex": 0,
+    "explanation": "7200 RPM = 120 rotations/second, so one full rotation takes 1/120 s = 8.33 ms. Average rotational latency is half a rotation = 8.33/2 ≈ 4.17 ms (on average the desired sector is half a revolution away).",
+    "distractorRationales": ["", "8.33 ms is the time for a full rotation, not the average (half-rotation) latency.", "2.08 ms is a quarter rotation, not the average latency.", "7.2 ms does not correspond to any standard fraction of the 8.33 ms period."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "C-LOOK improves on C-SCAN by:",
+    "options": ["Only going as far as the last request in each direction, not all the way to the physical disk end", "Servicing requests in arrival order", "Never reversing direction", "Ignoring the head position"],
+    "correctIndex": 0,
+    "explanation": "LOOK and C-LOOK are optimizations of SCAN/C-SCAN that reverse (or jump back) at the last request in a direction rather than traveling to the physical end of the disk, saving unnecessary head movement over empty cylinders.",
+    "distractorRationales": ["", "C-LOOK still orders by cylinder position, not arrival order.", "C-LOOK does jump back to begin a new sweep, similar to C-SCAN.", "C-LOOK very much uses the head position to decide service order."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "easy",
+    "questionText": "Seek time is the time required to:",
+    "options": ["Move the disk arm to the cylinder containing the desired data", "Rotate the desired sector under the head", "Transfer the data to memory", "Spin up the disk from rest"],
+    "correctIndex": 0,
+    "explanation": "Seek time is the time for the read/write head assembly to move radially to the target cylinder/track. It is distinct from rotational latency (waiting for the right sector to rotate around) and transfer time (the actual read/write).",
+    "distractorRationales": ["", "Rotating the sector under the head is rotational latency, not seek time.", "Moving data to memory is transfer time.", "Spinning up from rest is spin-up time, not per-request seek time."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "hard",
+    "questionText": "Head at cylinder 100, requests at 30, 70, 130, 180 (no direction bias; choose nearest). Under SSTF, what is the total head movement?",
+    "options": ["220", "150", "280", "200"],
+    "correctIndex": 0,
+    "explanation": "From 100, SSTF picks nearest each step: 100→130 (30), 130→180 (50), 180→70 (110)... reconsider: nearest to 100 is 130 (dist 30) vs 70 (dist 30) — tie; take 70 first: 100→70(30)→30(40)→130(100)→180(50) = 30+40+100+50 = 220. Either tie-break order yields 220 total movement here.",
+    "distractorRationales": ["", "150 omits the long swing required to reach the far-side requests.", "280 overcounts the head travel for the SSTF order.", "200 does not match the summed distances of the nearest-first service order."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "Why does SCAN get the nickname 'elevator algorithm'?",
+    "options": ["The head moves in one direction servicing requests, then reverses, like an elevator stopping at floors", "It lifts data into memory", "It only works in tall disk towers", "It randomly jumps between cylinders"],
+    "correctIndex": 0,
+    "explanation": "SCAN sweeps the head steadily across the cylinders in one direction, servicing requests it passes, then reverses at the end — exactly how an elevator travels up servicing floor requests, then comes back down. Hence 'elevator algorithm'.",
+    "distractorRationales": ["", "The name is an analogy to elevator motion, not about lifting data into memory.", "It has nothing to do with physical disk-tower height.", "SCAN is orderly and directional, not random jumping."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "easy",
+    "questionText": "For workloads with heavy, evenly-distributed disk load, SCAN-type algorithms are preferred over FCFS mainly because they:",
+    "options": ["Reduce total head movement and provide more uniform service", "Guarantee data is never lost", "Eliminate rotational latency", "Require no seek time"],
+    "correctIndex": 0,
+    "explanation": "By servicing requests in cylinder order during a sweep, SCAN/C-SCAN minimize back-and-forth head motion compared with FCFS's arrival-order swings, lowering total seek distance and giving steadier service under load. They do not affect rotational latency or eliminate seeks.",
+    "distractorRationales": ["", "Scheduling does not protect against data loss; that is a reliability concern.", "Rotational latency depends on disk rotation, unaffected by the scheduling order of cylinders.", "Seeks still occur; SCAN just orders them efficiently."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "hard",
+    "questionText": "On modern SSDs, traditional seek-optimizing disk schedulers (SSTF, SCAN) provide little benefit because:",
+    "options": ["SSDs have no moving heads, so access time is largely independent of logical block position", "SSDs are slower than HDDs", "SSDs cannot be scheduled at all", "SSDs always service requests in arrival order in hardware"],
+    "correctIndex": 0,
+    "explanation": "SSDs use flash with no mechanical arm, so there is no seek time and access latency does not depend on the physical/logical distance between blocks. Reordering to minimize head movement is therefore pointless; SSD schedulers instead focus on parallelism, write amplification, and fairness.",
+    "distractorRationales": ["", "SSDs are generally much faster than HDDs, not slower.", "SSD I/O can still be scheduled (e.g., for fairness/merging), just not for seek minimization.", "Request ordering is handled by the OS/firmware, not fixed to arrival order."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "A disadvantage of SCAN compared with C-SCAN is that SCAN:",
+    "options": ["Gives non-uniform waiting times, favoring cylinders just visited as the head reverses", "Causes starvation", "Moves the head randomly", "Cannot service requests at the disk ends"],
+    "correctIndex": 0,
+    "explanation": "When SCAN reverses at an end, cylinders just behind the head are serviced again soon, while those just ahead of the reversal wait the longest — uneven wait times. C-SCAN's one-directional sweeps give more uniform waiting, which is its main advantage.",
+    "distractorRationales": ["", "SCAN does not starve requests; every request is served within a sweep.", "SCAN moves the head systematically, not randomly.", "SCAN can service requests at the ends; the issue is wait-time uniformity."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "easy",
+    "questionText": "Disk requests are typically expressed to the scheduler in terms of:",
+    "options": ["Logical block / cylinder numbers", "File names", "Process priorities", "Virtual page numbers"],
+    "correctIndex": 0,
+    "explanation": "The disk scheduler reorders requests based on their target cylinder (or logical block address that maps to a physical location), since that determines seek distance. Higher layers translate file offsets into these block addresses before scheduling.",
+    "distractorRationales": ["", "File names are resolved to blocks by the file system before scheduling.", "Disk scheduling orders by position, not process priority (though priority can be a secondary factor).", "Virtual page numbers belong to memory management, not disk geometry."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "hard",
+    "questionText": "Head at cylinder 53 moving upward; requests 65, 67, 37, 14 (disk has 0–199 cylinders). Using LOOK, the total head movement is:",
+    "options": ["67 - 53 + 67 - 14 = 67", "200", "Cannot be determined", "100"],
+    "correctIndex": 0,
+    "explanation": "LOOK goes up to the last request in the upward direction (67), then reverses to the lowest request: 53→65→67 (up, distance 14), then 67→37→14 (down, distance 53). Total = 14 + 53 = 67 cylinders. LOOK does not travel to cylinder 199 or 0.",
+    "distractorRationales": ["", "200 would apply to SCAN/C-SCAN traveling to a physical end, not LOOK.", "It is fully determined by the request positions and direction.", "100 does not match the summed distances 14 (up) + 53 (down) = 67."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "The primary goal of any disk scheduling algorithm is to:",
+    "options": ["Minimize total seek time (and improve throughput) while maintaining acceptable fairness", "Reduce CPU utilization", "Increase the page size", "Eliminate rotational latency"],
+    "correctIndex": 0,
+    "explanation": "Disk schedulers reorder pending requests to reduce head movement (seek time) and thus raise throughput and lower average response time, balanced against fairness (avoiding starvation). They cannot remove rotational latency, which depends on disk rotation.",
+    "distractorRationales": ["", "Disk scheduling targets I/O efficiency, not directly CPU utilization.", "Page size is a memory-management parameter, unrelated to disk scheduling.", "Rotational latency is inherent to the spinning platter and is not eliminated by request ordering."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "easy",
+    "questionText": "Compared with SSTF, FCFS disk scheduling has the advantage of:",
+    "options": ["Fairness — no request can be starved", "Lower average seek time", "Better throughput under heavy load", "Automatic rotational optimization"],
+    "correctIndex": 0,
+    "explanation": "FCFS serves requests strictly in arrival order, so every request is eventually served and none can starve — its key advantage. The trade-off is poorer average seek time and throughput than position-based algorithms like SSTF or SCAN.",
+    "distractorRationales": ["", "SSTF, not FCFS, achieves lower average seek time.", "FCFS generally has worse throughput than SSTF/SCAN under heavy load.", "FCFS does not optimize rotation; it only follows arrival order."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "disk-scheduling",
+    "difficulty": "medium",
+    "questionText": "If disk requests arrive faster than they can be serviced, which algorithm best bounds the maximum waiting time of any single request?",
+    "options": ["C-SCAN, due to its uniform circular sweep", "SSTF, because it is greedy", "FCFS, because it ignores position", "Random selection"],
+    "correctIndex": 0,
+    "explanation": "C-SCAN's one-directional circular sweeps give each cylinder a bounded, roughly uniform maximum wait (at most one full sweep cycle), avoiding the starvation possible under SSTF and the uneven waits of SCAN. This predictability is valuable under sustained load.",
+    "distractorRationales": ["", "SSTF's greediness can starve far requests, giving unbounded waits.", "FCFS is fair but has poor throughput and large, variable head movement under load.", "Random selection gives no bound on any request's waiting time."]
+  }
+]

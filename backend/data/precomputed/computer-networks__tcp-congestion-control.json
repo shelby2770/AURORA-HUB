@@ -1,0 +1,182 @@
+[
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "TCP connection establishment uses which handshake?",
+    "options": ["Three-way handshake (SYN, SYN-ACK, ACK)", "Two-way handshake", "Four-way handshake", "No handshake"],
+    "correctIndex": 0,
+    "explanation": "TCP opens a connection with a three-way handshake: the client sends SYN, the server replies SYN-ACK, and the client sends ACK. This synchronizes initial sequence numbers in both directions. (Connection teardown uses a four-way exchange.)",
+    "distractorRationales": ["", "A two-way handshake cannot reliably synchronize both directions' sequence numbers.", "Four-way is used for connection termination, not establishment.", "TCP is connection-oriented and requires a handshake."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "During TCP slow start, the congestion window (cwnd) grows:",
+    "options": ["Exponentially (roughly doubling each RTT) until it reaches the slow-start threshold", "Linearly by 1 segment per RTT", "Not at all", "By halving each RTT"],
+    "correctIndex": 0,
+    "explanation": "In slow start, cwnd increases by one MSS for each ACK, effectively doubling per RTT — exponential growth — until it reaches ssthresh, after which TCP switches to the linear congestion-avoidance phase.",
+    "distractorRationales": ["", "Linear (+1 MSS/RTT) growth is the congestion-avoidance phase, not slow start.", "cwnd does grow in slow start; that is its purpose.", "Halving cwnd happens on loss events, not during slow start."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "In TCP congestion avoidance (AIMD), the window is increased and decreased how?",
+    "options": ["Additive increase (+1 MSS per RTT), multiplicative decrease (halve on loss)", "Multiplicative increase, additive decrease", "Both additive", "Both multiplicative"],
+    "correctIndex": 0,
+    "explanation": "AIMD = Additive Increase, Multiplicative Decrease: cwnd grows by about 1 MSS each RTT while no loss occurs, and is cut (typically halved) on a loss signal. This rule provides stability and fairness among competing flows.",
+    "distractorRationales": ["", "TCP increases additively and decreases multiplicatively, not the reverse.", "The decrease is multiplicative (halving), not additive.", "The increase is additive, not multiplicative."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "On a TCP timeout (as opposed to triple duplicate ACK in TCP Reno), the congestion window is:",
+    "options": ["Reset to 1 MSS and TCP re-enters slow start", "Halved only", "Doubled", "Left unchanged"],
+    "correctIndex": 0,
+    "explanation": "A timeout signals severe congestion, so TCP (Tahoe/Reno) sets ssthresh to half the current window, resets cwnd to 1 MSS, and restarts slow start. A triple-duplicate-ACK (in Reno) is treated as milder loss, triggering fast recovery with cwnd halved instead.",
+    "distractorRationales": ["", "Halving only (fast recovery) is the response to triple duplicate ACKs, not a timeout.", "cwnd is reduced, not doubled, on loss.", "A timeout definitely changes cwnd (drastically)."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "TCP provides which service that UDP does not?",
+    "options": ["Reliable, in-order byte-stream delivery with congestion control", "Lower latency with no setup", "Connectionless datagrams", "Broadcast support"],
+    "correctIndex": 0,
+    "explanation": "TCP guarantees reliable, ordered delivery of a byte stream, with flow and congestion control, at the cost of connection setup and overhead. UDP is connectionless and unreliable but lighter-weight and lower-latency.",
+    "distractorRationales": ["", "Lower latency with no setup is a UDP characteristic, not a TCP-only service.", "Connectionless datagrams describe UDP, not TCP.", "Broadcast/multicast is more associated with UDP; TCP is point-to-point."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "TCP's 'fast retransmit' triggers retransmission of a segment upon receiving:",
+    "options": ["Three duplicate ACKs (for the same expected sequence number)", "A single ACK", "A timeout only", "A SYN"],
+    "correctIndex": 0,
+    "explanation": "When a sender receives three duplicate ACKs (4 identical ACKs total), it infers the next segment was lost (later segments arrived out of order) and retransmits immediately — without waiting for the retransmission timer — improving recovery latency.",
+    "distractorRationales": ["", "A single (or duplicate) ACK is normal; three duplicates are the trigger.", "Fast retransmit specifically avoids waiting for a timeout.", "A SYN is used in connection setup, not loss detection."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "The TCP receive window (rwnd) advertised by the receiver implements:",
+    "options": ["Flow control — preventing the sender from overrunning the receiver's buffer", "Congestion control", "Routing", "Error correction"],
+    "correctIndex": 0,
+    "explanation": "rwnd tells the sender how much buffer space the receiver currently has, so the sender never sends more unacknowledged data than the receiver can hold — that is flow control. Congestion control is handled separately by cwnd; the sender uses min(cwnd, rwnd).",
+    "distractorRationales": ["", "Congestion control is governed by cwnd, not the advertised receive window.", "Routing is a network-layer function, unrelated to rwnd.", "rwnd is about buffering/flow control, not error correction."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "A TCP sender's actual sending window is limited to:",
+    "options": ["min(congestion window, receiver's advertised window)", "max(cwnd, rwnd)", "cwnd only", "rwnd + cwnd"],
+    "correctIndex": 0,
+    "explanation": "TCP never sends more unacknowledged data than the smaller of the congestion window (network capacity estimate) and the receive window (receiver buffer), i.e., min(cwnd, rwnd). This jointly respects both congestion and flow control.",
+    "distractorRationales": ["", "Taking the max would violate whichever limit is smaller.", "Ignoring rwnd could overflow the receiver's buffer.", "Summing the two windows over-sends, violating both limits."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "TCP connection termination typically involves:",
+    "options": ["A four-way exchange (FIN, ACK, FIN, ACK)", "A single RST", "Just stopping transmission", "A three-way handshake"],
+    "correctIndex": 0,
+    "explanation": "Because TCP connections are full-duplex, each direction is closed independently: one side sends FIN and gets an ACK, then the other side sends its FIN and gets an ACK — four segments. (An abrupt close can use RST, but the graceful teardown is four-way.)",
+    "distractorRationales": ["", "RST is an abrupt abort, not the normal graceful teardown.", "Simply stopping risks data loss; TCP closes each direction explicitly.", "Three-way is connection establishment, not termination."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "TCP throughput is roughly limited by the bandwidth-delay product because:",
+    "options": ["The window must be large enough to keep RTT × bandwidth bits 'in flight' to fully utilize the link", "RTT does not matter", "Larger windows always reduce throughput", "Bandwidth is irrelevant"],
+    "correctIndex": 0,
+    "explanation": "To keep a pipe full, the sender must have at least bandwidth × RTT bits unacknowledged at once. If the window (cwnd/rwnd) is smaller than the bandwidth-delay product, the link is underutilized — which is why high-speed long-distance links need large windows (window scaling).",
+    "distractorRationales": ["", "RTT directly scales how much data must be in flight; it matters greatly.", "Larger windows (up to the BDP) increase, not reduce, throughput.", "Bandwidth is a key factor in the bandwidth-delay product."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "The slow-start threshold (ssthresh) marks the boundary at which TCP switches from:",
+    "options": ["Exponential slow-start growth to linear congestion-avoidance growth", "Linear to exponential growth", "Sending to receiving", "TCP to UDP"],
+    "correctIndex": 0,
+    "explanation": "While cwnd < ssthresh, TCP grows the window exponentially (slow start); once cwnd reaches ssthresh, it shifts to additive (linear) increase (congestion avoidance). ssthresh is typically set to half the window at the last congestion event.",
+    "distractorRationales": ["", "The transition is exponential→linear, not the reverse.", "ssthresh concerns window growth phases, not switching send/receive roles.", "It is internal to TCP; there is no switch to UDP."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "TCP sequence numbers are used to:",
+    "options": ["Order bytes and detect missing/duplicate data in the byte stream", "Choose a route", "Identify the application protocol", "Encrypt the data"],
+    "correctIndex": 0,
+    "explanation": "Each byte in a TCP stream is numbered; sequence numbers let the receiver reassemble data in order, detect gaps (losses), and discard duplicates. ACK numbers tell the sender the next expected byte.",
+    "distractorRationales": ["", "Routing is a network-layer function, not the role of sequence numbers.", "Application identification uses port numbers, not sequence numbers.", "Sequence numbers order data; they do not encrypt it."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "TCP uses cumulative acknowledgments, meaning an ACK number N indicates:",
+    "options": ["All bytes up to N-1 have been received; N is the next expected byte", "Only byte N was received", "Bytes N onward are lost", "The connection is closing"],
+    "correctIndex": 0,
+    "explanation": "A cumulative ACK of N confirms receipt of all contiguous bytes through N−1 and requests byte N next. This is robust to lost ACKs (a later ACK covers earlier ones) but can be inefficient for out-of-order data, which SACK (selective ACK) addresses.",
+    "distractorRationales": ["", "It acknowledges everything up to N−1, not just one byte.", "It indicates the next expected byte, not that bytes from N are lost.", "ACK numbers are about data receipt, not connection closing (that is FIN)."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "The TCP retransmission timeout (RTO) is computed primarily from:",
+    "options": ["An estimate of the round-trip time (smoothed RTT) plus a variance margin", "A fixed 1 second always", "The receiver's buffer size", "The IP TTL"],
+    "correctIndex": 0,
+    "explanation": "TCP adaptively estimates RTT (e.g., via Jacobson's algorithm: smoothed RTT and RTT variation) and sets RTO = SRTT + 4·RTTVAR. This adapts the timeout to current network conditions, avoiding premature or overly slow retransmissions.",
+    "distractorRationales": ["", "A fixed timeout cannot adapt to varying network delays.", "The RTO is based on RTT, not the receiver's buffer (rwnd).", "The IP TTL is a hop limit, unrelated to RTO computation."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "Congestion control in TCP differs from flow control in that congestion control:",
+    "options": ["Protects the network from being overloaded, not just the receiver", "Protects only the receiver's buffer", "Is handled by the receiver alone", "Is the same thing as flow control"],
+    "correctIndex": 0,
+    "explanation": "Flow control (rwnd) protects the receiver's buffer; congestion control (cwnd) protects the network's shared links/routers from overload. TCP applies both, sending no more than min(cwnd, rwnd).",
+    "distractorRationales": ["", "Protecting only the receiver's buffer describes flow control, not congestion control.", "Congestion control is driven by the sender reacting to network signals.", "They are distinct mechanisms addressing different bottlenecks."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "hard",
+    "questionText": "The TIME_WAIT state (lasting ~2×MSL) after a TCP close exists primarily to:",
+    "options": ["Ensure delayed duplicate segments expire and the final ACK is reliably delivered before reuse", "Speed up the next connection", "Save memory", "Encrypt the teardown"],
+    "correctIndex": 0,
+    "explanation": "TIME_WAIT keeps the connection's identity reserved for twice the maximum segment lifetime so that any straggling segments from this connection die out (not confusing a new connection on the same ports) and so the final ACK can be retransmitted if lost.",
+    "distractorRationales": ["", "It actually delays reuse of the port pair, not speeds up the next connection.", "It consumes (not saves) some state/memory during the wait.", "It is about segment lifetimes and reliability, not encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "medium",
+    "questionText": "TCP achieves approximate fairness among multiple flows sharing a bottleneck because:",
+    "options": ["AIMD causes flows to converge toward an equal share of bandwidth over time", "It assigns fixed bandwidth per flow", "Routers schedule each flow equally", "Each flow uses UDP"],
+    "correctIndex": 0,
+    "explanation": "The additive-increase/multiplicative-decrease dynamics drive competing TCP flows toward an equal share: the additive increases are equal, while multiplicative decreases reduce larger windows more in absolute terms, converging to fairness (the classic AIMD 'sawtooth' fairness argument).",
+    "distractorRationales": ["", "TCP does not assign fixed per-flow bandwidth; fairness emerges dynamically.", "Basic routers (FIFO/drop-tail) do not enforce per-flow equality; AIMD does the work.", "TCP flows use TCP, not UDP; UDP has no such congestion fairness."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "tcp-congestion-control",
+    "difficulty": "easy",
+    "questionText": "The TCP/UDP port number in a segment header serves to:",
+    "options": ["Identify the application/process (multiplexing) at the endpoints", "Identify the host", "Choose the route", "Set the window size"],
+    "correctIndex": 0,
+    "explanation": "Port numbers let the transport layer multiplex/demultiplex data among multiple applications on the same host (e.g., port 80 for HTTP, 443 for HTTPS). The IP address identifies the host; the port identifies the specific process/socket.",
+    "distractorRationales": ["", "The host is identified by its IP address, not the port.", "Routing uses IP addresses, not transport ports.", "The window size is a separate header field, not the port."]
+  }
+]

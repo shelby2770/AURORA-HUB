@@ -1,0 +1,162 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "easy",
+  "questionText": "Accessing the i-th element of an array by index takes:",
+  "options": ["O(1) time", "O(n) time", "O(log n) time", "O(i) time"],
+  "correctIndex": 0,
+  "explanation": "Arrays store elements contiguously, so the address of element i is base + i × element_size, computed in constant time regardless of i.",
+  "distractorRationales": ["", "O(n) is the cost of traversing a linked list to position i, not array index access.", "O(log n) is search in a balanced tree, not array indexing.", "O(i) is sequential traversal cost, but arrays compute the address directly in O(1)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "easy",
+  "questionText": "A stack follows which ordering discipline?",
+  "options": ["LIFO (Last In, First Out)", "FIFO (First In, First Out)", "Priority order", "Random order"],
+  "correctIndex": 0,
+  "explanation": "A stack is LIFO: the most recently pushed element is the first to be popped. Function call stacks and expression evaluation rely on this.",
+  "distractorRationales": ["", "FIFO describes a queue, not a stack.", "Priority order describes a priority queue.", "Stacks have strict LIFO order, not random access."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "easy",
+  "questionText": "A queue follows which ordering discipline?",
+  "options": ["FIFO (First In, First Out)", "LIFO (Last In, First Out)", "Sorted order", "Last accessed first"],
+  "correctIndex": 0,
+  "explanation": "A queue is FIFO: elements are removed in the same order they were inserted (enqueue at the rear, dequeue from the front).",
+  "distractorRationales": ["", "LIFO describes a stack, not a queue.", "Queues do not maintain sorted order; that is a priority queue or sorted structure.", "Removing the last accessed first is stack-like LIFO behavior."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "easy",
+  "questionText": "Inserting a new node at the head of a singly linked list (given the head pointer) takes:",
+  "options": ["O(1) time", "O(n) time", "O(log n) time", "O(n²) time"],
+  "correctIndex": 0,
+  "explanation": "Inserting at the head only requires creating a node, pointing it to the current head, and updating the head pointer — all constant-time operations.",
+  "distractorRationales": ["", "O(n) would be needed to insert at the tail of a list without a tail pointer, not at the head.", "O(log n) does not arise for linked-list head insertion.", "O(n²) vastly overstates a constant-time pointer operation."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "Which operation is O(n) in a singly linked list but O(1) in a doubly linked list (given a pointer to the node)?",
+  "options": ["Deleting a given node when only that node's pointer is provided", "Inserting at the head", "Traversing forward", "Reading the head value"],
+  "correctIndex": 0,
+  "explanation": "To delete a node in a singly linked list you need its predecessor, requiring an O(n) search (unless you use the copy-next trick). A doubly linked list has a prev pointer, allowing O(1) deletion.",
+  "distractorRationales": ["", "Head insertion is O(1) in both list types.", "Forward traversal is O(n) in both; it is not faster in a doubly linked list.", "Reading the head value is O(1) in both."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "A queue can be implemented using two stacks. The amortized cost per enqueue/dequeue operation is:",
+  "options": ["O(1) amortized", "O(n) per operation always", "O(log n) amortized", "O(n²) total"],
+  "correctIndex": 0,
+  "explanation": "Using an 'in' stack for enqueue and an 'out' stack for dequeue (transferring only when 'out' is empty), each element is moved between stacks at most a constant number of times, giving O(1) amortized per operation.",
+  "distractorRationales": ["", "Although a single dequeue may cost O(n) when transferring, the amortized cost over all operations is O(1).", "O(log n) does not match the two-stack analysis.", "Total work for n operations is O(n), so the per-operation amortized cost is O(1), not O(n²)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "In a circular array implementation of a queue with capacity m, the queue is full when:",
+  "options": ["(rear + 1) mod m == front (reserving one empty slot to distinguish full from empty)", "rear == front", "rear == m", "front == 0"],
+  "correctIndex": 0,
+  "explanation": "A common circular-queue convention keeps one slot empty so that 'rear == front' means empty and '(rear+1) mod m == front' means full, disambiguating the two otherwise-identical states.",
+  "distractorRationales": ["", "rear == front signals an EMPTY queue under the one-slot-reserved convention.", "rear == m is invalid because indices wrap modulo m; rear never equals m.", "front == 0 is just an index value, not a fullness condition."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "Which application most naturally uses a stack?",
+  "options": ["Checking balanced parentheses in an expression", "Scheduling print jobs in arrival order", "Breadth-first search of a graph", "Round-robin CPU scheduling"],
+  "correctIndex": 0,
+  "explanation": "Matching parentheses uses a stack: push opening brackets and pop on closing brackets, verifying they match. The LIFO discipline matches nested structure naturally.",
+  "distractorRationales": ["", "Print jobs in arrival order are processed FIFO, which is a queue.", "BFS uses a queue (FIFO), not a stack.", "Round-robin scheduling uses a queue to cycle through processes."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "Reversing a singly linked list of n nodes iteratively takes:",
+  "options": ["O(n) time and O(1) extra space", "O(n) time and O(n) extra space", "O(n²) time", "O(log n) time"],
+  "correctIndex": 0,
+  "explanation": "Iterative reversal walks the list once, re-pointing each node's next to its predecessor using three pointers (prev, curr, next). This is O(n) time and only O(1) additional space.",
+  "distractorRationales": ["", "Only a constant number of pointers is needed, so extra space is O(1), not O(n).", "A single pass suffices; reversal is not O(n²).", "All n nodes must be visited, so it cannot be O(log n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "A deque (double-ended queue) supports:",
+  "options": ["Insertion and deletion at both the front and the rear in O(1)", "Insertion only at the rear", "Random indexed access in O(1) with O(1) middle insertion", "Sorted insertion only"],
+  "correctIndex": 0,
+  "explanation": "A deque allows pushing and popping at both ends in O(1) (typically via a doubly linked list or circular buffer). It generalizes both stacks and queues.",
+  "distractorRationales": ["", "Inserting only at the rear describes a plain queue, not a deque.", "A deque does not provide O(1) insertion in the middle; it operates at the two ends.", "A deque does not maintain sorted order; that is a different structure."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "hard",
+  "questionText": "To detect a cycle in a singly linked list using Floyd's tortoise-and-hare algorithm, the space and time complexity are:",
+  "options": ["O(1) space and O(n) time", "O(n) space and O(n) time", "O(1) space and O(n²) time", "O(log n) space and O(n) time"],
+  "correctIndex": 0,
+  "explanation": "Floyd's algorithm uses two pointers moving at different speeds; if they meet, there is a cycle. It needs only two pointers (O(1) space) and traverses the list in O(n) time.",
+  "distractorRationales": ["", "A hash-set approach uses O(n) space; Floyd's uses only O(1).", "The two-pointer method runs in linear, not quadratic, time.", "Only two pointers are used, which is O(1) space, not O(log n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "hard",
+  "questionText": "Evaluating a postfix (Reverse Polish) expression uses a stack. For '5 1 2 + 4 * + 3 -', the result is:",
+  "options": ["14", "11", "5", "16"],
+  "correctIndex": 0,
+  "explanation": "Process left to right: push 5,1,2; '+' → 1+2=3; push 4; '*' → 3*4=12; '+' → 5+12=17; push 3; '-' → 17−3=14. Result: 14.",
+  "distractorRationales": ["", "11 results from an arithmetic slip in the additions.", "5 ignores all operators after the first operand.", "16 misapplies one of the operations."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "hard",
+  "questionText": "Finding the middle node of a singly linked list in a single pass is done by:",
+  "options": ["Using slow and fast pointers; when fast reaches the end, slow is at the middle", "Counting all nodes, then traversing n/2 again", "Sorting the list first", "Reversing the list"],
+  "correctIndex": 0,
+  "explanation": "The two-pointer technique advances 'slow' by one and 'fast' by two each step. When 'fast' reaches the end, 'slow' is at the middle — accomplished in a single O(n) pass.",
+  "distractorRationales": ["", "Counting then re-traversing works but requires two passes, not a single pass.", "Sorting is unnecessary and destroys order while costing O(n log n).", "Reversing the list does not locate the middle."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "hard",
+  "questionText": "An array of size n is used to implement a stack. What is the amortized cost of push if the array doubles in size whenever it becomes full?",
+  "options": ["O(1) amortized", "O(n) per push", "O(log n) per push", "O(n) amortized"],
+  "correctIndex": 0,
+  "explanation": "Doubling means a resize (copying n elements) happens only after n pushes since the last resize. Summing copy costs gives a geometric series totaling O(n) for n pushes, hence O(1) amortized per push.",
+  "distractorRationales": ["", "Although a resize push costs O(n), such pushes are rare, making the amortized cost O(1).", "O(log n) does not match the doubling amortized analysis.", "Total work over n pushes is O(n), so amortized per push is O(1), not O(n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "medium",
+  "questionText": "Compared with arrays, a key advantage of linked lists is:",
+  "options": ["Insertion/deletion at a known position without shifting elements", "O(1) random access by index", "Better cache locality", "Lower memory overhead per element"],
+  "correctIndex": 0,
+  "explanation": "Linked lists insert or delete at a known node by re-pointing links, without shifting the rest of the elements as arrays require. This is their main structural advantage.",
+  "distractorRationales": ["", "Random access by index is O(n) in linked lists; arrays have O(1).", "Arrays have better cache locality due to contiguous storage; linked lists do not.", "Linked lists have HIGHER per-element overhead because of the pointer(s) stored in each node."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "arrays-linked-lists-stacks-queues",
+  "difficulty": "hard",
+  "questionText": "A 'min stack' that supports push, pop, and getMin all in O(1) is typically implemented by:",
+  "options": ["Storing, alongside each element, the minimum of the stack at that point (or using an auxiliary min-stack)", "Sorting the stack on every push", "Scanning the whole stack for the minimum on each getMin", "Using a binary heap"],
+  "correctIndex": 0,
+  "explanation": "By pushing the current minimum together with each value (or maintaining a parallel stack of minima), getMin reads the top's stored minimum in O(1), and push/pop remain O(1).",
+  "distractorRationales": ["", "Sorting on every push would cost O(n log n) per push, far from O(1).", "Scanning for the minimum on each getMin is O(n), not O(1).", "A binary heap gives O(log n) operations and does not preserve stack (LIFO) order."]
+ }
+]

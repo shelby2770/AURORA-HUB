@@ -1,0 +1,202 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "easy",
+  "questionText": "A greedy algorithm builds a solution by:",
+  "options": ["Making the locally optimal choice at each step, hoping it leads to a global optimum", "Exhaustively trying all combinations", "Storing solutions to overlapping subproblems", "Always backtracking after each choice"],
+  "correctIndex": 0,
+  "explanation": "A greedy algorithm makes the choice that looks best at the moment (a local optimum) and never reconsiders it. For problems with the greedy-choice property and optimal substructure, this yields a global optimum.",
+  "distractorRationales": ["", "Trying all combinations is brute force / exhaustive search, not greedy.", "Storing overlapping subproblem solutions is dynamic programming.", "Greedy algorithms commit to choices and do not backtrack; backtracking is a separate paradigm."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "easy",
+  "questionText": "Two properties a problem must have for a greedy algorithm to yield an optimal solution are:",
+  "options": ["Greedy-choice property and optimal substructure", "Overlapping subproblems and memoization", "NP-hardness and reducibility", "Convexity and continuity"],
+  "correctIndex": 0,
+  "explanation": "Greedy correctness requires the greedy-choice property (a global optimum can be reached by locally optimal choices) and optimal substructure (an optimal solution contains optimal solutions to subproblems).",
+  "distractorRationales": ["", "Overlapping subproblems with memoization characterize dynamic programming, not greedy.", "NP-hardness and reducibility are complexity-theory notions, unrelated to greedy correctness.", "Convexity and continuity are properties from continuous optimization, not greedy algorithm design."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "easy",
+  "questionText": "Which algorithm for minimum spanning trees is a greedy algorithm?",
+  "options": ["Kruskal's algorithm", "Floyd-Warshall algorithm", "Bellman-Ford algorithm", "Topological sort"],
+  "correctIndex": 0,
+  "explanation": "Kruskal's algorithm greedily adds the next cheapest edge that does not form a cycle. Prim's is also greedy. Floyd-Warshall and Bellman-Ford solve shortest paths, not MST, and are not greedy.",
+  "distractorRationales": ["", "Floyd-Warshall is a dynamic-programming all-pairs shortest-path algorithm.", "Bellman-Ford is a dynamic-programming/relaxation shortest-path algorithm.", "Topological sort orders a DAG; it is not an MST or greedy-optimization algorithm."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "easy",
+  "questionText": "The activity-selection problem is solved greedily by repeatedly selecting the activity that:",
+  "options": ["Finishes earliest among those compatible with already-chosen activities", "Starts earliest", "Has the longest duration", "Has the shortest duration"],
+  "correctIndex": 0,
+  "explanation": "Choosing the activity with the earliest finish time leaves the maximum remaining time for subsequent activities, which provably maximizes the number of non-overlapping activities selected.",
+  "distractorRationales": ["", "Choosing the earliest start can pick a long activity that blocks many others, giving a suboptimal result.", "Longest duration greedily consumes the schedule and is suboptimal.", "Shortest duration is intuitive but provably not optimal — earliest finish time is the correct criterion."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "In Huffman coding, the two nodes merged at each step are the ones with:",
+  "options": ["The two lowest frequencies", "The two highest frequencies", "The longest existing codes", "Equal frequencies only"],
+  "correctIndex": 0,
+  "explanation": "Huffman's greedy step repeatedly merges the two least frequent nodes into a new node whose frequency is their sum. This pushes rare symbols deeper (longer codes) and frequent symbols shallower, minimizing expected code length.",
+  "distractorRationales": ["", "Merging the two highest frequencies would give frequent symbols long codes, increasing total length.", "Code length is a result of the merging, not the selection criterion.", "Merging requires only the two smallest; they need not be equal."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "The fractional knapsack problem is optimally solved by a greedy algorithm that selects items by:",
+  "options": ["Decreasing value-to-weight ratio, taking fractions when needed", "Decreasing absolute value", "Increasing weight", "Decreasing weight"],
+  "correctIndex": 0,
+  "explanation": "For the fractional knapsack, sorting items by value/weight ratio and filling greedily (taking a fraction of the last item) is optimal. This greedy approach fails for the 0/1 knapsack, which requires dynamic programming.",
+  "distractorRationales": ["", "Picking by absolute value ignores weight and can waste capacity on heavy low-density items.", "Increasing weight is unrelated to maximizing value density.", "Decreasing weight does not account for value and is not optimal."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "Why does the greedy approach fail for the 0/1 knapsack problem (but work for fractional)?",
+  "options": ["Because items cannot be split, a locally best ratio choice may waste capacity and miss the optimal combination", "Because 0/1 knapsack has no optimal substructure", "Because the weights are always equal", "Because greedy always overfills the knapsack"],
+  "correctIndex": 0,
+  "explanation": "In 0/1 knapsack, an item must be taken whole or not at all. The greedy-choice property fails: the highest-ratio item might leave unusable leftover capacity, so a different combination can be better. Dynamic programming is required.",
+  "distractorRationales": ["", "0/1 knapsack DOES have optimal substructure; it is the greedy-choice property that fails.", "Weights are arbitrary, not always equal; that is not the reason greedy fails.", "Greedy stops at capacity; it does not overfill — the issue is suboptimality, not overfilling."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "Dijkstra's shortest-path algorithm is greedy because at each step it:",
+  "options": ["Permanently settles the unvisited vertex with the smallest tentative distance", "Relaxes all edges n times regardless of order", "Picks a random unvisited vertex", "Settles the vertex with the largest tentative distance"],
+  "correctIndex": 0,
+  "explanation": "Dijkstra greedily extracts the unvisited vertex with the minimum tentative distance, finalizes it, and relaxes its outgoing edges. With non-negative weights, this greedy choice is provably correct.",
+  "distractorRationales": ["", "Relaxing all edges n times is Bellman-Ford, a dynamic-programming approach, not Dijkstra's greedy selection.", "Random selection would not guarantee correctness or efficiency.", "Settling the largest tentative distance contradicts Dijkstra's correctness argument."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "The coin-change problem with denominations {1, 5, 10, 25} (US coins) can be solved greedily, but the greedy method fails for denominations like {1, 3, 4}. For amount 6 with {1,3,4}, greedy gives 4+1+1 (3 coins) but the optimal is:",
+  "options": ["3+3 (2 coins)", "4+1+1 (3 coins)", "1+1+1+1+1+1 (6 coins)", "4+3 (impossible, exceeds 6)"],
+  "correctIndex": 0,
+  "explanation": "Greedy takes the largest coin ≤ remaining: 4, then 1, then 1 — three coins. But 3+3 makes 6 with only two coins. This shows greedy is not optimal for arbitrary denomination systems; dynamic programming is needed.",
+  "distractorRationales": ["", "4+1+1 is exactly the suboptimal greedy answer (3 coins), not the optimum.", "Six 1-coins is far from optimal.", "4+3 = 7 ≠ 6, so it is not a valid solution for amount 6."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "Prim's algorithm grows a minimum spanning tree by repeatedly adding:",
+  "options": ["The minimum-weight edge connecting a vertex in the tree to a vertex outside it", "The minimum-weight edge overall regardless of cycles", "Any edge that creates a cycle", "The maximum-weight safe edge"],
+  "correctIndex": 0,
+  "explanation": "Prim's greedy rule selects the cheapest edge crossing the cut between the current tree and the remaining vertices, adding one new vertex each step. This is the cut property guaranteeing MST correctness.",
+  "distractorRationales": ["", "Selecting the global minimum edge regardless of the current tree is closer to Kruskal's, and must still avoid cycles.", "Adding a cycle-forming edge violates the tree structure of an MST.", "MST construction uses minimum-weight, not maximum-weight, safe edges."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "hard",
+  "questionText": "For Huffman coding of symbols with frequencies {5, 9, 12, 13, 16, 45}, what is the total weighted path length (number of bits) of the optimal code? (Build the Huffman tree.)",
+  "options": ["224", "200", "240", "100"],
+  "correctIndex": 0,
+  "explanation": "Merge: 5+9=14; 12+13=25; 14+16=30; 25+30=55; 45+55=100. The total cost equals the sum of all internal-node values created: 14+25+30+55+100 = 224 bits.",
+  "distractorRationales": ["", "200 is not the sum of the internal-node merge values produced by the Huffman procedure.", "240 overcounts; the correct internal-node sum is 224.", "100 is only the root (final merge) value, not the sum of all merges."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "hard",
+  "questionText": "In job sequencing with deadlines (each job has a profit and a deadline, unit time per job), the greedy strategy that maximizes profit is to:",
+  "options": ["Consider jobs in decreasing profit order and schedule each in the latest free slot before its deadline", "Schedule jobs in increasing deadline order ignoring profit", "Schedule jobs in increasing profit order", "Schedule all jobs at time 0"],
+  "correctIndex": 0,
+  "explanation": "Sort jobs by descending profit; for each, place it in the latest available time slot at or before its deadline. Filling the latest slot keeps earlier slots free for other tight-deadline jobs, maximizing total profit.",
+  "distractorRationales": ["", "Ignoring profit and sorting only by deadline can schedule low-profit jobs over high-profit ones.", "Increasing profit order would prioritize the least valuable jobs first — the opposite of optimal.", "Only one unit-time job can run per slot, so scheduling all at time 0 is infeasible."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "hard",
+  "questionText": "An exchange argument is commonly used to prove greedy correctness by showing that:",
+  "options": ["Any optimal solution can be transformed into the greedy solution without losing optimality, by swapping elements", "The greedy solution runs in polynomial time", "The problem is NP-hard", "Greedy uses less memory than DP"],
+  "correctIndex": 0,
+  "explanation": "In an exchange argument, you take an arbitrary optimal solution and repeatedly swap its choices toward the greedy choices, showing each swap does not worsen the objective. This proves the greedy solution is itself optimal.",
+  "distractorRationales": ["", "Running time is an efficiency analysis, not a correctness proof technique.", "Proving NP-hardness is unrelated to showing a greedy algorithm is optimal.", "Memory comparison is not what an exchange argument establishes."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "hard",
+  "questionText": "Consider the interval-scheduling-maximization problem with intervals (start, finish): (1,4), (3,5), (0,6), (5,7), (3,9), (5,9), (6,10), (8,11), (8,12), (2,14), (12,16). Using earliest-finish-time greedy, how many non-overlapping intervals can be selected?",
+  "options": ["4", "3", "5", "6"],
+  "correctIndex": 0,
+  "explanation": "Sort by finish time and pick greedily: (1,4) → next compatible is (5,7) → then (8,11) → then (12,16). That is 4 mutually non-overlapping intervals, the maximum possible.",
+  "distractorRationales": ["", "3 misses one selectable interval; the optimal greedy chain has length 4.", "5 is not achievable; no 5 of these intervals are pairwise non-overlapping.", "6 overcounts; the maximum independent set of these intervals is 4."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "Kruskal's algorithm uses which data structure to efficiently detect whether adding an edge would create a cycle?",
+  "options": ["Disjoint-set (union-find)", "Min-heap only", "Hash table of edges", "Adjacency matrix"],
+  "correctIndex": 0,
+  "explanation": "Kruskal's uses a union-find (disjoint-set) structure: two endpoints in the same set means adding the edge forms a cycle. With union by rank and path compression, each operation is near-constant amortized time.",
+  "distractorRationales": ["", "A min-heap (or sorting) orders edges by weight but cannot test connectivity/cycles.", "A hash table of edges does not track connected components.", "An adjacency matrix stores the graph but does not give efficient cycle detection during MST building."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "A prefix-free (prefix) code, such as the one Huffman coding produces, guarantees that:",
+  "options": ["No codeword is a prefix of another, so the encoded bit stream can be decoded unambiguously", "All codewords have equal length", "The most frequent symbol gets the longest code", "Codewords can overlap arbitrarily"],
+  "correctIndex": 0,
+  "explanation": "In a prefix-free code, no codeword is a prefix of any other. This lets a decoder unambiguously split the bit stream symbol by symbol without delimiters. Huffman codes are optimal prefix-free codes.",
+  "distractorRationales": ["", "Equal-length codes are fixed-length codes; prefix codes are typically variable-length.", "Huffman gives the most frequent symbol the SHORTEST code, not the longest.", "Overlapping codewords would create decoding ambiguity, which prefix-free codes prevent."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "hard",
+  "questionText": "For making change with denominations {1, 2, 5, 10, 20, 50, 100} (a canonical system), the greedy algorithm is optimal. The minimum number of coins for amount 93 is:",
+  "options": ["5 (50 + 20 + 20 + ... wait: 50+20+20+2+1 = 5 coins)", "6", "4", "7"],
+  "correctIndex": 0,
+  "explanation": "Greedy: 93 → 50 (43 left) → 20 (23) → 20 (3) → 2 (1) → 1 (0). Coins used: 50, 20, 20, 2, 1 = 5 coins, which is optimal for this canonical system.",
+  "distractorRationales": ["", "6 coins is not minimal; 5 coins suffice via 50+20+20+2+1.", "4 coins cannot sum to 93 with these denominations.", "7 coins is far from minimal."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "easy",
+  "questionText": "Which of these problems is NOT generally solvable optimally by a simple greedy algorithm?",
+  "options": ["0/1 Knapsack", "Fractional knapsack", "Minimum spanning tree", "Huffman coding"],
+  "correctIndex": 0,
+  "explanation": "0/1 knapsack lacks the greedy-choice property and requires dynamic programming for an optimal solution. Fractional knapsack, MST (Kruskal/Prim), and Huffman coding are all classic greedy successes.",
+  "distractorRationales": ["", "Fractional knapsack is optimally solved greedily by value/weight ratio.", "MST is solved optimally by the greedy Kruskal's or Prim's algorithm.", "Huffman coding is a canonical optimal greedy algorithm."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "medium",
+  "questionText": "The greedy algorithm for the 'minimum number of platforms' problem (given train arrival/departure times) works by:",
+  "options": ["Sorting arrivals and departures, then sweeping while tracking the maximum number of overlapping intervals", "Picking the train with the longest stop first", "Assigning each train a new platform unconditionally", "Sorting only by arrival time and counting trains"],
+  "correctIndex": 0,
+  "explanation": "Sort arrival and departure times separately and sweep with two pointers: increment a counter on each arrival, decrement on each departure. The peak counter value is the minimum number of platforms (the maximum simultaneous overlaps).",
+  "distractorRationales": ["", "Longest-stop-first does not relate to counting maximum simultaneous trains.", "Assigning every train a new platform overcounts and ignores reuse after departures.", "Sorting only arrivals and counting all trains ignores departures and gives the wrong (too large) answer."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "greedy-algorithms",
+  "difficulty": "hard",
+  "questionText": "A matroid guarantees that the greedy algorithm finds an optimal solution because matroids have:",
+  "options": ["The hereditary property and the exchange property, which together ensure the greedy-choice property holds", "Overlapping subproblems", "A convex objective function", "Polynomial-size input only"],
+  "correctIndex": 0,
+  "explanation": "Matroid theory formalizes when greedy works: a structure with the hereditary property (subsets of independent sets are independent) and the exchange property guarantees that the greedy algorithm yields a maximum-weight independent set.",
+  "distractorRationales": ["", "Overlapping subproblems characterize dynamic programming, not matroid-based greedy optimality.", "Convexity belongs to continuous optimization, not matroid theory.", "Input size does not determine whether greedy is optimal; the matroid structure does."]
+ }
+]

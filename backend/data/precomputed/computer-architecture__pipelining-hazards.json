@@ -1,0 +1,182 @@
+[
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "easy",
+    "questionText": "Pipelining improves processor performance by:",
+    "options": ["Overlapping the execution of multiple instructions in different stages", "Making each instruction execute in one clock pulse end to end", "Reducing the number of instructions", "Increasing the clock period"],
+    "correctIndex": 0,
+    "explanation": "Pipelining splits instruction execution into stages (fetch, decode, execute, etc.) and overlaps consecutive instructions so that, in steady state, one instruction completes per cycle — improving throughput, though each individual instruction's latency is unchanged or slightly higher.",
+    "distractorRationales": ["", "Each instruction still takes multiple stage-cycles; pipelining overlaps them, not collapses them.", "Pipelining does not reduce the instruction count.", "Pipelining typically shortens the clock period (per stage), not lengthens it."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "A data hazard occurs when:",
+    "options": ["An instruction depends on the result of a previous instruction still in the pipeline", "Two instructions have the same opcode", "The branch target is unknown", "The cache misses"],
+    "correctIndex": 0,
+    "explanation": "A data hazard arises when an instruction needs an operand that a preceding, not-yet-completed instruction is supposed to produce (a read-after-write dependency). Without handling, the dependent instruction would read a stale value.",
+    "distractorRationales": ["", "Sharing an opcode does not create a dependency hazard.", "Unknown branch targets cause control hazards, not data hazards.", "A cache miss is a memory stall, not a pipeline data hazard."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "Forwarding (bypassing) reduces data-hazard stalls by:",
+    "options": ["Routing an ALU result directly to a dependent instruction before it is written back to the register file", "Flushing the pipeline", "Predicting branches", "Increasing the cache size"],
+    "correctIndex": 0,
+    "explanation": "Forwarding takes a result as soon as it is computed (e.g., at the end of EX) and feeds it directly to a later instruction's input, avoiding the wait for the writeback stage. This eliminates many (but not all) data-hazard stalls.",
+    "distractorRationales": ["", "Flushing discards instructions (used for control hazards), not forwarding data.", "Branch prediction addresses control hazards, not data forwarding.", "Cache size is unrelated to forwarding within the pipeline."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "Even with full forwarding, a load-use hazard still requires one stall because:",
+    "options": ["A load's data is available only after the memory (MEM) stage, too late to forward to the immediately following instruction's EX", "Loads never produce a result", "Forwarding is impossible for loads", "The register file is read-only"],
+    "correctIndex": 0,
+    "explanation": "A load produces its value at the end of MEM, but a dependent instruction needs it at the start of its EX, which occurs one cycle too early. So one stall (bubble) is unavoidable even with forwarding; compilers reorder code to fill this 'load delay slot'.",
+    "distractorRationales": ["", "Loads do produce a result (the loaded value); the issue is timing.", "Forwarding IS used for loads, just one cycle later than ALU results.", "The register file is readable/writable; that is not the cause."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "easy",
+    "questionText": "A control (branch) hazard arises because:",
+    "options": ["The next instruction to fetch is uncertain until the branch outcome is known", "Two instructions write the same register", "The ALU is busy", "The cache is too small"],
+    "correctIndex": 0,
+    "explanation": "When a branch is fetched, the pipeline does not yet know whether it will be taken (and to where), so it is unsure which instruction to fetch next. Fetching wrong-path instructions wastes cycles unless prediction or other techniques are used.",
+    "distractorRationales": ["", "Two instructions writing the same register is a write-after-write (data) hazard, not control.", "A busy ALU is a structural hazard, not a control hazard.", "Cache size relates to memory stalls, not branch control hazards."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "A 5-stage pipeline has a perfect (ideal) speedup over a non-pipelined design of approximately:",
+    "options": ["5x (equal to the number of stages, ignoring hazards and fill/drain)", "1x", "25x", "2.5x"],
+    "correctIndex": 0,
+    "explanation": "Ideally, a k-stage pipeline yields up to k× throughput speedup because k instructions are processed concurrently. Real speedup is less than k due to pipeline fill/drain, hazards, and unequal stage delays.",
+    "distractorRationales": ["", "1x would mean no benefit, contradicting pipelining's purpose.", "25x (k²) overstates; speedup is bounded by the number of stages k, not k².", "2.5x understates the ideal k=5 speedup."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "A structural hazard occurs when:",
+    "options": ["Two instructions need the same hardware resource in the same cycle", "An instruction needs an earlier instruction's result", "A branch outcome is unknown", "Memory access is slow"],
+    "correctIndex": 0,
+    "explanation": "A structural hazard is a resource conflict — e.g., a single memory port needed simultaneously for instruction fetch and a data load. It is resolved by duplicating resources (separate I- and D-caches) or stalling.",
+    "distractorRationales": ["", "Needing an earlier result is a data hazard, not structural.", "Unknown branch outcome is a control hazard.", "Slow memory access is a stall cause but not specifically a structural resource conflict."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "Without pipelining, an instruction takes 8 ns; a 4-stage pipeline divides this into roughly equal stages with a 0.5 ns register overhead per stage. The pipelined clock period is about:",
+    "options": ["2.5 ns (2 ns per stage + 0.5 ns overhead)", "8 ns", "0.5 ns", "4 ns"],
+    "correctIndex": 0,
+    "explanation": "Dividing 8 ns into 4 equal stages gives 2 ns of logic per stage; adding the 0.5 ns latch overhead makes each stage (clock period) 2.5 ns. Pipeline registers add overhead, so deeper pipelines have diminishing returns.",
+    "distractorRationales": ["", "8 ns is the non-pipelined latency, not the per-stage clock period.", "0.5 ns is only the register overhead, not the full stage time.", "4 ns ignores the stage division (it would be the time for only 2 stages of work)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "easy",
+    "questionText": "The clock period of a synchronous pipeline is determined by:",
+    "options": ["The slowest stage (plus latch overhead)", "The fastest stage", "The average of all stages", "The number of instructions"],
+    "correctIndex": 0,
+    "explanation": "All stages share one clock, so the period must accommodate the slowest stage's delay (plus pipeline-register overhead). Balancing stage delays maximizes clock frequency; the slowest stage is the bottleneck.",
+    "distractorRationales": ["", "The fastest stage does not bound the clock; the slowest does.", "The clock cannot be the average; a slow stage would not finish in less time.", "Instruction count does not set the per-cycle clock period."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "A 'branch delay slot' is:",
+    "options": ["An instruction slot right after a branch that executes regardless of the branch outcome", "A cache that stores branches", "The time to flush the pipeline", "A register holding the branch target"],
+    "correctIndex": 0,
+    "explanation": "Some RISC ISAs (e.g., MIPS) expose a delay slot: the instruction immediately after a branch is always executed while the branch resolves. Compilers fill it with useful work to avoid wasting the cycle, instead of inserting a bubble.",
+    "distractorRationales": ["", "It is a pipeline scheduling concept, not a cache for branches.", "It is a specific instruction slot, not the flush duration.", "The branch target is held elsewhere; the delay slot is an instruction position."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "A pipeline executes 1000 instructions. With a 5-stage pipeline (1 instruction/cycle ideal), how many cycles does it take to finish, ignoring hazards?",
+    "options": ["1004", "1000", "5000", "5004"],
+    "correctIndex": 0,
+    "explanation": "A k-stage pipeline takes (k − 1) cycles to fill plus n cycles to complete n instructions: (5 − 1) + 1000 = 1004 cycles. The first instruction emerges after 5 cycles, then one per cycle thereafter.",
+    "distractorRationales": ["", "1000 ignores the 4-cycle fill latency at the start.", "5000 would be the non-pipelined cycle count (5 cycles × 1000), not pipelined.", "5004 incorrectly multiplies and adds the fill."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "A read-after-write (RAW) dependency is also called a:",
+    "options": ["True dependency (and causes a genuine data hazard)", "Anti-dependency", "Output dependency", "Control dependency"],
+    "correctIndex": 0,
+    "explanation": "RAW is a true dependency: an instruction must read a value produced by an earlier instruction. It reflects an actual data flow and is the hazard handled by forwarding/stalls. WAR (anti) and WAW (output) are name dependencies removable by register renaming.",
+    "distractorRationales": ["", "Anti-dependency is write-after-read (WAR), a name dependency, not RAW.", "Output dependency is write-after-write (WAW), also a name dependency.", "Control dependency arises from branches, not register data flow."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "easy",
+    "questionText": "Inserting a 'bubble' (NOP) into a pipeline is a way to:",
+    "options": ["Stall the pipeline for a cycle to resolve a hazard", "Increase the clock frequency", "Add a new instruction permanently", "Flush the cache"],
+    "correctIndex": 0,
+    "explanation": "A bubble is a no-op inserted to delay dependent instructions by a cycle, giving time for a hazard (e.g., load-use) to resolve. Bubbles reduce throughput, so forwarding and scheduling are used to minimize them.",
+    "distractorRationales": ["", "Bubbles do not change the clock frequency; they cost cycles.", "A bubble is a temporary stall, not a permanent added instruction.", "Bubbles concern pipeline timing, not cache flushing."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "Register renaming primarily eliminates which kinds of hazards?",
+    "options": ["WAR (anti) and WAW (output) name dependencies", "RAW true dependencies", "Control hazards", "Structural hazards"],
+    "correctIndex": 0,
+    "explanation": "WAR and WAW are 'false'/name dependencies caused by reusing the same register name, not by actual data flow. Register renaming maps them to distinct physical registers, removing these hazards and enabling more out-of-order parallelism. RAW (true) dependencies cannot be renamed away.",
+    "distractorRationales": ["", "RAW dependencies reflect real data flow and cannot be removed by renaming.", "Control hazards stem from branches, addressed by prediction, not renaming.", "Structural hazards are resource conflicts, fixed by duplicating hardware."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "Dynamic branch prediction with a 2-bit saturating counter improves over a 1-bit predictor by:",
+    "options": ["Requiring two consecutive mispredictions to change its prediction, tolerating occasional anomalies", "Predicting every branch as taken", "Eliminating all branches", "Using no history"],
+    "correctIndex": 0,
+    "explanation": "A 2-bit counter must miss twice in a row before flipping its prediction, so a single anomalous outcome (e.g., the last iteration of a loop) does not immediately flip the prediction. This gives higher accuracy than a 1-bit predictor on loop-dominated code.",
+    "distractorRationales": ["", "It predicts based on history, not always 'taken'.", "Prediction does not remove branches; it guesses their outcome.", "A 2-bit predictor explicitly uses recent history (the counter state)."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "easy",
+    "questionText": "Pipelining increases instruction ____ but does not reduce (and may slightly increase) instruction ____.",
+    "options": ["throughput; latency", "latency; throughput", "cost; size", "size; cost"],
+    "correctIndex": 0,
+    "explanation": "Pipelining raises throughput (instructions completed per unit time) by overlapping execution, while the latency of any single instruction (time from start to finish) stays the same or grows slightly due to pipeline-register overhead.",
+    "distractorRationales": ["", "This reverses the relationship; throughput improves, not latency.", "Pipelining is about timing (throughput/latency), not instruction cost/size.", "Likewise this swaps unrelated attributes."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "hard",
+    "questionText": "If 20% of instructions are branches and each mispredicted branch (mispredict rate 25%) costs a 3-cycle penalty, the average extra CPI from branch mispredictions is:",
+    "options": ["0.15", "0.75", "0.05", "0.60"],
+    "correctIndex": 0,
+    "explanation": "Fraction of instructions that mispredict = 0.20 (branches) × 0.25 (mispredict) = 0.05. Each costs 3 cycles, so extra CPI = 0.05 × 3 = 0.15.",
+    "distractorRationales": ["", "0.75 forgets to multiply by the branch fraction and mispredict rate together.", "0.05 is the misprediction fraction but omits the 3-cycle penalty.", "0.60 uses 0.20 × 3 only, ignoring the 25% mispredict rate."]
+  },
+  {
+    "course": "computer-architecture",
+    "subtopic": "pipelining-hazards",
+    "difficulty": "medium",
+    "questionText": "Superscalar processors achieve more than 1 instruction per cycle by:",
+    "options": ["Issuing multiple instructions to multiple execution units in the same cycle", "Using a deeper single pipeline", "Lowering the clock speed", "Removing the decode stage"],
+    "correctIndex": 0,
+    "explanation": "A superscalar processor has multiple parallel execution units and can fetch/decode/issue several independent instructions per cycle (IPC > 1). This exploits instruction-level parallelism beyond what a single scalar pipeline (max 1 IPC) can.",
+    "distractorRationales": ["", "Deeper pipelining alone (superpipelining) still issues at most 1 instruction per cycle.", "Lowering clock speed reduces, not increases, performance.", "Decoding is still required; superscalar decodes multiple instructions in parallel."]
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "A MAC address is how many bits long?",
+    "options": ["48", "32", "16", "128"],
+    "correctIndex": 0,
+    "explanation": "An Ethernet MAC address is 48 bits (6 bytes), usually written as six hex octets (e.g., 00:1A:2B:3C:4D:5E). The first 24 bits identify the manufacturer (OUI); the last 24 are device-specific.",
+    "distractorRationales": ["", "32 bits is an IPv4 address, not a MAC address.", "16 bits is far too short for a MAC address.", "128 bits is an IPv6 address length."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "CSMA/CD (used in classic Ethernet) handles collisions by:",
+    "options": ["Detecting a collision during transmission, stopping, and retrying after a random backoff", "Preventing all collisions in advance", "Ignoring collisions", "Using a central controller to schedule every frame"],
+    "correctIndex": 0,
+    "explanation": "Carrier Sense Multiple Access with Collision Detection: a station senses the medium, transmits if idle, and listens while sending; if it detects a collision it aborts, sends a jam signal, and waits a random (binary exponential) backoff before retrying.",
+    "distractorRationales": ["", "CSMA/CD detects and recovers from collisions; it does not prevent them entirely (that is CSMA/CA's aim).", "It does not ignore collisions; it actively detects and resolves them.", "Ethernet is distributed contention-based, not centrally scheduled."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "Wireless LANs (802.11) use CSMA/CA instead of CSMA/CD mainly because:",
+    "options": ["Stations cannot reliably detect collisions while transmitting (and the hidden-terminal problem)", "Wireless has no collisions", "Collision detection is illegal", "Wireless is always full duplex"],
+    "correctIndex": 0,
+    "explanation": "In wireless, a transmitting station's own signal swamps its receiver, so it cannot detect collisions as wired Ethernet does; plus hidden terminals may not hear each other. CSMA/CA therefore avoids collisions using random backoff and optional RTS/CTS handshaking rather than detecting them.",
+    "distractorRationales": ["", "Wireless does have collisions; they just cannot be reliably detected.", "It is a physical limitation, not a legal one.", "Typical Wi-Fi is half duplex on a channel, not always full duplex."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "hard",
+    "questionText": "Ethernet enforces a minimum frame size (64 bytes) primarily to:",
+    "options": ["Ensure a transmitting station can still detect a collision before it finishes sending", "Reduce header overhead", "Match the MTU of IP", "Allow encryption"],
+    "correctIndex": 0,
+    "explanation": "The minimum frame size guarantees the transmission time is at least the round-trip propagation time of the maximum cable, so a collision with the farthest station is detected while the sender is still transmitting (required for CSMA/CD to work). Frames shorter than 64 bytes are padded.",
+    "distractorRationales": ["", "It is about collision detection timing, not minimizing header overhead.", "The minimum frame size is unrelated to matching IP's MTU (a maximum, not minimum).", "It has nothing to do with encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "A network switch reduces collisions compared to a hub because it:",
+    "options": ["Creates a separate collision domain per port and forwards frames only to the destination port", "Broadcasts every frame to all ports", "Operates at the physical layer only", "Has no MAC table"],
+    "correctIndex": 0,
+    "explanation": "A switch learns which MAC addresses are on which ports and forwards each frame only out the destination's port, so each port is its own collision domain. A hub instead repeats every signal to all ports, forming one shared collision domain.",
+    "distractorRationales": ["", "Broadcasting to all ports is hub behavior; switches forward selectively (except for true broadcasts/unknowns).", "A switch operates at layer 2 (data link), not just physical.", "A switch maintains a MAC address table to make forwarding decisions."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "hard",
+    "questionText": "In binary exponential backoff after the n-th collision (n ≤ 10), a station waits a random number of slot times chosen uniformly from:",
+    "options": ["0 to 2^n - 1", "0 to n", "1 to n^2", "0 to 2n"],
+    "correctIndex": 0,
+    "explanation": "After the n-th collision, the backoff interval doubles: the station picks a random integer k in [0, 2^n − 1] and waits k slot times. This exponentially widening window reduces the chance of repeated collisions as contention grows (capped at n=10, i.e., 1023).",
+    "distractorRationales": ["", "0 to n grows only linearly, not exponentially.", "1 to n^2 is not the backoff rule.", "0 to 2n is linear, not the exponential 2^n − 1 range."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "ARP (Address Resolution Protocol) is used to:",
+    "options": ["Find the MAC address corresponding to a known IP address on the local network", "Find the IP address for a domain name", "Route packets between networks", "Assign IP addresses"],
+    "correctIndex": 0,
+    "explanation": "ARP maps a known IPv4 address to the link-layer MAC address on the same LAN: the host broadcasts an ARP request 'who has IP X?', and the owner replies with its MAC. This is needed to build the Ethernet frame for local delivery.",
+    "distractorRationales": ["", "Mapping a domain name to an IP is DNS, not ARP.", "Routing between networks is the network layer's job.", "Assigning IP addresses is DHCP's role."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "hard",
+    "questionText": "Pure ALOHA achieves a maximum channel utilization of about:",
+    "options": ["18% (1/2e)", "37% (1/e)", "50%", "100%"],
+    "correctIndex": 0,
+    "explanation": "Pure ALOHA lets stations transmit at will, with a vulnerable period of two frame times, giving maximum throughput S = 1/(2e) ≈ 0.184 (18%). Slotted ALOHA halves the vulnerable period, doubling the maximum to 1/e ≈ 37%.",
+    "distractorRationales": ["", "1/e ≈ 37% is slotted ALOHA's maximum, not pure ALOHA's.", "50% is not a standard ALOHA result.", "100% is unattainable for random-access ALOHA."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "A broadcast MAC address (FF:FF:FF:FF:FF:FF) causes a frame to be:",
+    "options": ["Delivered to all stations on the local network segment", "Dropped immediately", "Sent only to the default gateway", "Encrypted"],
+    "correctIndex": 0,
+    "explanation": "The all-ones MAC address is the broadcast address; a switch/hub floods such a frame to every station in the broadcast domain. ARP requests, for example, use it to reach all hosts on the LAN.",
+    "distractorRationales": ["", "Broadcast frames are delivered to all, not dropped.", "It targets all stations, not just the gateway.", "Broadcasting is about delivery scope, not encryption."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "Slotted ALOHA improves on pure ALOHA by:",
+    "options": ["Requiring transmissions to begin only at fixed time-slot boundaries, halving the collision window", "Eliminating all collisions", "Using a central scheduler", "Removing the need for retransmission"],
+    "correctIndex": 0,
+    "explanation": "Slotted ALOHA forces frames to start only at slot boundaries, so the vulnerable period shrinks from two frame times to one, doubling maximum throughput to 1/e ≈ 37%. Collisions still occur (within a slot), so retransmission is still needed.",
+    "distractorRationales": ["", "Slotting reduces, but does not eliminate, collisions.", "It remains distributed/random access, not centrally scheduled.", "Retransmission is still required after collisions."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "hard",
+    "questionText": "A switch's MAC address table is built by:",
+    "options": ["Learning the source MAC of incoming frames and associating it with the arrival port", "Reading IP routing tables", "Broadcasting queries to all hosts at boot", "Manual configuration only"],
+    "correctIndex": 0,
+    "explanation": "A switch performs backward learning: for each frame, it records the source MAC and the port it arrived on. Future frames destined to that MAC are forwarded only to the learned port; unknown destinations are flooded until learned.",
+    "distractorRationales": ["", "Switches use MAC (layer 2) learning, not IP routing tables.", "It learns passively from traffic, not by broadcasting queries at boot.", "Learning is automatic; static entries are optional, not the only method."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "The Ethernet frame's CRC field (Frame Check Sequence) is used by the receiver to:",
+    "options": ["Detect whether the frame was corrupted in transit (and discard it if so)", "Find the next hop", "Identify the application", "Encrypt the payload"],
+    "correctIndex": 0,
+    "explanation": "The 32-bit FCS (a CRC over the frame) lets the receiver detect transmission errors; if the recomputed CRC does not match, the frame is silently discarded. Ethernet relies on higher layers (TCP) to recover such losses.",
+    "distractorRationales": ["", "Next-hop selection is a routing (layer-3) function, not the FCS.", "Application identification uses ports (layer 4), not the FCS.", "The FCS detects errors; it does not encrypt."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "hard",
+    "questionText": "A 'collision domain' and a 'broadcast domain' differ in that a layer-2 switch:",
+    "options": ["Separates collision domains (per port) but all its ports remain in one broadcast domain", "Separates both", "Separates neither", "Only separates broadcast domains"],
+    "correctIndex": 0,
+    "explanation": "Each switch port is its own collision domain (so simultaneous transmissions on different ports do not collide), but broadcasts are flooded to all ports, so the whole switch is one broadcast domain. VLANs or routers are needed to split broadcast domains.",
+    "distractorRationales": ["", "A plain switch does not split broadcast domains; broadcasts reach all ports.", "It does separate collision domains, so 'neither' is wrong.", "It separates collision (not broadcast) domains, the opposite of this option."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "A VLAN (Virtual LAN) is used to:",
+    "options": ["Logically segment one physical switch into separate broadcast domains", "Increase cable length", "Encrypt all frames", "Replace IP addressing"],
+    "correctIndex": 0,
+    "explanation": "VLANs partition a switch (or switched network) into multiple isolated broadcast domains by tagging frames (802.1Q), so groups of ports behave as if on separate LANs even on shared hardware — improving security, performance, and management. Inter-VLAN traffic requires a router.",
+    "distractorRationales": ["", "VLANs are about logical segmentation, not extending physical cable length.", "VLANs isolate traffic but do not inherently encrypt it.", "VLANs operate alongside IP addressing, not replace it."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "The first 24 bits of a MAC address (the OUI) identify the:",
+    "options": ["Manufacturer/vendor of the network interface", "Subnet", "IP network", "Port number"],
+    "correctIndex": 0,
+    "explanation": "The Organizationally Unique Identifier (OUI) — the upper 24 bits assigned by the IEEE — identifies the device manufacturer. The lower 24 bits are assigned by that vendor to make each interface globally unique.",
+    "distractorRationales": ["", "Subnets are an IP-layer concept, not encoded in the MAC OUI.", "IP networks are layer-3 constructs, unrelated to the OUI.", "Port numbers are transport-layer identifiers, not part of a MAC address."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "hard",
+    "questionText": "Full-duplex switched Ethernet eliminates the need for CSMA/CD because:",
+    "options": ["A dedicated point-to-point link to the switch allows simultaneous send/receive with no contention", "It uses tokens", "Collisions are corrected by CRC", "It runs at higher voltage"],
+    "correctIndex": 0,
+    "explanation": "With each station on its own full-duplex link to a switch port, transmit and receive use separate channels and there is no shared medium, so collisions cannot occur and the CSMA/CD mechanism is unnecessary. This is standard in modern switched networks.",
+    "distractorRationales": ["", "Ethernet does not use tokens (that was Token Ring).", "CRC detects corruption, not collision avoidance.", "Voltage levels are unrelated to eliminating collisions."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "medium",
+    "questionText": "Why is ARP considered a protocol that operates between the link and network layers?",
+    "options": ["It resolves a network-layer (IP) address into a link-layer (MAC) address for local delivery", "It routes packets globally", "It encrypts IP headers", "It assigns domain names"],
+    "correctIndex": 0,
+    "explanation": "ARP bridges layers: given an IP (layer 3) address of a host on the same subnet, it discovers the corresponding MAC (layer 2) address needed to actually deliver the frame on the local link. It is essential glue for IP-over-Ethernet.",
+    "distractorRationales": ["", "ARP works only on the local link, not for global routing.", "ARP does not encrypt anything.", "Assigning domain names is unrelated (and DNS maps names to IPs, not ARP)."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "mac-ethernet",
+    "difficulty": "easy",
+    "questionText": "In CSMA, 'carrier sense' means a station:",
+    "options": ["Listens to check whether the medium is idle before transmitting", "Counts the number of frames", "Encrypts before sending", "Requests permission from a server"],
+    "correctIndex": 0,
+    "explanation": "Carrier sensing means a station checks whether the shared medium is currently busy (a carrier is present) and defers transmission until it is idle, reducing the chance of collisions compared with blind transmission like ALOHA.",
+    "distractorRationales": ["", "Carrier sense is about detecting medium activity, not counting frames.", "It concerns medium availability, not encryption.", "CSMA is distributed; it does not request server permission per frame."]
+  }
+]

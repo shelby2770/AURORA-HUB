@@ -49,6 +49,9 @@ export const useQuizStore = create<QuizState>((set) => ({
       difficulty: res.difficulty,
       durationSeconds: res.durationSeconds ?? null,
       startedAtMs: Date.now(),
+      // Order is already randomized server-side per start (Mongo $sample +
+      // random.shuffle), so it stays aligned with session.questionIds for
+      // positional scoring on submit.
       questions: res.questions,
       answers: new Array(res.questions.length).fill(null),
       currentIndex: 0,

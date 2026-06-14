@@ -1,0 +1,182 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "easy",
+    "questionText": "Which four conditions must ALL hold simultaneously for a deadlock to occur (Coffman conditions)?",
+    "options": ["Mutual exclusion, hold-and-wait, no preemption, circular wait", "Mutual exclusion, aging, preemption, starvation", "Hold-and-wait, paging, swapping, circular wait", "Spooling, mutual exclusion, preemption, fairness"],
+    "correctIndex": 0,
+    "explanation": "Deadlock requires all four Coffman conditions together: mutual exclusion (resources non-shareable), hold-and-wait (holding some while requesting more), no preemption (resources released only voluntarily), and circular wait (a cycle of processes each waiting on the next). Breaking any one prevents deadlock.",
+    "distractorRationales": ["", "Aging and starvation are scheduling concepts, not deadlock conditions.", "Paging and swapping are memory-management mechanisms, not deadlock conditions.", "Spooling and fairness are unrelated to the four necessary conditions."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "A binary semaphore initialized to 1 used around a critical section primarily provides:",
+    "options": ["Mutual exclusion (a mutex-like lock)", "Bounded buffering", "Priority inheritance", "Deadlock detection"],
+    "correctIndex": 0,
+    "explanation": "A binary semaphore initialized to 1 acts as a lock: wait() (P) acquires it (decrement to 0) and signal() (V) releases it (back to 1), ensuring only one process is in the critical section at a time — mutual exclusion. Counting semaphores (init > 1) are used for resource pools.",
+    "distractorRationales": ["", "Bounded buffering uses counting semaphores for empty/full slots, not a single binary one.", "Priority inheritance is a scheduling fix for priority inversion, not what a binary semaphore provides.", "Deadlock detection is an algorithmic technique, not the function of a semaphore."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "In the producer-consumer problem with a bounded buffer of N slots, the 'empty' semaphore is initialized to N and the 'full' semaphore to 0. The role of 'empty' is to:",
+    "options": ["Block the producer when there are no free slots", "Block the consumer when the buffer is full", "Provide mutual exclusion on the buffer", "Count the number of consumers"],
+    "correctIndex": 0,
+    "explanation": "'empty' counts free slots (starts at N); the producer does wait(empty) before inserting, so it blocks when empty reaches 0 (no free slots). 'full' counts filled slots (starts at 0); the consumer waits on it. A separate mutex protects buffer updates.",
+    "distractorRationales": ["", "Blocking the consumer when the buffer is empty is the 'full' semaphore's job (it is 0 then).", "Mutual exclusion is provided by a separate mutex, not by 'empty'.", "'empty' counts free slots, not consumers."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "A system has 3 processes sharing a single resource type with 6 instances. Each process needs a maximum of 3 instances. The smallest total number of instances that GUARANTEES the system is deadlock-free is:",
+    "options": ["7", "6", "9", "3"],
+    "correctIndex": 0,
+    "explanation": "Deadlock is guaranteed impossible when total instances ≥ Σ(max_i) − N + 1 = 3·3 − 3 + 1 = 7. With only 6, the worst case has each process holding 2 (one short of its max), using all 6 with none free; each still needs one more, so deadlock can occur. A 7th instance always lets one process finish and release, breaking any impasse.",
+    "distractorRationales": ["", "With 6 instances each process can hold 2 of its 3, leaving none free — deadlock is possible, so 6 does not guarantee freedom.", "9 (the sum of maximums) certainly avoids deadlock but is not the smallest such number; 7 suffices.", "3 is far too few; a single process could need all 3 and others would starve, allowing deadlock."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "easy",
+    "questionText": "The Banker's algorithm is used for deadlock:",
+    "options": ["Avoidance — it grants a request only if the resulting state is safe", "Detection after the fact", "Prevention by breaking circular wait", "Recovery by killing processes"],
+    "correctIndex": 0,
+    "explanation": "The Banker's algorithm is a deadlock-avoidance technique: before granting a resource request, it simulates the allocation and grants it only if a safe sequence still exists (every process can finish). It requires knowing maximum resource needs in advance.",
+    "distractorRationales": ["", "Detection finds deadlocks after they form; the Banker's algorithm prevents entering unsafe states proactively.", "Prevention statically negates a Coffman condition; the Banker's algorithm instead dynamically checks safety.", "Recovery (e.g., killing processes) happens after detection, not what the Banker's algorithm does."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "A 'safe state' in the Banker's algorithm means:",
+    "options": ["There exists at least one sequence in which all processes can obtain their maximum needs and complete", "No process holds any resource", "All resources are currently free", "A deadlock has already occurred"],
+    "correctIndex": 0,
+    "explanation": "A state is safe if there is some ordering (a safe sequence) by which every process can be granted its maximum remaining need and finish, releasing resources for the next. A safe state guarantees no deadlock; an unsafe state may (not must) lead to deadlock.",
+    "distractorRationales": ["", "Processes can hold resources in a safe state; safety is about completability, not zero holdings.", "Resources can be allocated in a safe state; it does not require all free.", "A safe state is precisely one with no deadlock, the opposite of deadlock having occurred."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "Requiring all processes to acquire locks in a fixed global order primarily prevents which deadlock condition?",
+    "options": ["Circular wait", "Mutual exclusion", "Hold-and-wait", "No preemption"],
+    "correctIndex": 0,
+    "explanation": "Imposing a total ordering on resources and requiring acquisition in increasing order makes a cycle in the wait-for graph impossible, thereby breaking the circular-wait condition. This is a common, low-overhead deadlock-prevention strategy.",
+    "distractorRationales": ["", "Mutual exclusion is inherent to non-shareable resources and is not what ordering breaks.", "Hold-and-wait is broken by requesting all resources at once, not by ordering.", "No-preemption is broken by allowing resources to be taken back, a different technique."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "A race condition occurs when:",
+    "options": ["The outcome depends on the non-deterministic interleaving of concurrent accesses to shared data", "Two processes run on different CPUs", "A process waits for I/O", "The scheduler uses Round Robin"],
+    "correctIndex": 0,
+    "explanation": "A race condition arises when multiple threads/processes access shared data concurrently and at least one writes, so the final result depends on the unpredictable order of their operations. Proper synchronization (locks, semaphores) over the critical section eliminates it.",
+    "distractorRationales": ["", "Merely running on different CPUs is not a race unless shared data is accessed unsynchronized.", "Waiting for I/O is normal blocking, not a race condition.", "The choice of scheduling algorithm does not by itself create a race."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "easy",
+    "questionText": "A solution to the critical-section problem must satisfy mutual exclusion, progress, and:",
+    "options": ["Bounded waiting", "Maximum throughput", "Priority inheritance", "Preemption"],
+    "correctIndex": 0,
+    "explanation": "The three classic requirements are mutual exclusion (one process in the critical section at a time), progress (the decision of who enters cannot be postponed indefinitely by processes outside their critical section), and bounded waiting (a limit on how many times others can enter before a waiting process does).",
+    "distractorRationales": ["", "Throughput is a performance metric, not a correctness requirement of the critical-section problem.", "Priority inheritance addresses priority inversion, not the three core requirements.", "Preemption is a scheduling property, not one of the three requirements."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "Priority inversion is the problem where:",
+    "options": ["A high-priority task is blocked waiting for a lock held by a low-priority task that is itself preempted by medium-priority tasks", "Two tasks deadlock on two locks", "A task starves due to aging", "A semaphore counter goes negative"],
+    "correctIndex": 0,
+    "explanation": "Priority inversion: a high-priority task needs a resource held by a low-priority task; meanwhile medium-priority tasks preempt the low-priority holder, so it cannot release the lock, indirectly blocking the high-priority task. Priority inheritance (temporarily boosting the holder's priority) is the standard fix.",
+    "distractorRationales": ["", "Two tasks deadlocking on two locks is deadlock, not priority inversion.", "Aging prevents starvation; it is not priority inversion.", "A counting semaphore's value can represent waiting processes but that is not the definition of priority inversion."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "A monitor differs from raw semaphores by:",
+    "options": ["Encapsulating shared data with procedures and providing automatic mutual exclusion of its methods", "Allowing busy-waiting only", "Being a hardware instruction", "Eliminating the need for condition variables"],
+    "correctIndex": 0,
+    "explanation": "A monitor is a high-level synchronization construct that bundles shared data with the procedures that operate on it and guarantees only one process executes inside the monitor at a time. Condition variables (with wait/signal) are used inside monitors for blocking on conditions.",
+    "distractorRationales": ["", "Monitors block waiting processes rather than relying on busy-waiting.", "A monitor is a language/runtime construct, not a hardware instruction.", "Monitors use condition variables; they do not eliminate the need for them."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "In a resource-allocation graph with single instances per resource type, a deadlock exists if and only if the graph:",
+    "options": ["Contains a cycle", "Is fully connected", "Has more processes than resources", "Has no edges"],
+    "correctIndex": 0,
+    "explanation": "When every resource type has exactly one instance, a cycle in the resource-allocation graph is both necessary and sufficient for deadlock. (With multiple instances, a cycle is necessary but not sufficient — it may still be a safe state.)",
+    "distractorRationales": ["", "Full connectivity is not the criterion; a single cycle suffices.", "The relative counts of processes and resources do not determine deadlock by themselves.", "A graph with no edges has no allocations or requests, so no deadlock."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "The 'wait()' (P) operation on a counting semaphore S does which of the following atomically?",
+    "options": ["Decrements S; if S becomes negative, blocks the calling process", "Increments S and wakes a process", "Sets S to zero", "Spins until S equals N"],
+    "correctIndex": 0,
+    "explanation": "wait()/P atomically decrements the semaphore; if the value goes below zero the calling process is blocked and placed on the semaphore's queue. signal()/V increments and, if processes are waiting, wakes one. Atomicity is essential to avoid races on the counter.",
+    "distractorRationales": ["", "Incrementing and waking is the signal()/V operation, not wait().", "wait() decrements by one; it does not reset S to zero.", "A correctly implemented semaphore blocks rather than busy-spins."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "easy",
+    "questionText": "Spinlocks (busy-waiting locks) are most appropriate when:",
+    "options": ["The expected wait is very short and on a multiprocessor", "The critical section is very long", "On a uniprocessor with no preemption", "Threads will block for I/O"],
+    "correctIndex": 0,
+    "explanation": "Spinlocks busy-wait, wasting CPU cycles while spinning, so they pay off only when the lock is held very briefly and another core can release it — i.e., short critical sections on a multiprocessor. For long waits or uniprocessors, blocking locks are better.",
+    "distractorRationales": ["", "For long critical sections, spinning wastes too much CPU; a blocking lock is preferable.", "On a uniprocessor, spinning blocks the only CPU that could release the lock — wasteful.", "If threads block for I/O, a blocking primitive is appropriate, not a spinlock."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "hard",
+    "questionText": "Breaking the 'hold-and-wait' condition for deadlock prevention can be achieved by:",
+    "options": ["Requiring a process to request all its resources at once before starting (or hold none while waiting)", "Numbering resources and requesting in order", "Preempting resources from blocked processes", "Detecting cycles periodically"],
+    "correctIndex": 0,
+    "explanation": "Hold-and-wait is eliminated by ensuring a process never holds some resources while waiting for others — e.g., it must request its entire resource set up front, or release everything before requesting more. The downside is low resource utilization and possible starvation.",
+    "distractorRationales": ["", "Ordered numbered requests break circular wait, a different condition.", "Resource preemption breaks the no-preemption condition, not hold-and-wait.", "Periodic cycle detection is deadlock detection, not prevention of hold-and-wait."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "Peterson's solution to the two-process critical-section problem uses which shared variables?",
+    "options": ["A 'turn' variable and a 'flag' (interested) array", "A single counting semaphore", "A hardware test-and-set register", "A monitor with condition variables"],
+    "correctIndex": 0,
+    "explanation": "Peterson's algorithm uses a shared 'turn' variable and a boolean flag[2] array indicating each process's intent to enter. The combination guarantees mutual exclusion, progress, and bounded waiting for two processes using only ordinary shared memory (assuming no instruction reordering).",
+    "distractorRationales": ["", "Peterson's is a software solution using plain variables, not a semaphore.", "Test-and-set is a hardware-based alternative, not what Peterson's uses.", "Monitors are a higher-level construct; Peterson's is a low-level software algorithm."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "easy",
+    "questionText": "Deadlock detection (as opposed to prevention/avoidance) allows deadlocks to happen and then:",
+    "options": ["Periodically checks for them and invokes recovery (e.g., abort or preempt) when found", "Statically forbids one Coffman condition", "Refuses every resource request", "Guarantees they never form"],
+    "correctIndex": 0,
+    "explanation": "The detection-and-recovery strategy lets the system enter deadlock, runs a detection algorithm (e.g., wait-for-graph cycle search) periodically, and recovers by aborting processes or preempting resources when a deadlock is found. It avoids the overhead/restrictions of prevention and avoidance.",
+    "distractorRationales": ["", "Statically forbidding a Coffman condition is prevention, not detection.", "Refusing every request would halt the system; detection does not do this.", "Detection does not prevent formation; that is prevention/avoidance."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "synchronization-deadlocks",
+    "difficulty": "medium",
+    "questionText": "Why can using semaphores incorrectly (e.g., calling signal() before wait(), or omitting one) be dangerous?",
+    "options": ["It can cause violations of mutual exclusion or deadlock, and such bugs are hard to reproduce", "It always crashes immediately", "It improves performance", "It automatically aborts the program"],
+    "correctIndex": 0,
+    "explanation": "Semaphore misuse — swapped operations, missing signal() leaving a lock held forever, or double-wait — can break mutual exclusion or deadlock the system. Because they depend on timing/interleaving, such bugs are intermittent and hard to reproduce, motivating higher-level constructs like monitors.",
+    "distractorRationales": ["", "Such bugs often manifest intermittently, not as an immediate guaranteed crash.", "Incorrect synchronization harms correctness, not performance positively.", "The runtime does not automatically detect and abort on semaphore misuse."]
+  }
+]

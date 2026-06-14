@@ -1,0 +1,182 @@
+[
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "easy",
+    "questionText": "In the minimax algorithm for a two-player zero-sum game, the MAX player chooses the move with the ____ value and the MIN player chooses the move with the ____ value.",
+    "options": ["maximum; minimum", "minimum; maximum", "average; maximum", "random; minimum"],
+    "correctIndex": 0,
+    "explanation": "Minimax assumes both players play optimally for themselves: MAX picks the child with the highest backed-up value, and MIN picks the child with the lowest, since one player's gain is the other's loss in a zero-sum game.",
+    "distractorRationales": ["", "This reverses the roles; MAX maximizes and MIN minimizes.", "MAX does not average its children; it takes the maximum.", "Minimax assumes optimal (not random) play by both sides."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "Alpha-beta pruning returns a result that, compared with full minimax, is:",
+    "options": ["Exactly the same optimal value, just computed by examining fewer nodes", "An approximation that may differ from minimax", "Always larger than the minimax value", "Only correct for MAX nodes"],
+    "correctIndex": 0,
+    "explanation": "Alpha-beta pruning is a sound optimization: it prunes branches that cannot affect the final decision, so it computes the identical minimax value while skipping provably irrelevant subtrees. It never changes the result, only the work done.",
+    "distractorRationales": ["", "It is exact, not approximate; the value matches minimax.", "It returns the same value, neither larger nor smaller.", "It is correct for both MAX and MIN nodes."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "In alpha-beta pruning, α represents the best value found so far for MAX and β the best for MIN. A branch is pruned (a cutoff occurs) when:",
+    "options": ["α ≥ β", "α < β", "α = 0", "β = ∞"],
+    "correctIndex": 0,
+    "explanation": "When α ≥ β, the current node cannot improve the outcome for the player to move, because the opponent already has a better alternative elsewhere; the remaining children are irrelevant and can be pruned. While α < β, the window is still open and search continues.",
+    "distractorRationales": ["", "α < β means the search window is still open, so no cutoff occurs.", "α = 0 is just a particular value and does not by itself signal a cutoff.", "β = ∞ is the initial value at the root, not a pruning condition."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "hard",
+    "questionText": "For games with chance nodes (e.g., backgammon), the appropriate generalization of minimax is:",
+    "options": ["Expectiminimax, which takes expected values at chance nodes", "Plain minimax, ignoring the dice", "Greedy best-first search", "Uniform-cost search"],
+    "correctIndex": 0,
+    "explanation": "Expectiminimax adds chance nodes whose value is the probability-weighted average (expected value) of their children, alternating with MAX and MIN layers. This correctly accounts for stochastic outcomes like dice rolls that plain minimax cannot model.",
+    "distractorRationales": ["", "Plain minimax cannot represent random outcomes and would mis-evaluate chance nodes.", "Greedy best-first is a single-agent search method, not for adversarial chance games.", "Uniform-cost search is uninformed single-agent search, irrelevant here."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "easy",
+    "questionText": "A 'ply' in game-tree terminology refers to:",
+    "options": ["One move by one player (one level of the game tree)", "A full round where both players move", "A leaf node's value", "The branching factor"],
+    "correctIndex": 0,
+    "explanation": "A ply is a single level of the game tree — one move by one player. A 'move' in common usage sometimes means a full round (two plies), so AI texts use 'ply' to avoid ambiguity.",
+    "distractorRationales": ["", "Both players moving is two plies, not one.", "A leaf value is an evaluation, not a ply.", "The branching factor counts moves per node, not a tree level."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "Because full game trees are usually too large to search to the end, real game-playing programs apply a cutoff depth and then use a(n):",
+    "options": ["Evaluation (heuristic) function to estimate the utility of non-terminal positions", "Random number to pick a move", "Breadth-first expansion to the leaves", "Admissible heuristic guaranteeing the win"],
+    "correctIndex": 0,
+    "explanation": "When search is cut off before terminal states, a static evaluation function estimates how good a non-terminal position is (e.g., material and position in chess). Minimax then backs up these estimates instead of true terminal utilities.",
+    "distractorRationales": ["", "Random move selection abandons the strategic value of search.", "Reaching the actual leaves is precisely what is infeasible, motivating the cutoff.", "No heuristic can guarantee a win in general adversarial play; evaluation only estimates."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "hard",
+    "questionText": "With perfect move ordering, alpha-beta pruning lets minimax search effectively to a depth that, for the same node budget, is approximately:",
+    "options": ["Twice as deep as plain minimax", "The same depth as plain minimax", "Half as deep as plain minimax", "Unboundedly deep"],
+    "correctIndex": 0,
+    "explanation": "With ideal ordering, alpha-beta examines about O(b^(m/2)) leaves instead of O(b^m), effectively halving the exponent. For a fixed number of nodes, that allows searching roughly twice as deep as plain minimax.",
+    "distractorRationales": ["", "Plain minimax searches shallower for the same budget; alpha-beta improves on it.", "Alpha-beta searches deeper, not shallower, than plain minimax.", "It is still bounded by the node budget; the gain is a factor of two in depth, not unbounded."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "The effectiveness of alpha-beta pruning depends heavily on move ordering. The WORST-case ordering causes it to:",
+    "options": ["Examine essentially the same number of nodes as plain minimax (O(b^m))", "Find the optimal move in O(1)", "Prune the entire tree", "Become incorrect"],
+    "correctIndex": 0,
+    "explanation": "If the best moves are examined last at every node, no cutoffs occur and alpha-beta degenerates to plain minimax, evaluating O(b^m) nodes. Good ordering (best moves first) is what achieves the O(b^(m/2)) best case. Correctness is never affected by ordering.",
+    "distractorRationales": ["", "Pruning cannot make the search O(1); it must still evaluate relevant nodes.", "Worst-case ordering prunes nothing, not the whole tree.", "Ordering changes efficiency, never correctness — the value is always exact."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "easy",
+    "questionText": "In a zero-sum two-player game, the relationship between the two players' utilities at any terminal state is:",
+    "options": ["They sum to a constant (one player's gain equals the other's loss)", "They are always equal", "They are independent", "They are both maximized together"],
+    "correctIndex": 0,
+    "explanation": "In a zero-sum (more generally, constant-sum) game, the players' payoffs sum to a constant, so improving one player's utility necessarily reduces the other's. This opposition is what makes minimax the appropriate optimal strategy.",
+    "distractorRationales": ["", "Equal utilities would mean cooperation, not opposition.", "The payoffs are strictly opposed, not independent.", "Both cannot be maximized together in a zero-sum game; gains are traded off."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "hard",
+    "questionText": "Monte Carlo Tree Search (MCTS), used in strong Go programs, estimates move quality primarily by:",
+    "options": ["Running many random playouts (simulations) and averaging their outcomes", "Computing exact minimax values to the end", "Using a single admissible heuristic", "Pruning with alpha-beta only"],
+    "correctIndex": 0,
+    "explanation": "MCTS builds its tree by repeatedly selecting promising nodes (balancing exploration/exploitation via UCT), expanding, simulating random playouts to the end, and backpropagating the win/loss statistics. It needs no hand-crafted evaluation function and scales to huge branching factors like Go's.",
+    "distractorRationales": ["", "Exact minimax to terminal states is infeasible in games like Go — the reason MCTS is used.", "MCTS aggregates many simulations rather than relying on one heuristic value.", "Alpha-beta pruning is a different technique; MCTS uses sampling, not exhaustive pruning."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "The UCT formula in MCTS selects child nodes to balance:",
+    "options": ["Exploitation (high average value) and exploration (rarely-visited nodes)", "Memory and CPU usage", "Admissibility and consistency", "Alpha and beta windows"],
+    "correctIndex": 0,
+    "explanation": "UCT (Upper Confidence bounds applied to Trees) adds an exploration bonus that grows for less-visited children to the exploitation term (their average reward). This balances trying known-good moves against exploring uncertain ones, treating selection like a multi-armed bandit problem.",
+    "distractorRationales": ["", "UCT is about value vs visit count, not directly memory vs CPU.", "Admissibility/consistency are heuristic-search properties, not part of UCT.", "Alpha and beta are alpha-beta pruning concepts, not MCTS selection."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "easy",
+    "questionText": "Minimax search performs the backing-up of values using which traversal of the game tree?",
+    "options": ["A depth-first traversal, computing leaf evaluations then propagating up", "A breadth-first traversal level by level", "A random sampling of nodes", "A greedy single-path descent"],
+    "correctIndex": 0,
+    "explanation": "Minimax is naturally implemented as a depth-first recursion: it descends to terminal (or cutoff) nodes, evaluates them, and backs up min/max values to parents on the way out. This also enables alpha-beta's left-to-right pruning.",
+    "distractorRationales": ["", "Breadth-first would require storing the whole frontier and does not match the recursive backing-up.", "Minimax evaluates the relevant tree systematically, not by random sampling (that is MCTS).", "It must explore the subtree, not just one greedy path."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "hard",
+    "questionText": "The 'horizon effect' in depth-limited game search refers to:",
+    "options": ["A damaging event being pushed just beyond the search depth, so the program mistakenly thinks it has avoided it", "The branching factor exceeding memory", "The evaluation function being admissible", "Alpha-beta pruning failing to terminate"],
+    "correctIndex": 0,
+    "explanation": "The horizon effect occurs when the program makes delaying moves that push an unavoidable loss past its search horizon; the evaluation at the cutoff looks fine, but the bad outcome is merely hidden beyond the depth limit. Quiescence search mitigates it by extending search in volatile positions.",
+    "distractorRationales": ["", "It is about hidden future events, not memory limits.", "It is unrelated to whether the evaluation function is admissible.", "Alpha-beta still terminates; the issue is the depth cutoff masking outcomes."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "Quiescence search is applied at the leaves of a depth-limited game search to:",
+    "options": ["Extend search through 'noisy' positions (e.g., ongoing captures) until a stable position is reached", "Randomly shuffle the move order", "Replace minimax with expectimax", "Guarantee an optimal full-game solution"],
+    "correctIndex": 0,
+    "explanation": "Quiescence search continues searching beyond the nominal depth limit while the position is tactically volatile (captures, checks), evaluating only relatively 'quiet' positions. This reduces the horizon effect by avoiding evaluations in the middle of a tactical sequence.",
+    "distractorRationales": ["", "It selectively extends search in unstable positions, not shuffles move order.", "It does not switch the algorithm to expectimax; it extends evaluation depth.", "It improves evaluation quality but does not guarantee a full-game optimal solution."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "easy",
+    "questionText": "In expectiminimax, the value of a chance node with children values v1, v2, v3 and probabilities p1, p2, p3 is:",
+    "options": ["p1·v1 + p2·v2 + p3·v3 (the expected value)", "max(v1, v2, v3)", "min(v1, v2, v3)", "the median of v1, v2, v3"],
+    "correctIndex": 0,
+    "explanation": "A chance node represents a random event, so its backed-up value is the probability-weighted average (expectation) of its children's values: Σ pi·vi. MAX and MIN nodes still take the max and min respectively.",
+    "distractorRationales": ["", "Taking the max would model an optimizing player, not random chance.", "Taking the min would model an adversary, not chance.", "The median ignores the probabilities and is not the expected value."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "A transposition table is used in game-tree search to:",
+    "options": ["Cache values of positions reachable by different move orders, avoiding redundant re-search", "Order the moves alphabetically", "Store the opening book only", "Replace the evaluation function"],
+    "correctIndex": 0,
+    "explanation": "Many games reach the same position via different move sequences (transpositions). A transposition table (a hash of positions to their computed values/bounds) lets the search reuse prior results instead of re-exploring identical subtrees, greatly improving efficiency.",
+    "distractorRationales": ["", "It hashes board positions, not alphabetical move ordering.", "It caches search results broadly, not just opening-book moves.", "It complements, but does not replace, the evaluation function."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "hard",
+    "questionText": "Why does alpha-beta pruning require the same correct result regardless of how aggressively it prunes?",
+    "options": ["It only prunes branches that provably cannot change the value at an ancestor decision node", "It prunes randomly but corrects errors later", "It evaluates every leaf anyway", "It uses averaging to smooth out pruned values"],
+    "correctIndex": 0,
+    "explanation": "A cutoff happens only when the current bounds (α, β) prove that the remaining children cannot affect the chosen value at a relevant ancestor — the pruned subtree is provably irrelevant. Hence the final minimax value is unchanged, no matter the ordering or how much is pruned.",
+    "distractorRationales": ["", "Pruning is deterministic and provably safe, not random with later correction.", "It deliberately does NOT evaluate every leaf — that is the whole point of pruning.", "It does not average pruned values; it simply skips provably irrelevant ones."]
+  },
+  {
+    "course": "artificial-intelligence",
+    "subtopic": "adversarial-search-games",
+    "difficulty": "medium",
+    "questionText": "In a deterministic, perfect-information, zero-sum game (e.g., chess or tic-tac-toe), minimax with sufficient depth computes a strategy that is:",
+    "options": ["Optimal against an optimal opponent (it achieves the game-theoretic value)", "Optimal only against a random opponent", "Guaranteed to win every game", "Dependent on chance outcomes"],
+    "correctIndex": 0,
+    "explanation": "Minimax assumes a best-playing opponent and computes the move that maximizes the guaranteed outcome — the game's minimax value. It is optimal against an optimal opponent; it cannot guarantee a win if the game is a theoretical draw or loss, and these games have no chance element.",
+    "distractorRationales": ["", "Minimax is optimal against optimal play; against a random opponent it is at least as good but the analysis differs.", "It cannot win games that are theoretically drawn or lost with best play.", "These are deterministic games with no chance outcomes."]
+  }
+]

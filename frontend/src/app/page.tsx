@@ -1,13 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
   GraduationCap,
   Loader2,
   RotateCcw,
+  Sparkles,
   Timer,
   Zap,
 } from "lucide-react";
@@ -16,11 +17,16 @@ import {
   getCourses,
   getSubtopics,
   startQuiz,
+  fillQuiz,
+  getJob,
   type RequestDifficulty,
   type QuizMode,
+  type JobProgress,
+  type JobStatus,
   ApiError,
   API_BASE_URL,
 } from "@/lib/api";
+import { Progress } from "@/components/ui/progress";
 import { useQuizStore } from "@/store/quiz";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -36,6 +42,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 const WHOLE_COURSE = "__whole__";
+const COUNTS = [5, 10, 20, 30, 40];
 const DIFFICULTIES: RequestDifficulty[] = ["easy", "medium", "hard", "random"];
 
 export default function ConfigPage() {
@@ -57,39 +64,134 @@ export default function ConfigPage() {
 
   const course = courses.data?.find((c) => c.slug === courseSlug);
   const wholeCourse = subtopicId === WHOLE_COURSE;
-  const countOptions = useMemo(
-    () => (wholeCourse ? [10, 20, 30, 40, 50] : [10, 20, 30, 40]),
-    [wholeCourse],
-  );
 
-  // 50 is whole-course only; clamp when narrowing scope to a subtopic.
   const changeSubtopic = (v: string | null) => {
-    const next = v ?? WHOLE_COURSE;
-    setSubtopicId(next);
-    if (next !== WHOLE_COURSE && count === 50) setCount(40);
+    setSubtopicId(v ?? WHOLE_COURSE);
   };
 
-  const start = useMutation({
-    mutationFn: () =>
-      startQuiz({
+  const [starting, setStarting] = useState(false);
+  const [gen, setGen] = useState<JobProgress | null>(null);
+  // Seconds since generation started — a heartbeat so the wait never looks
+  // frozen during a (~40s) batch where the percent can't move.
+  const [elapsed, setElapsed] = useState(0);
+  // Set when the user cancels generation; stops polling and aborts the start.
+  const cancelled = useRef(false);
+
+  useEffect(() => {
+    if (!gen) return;
+    setElapsed(0);
+    const id = window.setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => window.clearInterval(id);
+  }, [gen !== null]); // restart the ticker only when generation starts/stops
+
+  // Start a session and navigate. `target` (when set) reports how many were
+  // requested, so we can toast if generation came up short. Never throws.
+  async function beginQuiz(subId: string | null, target?: number) {
+    try {
+      const res = await startQuiz({
         courseId: course!.id,
-        subtopicId: wholeCourse ? null : subtopicId,
+        subtopicId: subId,
         count,
         difficulty,
         mode,
-      }),
-    onSuccess: (res) => {
+      });
+      if (target !== undefined && res.count < target) {
+        toast.message(`Starting with ${res.count} of ${target} questions.`);
+      }
       initSession(res);
       router.push("/quiz/");
-    },
-    onError: (err) => {
+    } catch (err) {
+      // One toast id → repeated taps replace rather than stack.
       if (err instanceof ApiError && err.status === 404) {
-        toast.error("No questions available yet for this selection.");
+        toast.error("No questions available yet for this selection.", {
+          id: "start-error",
+        });
       } else {
-        toast.error("Could not start the quiz. Is the backend running?");
+        toast.error("Could not start the quiz. Server error.", {
+          id: "start-error",
+        });
       }
-    },
-  });
+    }
+  }
+
+  // Poll a generation job until done/error (or the user cancels → null).
+  function pollJob(jobId: string): Promise<JobStatus | null> {
+    return new Promise((resolve) => {
+      const tick = async () => {
+        if (cancelled.current) return resolve(null);
+        try {
+          const s = await getJob(jobId);
+          if (cancelled.current) return resolve(null);
+          if (s.progress) setGen(s.progress);
+          if (s.status === "done" || s.status === "error") return resolve(s);
+        } catch {
+          /* transient network blip — keep polling */
+        }
+        window.setTimeout(tick, 1500);
+      };
+      void tick();
+    });
+  }
+
+  // Abandon an in-flight generation and return to the config form. The
+  // backend job keeps running, so the questions it makes are cached for later.
+  function cancelGeneration() {
+    cancelled.current = true;
+    setGen(null);
+    setStarting(false);
+  }
+
+  async function handleStart() {
+    if (!course || starting) return;
+    cancelled.current = false;
+    setStarting(true);
+    const subId = wholeCourse ? null : subtopicId;
+    try {
+      // Whole-course: serve whatever exists, instantly (never generates).
+      if (!subId) {
+        await beginQuiz(subId);
+        return;
+      }
+      const fill = await fillQuiz({
+        courseId: course.id,
+        subtopicId: subId,
+        count,
+        difficulty,
+      }).catch(() => null);
+      if (!fill) {
+        toast.error("Could not start the quiz. Server error.", {
+          id: "start-error",
+        });
+        return;
+      }
+      if (fill.ready) {
+        await beginQuiz(subId);
+        return;
+      }
+      // Short on questions → generate the remainder with a progress bar.
+      setGen({
+        done: fill.available,
+        target: fill.target,
+        percent: Math.round((fill.available * 100) / fill.target),
+      });
+      const job = await pollJob(fill.jobId!);
+      if (job === null) return; // user cancelled
+      if (job.status === "error" && fill.available === 0) {
+        toast.error(
+          "Sorry — couldn't generate questions right now. Please try again in a bit.",
+          { id: "start-error" },
+        );
+        return;
+      }
+      // Start with whatever exists now (available + freshly generated).
+      await beginQuiz(subId, fill.target);
+    } finally {
+      if (!cancelled.current) {
+        setStarting(false);
+        setGen(null);
+      }
+    }
+  }
 
   // Backend unreachable → don't show an empty, mysterious form.
   if (courses.isError) {
@@ -147,8 +249,46 @@ export default function ConfigPage() {
     );
   }
 
+  // Generating fill questions → dedicated waiting screen with a progress bar.
+  if (gen) {
+    return (
+      <Shell>
+        <div
+          data-testid="generating"
+          className="mt-10 flex flex-col items-center gap-4 rounded-2xl border bg-card p-8 text-center"
+        >
+          <Sparkles className="size-9 animate-pulse text-primary" />
+          <div className="flex flex-col gap-1">
+            <p className="font-semibold">Generating questions…</p>
+            <p className="text-sm text-muted-foreground">
+              Writing fresh questions in small batches and checking each answer.
+              This can take a minute on the free tier.
+            </p>
+          </div>
+          <Progress value={gen.percent} className="w-full" />
+          <p className="text-sm tabular-nums text-muted-foreground">
+            {gen.done} / {gen.target} ({gen.percent}%)
+          </p>
+          <p className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Loader2 className="size-4 animate-spin" />
+            Working on the next batch… {elapsed}s
+          </p>
+          <Button
+            variant="outline"
+            data-testid="cancel-generation"
+            className="mt-2 w-full"
+            onClick={cancelGeneration}
+          >
+            Cancel
+          </Button>
+        </div>
+      </Shell>
+    );
+  }
+
   return (
     <Shell>
+      <div className="flex flex-col gap-5 rounded-2xl border bg-card p-5 shadow-sm">
       {/* Course */}
       <section className="flex flex-col gap-2">
         <Label htmlFor="course-select">Course</Label>
@@ -156,13 +296,14 @@ export default function ConfigPage() {
           <Skeleton data-testid="course-skeleton" className="h-12 w-full rounded-md" />
         ) : (
           <Select
-            value={courseSlug ?? undefined}
+            items={courses.data?.map((c) => ({ value: c.slug, label: c.name }))}
+            value={courseSlug}
             onValueChange={(v) => {
               setCourseSlug(v);
               setSubtopicId(WHOLE_COURSE);
             }}
           >
-            <SelectTrigger id="course-select" data-testid="course-select" className="h-12">
+            <SelectTrigger id="course-select" data-testid="course-select" className="h-12 w-full">
               <SelectValue placeholder="Choose a course" />
             </SelectTrigger>
             <SelectContent>
@@ -180,11 +321,16 @@ export default function ConfigPage() {
       <section className="flex flex-col gap-2">
         <Label htmlFor="subtopic-select">Subtopic</Label>
         <Select
+          items={[
+            { value: WHOLE_COURSE, label: "Whole course" },
+            ...(subtopics.data?.map((s) => ({ value: s.id, label: s.name })) ??
+              []),
+          ]}
           value={subtopicId}
           onValueChange={changeSubtopic}
           disabled={!courseSlug || subtopics.isLoading}
         >
-          <SelectTrigger id="subtopic-select" data-testid="subtopic-select" className="h-12">
+          <SelectTrigger id="subtopic-select" data-testid="subtopic-select" className="h-12 w-full">
             <SelectValue
               placeholder={subtopics.isLoading ? "Loading…" : "Whole course"}
             />
@@ -205,7 +351,7 @@ export default function ConfigPage() {
         <Label>Questions</Label>
         <Segmented
           testid="count"
-          options={countOptions}
+          options={COUNTS}
           value={count}
           onChange={setCount}
         />
@@ -244,16 +390,17 @@ export default function ConfigPage() {
           />
         </div>
       </section>
+      </div>
 
-      <div className="hide-on-keyboard safe-bottom [--safe-pad-bottom:1.25rem] fixed inset-x-0 bottom-0 mx-auto max-w-md p-5">
+      <div className="hide-on-keyboard safe-bottom [--safe-pad-bottom:1.25rem] fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md border-t border-border/60 bg-background/80 p-5 backdrop-blur-md">
         <Button
           data-testid="start-quiz"
           size="lg"
           className="h-14 w-full text-base"
-          disabled={!course || start.isPending}
-          onClick={() => start.mutate()}
+          disabled={!course || starting}
+          onClick={handleStart}
         >
-          {start.isPending ? (
+          {starting ? (
             <Loader2 className="size-5 animate-spin" />
           ) : (
             "Start quiz"
@@ -266,15 +413,17 @@ export default function ConfigPage() {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <main className="safe-top [--safe-pad-top:1.25rem] mx-auto flex min-h-dvh max-w-md flex-col gap-6 p-5 pb-24">
-      <header className="flex items-center gap-3 pt-2">
-        <GraduationCap className="size-8 text-primary" />
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col">
+      <header className="safe-top [--safe-pad-top:0.5rem] sticky top-0 z-30 flex items-center gap-3 border-b border-border/60 bg-background/75 px-5 py-3 backdrop-blur-md">
+        <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+          <GraduationCap className="size-6" />
+        </div>
         <div>
-          <h1 className="text-2xl font-bold leading-tight">Aurora Hub</h1>
-          <p className="text-sm text-muted-foreground">Build your quiz</p>
+          <h1 className="text-xl font-bold leading-tight">Aurora Hub</h1>
+          <p className="text-xs text-muted-foreground">Build your quiz</p>
         </div>
       </header>
-      {children}
+      <div className="flex flex-1 flex-col gap-6 p-5 pb-28">{children}</div>
     </main>
   );
 }

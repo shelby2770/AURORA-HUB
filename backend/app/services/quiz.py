@@ -28,6 +28,17 @@ def _base_match(
     return match
 
 
+async def count_available(
+    course_id: PydanticObjectId,
+    subtopic_id: PydanticObjectId | None,
+    difficulty: Difficulty | None,
+) -> int:
+    """Number of verified questions matching a scope/difficulty (serving filter)."""
+    return await Question.find(
+        _base_match(course_id, subtopic_id, difficulty)
+    ).count()
+
+
 async def _sample(match: dict, size: int) -> list[Question]:
     if size <= 0:
         return []

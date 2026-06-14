@@ -1,0 +1,182 @@
+[
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "easy",
+    "questionText": "Demand paging loads a page into memory:",
+    "options": ["Only when it is first referenced (a page fault brings it in)", "All at once when the process starts", "Only at process termination", "Never — pages stay on disk"],
+    "correctIndex": 0,
+    "explanation": "Demand paging brings a page into memory lazily, the first time the process references it; the reference to an absent page triggers a page fault that loads it. This avoids loading pages that are never used, reducing startup time and memory pressure.",
+    "distractorRationales": ["", "Loading everything at start is pre-paging, not demand paging.", "Pages must be loaded before use, not at termination.", "Pages are brought into memory on demand to be executed/accessed."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "Belady's anomaly is the counterintuitive phenomenon where:",
+    "options": ["Increasing the number of frames increases the number of page faults (for FIFO)", "Adding frames always reduces faults", "LRU faults more than FIFO", "Page size has no effect on faults"],
+    "correctIndex": 0,
+    "explanation": "Belady's anomaly: for FIFO replacement, giving a process more frames can sometimes increase the page-fault count for certain reference strings. Stack algorithms like LRU and OPT never exhibit it because their resident set with k frames is always a subset of that with k+1 frames.",
+    "distractorRationales": ["", "The anomaly is precisely that adding frames does NOT always reduce faults under FIFO.", "LRU does not generally fault more than FIFO; LRU is immune to the anomaly.", "Page size does affect fault behavior; the anomaly is about frame count under FIFO."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "For the reference string 7,0,1,2,0,3,0,4 with 3 frames (initially empty) using OPTIMAL (Belady's) replacement, how many page faults occur?",
+    "options": ["6", "5", "7", "8"],
+    "correctIndex": 0,
+    "explanation": "Optimal replaces the page not needed for the longest future time. Faults: 7(F),0(F),1(F) fill frames [7,0,1]; 2(F) replaces 7 → [2,0,1]; 0 hit; 3(F) replaces 1 (1 not used again) → [2,0,3]; 0 hit; 4(F) replaces 2 → [4,0,3]. Faults at 7,0,1,2,3,4 = 6.",
+    "distractorRationales": ["", "5 undercounts; there are six distinct misses including the four initial loads after the first.", "7 overcounts by replacing a page that yields an extra fault not required by optimal.", "8 would mean every reference faults, but there are two hits (the repeated 0s)."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "The 'second-chance' (clock) page-replacement algorithm approximates LRU by:",
+    "options": ["Using the reference bit: a page with reference bit 1 is given a second chance (bit cleared) instead of being replaced", "Always replacing the most recently used page", "Replacing pages at random", "Counting exact last-use timestamps"],
+    "correctIndex": 0,
+    "explanation": "Second-chance scans pages in FIFO order; if a candidate's reference bit is 1, it is cleared and the page is skipped (given a second chance); the first page found with reference bit 0 is replaced. This cheaply approximates LRU using just the hardware reference bit.",
+    "distractorRationales": ["", "Replacing the most recently used page is the opposite of LRU's intent.", "Second-chance is deterministic, not random replacement.", "It avoids the cost of exact timestamps by using the single reference bit."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "easy",
+    "questionText": "Thrashing occurs when:",
+    "options": ["A process spends more time paging (servicing page faults) than executing", "The CPU runs at full utilization with no faults", "The disk is idle", "Too few processes are in memory"],
+    "correctIndex": 0,
+    "explanation": "Thrashing happens when processes do not have enough frames to hold their working sets, so they constantly fault, evicting pages they will soon need again. The system spends most of its time swapping pages and little doing useful work; CPU utilization collapses.",
+    "distractorRationales": ["", "High useful utilization with no faults is the opposite of thrashing.", "During thrashing the disk is extremely busy with paging, not idle.", "Thrashing arises from too MANY active processes competing for frames, not too few."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "For the reference string 1,2,3,4,1,2,5,1,2,3,4,5 with 4 frames using LRU, how many page faults occur?",
+    "options": ["8", "6", "10", "12"],
+    "correctIndex": 0,
+    "explanation": "Tracking LRU (4 frames): 1,2,3,4 → 4 faults [frames {1,2,3,4}]. 1 hit, 2 hit. 5 → fault, evict LRU 3 → {1,2,4,5}. 1 hit, 2 hit. 3 → fault, evict LRU 4 → {1,2,5,3}. 4 → fault, evict LRU 5 → {1,2,3,4}. 5 → fault, evict LRU 1 → {2,3,4,5}. Faults at 1,2,3,4,5,3,4,5 = 8 total.",
+    "distractorRationales": ["", "6 undercounts the evict/reload cycles for pages 3 and 4 near the end.", "10 overcounts; several references (the early repeats of 1 and 2) are hits.", "12 would mean every reference faults, but there are clear hits."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "The working-set model controls thrashing by:",
+    "options": ["Ensuring each process has enough frames to hold the pages it has referenced in a recent window", "Giving every process exactly one frame", "Disabling demand paging", "Replacing pages at random"],
+    "correctIndex": 0,
+    "explanation": "The working set is the set of pages a process referenced in the last Δ references (its locality). By allocating each process enough frames for its working set and suspending processes when total demand exceeds available frames, the OS prevents thrashing.",
+    "distractorRationales": ["", "One frame per process would cause severe faulting, not prevent thrashing.", "Disabling demand paging is impractical and not how the working-set model operates.", "Random replacement does not address the locality issue that causes thrashing."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "easy",
+    "questionText": "When a page fault occurs and a frame must be freed, the modify (dirty) bit is used to:",
+    "options": ["Decide whether the evicted page must be written back to disk", "Choose which process to run next", "Mark the page as read-only", "Increase the page size"],
+    "correctIndex": 0,
+    "explanation": "If the victim page's dirty bit is set (it was modified in memory), it must be written back to disk before its frame is reused; if clean (unmodified), the copy on disk is current and the write-back is skipped, saving an I/O. This optimization halves replacement cost for clean pages.",
+    "distractorRationales": ["", "Process scheduling is unrelated to the dirty bit.", "Read-only status is a protection bit, not the dirty bit.", "The dirty bit does not affect page size."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "The effective access time with demand paging is given by (1-p)·ma + p·(page-fault time), where p is the fault rate and ma the memory-access time. If ma = 200 ns, page-fault service time = 8 ms, and we want effective access time ≤ 220 ns, the maximum acceptable fault rate p is about:",
+    "options": ["~0.0000025 (1 in 400,000)", "0.1", "0.01", "0.5"],
+    "correctIndex": 0,
+    "explanation": "220 ≥ (1-p)·200 + p·8,000,000 ≈ 200 + p·8,000,000. So 20 ≥ p·8,000,000, giving p ≤ 20 / 8,000,000 = 2.5×10^-6, i.e., about one fault per 400,000 accesses. This illustrates how rare page faults must be to keep overhead small.",
+    "distractorRationales": ["", "p = 0.1 would make the effective time roughly 800,000 ns, vastly over the limit.", "p = 0.01 still yields ~80,200 ns, far above 220 ns.", "p = 0.5 is enormous; the effective time would be in the milliseconds."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "Why does LRU never suffer Belady's anomaly?",
+    "options": ["It is a stack algorithm: the set of pages with n frames is always a subset of the set with n+1 frames", "It uses FIFO ordering", "It replaces random pages", "It ignores reference history"],
+    "correctIndex": 0,
+    "explanation": "LRU is a 'stack algorithm': for any reference prefix, the resident pages with n frames are always contained in the resident pages with n+1 frames. This inclusion property guarantees that adding frames cannot increase faults, so Belady's anomaly cannot occur (unlike FIFO).",
+    "distractorRationales": ["", "FIFO ordering is exactly what can cause the anomaly; LRU is different.", "Random replacement is not a stack algorithm and gives no such guarantee.", "LRU specifically uses recency-of-use history, the opposite of ignoring it."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "easy",
+    "questionText": "Virtual memory allows a process to:",
+    "options": ["Execute even when only part of it is in physical memory", "Use only as much memory as physically installed", "Avoid all disk usage", "Run without any address translation"],
+    "correctIndex": 0,
+    "explanation": "Virtual memory decouples logical address space from physical memory, letting a process run with only its actively used pages resident while the rest stay on disk (backing store). This supports programs larger than RAM and higher multiprogramming.",
+    "distractorRationales": ["", "Virtual memory lets programs exceed physical RAM, not be limited to it.", "It relies on disk as backing store, so it does not avoid disk usage.", "It requires address translation (page tables/TLB) to map virtual to physical addresses."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "Local page replacement vs global page replacement differ in that local replacement:",
+    "options": ["Selects a victim only from the faulting process's own frames", "Can take frames from any process", "Never causes page faults", "Requires the Banker's algorithm"],
+    "correctIndex": 0,
+    "explanation": "Under local replacement, a faulting process replaces only among its own allocated frames, so its fault behavior is independent of other processes. Global replacement may steal a frame from any process, allowing better overall utilization but making one process's performance depend on others.",
+    "distractorRationales": ["", "Taking frames from any process describes global replacement, not local.", "Local replacement still incurs page faults; it just limits where victims come from.", "The Banker's algorithm concerns deadlock avoidance, not page replacement."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "The optimal (OPT/MIN) page-replacement algorithm is not implementable in practice because it:",
+    "options": ["Requires knowledge of future references", "Uses too much memory", "Causes Belady's anomaly", "Cannot handle more than two frames"],
+    "correctIndex": 0,
+    "explanation": "OPT replaces the page that will not be used for the longest time in the future, which requires knowing the future reference string — impossible in a real system. It is used only as a theoretical lower bound to evaluate practical algorithms like LRU.",
+    "distractorRationales": ["", "Its impracticality is about needing the future, not memory usage.", "OPT is a stack algorithm and does not suffer Belady's anomaly.", "OPT works for any number of frames; that is not the obstacle."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "easy",
+    "questionText": "A 'page fault' is:",
+    "options": ["A trap that occurs when a referenced page is not currently in a physical frame", "A hardware disk failure", "A corruption of the page table", "An arithmetic overflow"],
+    "correctIndex": 0,
+    "explanation": "A page fault is the trap raised when a process accesses a page whose valid bit indicates it is not in memory. The OS's page-fault handler then locates the page on disk, brings it into a frame (possibly evicting another), updates the page table, and restarts the instruction.",
+    "distractorRationales": ["", "It is a normal, expected event in demand paging, not a disk hardware failure.", "It does not imply page-table corruption; the table correctly marks the page absent.", "It is unrelated to arithmetic overflow."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "hard",
+    "questionText": "Increasing the degree of multiprogramming beyond a certain point causes CPU utilization to suddenly DROP. This is because:",
+    "options": ["Processes no longer fit their working sets in memory and the system begins thrashing", "The CPU clock slows down", "There are too few processes to schedule", "Context switches become free"],
+    "correctIndex": 0,
+    "explanation": "Up to a point, more processes improve CPU utilization. Beyond it, the combined working sets exceed available frames, fault rates spike, processes spend their time waiting on paging I/O, and CPU utilization plummets — the onset of thrashing. The working-set or page-fault-frequency models limit multiprogramming to prevent this.",
+    "distractorRationales": ["", "The CPU clock rate is fixed; it does not slow with more processes.", "The drop happens with too many processes, not too few.", "Context switches are never free and increase with more processes."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "The page-fault frequency (PFF) scheme controls allocation by:",
+    "options": ["Adjusting a process's frame allocation up or down to keep its fault rate within an acceptable band", "Fixing every process to the same number of frames", "Replacing pages in FIFO order", "Disabling the TLB"],
+    "correctIndex": 0,
+    "explanation": "PFF monitors each process's page-fault rate: if it rises above an upper threshold, the process is given more frames; if it falls below a lower threshold, frames are reclaimed. This directly targets the symptom of thrashing (high fault rate) to keep the system balanced.",
+    "distractorRationales": ["", "Fixed equal allocation ignores differing working-set sizes, the problem PFF solves.", "FIFO is a replacement policy, not the PFF allocation control.", "PFF does not involve disabling the TLB."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "medium",
+    "questionText": "Which page-replacement algorithm requires hardware support of a reference bit but NOT exact timestamps?",
+    "options": ["Second-chance (clock)", "True LRU with a counter per access", "Optimal (OPT)", "Random with a hardware RNG"],
+    "correctIndex": 0,
+    "explanation": "Second-chance/clock needs only the single reference bit that most MMUs set on access — far cheaper than true LRU, which requires updating a timestamp or stack on every memory reference. OPT needs future knowledge; random needs no reference bit.",
+    "distractorRationales": ["", "True LRU requires per-access timestamps or a stack, which is the expensive support clock avoids.", "OPT needs future reference knowledge, not a reference bit.", "Random replacement does not use the reference bit at all."]
+  },
+  {
+    "course": "operating-systems",
+    "subtopic": "virtual-memory-page-replacement",
+    "difficulty": "easy",
+    "questionText": "Pre-paging (anticipatory paging) attempts to improve performance by:",
+    "options": ["Bringing in pages expected to be needed soon before they fault", "Delaying all page loads", "Removing the page table", "Disabling virtual memory"],
+    "correctIndex": 0,
+    "explanation": "Pre-paging loads a group of pages likely to be used (e.g., a process's anticipated working set at resume) before they are actually referenced, reducing the number of separate page faults. It can waste I/O if the prediction is wrong, so it trades fewer faults against possible wasted loads.",
+    "distractorRationales": ["", "Delaying loads is pure demand paging, the opposite of pre-paging.", "Pre-paging still uses the page table for mapping.", "It is an optimization within virtual memory, not a way to disable it."]
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "How many layers are there in the OSI reference model?",
+    "options": ["7", "5", "4", "6"],
+    "correctIndex": 0,
+    "explanation": "The OSI model has 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, and Application. The TCP/IP model condenses these into 4 (or 5) layers.",
+    "distractorRationales": ["", "5 is the common TCP/IP layering, not OSI.", "4 is the classic TCP/IP model count.", "6 is incorrect; OSI defines exactly 7 layers."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "Which OSI layer is responsible for end-to-end reliable delivery and flow control between processes?",
+    "options": ["Transport layer", "Network layer", "Data link layer", "Session layer"],
+    "correctIndex": 0,
+    "explanation": "The transport layer (e.g., TCP) provides process-to-process end-to-end delivery, reliability (retransmission), flow control, and (with TCP) congestion control. The network layer handles host-to-host routing; the data link layer handles node-to-node frames.",
+    "distractorRationales": ["", "The network layer does host-to-host routing, not end-to-end reliability between processes.", "The data link layer provides link-level (node-to-node) framing/error control, not end-to-end transport.", "The session layer manages dialogs/sessions, not reliable byte delivery."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "Encapsulation in a layered network model means each layer:",
+    "options": ["Adds its own header (and possibly trailer) to the data unit from the layer above", "Removes all headers", "Encrypts the entire packet", "Skips the layer below"],
+    "correctIndex": 0,
+    "explanation": "As data descends the stack, each layer wraps the upper layer's PDU with its own header (and the data link layer also adds a trailer), forming a new PDU. The receiver's peer layers strip these headers in reverse (decapsulation).",
+    "distractorRationales": ["", "Removing headers is decapsulation at the receiver, not encapsulation.", "Encapsulation is about adding headers, not necessarily encryption.", "Each layer passes its PDU to the adjacent layer below; it does not skip it."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "The protocol data unit (PDU) at the network layer is called a:",
+    "options": ["Packet (datagram)", "Frame", "Segment", "Bit"],
+    "correctIndex": 0,
+    "explanation": "Common PDU names: data link layer = frame, network layer = packet/datagram, transport layer = segment (TCP) or datagram (UDP), physical layer = bits. Knowing these distinguishes which layer is being discussed.",
+    "distractorRationales": ["", "A frame is the data link layer PDU.", "A segment is the transport layer (TCP) PDU.", "Bits are the physical layer's unit."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "hard",
+    "questionText": "An intermediate IP router, when forwarding a packet, normally processes up to which OSI layer?",
+    "options": ["Network layer (layer 3)", "Transport layer (layer 4)", "Application layer (layer 7)", "Physical layer (layer 1) only"],
+    "correctIndex": 0,
+    "explanation": "A traditional router operates up to layer 3: it examines the IP header to make routing/forwarding decisions, but does not process transport (TCP/UDP) or application data. (Switches operate at layer 2; firewalls/NAT may peek higher.)",
+    "distractorRationales": ["", "Routers do not normally process the transport layer; that is for end hosts (or deep-inspection middleboxes).", "Application-layer processing happens at end hosts, not at a basic router.", "A router must process up to layer 3, not just the physical layer."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "Which device operates primarily at the data link layer (layer 2)?",
+    "options": ["A switch (using MAC addresses)", "A router", "A repeater", "A DNS server"],
+    "correctIndex": 0,
+    "explanation": "A layer-2 switch forwards frames based on MAC addresses, learning which port each MAC is on. Routers operate at layer 3 (IP), repeaters/hubs at layer 1 (physical), and a DNS server is an application-layer service.",
+    "distractorRationales": ["", "A router operates at the network layer (layer 3).", "A repeater/hub works at the physical layer (layer 1).", "A DNS server provides an application-layer service."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "The main advantage of a layered network architecture is:",
+    "options": ["Modularity — each layer can change independently as long as interfaces are preserved", "It guarantees zero latency", "It removes the need for protocols", "It always uses fewer bytes"],
+    "correctIndex": 0,
+    "explanation": "Layering decomposes networking into independent modules with well-defined interfaces, so a layer's implementation (e.g., the physical medium) can change without affecting others. This separation of concerns simplifies design, testing, and interoperability.",
+    "distractorRationales": ["", "Layering does not eliminate latency; headers add some overhead.", "Each layer defines its own protocols; layering organizes them, not removes them.", "Layering adds header overhead, so it does not minimize bytes."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "hard",
+    "questionText": "Which OSI layers have NO direct counterpart as separate layers in the TCP/IP model?",
+    "options": ["Session and Presentation (subsumed into the application layer)", "Physical and Data Link", "Network and Transport", "Application and Transport"],
+    "correctIndex": 0,
+    "explanation": "The TCP/IP model lacks distinct session and presentation layers; their functions (dialog control, encryption, encoding) are handled within the application layer or by libraries. TCP/IP keeps application, transport, internet (network), and link layers.",
+    "distractorRationales": ["", "Physical and data link map to TCP/IP's link layer; they are represented.", "Network and transport exist in both models.", "Application and transport are core layers present in TCP/IP."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "The physical layer is concerned with:",
+    "options": ["Transmitting raw bits over a physical medium (voltages, signaling, connectors)", "Routing packets between networks", "Reliable end-to-end delivery", "Domain name resolution"],
+    "correctIndex": 0,
+    "explanation": "The physical layer defines how raw bits are converted to and from signals on the medium — electrical/optical levels, timing, data rates, connectors, and modulation. It has no notion of frames, packets, or addresses.",
+    "distractorRationales": ["", "Routing between networks is the network layer's job.", "Reliable end-to-end delivery is the transport layer's responsibility.", "Name resolution is an application-layer service (DNS)."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "Which OSI layer is responsible for translating data formats, encryption, and compression?",
+    "options": ["Presentation layer", "Session layer", "Transport layer", "Network layer"],
+    "correctIndex": 0,
+    "explanation": "The presentation layer handles syntax/representation issues: character encoding translation, data compression, and encryption/decryption, so that the application layer sees data in a usable format. In TCP/IP these duties fold into the application layer.",
+    "distractorRationales": ["", "The session layer manages dialog/sessions, not data representation.", "The transport layer handles end-to-end delivery, not format translation.", "The network layer handles routing/addressing."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "hard",
+    "questionText": "When a packet travels from host A to host B through two routers, how many times is the data link layer header added and removed in total along the path (A → R1 → R2 → B, 3 links)?",
+    "options": ["Added and removed 3 times (once per physical link)", "Once total", "Twice", "Never"],
+    "correctIndex": 0,
+    "explanation": "Each hop is a separate link with its own layer-2 framing. The frame header is added on transmit and stripped on receive for each of the 3 links (A→R1, R1→R2, R2→B), so it is added/removed 3 times. The IP (layer-3) header, by contrast, persists end-to-end.",
+    "distractorRationales": ["", "The layer-2 header is link-local; it is re-created on every hop, not just once.", "Twice would correspond to only two links; here there are three.", "Frames are certainly used on each link, so it is not never."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "In the TCP/IP model, the layer that corresponds to OSI's network layer is called the:",
+    "options": ["Internet layer", "Link layer", "Transport layer", "Application layer"],
+    "correctIndex": 0,
+    "explanation": "The TCP/IP internet layer (home of IP) corresponds to OSI's network layer, handling logical addressing and routing across interconnected networks. The TCP/IP link layer maps to OSI's physical + data link layers.",
+    "distractorRationales": ["", "The link layer maps to OSI's physical/data-link layers, not the network layer.", "The transport layer maps to OSI's transport layer.", "The application layer maps to OSI's application/presentation/session layers."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "The 'service' a layer provides to the layer above it is accessed through a:",
+    "options": ["Service Access Point (SAP) / interface", "Physical cable only", "Routing table", "MAC address"],
+    "correctIndex": 0,
+    "explanation": "Adjacent layers communicate through a well-defined interface (Service Access Point), where the upper layer requests services from the lower one. This abstraction lets each layer hide its internal mechanism behind the interface.",
+    "distractorRationales": ["", "A physical cable is the medium, not the inter-layer service interface.", "A routing table is a network-layer data structure, not the inter-layer interface.", "A MAC address identifies a link-layer endpoint, not the service interface abstraction."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "hard",
+    "questionText": "Why does the IP (network-layer) header remain essentially unchanged end-to-end while link-layer headers change at every hop?",
+    "options": ["IP provides logical end-to-end addressing, while link-layer addresses are local to each physical network", "IP headers cannot be modified by hardware", "Link headers carry no addresses", "Routers ignore IP headers"],
+    "correctIndex": 0,
+    "explanation": "The IP source/destination addresses identify the ultimate endpoints and stay constant across the path (aside from TTL decrement and NAT). Each link uses its own layer-2 addressing scheme valid only on that segment, so the frame is rebuilt with new MAC addresses at every hop.",
+    "distractorRationales": ["", "IP headers ARE modified (e.g., TTL); the point is the end-to-end addressing, not immutability.", "Link headers do carry (local) addresses, e.g., MAC addresses.", "Routers very much read IP headers to forward packets."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "easy",
+    "questionText": "Peer layers (the same layer on two communicating hosts) exchange information using:",
+    "options": ["A protocol (a set of rules and message formats for that layer)", "Direct physical wires between them", "Shared memory", "The application's source code"],
+    "correctIndex": 0,
+    "explanation": "Each layer communicates logically with its peer layer on the other host via a protocol — agreed message formats and rules — even though the actual data travels down through the lower layers, across the medium, and back up. This is 'peer-to-peer' communication within a layer.",
+    "distractorRationales": ["", "There is no direct wire between peer layers; data passes through lower layers.", "Hosts generally do not share memory across a network.", "Peers exchange protocol messages, not source code."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "Which statement about connection-oriented vs connectionless service is correct?",
+    "options": ["Connection-oriented service establishes a connection before data transfer (e.g., TCP); connectionless sends independent packets (e.g., UDP/IP)", "Connectionless always guarantees delivery", "Connection-oriented uses no handshake", "They are identical"],
+    "correctIndex": 0,
+    "explanation": "Connection-oriented service (TCP) sets up state via a handshake, then transfers data reliably/in order. Connectionless service (UDP, IP datagrams) sends each packet independently with no setup and no inherent delivery guarantee.",
+    "distractorRationales": ["", "Connectionless service (e.g., UDP) does NOT guarantee delivery.", "Connection-oriented service uses a handshake to set up the connection.", "They differ fundamentally in setup and guarantees."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "hard",
+    "questionText": "A protocol that operates at the transport layer but does NOT provide reliability or ordering is:",
+    "options": ["UDP", "TCP", "HTTP", "Ethernet"],
+    "correctIndex": 0,
+    "explanation": "UDP is a connectionless transport protocol offering only multiplexing (ports) and an optional checksum — no retransmission, ordering, or flow/congestion control. TCP provides those guarantees; HTTP is application-layer; Ethernet is link-layer.",
+    "distractorRationales": ["", "TCP provides reliability and ordering, the opposite of the question.", "HTTP is an application-layer protocol, not transport.", "Ethernet operates at the data link layer, not the transport layer."]
+  },
+  {
+    "course": "computer-networks",
+    "subtopic": "network-models-layering",
+    "difficulty": "medium",
+    "questionText": "The data link layer is often divided into two sublayers:",
+    "options": ["LLC (Logical Link Control) and MAC (Media Access Control)", "IP and TCP", "Physical and Network", "DNS and HTTP"],
+    "correctIndex": 0,
+    "explanation": "IEEE 802 splits the data link layer into the LLC sublayer (interface to the network layer, flow/error control) and the MAC sublayer (medium access, framing, MAC addressing). This separation lets one LLC work over many MAC technologies.",
+    "distractorRationales": ["", "IP and TCP are network and transport layer protocols, not data-link sublayers.", "Physical and Network are separate layers, not sublayers of the data link layer.", "DNS and HTTP are application-layer protocols."]
+  }
+]

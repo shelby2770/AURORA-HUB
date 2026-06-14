@@ -1,0 +1,202 @@
+[
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "easy",
+  "questionText": "The three main steps a DBMS performs to evaluate a high-level query are, in order:",
+  "options": ["Parsing & translation, optimization, evaluation (execution)", "Execution, parsing, optimization", "Optimization, parsing, indexing", "Translation, indexing, caching"],
+  "correctIndex": 0,
+  "explanation": "Query processing first parses and translates the SQL into a relational-algebra expression, then the optimizer chooses an efficient execution plan, and finally the execution engine runs that plan to produce results.",
+  "distractorRationales": ["", "Execution cannot precede parsing; the query must be understood before it runs.", "Indexing is a physical design decision, not a per-query processing phase between parsing and optimization.", "Caching is an optional performance feature, not one of the core query-processing phases."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "easy",
+  "questionText": "A query execution plan is best described as:",
+  "options": ["A tree of relational-algebra operations annotated with the algorithm chosen for each operation", "The SQL text as typed by the user", "A list of indexes in the database", "The set of constraints on a relation"],
+  "correctIndex": 0,
+  "explanation": "An execution (evaluation) plan is an annotated operator tree: each node is a relational-algebra operation with a specific access method / algorithm (e.g., index scan, hash join) and the data flow between operators specified.",
+  "distractorRationales": ["", "Raw SQL text is the input; the plan is the optimizer's chosen evaluation strategy.", "A catalog of indexes is metadata, not the per-query plan.", "Constraints govern data integrity, not how a query is executed."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "easy",
+  "questionText": "The cost of a query plan in a disk-based DBMS is usually dominated by:",
+  "options": ["The number of block (disk) transfers", "The length of the SQL string", "The number of columns selected", "The number of users connected"],
+  "correctIndex": 0,
+  "explanation": "Disk I/O is far slower than CPU work, so query cost models are dominated by the number of block transfers (and seeks). CPU cost is often secondary in classic cost estimation.",
+  "distractorRationales": ["", "The textual length of the query has negligible effect on execution cost.", "The number of projected columns affects tuple size slightly but is not the dominant cost factor.", "Concurrent users affect overall load, not the cost model of a single plan."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "easy",
+  "questionText": "A linear search (full table scan) to find records matching an equality on a non-indexed attribute costs, in the worst case:",
+  "options": ["b block transfers, where b is the number of blocks in the file", "log b block transfers", "1 block transfer", "b² block transfers"],
+  "correctIndex": 0,
+  "explanation": "A linear search must read every block of the file in the worst case (and to find all matches of a non-key attribute), giving cost b, the total number of file blocks.",
+  "distractorRationales": ["", "log b is the cost of a binary search on a sorted file or a tree index, not a linear scan.", "1 block transfer would require the record to always be in a single known block, which a linear search cannot assume.", "b² overstates the cost; a single pass over the file is linear in b."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "Which join algorithm is generally most efficient when both relations are already sorted on the join attribute?",
+  "options": ["Merge join (sort-merge join)", "Nested-loop join", "Block nested-loop join", "Index nested-loop join with a random index"],
+  "correctIndex": 0,
+  "explanation": "If both inputs are sorted on the join key, a merge join scans both in a single coordinated pass — cost is essentially the sum of the relations' block counts, with no repeated scanning. The sort cost is avoided since they are pre-sorted.",
+  "distractorRationales": ["", "Nested-loop join rescans the inner relation many times and ignores existing sort order.", "Block nested-loop improves on naive nested loop but still does not exploit pre-sorted inputs as efficiently as a merge.", "Index nested-loop is good when only one side has a useful index, not when both are already sorted."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "In a block nested-loop join of relations R (outer, b_R blocks) and S (inner, b_S blocks) with M+2 buffer blocks (M for the outer chunk), the number of block transfers is approximately:",
+  "options": ["⌈b_R / M⌉ · b_S + b_R", "b_R · b_S", "b_R + b_S", "b_R · log b_S"],
+  "correctIndex": 0,
+  "explanation": "The outer relation is read once (b_R) and processed in chunks of M blocks. For each of the ⌈b_R/M⌉ chunks, the entire inner relation (b_S) is scanned, giving ⌈b_R/M⌉·b_S + b_R transfers.",
+  "distractorRationales": ["", "b_R · b_S is the naive tuple/block nested loop with a single-block buffer (M=1), not the multi-block-buffer formula.", "b_R + b_S is the merge-join cost (sorted inputs), not block nested loop.", "b_R · log b_S resembles an index-based scheme, not block nested-loop."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "External merge sort of a file with b blocks using M buffer blocks requires how many initial sorted runs?",
+  "options": ["⌈b / M⌉", "⌈b / 2⌉", "⌈log_M b⌉", "b"],
+  "correctIndex": 0,
+  "explanation": "In the run-generation phase, M blocks are read into memory, sorted, and written out as one run. This yields ⌈b/M⌉ initial sorted runs, each of size up to M blocks.",
+  "distractorRationales": ["", "⌈b/2⌉ would assume a 2-block buffer regardless of M, which is incorrect.", "⌈log_M b⌉ is the number of merge passes, not the number of initial runs.", "b runs would mean each run is a single block, ignoring the M-block buffer."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "The selectivity of a selection condition is:",
+  "options": ["The fraction of tuples that satisfy the condition", "The number of blocks the relation occupies", "The cost of building an index", "The number of distinct values of an attribute"],
+  "correctIndex": 0,
+  "explanation": "Selectivity is the fraction (0 to 1) of a relation's tuples expected to satisfy a predicate. Multiplying selectivity by the relation's cardinality estimates the number of output tuples — a core input to cost estimation.",
+  "distractorRationales": ["", "Block count is a storage measure, not selectivity.", "Index build cost is unrelated to the definition of selectivity.", "The number of distinct values relates to selectivity estimation but is not selectivity itself."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "For an equality selection σ(A = v)(R) where A is a key with a primary B+ tree index of height h, the I/O cost is about:",
+  "options": ["h + 1 (traverse the tree, then read the data block)", "b (full scan)", "1", "h · b"],
+  "correctIndex": 0,
+  "explanation": "Using the B+ tree, you descend h levels to reach the leaf and then read the one data block holding the unique matching record, giving roughly h + 1 block transfers.",
+  "distractorRationales": ["", "A full scan of b blocks defeats the purpose of having the index.", "A single transfer ignores the tree traversal needed to locate the record.", "h · b vastly overstates the cost; the index avoids scanning all data blocks."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "Pipelining (as opposed to materialization) in query evaluation means:",
+  "options": ["Results of one operation are passed directly to the next operation without writing intermediate results to disk", "Each operation writes its full output to a temporary disk file before the next reads it", "Operations run in strictly serial order with no overlap", "Only one operator can run at a time"],
+  "correctIndex": 0,
+  "explanation": "Pipelining streams tuples from a producing operator straight into the consuming operator, avoiding the I/O of writing/reading temporary relations. Materialization, in contrast, stores each intermediate result on disk.",
+  "distractorRationales": ["", "Writing full intermediate outputs to disk describes materialization, the opposite of pipelining.", "Pipelining actually enables overlap between producer and consumer rather than forcing serial execution.", "Pipelining lets multiple operators be active concurrently in the pipeline."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "Which equivalence rule is valid in relational algebra and used by optimizers to 'push selections down'?",
+  "options": ["σ_θ(R ⋈ S) ≡ (σ_θ(R)) ⋈ S, when θ involves only attributes of R", "σ_θ(R ⋈ S) ≡ R ⋈ S always, dropping θ", "π_L(σ_θ(R)) ≡ σ_θ(R) always", "R ⋈ S ≡ R × S always"],
+  "correctIndex": 0,
+  "explanation": "If a selection predicate θ references only attributes of R, the selection can be pushed onto R before the join: σ_θ(R ⋈ S) ≡ (σ_θ(R)) ⋈ S. This shrinks R early, reducing join cost.",
+  "distractorRationales": ["", "Dropping the predicate θ entirely changes the result; selections cannot simply vanish.", "A projection π_L cannot be dropped unless L already includes all needed attributes; this is not a general equivalence.", "A join equals a Cartesian product only when there is no join condition; in general R ⋈ S ≠ R × S."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "Hash join is typically preferred over merge join when:",
+  "options": ["The inputs are not sorted and it is an equi-join, with enough memory to hold the build relation's partitions", "The join is a non-equi (range) join", "Both inputs are already sorted on the join key", "There is very little memory available"],
+  "correctIndex": 0,
+  "explanation": "Hash join works only for equi-joins. It partitions/builds a hash table on the smaller relation and probes with the other — efficient when inputs are unsorted and enough memory exists for the build side (or its partitions).",
+  "distractorRationales": ["", "Hash join cannot handle non-equi (e.g., <, >) joins because hashing keys only matches equality.", "If both inputs are already sorted, merge join avoids the hashing overhead and is preferable.", "With very little memory, hash join degrades (many partition passes); it is not the natural choice."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "hard",
+  "questionText": "Relations R and S are joined. R has 5,000 tuples in 200 blocks; S has 10,000 tuples in 500 blocks. Using block nested-loop join with R as the outer relation and a buffer of 1 block for the outer (naive), the block transfers are:",
+  "options": ["200 + 200·500 = 100,200", "200 + 500 = 700", "200·500 = 100,000", "5,000·10,000"],
+  "correctIndex": 0,
+  "explanation": "With a single-block outer buffer, the outer R is read once (200 blocks) and for each of those 200 blocks the inner S (500 blocks) is scanned: 200 + 200·500 = 100,200 block transfers.",
+  "distractorRationales": ["", "200 + 500 is the cost of a sorted merge join, not a nested-loop join.", "100,000 omits the initial read of the outer relation's 200 blocks.", "5,000·10,000 counts tuple comparisons, not block transfers."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "hard",
+  "questionText": "External merge sort of a 1000-block file with M = 11 buffer blocks. After generating ⌈1000/11⌉ = 91 initial runs, how many merge passes are needed (each pass does an (M−1) = 10-way merge)?",
+  "options": ["2", "1", "3", "91"],
+  "correctIndex": 0,
+  "explanation": "Number of merge passes = ⌈log_(M−1)(number of initial runs)⌉ = ⌈log_10(91)⌉ = ⌈1.96⌉ = 2 passes. Pass 1 merges 91 runs into ⌈91/10⌉ = 10 runs; pass 2 merges those 10 into 1.",
+  "distractorRationales": ["", "One 10-way pass can merge only 10 runs into 1; 91 runs need more than one pass.", "Three passes overestimates; ⌈log_10(91)⌉ = 2 suffices.", "91 is the number of initial runs, not the number of merge passes."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "hard",
+  "questionText": "An optimizer estimates the size of R ⋈_{R.A = S.A} S where R has n_R tuples, S has n_S tuples, and A is a foreign key in R referencing primary key A in S. The estimated number of result tuples is:",
+  "options": ["n_R", "n_S", "n_R · n_S", "n_R + n_S"],
+  "correctIndex": 0,
+  "explanation": "If A is a foreign key in R referencing the primary key of S, each R tuple matches exactly one S tuple. Therefore the join produces exactly n_R tuples — one per row of R.",
+  "distractorRationales": ["", "n_S would be the count only if S were the referencing (many) side; here R holds the foreign key.", "n_R · n_S is the Cartesian product size, far larger than a foreign-key join.", "n_R + n_S is not how join cardinality is computed for an equi-join."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "hard",
+  "questionText": "For a join σ on attribute A with V(A, R) distinct values, the estimated size of σ_{A=v}(R) under the uniform-distribution assumption is:",
+  "options": ["n_R / V(A, R)", "n_R · V(A, R)", "V(A, R)", "n_R"],
+  "correctIndex": 0,
+  "explanation": "Assuming values are uniformly distributed, each of the V(A,R) distinct values appears in about n_R / V(A,R) tuples. So the equality selection σ_{A=v}(R) is estimated to return n_R / V(A,R) tuples.",
+  "distractorRationales": ["", "Multiplying rather than dividing would make a selection larger than the relation, which is impossible.", "V(A,R) is the count of distinct values, not the number of matching tuples for one value.", "n_R is the full relation size; an equality selection on a non-key returns a fraction of it."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "hard",
+  "questionText": "In cost-based optimization with dynamic programming (System-R style), the optimizer prunes plans but retains 'interesting orders' because:",
+  "options": ["A more expensive sub-plan that produces a useful sort order may enable a cheaper later operation (e.g., merge join), lowering total cost", "Sorted output is always required by SQL", "Interesting orders reduce parsing time", "It avoids computing join selectivity"],
+  "correctIndex": 0,
+  "explanation": "A sub-plan that is slightly costlier but yields a sort order matching a later merge join or ORDER BY can win overall. So the optimizer keeps the cheapest plan for each distinct interesting order, not just the single globally cheapest sub-plan.",
+  "distractorRationales": ["", "SQL does not require sorted output unless ORDER BY is specified; interesting orders are an optimization heuristic.", "Interesting orders affect execution cost, not parsing time.", "Selectivity estimation is still performed; interesting orders are unrelated to skipping it."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "hard",
+  "questionText": "Grace hash join partitions both relations into k partitions using a hash function, then joins corresponding partitions. The benefit is that:",
+  "options": ["Only matching partitions need to be in memory together, so it handles relations larger than memory", "It eliminates the need for any disk I/O", "It works for non-equi joins", "It guarantees sorted output"],
+  "correctIndex": 0,
+  "explanation": "Grace (partitioned) hash join hashes both inputs into k partitions on the join key; only partition i of R can match partition i of S. Each partition pair fits in memory and is joined separately, enabling joins of relations larger than RAM.",
+  "distractorRationales": ["", "It still incurs I/O writing and re-reading partitions; it reduces, not eliminates, I/O.", "Like all hash joins, it supports only equi-joins, not range/non-equi predicates.", "Hash join output order is not sorted; only merge join naturally produces sorted output."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "medium",
+  "questionText": "Which of the following is a heuristic (rule-based) optimization, not a cost-based one?",
+  "options": ["Always perform selections and projections as early as possible", "Choose the join order with the lowest estimated I/O from statistics", "Pick the access path with minimum estimated block transfers", "Use histograms to estimate selectivity"],
+  "correctIndex": 0,
+  "explanation": "Pushing selections and projections down the query tree early is a classic heuristic rule applied regardless of statistics. The other options all rely on cost estimates derived from catalog statistics.",
+  "distractorRationales": ["", "Choosing join order by estimated I/O uses statistics, making it cost-based.", "Picking the minimum-cost access path is cost-based optimization.", "Histogram-based selectivity estimation is a cost-based technique."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "query-processing",
+  "difficulty": "easy",
+  "questionText": "Materialized intermediate results are written to:",
+  "options": ["Temporary relations on disk", "The system catalog", "The transaction log only", "The user's terminal"],
+  "correctIndex": 0,
+  "explanation": "When an operator's output is materialized, it is stored in temporary relations (on disk) so that the next operator can read it. This costs extra I/O compared with pipelining.",
+  "distractorRationales": ["", "The system catalog stores metadata (schemas, statistics), not query intermediate results.", "The transaction log records changes for recovery, not query intermediates.", "Final results may go to the terminal, but intermediate materialized results are stored as temporary relations."]
+ }
+]

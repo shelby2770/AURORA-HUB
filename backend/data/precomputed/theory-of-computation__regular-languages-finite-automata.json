@@ -1,0 +1,142 @@
+[
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "easy",
+  "questionText": "A deterministic finite automaton (DFA) is formally a 5-tuple (Q, Σ, δ, q0, F). The component δ is the:",
+  "options": ["Transition function mapping (state, symbol) to a single next state", "Set of accepting states", "Start state", "Input alphabet"],
+  "correctIndex": 0,
+  "explanation": "In a DFA, δ: Q × Σ → Q is the transition function giving exactly one next state for each (state, symbol) pair. Q is states, Σ alphabet, q0 the start state, F the accepting states.",
+  "distractorRationales": ["", "The set of accepting states is F, not δ.", "The start state is q0, not δ.", "The input alphabet is Σ, not δ."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "easy",
+  "questionText": "The key difference between an NFA and a DFA is that an NFA:",
+  "options": ["May have multiple (or zero) possible transitions for a given state and symbol, and can use ε-transitions", "Has more states always", "Cannot accept any language a DFA can", "Requires an infinite alphabet"],
+  "correctIndex": 0,
+  "explanation": "An NFA's transition function maps to a SET of states (possibly empty) and may include ε (empty-string) moves. It accepts if some computation path reaches an accepting state.",
+  "distractorRationales": ["", "An NFA often has FEWER states than the equivalent DFA, not more.", "NFAs and DFAs recognize exactly the same languages (the regular languages).", "Both use a finite alphabet; the difference is nondeterminism, not alphabet size."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "easy",
+  "questionText": "Every NFA can be converted into an equivalent DFA. This is known as the:",
+  "options": ["Subset (powerset) construction", "Pumping lemma", "Myhill-Nerode theorem", "Kleene star operation"],
+  "correctIndex": 0,
+  "explanation": "The subset construction builds a DFA whose states are subsets of the NFA's states, tracking all states the NFA could be in. This proves NFAs and DFAs are equivalent in power.",
+  "distractorRationales": ["", "The pumping lemma is a proof tool for non-regularity, not a conversion method.", "Myhill-Nerode characterizes regularity and minimal DFAs, not NFA-to-DFA conversion.", "Kleene star is a language operation, not a determinization procedure."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "An NFA with n states, when converted to a DFA via the subset construction, can have at most:",
+  "options": ["2ⁿ states", "n² states", "n states", "n! states"],
+  "correctIndex": 0,
+  "explanation": "Each DFA state corresponds to a subset of the NFA's n states, and there are 2ⁿ subsets. So the resulting DFA has at most 2ⁿ states (this exponential blowup is sometimes unavoidable).",
+  "distractorRationales": ["", "n² is far fewer than the number of possible subsets.", "n states would be the count if no blowup occurred, which is not the upper bound.", "n! counts permutations, not subsets; the bound is 2ⁿ."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "Regular languages are closed under which of the following operations?",
+  "options": ["Union, intersection, complement, concatenation, and Kleene star", "Only union", "Only complement", "None of these"],
+  "correctIndex": 0,
+  "explanation": "The regular languages form a Boolean algebra closed under union, intersection, complement, concatenation, and Kleene star (and reversal, homomorphism, etc.). This rich closure is a hallmark of the class.",
+  "distractorRationales": ["", "Regular languages are closed under far more than just union.", "They are closed under complement AND many other operations.", "They are closed under all the listed operations, so 'none' is incorrect."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "To build a DFA recognizing the INTERSECTION of two regular languages given DFAs M1 and M2, you use the:",
+  "options": ["Product (Cartesian) construction, with accepting states where BOTH components accept", "Subset construction", "Pumping lemma", "Reversal of M1"],
+  "correctIndex": 0,
+  "explanation": "The product construction runs M1 and M2 simultaneously: states are pairs (q1, q2), transitions update both, and a pair is accepting iff both q1 ∈ F1 and q2 ∈ F2 (for intersection). For union, accept if either accepts.",
+  "distractorRationales": ["", "The subset construction converts an NFA to a DFA; it does not combine two DFAs.", "The pumping lemma is a non-regularity proof tool, not a construction.", "Reversal builds the reverse language, unrelated to intersection."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "The minimal DFA for a regular language is:",
+  "options": ["Unique up to renaming of states", "Never unique", "Always the same size as any NFA", "Not computable"],
+  "correctIndex": 0,
+  "explanation": "For any regular language there is a unique minimal DFA (up to state renaming), characterized by the Myhill-Nerode equivalence classes. Algorithms like Hopcroft's compute it efficiently.",
+  "distractorRationales": ["", "The minimal DFA is unique, contradicting 'never unique'.", "An equivalent NFA can be much smaller than the minimal DFA (exponential gap).", "The minimal DFA is computable (e.g., via Hopcroft's algorithm)."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "The Myhill-Nerode theorem states that a language L is regular if and only if:",
+  "options": ["The number of equivalence classes of its right-congruence (indistinguishability relation) is finite", "L is finite", "L has a context-free grammar", "L is recognized by a pushdown automaton"],
+  "correctIndex": 0,
+  "explanation": "Myhill-Nerode: L is regular iff the relation 'x ≡ y when no suffix distinguishes them' has finitely many equivalence classes. That number equals the size of the minimal DFA.",
+  "distractorRationales": ["", "Finiteness of L is sufficient but not necessary; infinite regular languages exist.", "Having a CFG is broader (context-free), not the regularity criterion.", "PDAs recognize context-free languages, a strict superset of regular."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "hard",
+  "questionText": "How many states does the minimal DFA over {0,1} accepting strings whose binary value is divisible by 3 have?",
+  "options": ["3", "2", "4", "6"],
+  "correctIndex": 0,
+  "explanation": "Track the remainder mod 3 as bits are read: reading a bit b updates value to (2·value + b) mod 3. There are exactly 3 residue states {0, 1, 2}, with 0 accepting — a 3-state minimal DFA.",
+  "distractorRationales": ["", "2 states cannot distinguish the three residues mod 3.", "4 states is more than necessary; the residues mod 3 give exactly 3.", "6 states overcounts; no separate states are needed beyond the 3 residues."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "hard",
+  "questionText": "Which of the following operations could take a regular language to a NON-regular language?",
+  "options": ["None — regular languages are closed under union, intersection, complement, concatenation, star, reversal, and homomorphism", "Complement", "Union", "Reversal"],
+  "correctIndex": 0,
+  "explanation": "Regular languages are closed under all the standard operations listed, so none of complement, union, or reversal can produce a non-regular language from regular inputs.",
+  "distractorRationales": ["", "Complement preserves regularity (swap accepting states of the DFA).", "Union of two regular languages is regular (product/NFA construction).", "Reversal of a regular language is regular (reverse the DFA's transitions)."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "hard",
+  "questionText": "Two regular languages L1 and L2 are given by DFAs. Deciding whether L1 = L2 (equivalence) is:",
+  "options": ["Decidable — e.g., check whether (L1 ∖ L2) ∪ (L2 ∖ L1) is empty using product and emptiness tests", "Undecidable", "Only decidable for finite languages", "Equivalent to the halting problem"],
+  "correctIndex": 0,
+  "explanation": "Regular-language equivalence is decidable: construct a DFA for the symmetric difference (using product and complement) and test it for emptiness (reachability of an accepting state). Empty symmetric difference means L1 = L2.",
+  "distractorRationales": ["", "DFA equivalence is decidable, unlike TM or CFG equivalence.", "It is decidable for all regular languages, not just finite ones.", "It is far easier than the halting problem; it is fully decidable."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "An ε-NFA (NFA with ε-transitions) recognizes:",
+  "options": ["Exactly the regular languages — the same class as DFAs and NFAs", "A strictly larger class than NFAs", "Only context-free languages", "Only finite languages"],
+  "correctIndex": 0,
+  "explanation": "ε-transitions add convenience but no power: ε-NFAs can be converted to NFAs (eliminating ε-moves via ε-closures) and then to DFAs. All three recognize exactly the regular languages.",
+  "distractorRationales": ["", "ε-transitions do not increase recognizing power beyond regular languages.", "They recognize regular, not context-free, languages.", "They can recognize infinite regular languages, not just finite ones."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "medium",
+  "questionText": "A DFA must have, for each state and each input symbol:",
+  "options": ["Exactly one transition (the transition function is total)", "At most one transition (some may be missing)", "Any number of transitions", "No transitions on some symbols"],
+  "correctIndex": 0,
+  "explanation": "In a DFA, δ is a total function: every (state, symbol) pair has exactly one defined next state. Missing transitions are usually modeled with an implicit dead/trap state.",
+  "distractorRationales": ["", "Allowing missing transitions describes a partial DFA / NFA-like behavior, not a strict DFA.", "Multiple transitions per (state, symbol) is nondeterminism (NFA), not a DFA.", "A strict DFA defines a transition for every symbol; absence is modeled by a trap state."]
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "regular-languages-finite-automata",
+  "difficulty": "hard",
+  "questionText": "Kleene's theorem establishes the equivalence between:",
+  "options": ["Regular expressions and finite automata (they describe the same class of languages)", "Context-free grammars and PDAs", "Turing machines and lambda calculus", "DFAs and PDAs"],
+  "correctIndex": 0,
+  "explanation": "Kleene's theorem states that a language is describable by a regular expression if and only if it is recognized by a finite automaton — establishing that regular expressions and finite automata define exactly the regular languages.",
+  "distractorRationales": ["", "The CFG-PDA equivalence is a separate result, not Kleene's theorem.", "TM-lambda equivalence relates to the Church-Turing thesis, not Kleene's theorem.", "DFAs and PDAs are NOT equivalent (PDAs are strictly more powerful)."]
+ }
+]

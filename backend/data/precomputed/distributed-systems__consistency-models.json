@@ -1,0 +1,182 @@
+[
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Linearizability (atomic consistency) requires that every operation appears to take effect:",
+    "options": ["Instantaneously at some point between its invocation and its response, consistent with real time", "Only in program order within each process", "Eventually, with no ordering guarantees", "In an order agreed by a majority but ignoring real time"],
+    "correctIndex": 0,
+    "explanation": "Linearizability is the strongest single-object consistency model: each operation appears atomic at a single instant between its call and return, and this order respects real-time ordering (if op A finishes before op B starts, A precedes B). It is composable, unlike sequential consistency.",
+    "distractorRationales": ["", "Per-process program order with no cross-process real-time guarantee is sequential consistency, which is weaker.", "No ordering at all describes eventual consistency, far weaker.", "Linearizability explicitly must respect real-time order, not ignore it."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Sequential consistency (Lamport) differs from linearizability in that sequential consistency:",
+    "options": ["Does NOT require the total order to respect real-time ordering across processes", "Is strictly stronger than linearizability", "Permits each process to see a different order of operations", "Requires synchronized physical clocks"],
+    "correctIndex": 0,
+    "explanation": "Sequential consistency requires a single global order consistent with each process's program order, but it need NOT match real time: an operation that finished before another began in real time may still be ordered after it. This makes it weaker than linearizability.",
+    "distractorRationales": ["", "It is weaker, not stronger, than linearizability.", "All processes must agree on one order; they cannot each see different orders.", "It uses program order, not synchronized physical clocks."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "easy",
+    "questionText": "Eventual consistency guarantees that:",
+    "options": ["If no new updates are made, all replicas eventually converge to the same value", "Every read returns the most recent write immediately", "Operations are totally ordered in real time", "Writes are always rejected during partitions"],
+    "correctIndex": 0,
+    "explanation": "Eventual consistency is a liveness guarantee: in the absence of new updates, replicas will eventually agree. It says nothing about how stale intermediate reads may be, which is the trade-off for high availability and low latency.",
+    "distractorRationales": ["", "Immediate latest-write reads describe strong consistency, not eventual.", "Eventual consistency provides no real-time total ordering guarantee.", "Eventually-consistent systems typically accept writes during partitions (AP systems)."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "hard",
+    "questionText": "The CAP theorem states that during a network partition (P), a distributed system must sacrifice either:",
+    "options": ["Consistency (C) or Availability (A)", "Performance or Durability", "Partition tolerance or Latency", "Atomicity or Isolation"],
+    "correctIndex": 0,
+    "explanation": "CAP says that when a partition occurs, a system can preserve at most one of strong consistency or availability. A CP system refuses some requests to stay consistent; an AP system answers requests but may return stale data. Partition tolerance is not optional in practice.",
+    "distractorRationales": ["", "Performance and durability are not the CAP trade-off pair.", "Partition tolerance must be assumed; you do not trade it away in a distributed system.", "Atomicity and isolation are ACID transaction properties, not CAP's choices."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Causal consistency guarantees that operations that are causally related are seen by all processes in the same order, while concurrent operations:",
+    "options": ["May be seen in different orders by different processes", "Must be totally ordered identically everywhere", "Are always rejected", "Must respect real-time ordering"],
+    "correctIndex": 0,
+    "explanation": "Causal consistency enforces a consistent order only for causally related (happens-before) operations; concurrent (causally independent) operations may be observed in different relative orders at different replicas. It is stronger than eventual but weaker than sequential consistency.",
+    "distractorRationales": ["", "Requiring identical total order for all operations is sequential/linearizable, stronger than causal.", "Concurrent operations are allowed, not rejected.", "Causal consistency does not impose real-time ordering."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "hard",
+    "questionText": "Rank these consistency models from strongest to weakest.",
+    "options": ["Linearizable > Sequential > Causal > Eventual", "Eventual > Causal > Sequential > Linearizable", "Causal > Linearizable > Sequential > Eventual", "Sequential > Linearizable > Eventual > Causal"],
+    "correctIndex": 0,
+    "explanation": "Linearizability is strongest (atomic + real-time). Sequential consistency drops the real-time requirement. Causal consistency only orders causally related operations. Eventual consistency only guarantees convergence. So: Linearizable > Sequential > Causal > Eventual.",
+    "distractorRationales": ["", "This reverses the correct order entirely.", "Causal is weaker than both linearizable and sequential, not stronger.", "Linearizable is stronger than sequential, and eventual is the weakest, not causal."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "The PACELC theorem extends CAP by additionally stating that, even when there is no partition (E, else), a system must trade off between:",
+    "options": ["Latency (L) and Consistency (C)", "Availability and Durability", "Throughput and Partition tolerance", "Atomicity and Latency"],
+    "correctIndex": 0,
+    "explanation": "PACELC: if Partitioned, choose Availability or Consistency; Else (normal operation), choose Latency or Consistency. It highlights that stronger consistency generally costs latency even without failures (e.g., synchronous replication).",
+    "distractorRationales": ["", "PACELC's else-branch trade-off is latency vs consistency, not availability vs durability.", "Throughput vs partition tolerance is not the PACELC pairing.", "The trade-off is latency vs consistency, not atomicity vs latency."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "easy",
+    "questionText": "A 'read-your-writes' consistency guarantee ensures that:",
+    "options": ["After a process writes a value, its own subsequent reads will see that value (or newer)", "All processes immediately see every write", "Reads never block", "Writes are applied in random order"],
+    "correctIndex": 0,
+    "explanation": "Read-your-writes is a session/client-centric guarantee: a client always observes the effects of its own prior writes, even if other clients have not yet. It does not promise that other clients see the write immediately.",
+    "distractorRationales": ["", "It applies to the writer's own reads, not immediate global visibility.", "It says nothing about blocking behavior of reads.", "It does not permit arbitrary reordering that would hide the client's own writes."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Why is linearizability described as 'composable' (local) while sequential consistency is not?",
+    "options": ["If each object is individually linearizable, the whole system is linearizable", "Because linearizability ignores real time", "Because sequential consistency uses vector clocks", "Because composability requires eventual consistency"],
+    "correctIndex": 0,
+    "explanation": "Linearizability is a local property: a system composed of independently linearizable objects is itself linearizable. Sequential consistency lacks this — combining sequentially consistent objects can yield a system that is not sequentially consistent, because there is no real-time anchor to stitch the per-object orders together.",
+    "distractorRationales": ["", "Linearizability respects real time; that is part of why it composes.", "Sequential consistency is defined by program order, not vector clocks, and that is unrelated to composability.", "Composability does not depend on eventual consistency."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "hard",
+    "questionText": "A CP system (per CAP) such as one built on a majority-quorum consensus protocol behaves how during a partition that isolates a minority of nodes?",
+    "options": ["The minority side becomes unavailable for writes; the majority side stays consistent", "Both sides accept writes and reconcile later", "The whole system halts entirely", "The minority side serves all writes"],
+    "correctIndex": 0,
+    "explanation": "A CP/quorum system requires a majority to commit. During a partition, only the side with a majority can make progress (staying consistent); the minority side cannot reach quorum and so rejects writes (loss of availability there). This is the consistency-over-availability choice.",
+    "distractorRationales": ["", "Accepting writes on both sides and reconciling is the AP (eventually consistent) behavior, not CP.", "Only the minority side loses availability; the majority continues, so the system does not fully halt.", "The minority cannot reach quorum, so it specifically cannot serve writes."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "A 'monotonic reads' guarantee means that:",
+    "options": ["If a process reads a value, any later read by it returns that value or a newer one (never older)", "All reads return the latest global value", "Reads and writes alternate strictly", "Each replica is read exactly once"],
+    "correctIndex": 0,
+    "explanation": "Monotonic reads is a session guarantee preventing a client from seeing 'time go backwards': once it has observed a particular version, subsequent reads will not return an older version. It is weaker than strong consistency but improves client-perceived behavior.",
+    "distractorRationales": ["", "It does not promise the latest global value, only non-decreasing freshness for that client.", "It says nothing about alternating reads and writes.", "It is about version monotonicity, not how many times a replica is read."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "easy",
+    "questionText": "Strong consistency typically incurs higher latency than weak consistency because it usually requires:",
+    "options": ["Coordination (e.g., quorums or a leader) before responding to operations", "Larger disk drives", "More CPU cores per node", "Disabling all caching globally"],
+    "correctIndex": 0,
+    "explanation": "Strong consistency must coordinate replicas — contacting a quorum or routing through a leader — before acknowledging operations, which adds network round-trips and thus latency. Weak/eventual models answer from a local replica immediately, trading freshness for speed.",
+    "distractorRationales": ["", "Disk size is unrelated to the consistency-latency trade-off.", "More cores do not remove the required cross-node coordination latency.", "Caching policy is not the fundamental reason; coordination round-trips are."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "hard",
+    "questionText": "Consider a register with linearizable semantics. Process A writes x=1 and completes before process B begins a read. What must B's read return?",
+    "options": ["1 (or a value from a write that started after A's, never the pre-A value)", "Possibly the old value, since replicas may lag", "Any value, ordering is unspecified", "An error, because concurrent access is forbidden"],
+    "correctIndex": 0,
+    "explanation": "Because A's write completed (in real time) before B's read started, linearizability forces B's read to reflect x=1 (or a later overwrite). Returning the pre-write value would violate the real-time ordering requirement that distinguishes linearizability from sequential consistency.",
+    "distractorRationales": ["", "Returning the old value would be allowed under eventual consistency but violates linearizability.", "Linearizability fully specifies the order; it is not unspecified.", "Linearizability handles overlapping operations without erroring; the accesses here aren't even concurrent."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Conflict-free Replicated Data Types (CRDTs) achieve eventual (strong eventual) consistency in AP systems by ensuring that concurrent updates:",
+    "options": ["Commute / merge deterministically so all replicas converge regardless of order", "Are always serialized through a leader", "Require a global lock before applying", "Are discarded if they conflict"],
+    "correctIndex": 0,
+    "explanation": "CRDTs are designed so that update operations (or states) merge in a commutative, associative, idempotent way; replicas that have received the same set of updates converge to the same state regardless of delivery order — without coordination. This gives strong eventual consistency.",
+    "distractorRationales": ["", "CRDTs avoid a leader/serialization point; that is their main advantage.", "They require no global lock; merges are conflict-free by construction.", "Conflicts are merged deterministically, not discarded."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "easy",
+    "questionText": "In CAP terms, a system that always answers reads/writes from a local replica during a partition (and may return stale data) is classified as:",
+    "options": ["AP (Availability + Partition tolerance)", "CP (Consistency + Partition tolerance)", "CA (Consistency + Availability)", "ACID"],
+    "correctIndex": 0,
+    "explanation": "Answering from a local replica during a partition keeps the system available at the cost of possibly stale (inconsistent) data — this is the AP choice. CP systems would instead block to preserve consistency. CA is not achievable for a partition-prone distributed system.",
+    "distractorRationales": ["", "CP would sacrifice availability (block) to stay consistent, the opposite of what is described.", "CA is not realistic under partitions in a distributed setting.", "ACID is a transaction property set, not a CAP classification."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Which statement correctly contrasts 'consistency' in CAP with 'consistency' (C) in ACID?",
+    "options": ["CAP consistency ≈ linearizability of replicas; ACID consistency ≈ preserving database invariants", "They mean exactly the same thing", "CAP consistency refers to durability; ACID to availability", "Both refer to physical clock synchronization"],
+    "correctIndex": 0,
+    "explanation": "The two 'C's differ. CAP's C is about all replicas appearing to hold a single up-to-date copy (essentially linearizability). ACID's C is about transactions moving the database from one valid state to another, preserving integrity constraints. Conflating them is a common error.",
+    "distractorRationales": ["", "They are distinct concepts despite the shared letter.", "Neither refers to durability or availability in this way.", "Neither sense of consistency is about physical clock synchronization."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "hard",
+    "questionText": "Why does 'monotonic reads' alone NOT imply 'read-your-writes'?",
+    "options": ["A client could write, then be routed to a stale replica that never saw the write, yet still read monotonically", "Monotonic reads forbids any writes", "Read-your-writes is strictly weaker than monotonic reads", "They are identical guarantees"],
+    "correctIndex": 0,
+    "explanation": "Monotonic reads only ensures reads never go backward relative to what this client previously read. A client that writes and is then served by a replica lagging behind the write can still satisfy monotonic reads (its prior reads were even older) while violating read-your-writes. The two are independent session guarantees.",
+    "distractorRationales": ["", "Monotonic reads does not forbid writes; it constrains read freshness.", "Neither guarantee is strictly weaker; they are independent.", "They are different guarantees, addressing read order vs visibility of own writes."]
+  },
+  {
+    "course": "distributed-systems",
+    "subtopic": "consistency-models",
+    "difficulty": "medium",
+    "questionText": "Spanner achieves externally-consistent (linearizable) distributed transactions across datacenters largely by using:",
+    "options": ["TrueTime: bounded-uncertainty physical clocks plus commit-wait", "A single global lock server for all data", "Pure eventual consistency with CRDTs", "Lamport logical clocks only"],
+    "correctIndex": 0,
+    "explanation": "Google Spanner uses TrueTime, an API exposing bounded clock uncertainty (via GPS and atomic clocks). By waiting out the uncertainty interval before committing (commit-wait), it assigns globally meaningful timestamps that yield external consistency (linearizability) across datacenters.",
+    "distractorRationales": ["", "Spanner does not funnel all data through one global lock server; it shards with Paxos groups.", "Spanner provides strong consistency, not pure eventual consistency.", "Logical clocks alone cannot provide real-time external consistency across datacenters; TrueTime's physical bounds are key."]
+  }
+]

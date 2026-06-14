@@ -1,0 +1,407 @@
+[
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "easy",
+  "questionText": "In C, a string is represented as:",
+  "options": [
+   "A null-terminated array of characters (ending in '\\0')",
+   "A built-in string object with a length field",
+   "A linked list of characters",
+   "An integer array of ASCII codes without a terminator"
+  ],
+  "correctIndex": 0,
+  "explanation": "C has no dedicated string type; a string is a char array terminated by the null character '\\0'. Library functions like strlen and strcpy rely on this terminator to find the string's end.",
+  "distractorRationales": [
+   "",
+   "C has no built-in string object with a stored length; that is higher-level languages.",
+   "Strings are contiguous char arrays, not linked lists.",
+   "They are char arrays and must include the '\\0' terminator."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "For a C string char s[] = \"hello\"; what does strlen(s) return and what is sizeof(s)?",
+  "options": [
+   "strlen = 5, sizeof = 6",
+   "strlen = 6, sizeof = 6",
+   "strlen = 5, sizeof = 5",
+   "strlen = 6, sizeof = 5"
+  ],
+  "correctIndex": 0,
+  "explanation": "strlen counts characters up to but not including the '\\0', so it returns 5. sizeof includes the terminating '\\0', so the array occupies 6 bytes. This difference is a frequent source of off-by-one errors.",
+  "distractorRationales": [
+   "",
+   "strlen excludes the terminator, so it is 5, not 6.",
+   "sizeof includes the '\\0', making it 6, not 5.",
+   "Both values are wrong: strlen is 5 and sizeof is 6."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "For a 2D array declared int a[3][4] stored in row-major order, the element a[i][j] is located at offset (in elements) from the start:",
+  "options": [
+   "i*4 + j",
+   "i + j*3",
+   "i*3 + j",
+   "i + j*4"
+  ],
+  "correctIndex": 0,
+  "explanation": "Row-major storage lays out each row contiguously; with 4 columns, row i starts at offset i*4, and column j adds j. So a[i][j] is at i*4 + j elements from the base.",
+  "distractorRationales": [
+   "",
+   "i + j*3 uses the wrong dimension and a column-major-like form.",
+   "i*3 + j uses 3 (the row count) instead of 4 (the column count) as the row stride.",
+   "i + j*4 swaps the roles of i and j, which is column-major indexing."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "hard",
+  "questionText": "A struct in C { char c; int i; } on a system requiring 4-byte alignment for int typically has sizeof equal to:",
+  "options": [
+   "8 (due to padding after the char)",
+   "5",
+   "4",
+   "9"
+  ],
+  "correctIndex": 0,
+  "explanation": "The char takes 1 byte, but the int must start at a 4-byte boundary, so 3 padding bytes follow the char; then the int takes 4 bytes — total 8. Structure padding/alignment makes sizeof exceed the naive sum of member sizes (5).",
+  "distractorRationales": [
+   "",
+   "5 is the unpadded sum; alignment requirements add padding.",
+   "4 ignores the char entirely.",
+   "9 overcounts; only 3 padding bytes are needed, giving 8."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "easy",
+  "questionText": "In C, array indexing a[i] is exactly equivalent to:",
+  "options": [
+   "*(a + i)",
+   "*(a) + i",
+   "a + i",
+   "&a[i]"
+  ],
+  "correctIndex": 0,
+  "explanation": "By definition, a[i] means *(a + i): add i (scaled by element size) to the base pointer and dereference. This pointer-arithmetic equivalence is why even i[a] is valid C (it means *(i + a)).",
+  "distractorRationales": [
+   "",
+   "*(a) + i dereferences first then adds i to the value, which is different.",
+   "a + i is the address of element i, not the element itself.",
+   "&a[i] is the address of the element, equal to a+i, not the element's value."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "What does this C program print? (Program 1)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a[5] = {1, 2, 3, 4, 5};\n    printf(\"%d\", *(a + 2));\n    return 0;\n}",
+  "options": [
+   "3",
+   "2",
+   "4",
+   "a memory address"
+  ],
+  "correctIndex": 0,
+  "explanation": "*(a + 2) is equivalent to a[2], the third element, which is 3. Pointer arithmetic on the array base advances by element-sized steps.",
+  "distractorRationales": [
+   "",
+   "2 is a[1], not a[2].",
+   "4 is a[3], one position too far.",
+   "*(a+2) dereferences the address, yielding the value 3, not an address."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 2)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    char s[] = \"abc\";\n    s[0] = s[0] + 1;\n    printf(\"%s\", s);\n    return 0;\n}",
+  "options": [
+   "bbc",
+   "abc",
+   "abd",
+   "cbc"
+  ],
+  "correctIndex": 0,
+  "explanation": "s[0] is 'a' (ASCII 97). Adding 1 gives 98 = 'b', so s becomes \"bbc\". The array is modifiable because it was declared as char s[] (a copy), unlike a string literal pointer.",
+  "distractorRationales": [
+   "",
+   "abc would mean s[0] was unchanged, but it is incremented.",
+   "abd modifies the last character instead of the first.",
+   "cbc would require adding 2 to s[0], but only 1 is added."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "The C library function strcpy(dest, src) copies characters from src to dest until and including:",
+  "options": [
+   "The null terminator '\\0' of src",
+   "A space character",
+   "The length of dest",
+   "A fixed 256 bytes"
+  ],
+  "correctIndex": 0,
+  "explanation": "strcpy copies bytes from src into dest up to and including the '\\0'. It does no bounds checking on dest, so if dest is too small, a buffer overflow occurs — strncpy or safer functions are preferred.",
+  "distractorRationales": [
+   "",
+   "It does not stop at spaces; only the null terminator ends the copy.",
+   "It ignores dest's size, which is exactly why overflows happen.",
+   "It copies based on the terminator, not a fixed byte count."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "easy",
+  "questionText": "A 'union' in C differs from a 'struct' in that all members of a union:",
+  "options": [
+   "Share the same memory location (only one is valid at a time)",
+   "Are stored in separate consecutive memory",
+   "Must be the same type",
+   "Cannot be accessed by name"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a union, all members overlap in the same storage, so the union's size is that of its largest member and only one member holds a meaningful value at any time. A struct, by contrast, gives each member its own space.",
+  "distractorRationales": [
+   "",
+   "Separate consecutive storage describes a struct, not a union.",
+   "Union members may have different types.",
+   "Union members are accessed by name like struct members."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 3)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a[] = {10, 20, 30, 40};\n    int *p = a;\n    p++;\n    printf(\"%d\", *p);\n    return 0;\n}",
+  "options": [
+   "20",
+   "10",
+   "30",
+   "address of a[1]"
+  ],
+  "correctIndex": 0,
+  "explanation": "p initially points to a[0]. p++ advances it by one int to point at a[1]. Dereferencing gives a[1] = 20. Incrementing a pointer moves it by the size of its pointed-to type.",
+  "distractorRationales": [
+   "",
+   "10 is a[0], the value before p++.",
+   "30 is a[2], two steps from the start.",
+   "*p dereferences, so it yields the value 20, not the address."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "To access a member 'x' of a structure through a pointer p to that structure, the correct syntax is:",
+  "options": [
+   "p->x",
+   "p.x",
+   "*p.x",
+   "x->p"
+  ],
+  "correctIndex": 0,
+  "explanation": "The arrow operator p->x dereferences the pointer and accesses member x; it is shorthand for (*p).x. The dot operator p.x is used when p is a structure value, not a pointer.",
+  "distractorRationales": [
+   "",
+   "p.x is for a struct value, not a pointer to a struct.",
+   "*p.x parses as *(p.x) due to precedence and is incorrect here.",
+   "x->p reverses the operands nonsensically."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "easy",
+  "questionText": "Why can't you compare two C strings for equality using ==, as in (s1 == s2)?",
+  "options": [
+   "== compares the pointer addresses, not the character contents",
+   "== is not a valid C operator",
+   "Strings cannot be compared at all",
+   "== compares only the first character"
+  ],
+  "correctIndex": 0,
+  "explanation": "In C, s1 and s2 are pointers (or array names decaying to pointers); s1 == s2 tests whether they point to the same address, not whether the characters match. Use strcmp(s1, s2) == 0 to compare contents.",
+  "distractorRationales": [
+   "",
+   "== is a valid operator; it just compares addresses for pointers.",
+   "Strings can be compared with strcmp.",
+   "== compares the whole pointer value, not just the first character."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 4)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    int a[3] = {1, 2, 3};\n    printf(\"%ld\", (long)(&a[2] - &a[0]));\n    return 0;\n}",
+  "options": [
+   "2",
+   "8",
+   "1",
+   "3"
+  ],
+  "correctIndex": 0,
+  "explanation": "Subtracting two pointers into the same array yields the number of ELEMENTS between them, not bytes. &a[2] - &a[0] = 2. (Pointer difference automatically divides the byte distance by the element size.)",
+  "distractorRationales": [
+   "",
+   "8 would be the byte distance (2 ints × 4 bytes), but pointer subtraction returns element count.",
+   "1 undercounts; the indices differ by 2.",
+   "3 is the array length, not the index difference."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "In C, what is the value of arr after: int arr[5] = {0}; — i.e., how are the elements initialized?",
+  "options": [
+   "All five elements are 0",
+   "Only arr[0] is 0; the rest are garbage",
+   "All elements are 1",
+   "It is a compile error"
+  ],
+  "correctIndex": 0,
+  "explanation": "When an array is given an initializer list shorter than its size, the remaining elements are zero-initialized. With {0}, the first is explicitly 0 and the rest default to 0 too, so all five elements are 0.",
+  "distractorRationales": [
+   "",
+   "Partial initialization zero-fills the remaining elements, so they are not garbage.",
+   "The elements are 0, not 1.",
+   "This is valid C, not an error."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "easy",
+  "questionText": "Accessing an array out of bounds in C (e.g., a[10] for int a[5]) results in:",
+  "options": [
+   "Undefined behavior (no automatic bounds checking)",
+   "A guaranteed runtime exception",
+   "The value 0",
+   "A compile-time error"
+  ],
+  "correctIndex": 0,
+  "explanation": "C performs no bounds checking, so an out-of-bounds access is undefined behavior: it may read/write adjacent memory, crash, or appear to work, with no guaranteed exception. This is a major source of security bugs.",
+  "distractorRationales": [
+   "",
+   "C does not throw a guaranteed exception for out-of-bounds access.",
+   "It does not return a defined 0; the behavior is undefined.",
+   "The compiler generally cannot catch arbitrary out-of-bounds indices at compile time."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "hard",
+  "questionText": "Given struct Point { int x; int y; }; and an array struct Point pts[10];, the total size of pts (assuming sizeof(int)=4, no extra padding) is:",
+  "options": [
+   "80 bytes",
+   "8 bytes",
+   "40 bytes",
+   "20 bytes"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each struct Point has two ints = 8 bytes (already 4-byte aligned, no padding needed). An array of 10 such structs is 10 × 8 = 80 bytes.",
+  "distractorRationales": [
+   "",
+   "8 bytes is one struct, not the array of 10.",
+   "40 bytes would be 10 single ints, not 10 two-int structs.",
+   "20 bytes does not correspond to this layout."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "The function strcat(dest, src) in C:",
+  "options": [
+   "Appends src to the end of dest, requiring dest to have enough space",
+   "Replaces dest with src",
+   "Returns the length of dest",
+   "Compares dest and src"
+  ],
+  "correctIndex": 0,
+  "explanation": "strcat finds dest's null terminator and copies src (including its '\\0') starting there, concatenating the strings. The caller must ensure dest's buffer is large enough; otherwise it overflows.",
+  "distractorRationales": [
+   "",
+   "It appends rather than replaces dest.",
+   "Returning a length is strlen's job; strcat returns dest.",
+   "Comparison is strcmp; strcat concatenates."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "easy",
+  "questionText": "In C, the name of an array (used in an expression) generally evaluates to:",
+  "options": [
+   "A pointer to its first element",
+   "A copy of the whole array",
+   "The number of elements",
+   "The last element"
+  ],
+  "correctIndex": 0,
+  "explanation": "In most expressions an array name 'decays' into a pointer to its first element. (Exceptions are sizeof, the unary & operator, and string-literal initialization, where the array does not decay.)",
+  "distractorRationales": [
+   "",
+   "Arrays are not copied wholesale in expressions; the name decays to a pointer.",
+   "The element count is obtained via sizeof arithmetic, not the bare name.",
+   "The array name refers to the start, not the last element."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "hard",
+  "questionText": "What does this C program print? (Program 5)",
+  "codeSnippet": "#include <stdio.h>\nint main() {\n    char str[] = \"GATE\";\n    int count = 0;\n    char *p = str;\n    while (*p != '\\0') { count++; p++; }\n    printf(\"%d\", count);\n    return 0;\n}",
+  "options": [
+   "4",
+   "5",
+   "3",
+   "0"
+  ],
+  "correctIndex": 0,
+  "explanation": "The loop walks the pointer until it reaches the null terminator, counting characters. \"GATE\" has 4 characters before '\\0', so count = 4. This manually reimplements strlen.",
+  "distractorRationales": [
+   "",
+   "5 would include the '\\0', but the loop stops at it without counting.",
+   "3 undercounts the 4 letters.",
+   "The loop runs and counts; count is not 0."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "arrays-strings-structures",
+  "difficulty": "medium",
+  "questionText": "A flexible advantage of using a structure (struct) over parallel arrays is that a struct:",
+  "options": [
+   "Groups related fields of different types into one logical record",
+   "Is always faster to access",
+   "Uses no memory",
+   "Can only hold integers"
+  ],
+  "correctIndex": 0,
+  "explanation": "A struct bundles heterogeneous but related data (e.g., a name string, an age int, a GPA float) into a single named record, improving clarity and making it easy to pass or store the group as a unit, unlike separate parallel arrays.",
+  "distractorRationales": [
+   "",
+   "Access speed is not inherently faster; the benefit is organization.",
+   "Structs occupy memory like any aggregate.",
+   "Structs can hold members of many types, not just integers."
+  ]
+ }
+]

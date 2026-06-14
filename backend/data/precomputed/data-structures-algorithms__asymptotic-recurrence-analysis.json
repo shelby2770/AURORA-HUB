@@ -1,0 +1,142 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "easy",
+  "questionText": "Big-O notation f(n) = O(g(n)) means:",
+  "options": ["f(n) grows no faster than g(n) up to a constant factor for large n (an asymptotic upper bound)", "f(n) grows exactly as fast as g(n)", "f(n) grows strictly faster than g(n)", "f(n) is a lower bound on g(n)"],
+  "correctIndex": 0,
+  "explanation": "f(n) = O(g(n)) means there exist constants c > 0 and n₀ such that f(n) ≤ c·g(n) for all n ≥ n₀ — an asymptotic upper bound.",
+  "distractorRationales": ["", "Exact growth (both upper and lower bound) is Θ notation, not O.", "Strictly faster growth of f would be the opposite; O bounds f from above by g.", "A lower bound is Ω notation, not O."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "easy",
+  "questionText": "Which notation gives a tight (both upper and lower) asymptotic bound?",
+  "options": ["Θ (Theta)", "O (Big-O)", "Ω (Omega)", "o (little-o)"],
+  "correctIndex": 0,
+  "explanation": "f(n) = Θ(g(n)) means f is bounded both above and below by constant multiples of g for large n — a tight bound. O is only an upper bound, Ω only a lower bound.",
+  "distractorRationales": ["", "Big-O gives only an upper bound, not a tight one.", "Omega gives only a lower bound.", "little-o is a strict (non-tight) upper bound, meaning f grows strictly slower than g."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "easy",
+  "questionText": "Which growth-rate ordering is correct (slowest to fastest) for large n?",
+  "options": ["log n < n < n log n < n² < 2^n", "n < log n < n² < n log n < 2^n", "2^n < n² < n log n < n < log n", "n log n < n < log n < n² < 2^n"],
+  "correctIndex": 0,
+  "explanation": "For large n: log n grows slowest, then linear n, then n log n, then quadratic n², and exponential 2^n grows fastest.",
+  "distractorRationales": ["", "log n grows slower than n, so n cannot precede log n.", "This reverses the correct order entirely.", "n log n grows faster than n, so it cannot come before n."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "medium",
+  "questionText": "Solve T(n) = T(n/2) + O(1).",
+  "options": ["O(log n)", "O(n)", "O(n log n)", "O(1)"],
+  "correctIndex": 0,
+  "explanation": "Each step halves n with O(1) work, so there are log n levels of constant work: T(n) = O(log n). This is the binary-search recurrence.",
+  "distractorRationales": ["", "O(n) would require linear work per level or n recursive levels of constant size, not halving.", "O(n log n) corresponds to two recursive calls plus linear merge, not this single-call recurrence.", "O(1) ignores the log n levels of recursion."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "medium",
+  "questionText": "Solve T(n) = T(n − 1) + O(n).",
+  "options": ["O(n²)", "O(n)", "O(n log n)", "O(2^n)"],
+  "correctIndex": 0,
+  "explanation": "Unrolling: O(n) + O(n−1) + ... + O(1) = O(n(n+1)/2) = O(n²). This is the recurrence for, e.g., insertion sort's worst case or selection sort.",
+  "distractorRationales": ["", "O(n) would require constant work per level, but each level does O(n) work.", "O(n log n) arises from balanced halving recurrences, not decrement-by-one.", "O(2^n) would require branching into two subproblems each step, which this recurrence does not."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "medium",
+  "questionText": "By the Master Theorem, T(n) = 3T(n/2) + O(n) solves to:",
+  "options": ["Θ(n^log2(3)) ≈ Θ(n^1.585)", "Θ(n log n)", "Θ(n)", "Θ(n²)"],
+  "correctIndex": 0,
+  "explanation": "a = 3, b = 2, so n^(log_2 3) ≈ n^1.585. Since f(n) = n is polynomially smaller, Case 1 applies and T(n) = Θ(n^1.585).",
+  "distractorRationales": ["", "Θ(n log n) corresponds to a = 2 (Case 2), not a = 3.", "Θ(n) ignores the branching factor of 3 that dominates.", "Θ(n²) would require a larger combine cost or branching, e.g., a = 4 with b = 2."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "medium",
+  "questionText": "Which statement about Big-O is TRUE?",
+  "options": ["3n² + 5n + 2 = O(n²)", "n² = O(n)", "2^n = O(n²)", "n log n = O(n)"],
+  "correctIndex": 0,
+  "explanation": "Lower-order terms and constant factors are dropped, so 3n² + 5n + 2 is O(n²). The others are false: n² grows faster than n, 2^n faster than any polynomial, and n log n faster than n.",
+  "distractorRationales": ["", "n² grows faster than n, so n² ≠ O(n).", "2^n grows faster than any polynomial, so 2^n ≠ O(n²).", "n log n grows faster than n, so n log n ≠ O(n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "medium",
+  "questionText": "The amortized analysis technique that assigns a stored 'credit' to data-structure elements to pay for future expensive operations is called the:",
+  "options": ["Accounting (banker's) method", "Master theorem", "Substitution method", "Decision-tree method"],
+  "correctIndex": 0,
+  "explanation": "The accounting method charges each operation an amortized cost, banking surplus 'credit' on elements to pay for later costly operations (like an array resize). The aggregate and potential methods are the other two amortized-analysis approaches.",
+  "distractorRationales": ["", "The Master theorem solves divide-and-conquer recurrences, not amortized costs.", "The substitution method proves recurrence bounds by induction, not amortized analysis.", "Decision trees give sorting lower bounds, unrelated to amortization."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "hard",
+  "questionText": "Using the substitution or recursion-tree method, solve T(n) = T(n/3) + T(2n/3) + cn.",
+  "options": ["Θ(n log n)", "Θ(n)", "Θ(n²)", "Θ(n^1.5)"],
+  "correctIndex": 0,
+  "explanation": "Each level's subproblem sizes sum to n, so each level does Θ(n) work. The deepest path (dividing by 3/2 each time) has depth Θ(log n), giving Θ(n log n) total.",
+  "distractorRationales": ["", "Θ(n) would require constant depth, but the recursion has logarithmic depth.", "Θ(n²) requires per-level work that grows, but here it stays Θ(n).", "Θ(n^1.5) does not arise from linear per-level work with logarithmic depth."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "hard",
+  "questionText": "Which function grows asymptotically faster: n^(log n) or (log n)^n?",
+  "options": ["(log n)^n grows faster", "n^(log n) grows faster", "They grow at the same rate", "Neither dominates the other"],
+  "correctIndex": 0,
+  "explanation": "Take logs: ln(n^(log n)) = (log n)(ln n) ≈ (ln n)², while ln((log n)^n) = n·ln(ln n). Since n·ln(ln n) grows much faster than (ln n)², (log n)^n dominates.",
+  "distractorRationales": ["", "n^(log n) has log-of-it ≈ (ln n)², which is far smaller than n·ln(ln n).", "Their logarithms grow at very different rates, so they are not equal.", "One clearly dominates: (log n)^n."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "hard",
+  "questionText": "The recurrence T(n) = 2T(√n) + log n. Substituting m = log n transforms it into a more familiar form whose solution is:",
+  "options": ["Θ(log n · log log n)", "Θ(log n)", "Θ(n)", "Θ(log² n)"],
+  "correctIndex": 0,
+  "explanation": "Let m = log n; then T(2^m) = 2T(2^(m/2)) + m. Define S(m) = T(2^m): S(m) = 2S(m/2) + m, which by the Master Theorem is Θ(m log m). Back-substituting m = log n gives Θ(log n · log log n).",
+  "distractorRationales": ["", "Θ(log n) omits the extra log log n factor from the transformed Θ(m log m).", "Θ(n) is far too large for this shrinking (square-root) recurrence.", "Θ(log² n) would be S(m)=Θ(m²), but the transformed recurrence gives Θ(m log m)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "hard",
+  "questionText": "If f(n) = Θ(g(n)), which of the following must also be true?",
+  "options": ["f(n) = O(g(n)) and f(n) = Ω(g(n))", "f(n) = o(g(n))", "g(n) = ω(f(n))", "f(n) grows strictly faster than g(n)"],
+  "correctIndex": 0,
+  "explanation": "Θ is the conjunction of O and Ω: f(n) = Θ(g(n)) implies both f(n) = O(g(n)) (upper bound) and f(n) = Ω(g(n)) (lower bound).",
+  "distractorRationales": ["", "little-o means strictly slower growth, which contradicts the tight Θ bound.", "g = ω(f) means g strictly dominates f, contradicting Θ equivalence.", "Under Θ, neither grows strictly faster; they are within constant factors."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "medium",
+  "questionText": "Solve T(n) = 8T(n/2) + Θ(n²) by the Master Theorem.",
+  "options": ["Θ(n³)", "Θ(n² log n)", "Θ(n²)", "Θ(n³ log n)"],
+  "correctIndex": 0,
+  "explanation": "a = 8, b = 2, so n^(log_2 8) = n³. Since f(n) = n² is polynomially smaller than n³, Case 1 applies: T(n) = Θ(n³).",
+  "distractorRationales": ["", "Θ(n² log n) would require f(n) = Θ(n²) to equal n^(log_b a), but here n³ dominates.", "Θ(n²) ignores the branching factor of 8 that drives the cost to n³.", "Θ(n³ log n) adds a spurious log factor; Case 1 gives no extra log."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "asymptotic-recurrence-analysis",
+  "difficulty": "easy",
+  "questionText": "An algorithm with running time T(n) = 100n + 5000 is in which complexity class?",
+  "options": ["O(n) — linear", "O(1) — constant", "O(n²) — quadratic", "O(log n) — logarithmic"],
+  "correctIndex": 0,
+  "explanation": "Constant factors (100) and additive constants (5000) are dropped in asymptotic analysis, leaving Θ(n): the algorithm is linear.",
+  "distractorRationales": ["", "It is not constant; the 100n term grows with n.", "There is no n² term, so it is not quadratic.", "It grows linearly, faster than logarithmic."]
+ }
+]

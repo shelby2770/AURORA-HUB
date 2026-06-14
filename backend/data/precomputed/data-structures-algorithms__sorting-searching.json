@@ -1,0 +1,142 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "easy",
+  "questionText": "What is the worst-case time complexity of merge sort?",
+  "options": ["O(n log n)", "O(n²)", "O(n)", "O(log n)"],
+  "correctIndex": 0,
+  "explanation": "Merge sort always splits in half and merges in linear time, giving T(n)=2T(n/2)+O(n)=O(n log n) in the best, average, and worst cases.",
+  "distractorRationales": ["", "O(n²) is quicksort's worst case, not merge sort's.", "O(n) is impossible for a comparison sort in general.", "O(log n) is far too small to even read all n elements."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "easy",
+  "questionText": "Which sorting algorithm has the best average-case performance but O(n²) worst case, and sorts in place?",
+  "options": ["Quicksort", "Merge sort", "Heap sort", "Counting sort"],
+  "correctIndex": 0,
+  "explanation": "Quicksort averages O(n log n), sorts in place (O(log n) stack), but degrades to O(n²) with poor pivots. Merge sort and heap sort have O(n log n) worst case; counting sort is non-comparison.",
+  "distractorRationales": ["", "Merge sort is O(n log n) worst case but not in place (needs O(n) auxiliary space).", "Heap sort is O(n log n) worst case and in place, but its constant factors are worse than quicksort's average.", "Counting sort is a linear non-comparison sort, not an in-place comparison sort with O(n²) worst case."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "easy",
+  "questionText": "Binary search requires that the input array be:",
+  "options": ["Sorted", "Of even length", "Stored in a linked list", "Free of duplicates"],
+  "correctIndex": 0,
+  "explanation": "Binary search relies on order to halve the search space each step by comparing with the middle element; it only works on a sorted array (with O(1) indexed access).",
+  "distractorRationales": ["", "Array length parity is irrelevant to binary search.", "Binary search needs O(1) random access, which a linked list lacks; an array is required.", "Duplicates are allowed; binary search still finds a matching element."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "medium",
+  "questionText": "The lower bound for comparison-based sorting of n elements is:",
+  "options": ["Ω(n log n) comparisons", "Ω(n) comparisons", "Ω(n²) comparisons", "Ω(log n) comparisons"],
+  "correctIndex": 0,
+  "explanation": "A decision tree distinguishing n! possible orderings must have height at least log₂(n!) = Ω(n log n), so any comparison sort needs Ω(n log n) comparisons in the worst case.",
+  "distractorRationales": ["", "Ω(n) is only enough to read the input, insufficient to distinguish all orderings.", "Ω(n²) is an upper bound for simple sorts, not the general lower bound.", "Ω(log n) is far below the information-theoretic requirement."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "medium",
+  "questionText": "Counting sort can sort n integers in the range [0, k] in time:",
+  "options": ["O(n + k)", "O(n log n)", "O(nk)", "O(k log n)"],
+  "correctIndex": 0,
+  "explanation": "Counting sort tallies occurrences of each value (O(n)) and reconstructs the sorted output by scanning the count array of size k (O(k)), giving O(n + k). It is efficient when k = O(n).",
+  "distractorRationales": ["", "O(n log n) is the comparison-sort bound; counting sort beats it for small k.", "O(nk) overstates; the count array is scanned once, not n times.", "O(k log n) does not reflect counting sort's two linear passes."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "medium",
+  "questionText": "Radix sort using a stable counting sort on each of d digits (base b) over n numbers runs in:",
+  "options": ["O(d(n + b))", "O(n log n)", "O(dn²)", "O(n + d)"],
+  "correctIndex": 0,
+  "explanation": "Radix sort does d passes, each a stable counting sort costing O(n + b). Total is O(d(n + b)), which is linear when d and b are bounded relative to n.",
+  "distractorRationales": ["", "O(n log n) is the comparison-sort bound; radix sort can be faster for bounded-width keys.", "O(dn²) is far too high; each pass is linear, not quadratic.", "O(n + d) omits the per-pass base term and the multiplication by d passes."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "medium",
+  "questionText": "A sorting algorithm is 'stable' if it:",
+  "options": ["Preserves the relative order of elements with equal keys", "Always runs in O(n log n)", "Uses no extra memory", "Never makes more than n comparisons"],
+  "correctIndex": 0,
+  "explanation": "Stability means equal-keyed elements keep their original relative order after sorting. This matters when sorting by multiple keys in sequence. Merge sort and counting sort are stable; heap sort and typical quicksort are not.",
+  "distractorRationales": ["", "Time complexity is unrelated to stability; some O(n²) sorts are stable.", "Memory usage (in-place vs not) is a separate property from stability.", "The comparison count does not define stability."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "medium",
+  "questionText": "Heap sort sorts in place with worst-case time:",
+  "options": ["O(n log n)", "O(n²)", "O(n)", "O(n log² n)"],
+  "correctIndex": 0,
+  "explanation": "Heap sort builds a heap in O(n), then performs n extractions each costing O(log n) for sift-down, giving O(n log n) worst case, with O(1) extra space (in place).",
+  "distractorRationales": ["", "O(n²) is not heap sort's complexity; each extraction is logarithmic.", "O(n) is impossible for a comparison sort in general.", "O(n log² n) overstates; each of the n sift-downs is a single O(log n), not O(log² n)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "medium",
+  "questionText": "Quicksort achieves its best-case O(n log n) when the pivot at each step:",
+  "options": ["Splits the array into two roughly equal halves", "Is always the smallest element", "Is always the largest element", "Equals the first element of a sorted array"],
+  "correctIndex": 0,
+  "explanation": "Balanced partitions (pivot near the median) give the recurrence T(n)=2T(n/2)+O(n)=O(n log n). Extreme pivots cause maximally unbalanced splits and O(n²) behavior.",
+  "distractorRationales": ["", "Always picking the smallest element gives a 0:(n−1) split — the O(n²) worst case.", "Always picking the largest is likewise maximally unbalanced, giving O(n²).", "Choosing the first element of an already-sorted array is the classic O(n²) trigger for naive quicksort."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "hard",
+  "questionText": "To find the k-th smallest element of an unsorted array in expected linear time, you would use:",
+  "options": ["Randomized quickselect", "Full quicksort then index", "Binary search on the unsorted array", "Heap sort then index"],
+  "correctIndex": 0,
+  "explanation": "Quickselect partitions around a (random) pivot and recurses only into the side containing the k-th element, giving expected O(n) time — better than sorting first.",
+  "distractorRationales": ["", "Sorting fully then indexing is O(n log n), slower than the O(n) expected quickselect.", "Binary search requires sorted data; it cannot run on an unsorted array.", "Heap sort then indexing is O(n log n), again slower than quickselect's expected linear time."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "hard",
+  "questionText": "Performing binary search on a rotated sorted array (no duplicates) to find a target takes:",
+  "options": ["O(log n) time, by deciding at each step which half is normally ordered", "O(n) time always", "O(n log n) time", "O(1) time"],
+  "correctIndex": 0,
+  "explanation": "Even after rotation, at each midpoint one half is sorted. Comparing the target against that sorted half's range tells you which half to recurse into, preserving O(log n).",
+  "distractorRationales": ["", "A linear scan is O(n), but the structure allows the faster O(log n) approach.", "O(n log n) is a sorting cost, not search.", "O(1) is impossible without examining log n elements to locate the target."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "hard",
+  "questionText": "Which statement about quicksort vs. merge sort is TRUE for sorting large arrays in memory?",
+  "options": ["Quicksort usually has better cache performance and smaller constant factors, despite a worse worst case", "Merge sort is always faster in practice", "Quicksort uses more extra memory than merge sort", "Merge sort is unstable"],
+  "correctIndex": 0,
+  "explanation": "Quicksort's in-place partitioning gives good locality and low overhead, so it is typically faster in practice for in-memory arrays even though its worst case is O(n²) (mitigated by randomized pivots).",
+  "distractorRationales": ["", "Merge sort is not always faster; quicksort often wins on in-memory arrays due to cache effects.", "Quicksort uses LESS extra memory (in place) than merge sort's O(n) auxiliary array.", "Standard merge sort is stable, not unstable."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "hard",
+  "questionText": "Why can't counting sort or radix sort beat the Ω(n log n) bound for arbitrary inputs?",
+  "options": ["They are non-comparison sorts that assume keys come from a bounded range; the Ω(n log n) bound applies only to comparison sorts", "They actually do make n log n comparisons internally", "They only work on already-sorted data", "They require the input to be a linked list"],
+  "correctIndex": 0,
+  "explanation": "The Ω(n log n) lower bound is specifically for comparison-based sorting. Counting and radix sort exploit the structure of integer keys in a bounded range and use no key comparisons, so the bound does not apply to them.",
+  "distractorRationales": ["", "They use counting/distribution, not comparisons; there is no hidden n log n comparison cost.", "They work on arbitrary (bounded-range) data, not only sorted data.", "They operate on arrays of keys, not specifically linked lists."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "sorting-searching",
+  "difficulty": "easy",
+  "questionText": "Selection sort makes how many comparisons in the worst case to sort n elements?",
+  "options": ["Θ(n²)", "Θ(n log n)", "Θ(n)", "Θ(log n)"],
+  "correctIndex": 0,
+  "explanation": "Selection sort scans the unsorted portion to find the minimum on each of n passes, doing (n−1)+(n−2)+...+1 = Θ(n²) comparisons regardless of input.",
+  "distractorRationales": ["", "Θ(n log n) is achieved by efficient sorts like merge/heap sort, not selection sort.", "Θ(n) is far too few; selection sort compares quadratically.", "Θ(log n) cannot even examine all elements once."]
+ }
+]

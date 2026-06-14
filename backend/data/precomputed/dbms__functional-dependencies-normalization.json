@@ -1,0 +1,182 @@
+[
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "easy",
+  "questionText": "A functional dependency X → Y means:",
+  "options": ["Each value of X is associated with exactly one value of Y", "Each value of Y determines a unique X", "X and Y are always candidate keys", "X and Y must be single attributes"],
+  "correctIndex": 0,
+  "explanation": "X → Y (X functionally determines Y) holds if, for any two tuples that agree on X, they must also agree on Y. Equivalently, each X value maps to one Y value.",
+  "distractorRationales": ["", "The direction matters: X → Y does not imply Y → X; Y need not determine X.", "Determinants are not necessarily candidate keys; a key requires determining all attributes.", "Both X and Y can be sets of attributes, not just single attributes."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "easy",
+  "questionText": "Which Armstrong's axiom states that if X → Y, then XZ → YZ?",
+  "options": ["Augmentation", "Reflexivity", "Transitivity", "Decomposition"],
+  "correctIndex": 0,
+  "explanation": "Augmentation: if X → Y holds, then XZ → YZ for any attribute set Z. Reflexivity gives trivial dependencies (X → Y when Y ⊆ X), and transitivity gives X → Z from X → Y and Y → Z.",
+  "distractorRationales": ["", "Reflexivity states X → Y when Y is a subset of X.", "Transitivity states that X → Y and Y → Z give X → Z.", "Decomposition (a derived rule) splits X → YZ into X → Y and X → Z."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "easy",
+  "questionText": "A relation is in First Normal Form (1NF) if:",
+  "options": ["Every attribute value is atomic (no repeating groups or multivalued attributes)", "It has no partial dependencies", "It has no transitive dependencies", "Every determinant is a candidate key"],
+  "correctIndex": 0,
+  "explanation": "1NF requires that all attribute values be atomic — no sets, lists, or repeating groups in a single cell. Removing partial, transitive, and non-key-determinant dependencies are 2NF, 3NF, and BCNF respectively.",
+  "distractorRationales": ["", "Removing partial dependencies is the requirement for 2NF, not 1NF.", "Removing transitive dependencies is the requirement for 3NF.", "Every determinant being a candidate key is the BCNF condition."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "easy",
+  "questionText": "A relation R is in BCNF if, for every non-trivial functional dependency X → Y that holds on R:",
+  "options": ["X is a superkey of R", "Y is a prime attribute", "X is a single attribute", "Y is a candidate key"],
+  "correctIndex": 0,
+  "explanation": "Boyce-Codd Normal Form requires that for every non-trivial FD X → Y, the left side X must be a superkey. This is stricter than 3NF.",
+  "distractorRationales": ["", "3NF allows Y to be prime even when X is not a superkey; BCNF requires X to be a superkey regardless.", "X may be a composite set of attributes; being single is not required.", "BCNF constrains the determinant X, not the dependent Y."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "easy",
+  "questionText": "An attribute that is part of at least one candidate key is called a:",
+  "options": ["Prime attribute", "Foreign attribute", "Derived attribute", "Surrogate attribute"],
+  "correctIndex": 0,
+  "explanation": "A prime (or key) attribute is one that belongs to some candidate key. A non-prime attribute belongs to no candidate key. This distinction is central to defining 2NF and 3NF.",
+  "distractorRationales": ["", "'Foreign attribute' is not a standard term; foreign keys reference another relation.", "A derived attribute is computed from others — an ER concept, not about candidate keys.", "A surrogate is an artificial key; it is not the general term for key membership."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "Consider relation R(A, B, C, D) with FDs A → B, B → C, C → D. What is the closure A+ (the set of attributes functionally determined by A)?",
+  "options": ["{A, B, C, D}", "{A, B}", "{A, B, C}", "{A}"],
+  "correctIndex": 0,
+  "explanation": "Start with A. A → B adds B. B → C adds C. C → D adds D. So A+ = {A, B, C, D}, meaning A is a candidate key of R.",
+  "distractorRationales": ["", "{A, B} stops after one step; transitivity continues to C and D.", "{A, B, C} misses D, which is reachable via C → D.", "{A} ignores all the FDs; A determines B, C, and D transitively."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "Relation R(A, B, C) has FDs AB → C and C → A. Which of the following is a candidate key?",
+  "options": ["Both AB and BC are candidate keys", "Only AB is a candidate key", "Only C is a candidate key", "ABC is the only candidate key"],
+  "correctIndex": 0,
+  "explanation": "AB+ : AB → C gives C, so AB+ = {A,B,C} → AB is a key. BC+ : C → A gives A, so BC+ = {A,B,C} → BC is also a key. Both AB and BC are candidate keys; A, B, C are all prime.",
+  "distractorRationales": ["", "BC is also a key because C → A lets BC determine A, hence all attributes.", "C alone gives only {C, A}; it cannot determine B, so C is not a key.", "ABC is a superkey but not minimal, so it is not a candidate key; smaller keys exist."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "A relation is in 2NF if it is in 1NF and:",
+  "options": ["No non-prime attribute is partially dependent on any candidate key", "No non-prime attribute is transitively dependent on a key", "Every determinant is a superkey", "It has only one candidate key"],
+  "correctIndex": 0,
+  "explanation": "2NF eliminates partial dependencies: every non-prime attribute must depend on the whole of every candidate key, not on a proper subset of a key. Eliminating transitive dependencies is 3NF; every determinant being a superkey is BCNF.",
+  "distractorRationales": ["", "Eliminating transitive dependencies is the 3NF requirement, not 2NF.", "Every determinant being a superkey is the BCNF requirement.", "The number of candidate keys is irrelevant to 2NF."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "Relation R(A, B, C, D) with candidate key AB and FD C → D. In which normal form is R (highest applicable), assuming it is in 1NF?",
+  "options": ["It violates 2NF because C → D is a dependency on a non-key (but first, A→? check); actually it is in 1NF only since C, D are non-prime and C→D is a transitive issue", "BCNF", "3NF but not BCNF", "2NF but not 3NF"],
+  "correctIndex": 3,
+  "explanation": "Key is AB, so prime attributes are A, B; non-prime are C, D. No partial dependency of C or D on a part of AB is given, so 2NF holds. But C → D has a non-prime determinant C (not a superkey) and a non-prime dependent D, which violates 3NF (and BCNF). Hence R is in 2NF but not 3NF.",
+  "distractorRationales": ["This option is muddled and self-contradictory; the clean classification is 2NF but not 3NF.", "BCNF requires every determinant be a superkey; C is not a superkey, so BCNF fails.", "3NF is violated because C → D has a non-prime determinant and non-prime dependent.", ""]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "Which property guarantees that a decomposition of R into R1 and R2 can be rejoined without spurious tuples?",
+  "options": ["The common attributes (R1 ∩ R2) form a superkey of at least one of R1 or R2", "R1 and R2 are both in BCNF", "R1 and R2 have no common attributes", "Every FD is preserved in R1 or R2"],
+  "correctIndex": 0,
+  "explanation": "A binary decomposition is lossless-join iff R1 ∩ R2 → R1 or R1 ∩ R2 → R2, i.e., the shared attributes are a superkey of at least one fragment. This ensures the natural join reconstructs exactly R.",
+  "distractorRationales": ["", "Being in BCNF concerns redundancy, not the lossless-join guarantee; a BCNF decomposition can still be lossless via the key test.", "Having no common attributes makes the join a Cartesian product, which is lossy.", "FD preservation (dependency preservation) is a separate property and does not by itself ensure losslessness."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "Given R(A, B, C) with FDs A → B and A → C, how many candidate keys does R have?",
+  "options": ["Exactly one: A", "Two: A and BC", "Three: A, B, C", "None"],
+  "correctIndex": 0,
+  "explanation": "A+ = {A, B, C}, so A is a key. B+ = {B}, C+ = {C}, BC+ = {B, C} — none of these determine A. So A is the only candidate key.",
+  "distractorRationales": ["", "BC cannot determine A (no FD gives A from B or C), so BC is not a key.", "Neither B nor C determines the others, so they are not keys.", "A is clearly a key, so 'none' is incorrect."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "medium",
+  "questionText": "Which normal form deals specifically with multivalued dependencies (MVDs)?",
+  "options": ["Fourth Normal Form (4NF)", "Third Normal Form (3NF)", "Boyce-Codd Normal Form (BCNF)", "Second Normal Form (2NF)"],
+  "correctIndex": 0,
+  "explanation": "4NF removes non-trivial multivalued dependencies that are not implied by a superkey. 2NF, 3NF, and BCNF address only functional dependencies.",
+  "distractorRationales": ["", "3NF addresses transitive functional dependencies, not MVDs.", "BCNF addresses functional dependencies where the determinant must be a superkey, not MVDs.", "2NF addresses partial functional dependencies, not MVDs."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "hard",
+  "questionText": "Relation R(A, B, C, D, E) with FDs A → BC, CD → E, B → D, E → A. Which is a candidate key?",
+  "options": ["A is a candidate key", "Only CD is a candidate key", "BD is a candidate key", "Only E is a candidate key, A is not"],
+  "correctIndex": 0,
+  "explanation": "A+ : A→BC gives B,C; B→D gives D; CD→E gives E. So A+ = {A,B,C,D,E} → A is a key. Likewise E→A makes E a key, and (since A determines all) any attribute set whose closure includes A works. A is indeed a candidate key (minimal, single-attribute).",
+  "distractorRationales": ["", "CD+ = {C,D,E,A,B} is also all attributes (E→A→BC), so CD is a superkey, but the option wrongly says 'only' CD.", "BD+ : B→D adds nothing new beyond D; BD cannot reach A, C, or E, so BD is not a key.", "A is a key because A→BC, B→D, CD→E gives the full set; the claim that A is not a key is false."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "hard",
+  "questionText": "Consider R(A, B, C, D) with FDs AB → CD and D → A. Identify a correct statement.",
+  "options": ["BD is a candidate key, and the relation is not in BCNF because D → A has a non-superkey determinant", "AB is the only candidate key", "R is already in BCNF", "D is a candidate key by itself"],
+  "correctIndex": 0,
+  "explanation": "AB+ = {A,B,C,D} so AB is a key. BD+ : D→A gives A, then AB→CD gives C,D; so BD+ = {A,B,C,D} → BD is also a key. Prime attributes: A, B, D. FD D → A has determinant D, which is not a superkey (D+ = {D,A} only), so BCNF is violated. (It is in 3NF, since A is prime.)",
+  "distractorRationales": ["", "BD is also a candidate key, so AB is not the only one.", "R is not in BCNF: D → A has a non-superkey left side.", "D alone has D+ = {A, D}, which lacks B and C, so D is not a key."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "hard",
+  "questionText": "A decomposition that is lossless-join AND dependency-preserving is always achievable for:",
+  "options": ["3NF, but not always for BCNF", "BCNF, but not always for 3NF", "Both BCNF and 3NF always", "Neither 3NF nor BCNF"],
+  "correctIndex": 0,
+  "explanation": "Every relation can be decomposed into 3NF with both lossless join and dependency preservation (the synthesis algorithm guarantees this). BCNF decomposition is always lossless, but dependency preservation cannot always be achieved in BCNF — that is the known tradeoff.",
+  "distractorRationales": ["", "BCNF cannot always preserve dependencies; the classic counterexample is R(A,B,C) with AB→C and C→B.", "BCNF does not always allow dependency preservation, so 'both always' is false.", "3NF always allows a lossless, dependency-preserving decomposition, so 'neither' is false."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "hard",
+  "questionText": "For relation R(A, B, C) with FD set F = {A → B, B → C}, how many distinct superkeys does R have? (Hint: candidate key is A.)",
+  "options": ["4", "1", "3", "7"],
+  "correctIndex": 0,
+  "explanation": "A is the only candidate key. A superkey is any attribute set containing A. The supersets of {A} within {A,B,C} are: {A}, {A,B}, {A,C}, {A,B,C} — that is 2^2 = 4 superkeys.",
+  "distractorRationales": ["", "1 counts only the minimal key A, not all supersets that are also superkeys.", "3 omits one of the four supersets of {A}.", "7 = 2^3 − 1 counts all non-empty subsets, but only those containing A qualify as superkeys."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "hard",
+  "questionText": "Two FD sets F and G are equivalent (a 'cover' of each other) if and only if:",
+  "options": ["F+ = G+, i.e., each FD in F is implied by G and each FD in G is implied by F", "F and G have the same number of FDs", "F and G have identical left-hand sides", "F ⊆ G"],
+  "correctIndex": 0,
+  "explanation": "F and G are equivalent when their closures are equal: every FD derivable from F is derivable from G and vice versa (F covers G and G covers F). This is checked by verifying each FD of one set holds under the closure of the other.",
+  "distractorRationales": ["", "The count of FDs is irrelevant; a minimal cover may have fewer FDs yet be equivalent.", "Identical left-hand sides are neither necessary nor sufficient for equivalence.", "F ⊆ G only gives one direction; equivalence requires both closures to match."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "functional-dependencies-normalization",
+  "difficulty": "hard",
+  "questionText": "In a minimal (canonical) cover of an FD set, which condition must hold?",
+  "options": ["Every FD has a single attribute on the right, no extraneous attribute on the left, and no FD is redundant", "Every FD must have a single attribute on the left", "All FDs must share the same determinant", "The cover must contain the maximum possible number of FDs"],
+  "correctIndex": 0,
+  "explanation": "A canonical/minimal cover requires: (1) every right-hand side is a single attribute, (2) no left-hand side has an extraneous attribute, and (3) no FD in the set is redundant (removable while preserving closure).",
+  "distractorRationales": ["", "Left-hand sides may be composite; only extraneous attributes must be removed.", "FDs in a minimal cover can have different determinants; sharing one is not required.", "A minimal cover seeks the fewest, non-redundant FDs, not the maximum."]
+ }
+]

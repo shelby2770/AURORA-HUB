@@ -130,7 +130,7 @@ async def test_difficulty_filter(client):
 
 
 # ── count caps ──────────────────────────────────────────────────────────────
-async def test_subtopic_scope_rejects_50(client):
+async def test_count_50_rejected(client):
     course, sub = await _course_and_subtopic()
     await make_many(course_id=course.id, subtopic_id=sub.id, n=5,
                     source=QuestionSource.exemplar)
@@ -138,13 +138,13 @@ async def test_subtopic_scope_rejects_50(client):
     assert resp.status_code == 422
 
 
-async def test_whole_course_scope_allows_50(client):
+async def test_count_5_allowed(client):
     course, sub = await _course_and_subtopic()
     await make_many(course_id=course.id, subtopic_id=sub.id, n=12,
                     source=QuestionSource.exemplar)
-    resp = await _start(client, course, None, count=50)  # whole-course
+    resp = await _start(client, course, None, count=5)  # whole-course
     assert resp.status_code == 200
-    assert resp.json()["count"] == 12  # served what's available, cap satisfied
+    assert resp.json()["count"] == 5
 
 
 async def test_non_standard_count_rejected(client):

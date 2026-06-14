@@ -51,6 +51,33 @@ def get_parser(s: Settings | None = None) -> LLMProvider:
     return _build(name, _model_for(name, "generator", s), s)
 
 
+def get_ondemand_generator(s: Settings | None = None) -> LLMProvider:
+    """Generator for on-demand quiz generation: Gemini first, Groq fallback.
+
+    Honors the product preference (Gemini priority) while staying usable when
+    Gemini's free-tier daily quota is spent (falls through to Groq).
+    """
+    from app.llm.fallback import FallbackProvider
+
+    s = s or default_settings
+    return FallbackProvider([
+        _build("gemini", _model_for("gemini", "generator", s), s),
+        _build("groq", _model_for("groq", "generator", s), s),
+    ])
+
+
+def get_ondemand_verifier(s: Settings | None = None) -> LLMProvider:
+    """Cross-check verifier: Groq first (independent of the Gemini generator),
+    Gemini fallback. Keeps the re-solve on a different model when possible."""
+    from app.llm.fallback import FallbackProvider
+
+    s = s or default_settings
+    return FallbackProvider([
+        _build("groq", _model_for("groq", "verifier", s), s),
+        _build("gemini", _model_for("gemini", "verifier", s), s),
+    ])
+
+
 def get_embedder(s: Settings | None = None) -> LLMProvider:
     s = s or default_settings
     name = s.llm_embedding_provider

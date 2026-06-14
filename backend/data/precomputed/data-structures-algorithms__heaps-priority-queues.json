@@ -1,0 +1,122 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "easy",
+  "questionText": "In a binary min-heap stored in an array (1-indexed), the children of the node at index i are at:",
+  "options": ["2i and 2i + 1", "i + 1 and i + 2", "i/2 and i/3", "i − 1 and i + 1"],
+  "correctIndex": 0,
+  "explanation": "For a 1-indexed array heap, node i's left child is at 2i, right child at 2i+1, and parent at ⌊i/2⌋. This implicit structure needs no pointers.",
+  "distractorRationales": ["", "i+1 and i+2 are adjacent array cells, not the heap's children.", "i/2 is the parent index, not a child.", "i−1 and i+1 are array neighbors, unrelated to the heap parent-child mapping."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "easy",
+  "questionText": "The time complexity of extracting the minimum from a binary min-heap of n elements is:",
+  "options": ["O(log n)", "O(1)", "O(n)", "O(n log n)"],
+  "correctIndex": 0,
+  "explanation": "Extract-min returns the root (O(1)) but must restore the heap by moving the last element to the root and sifting it down, which takes O(log n) for the heap's height.",
+  "distractorRationales": ["", "Reading the minimum is O(1), but removing it and restoring heap order is O(log n).", "O(n) would be a linear scan, unnecessary given the heap structure.", "O(n log n) is the cost of sorting all elements, not a single extraction."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "easy",
+  "questionText": "Finding (peeking at) the maximum element in a max-heap takes:",
+  "options": ["O(1) time", "O(log n) time", "O(n) time", "O(n log n) time"],
+  "correctIndex": 0,
+  "explanation": "In a max-heap the maximum is always at the root (index 1), so peeking at it is O(1). Removing it would cost O(log n).",
+  "distractorRationales": ["", "O(log n) is the cost of removing the max, not peeking at it.", "O(n) would be needed in an unordered array, not a heap.", "O(n log n) is a sorting cost, irrelevant to a single peek."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "medium",
+  "questionText": "Inserting a new element into a binary heap of n elements takes:",
+  "options": ["O(log n) time, via sift-up from the new leaf", "O(1) time always", "O(n) time", "O(n log n) time"],
+  "correctIndex": 0,
+  "explanation": "The element is placed at the next leaf position and sifted up, swapping with its parent until heap order is restored — at most the height of the tree, O(log n).",
+  "distractorRationales": ["", "Insertion is O(log n) worst case, not always O(1) (though it can be O(1) amortized for some heap variants).", "O(n) would require shifting all elements, which the heap avoids.", "O(n log n) is a full-sort cost, not a single insertion."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "medium",
+  "questionText": "A complete binary tree with n nodes has height:",
+  "options": ["⌊log₂ n⌋", "n/2", "√n", "n − 1"],
+  "correctIndex": 0,
+  "explanation": "A complete binary tree is as balanced as possible, so its height is ⌊log₂ n⌋. This is why heap operations that traverse a root-to-leaf path are O(log n).",
+  "distractorRationales": ["", "n/2 is roughly the number of leaves, not the height.", "√n is not the height of a complete binary tree.", "n−1 would be the height of a degenerate (path-like) tree, not a complete one."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "medium",
+  "questionText": "Which operation is NOT efficiently supported (better than O(n)) by a standard binary heap?",
+  "options": ["Searching for an arbitrary element by value", "Extract-min", "Insert", "Peek-min"],
+  "correctIndex": 0,
+  "explanation": "A binary heap only orders along root-to-leaf paths, not globally, so finding an arbitrary value requires scanning up to all n elements — O(n). Extract-min, insert (O(log n)), and peek (O(1)) are all efficient.",
+  "distractorRationales": ["", "Extract-min is O(log n), efficient.", "Insert is O(log n), efficient.", "Peek-min is O(1), the most efficient operation."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "medium",
+  "questionText": "A priority queue is most appropriately implemented with a binary heap rather than a sorted array when:",
+  "options": ["Insertions and extract-min are both frequent (heap gives O(log n) each vs. O(n) insertion in a sorted array)", "Only peeking at the minimum is ever needed", "The data never changes", "Random indexed access is the main operation"],
+  "correctIndex": 0,
+  "explanation": "A sorted array gives O(1) min but O(n) insertion (shifting). A heap balances both insert and extract-min at O(log n), making it ideal when both operations occur frequently.",
+  "distractorRationales": ["", "If only peeking is needed, even a single tracked variable suffices; a heap is overkill.", "Static data could just be sorted once; the heap's advantage is handling dynamic updates.", "Heaps do not provide efficient random indexed access; arrays do."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "hard",
+  "questionText": "Building a heap from n arbitrary elements using the bottom-up 'heapify' (Floyd's build-heap) procedure takes:",
+  "options": ["O(n) time", "O(n log n) time", "O(log n) time", "O(n²) time"],
+  "correctIndex": 0,
+  "explanation": "Although each sift-down is O(log n), most nodes are near the leaves with small subtree heights. Summing height-weighted costs gives a geometric series bounded by O(n) — strictly better than n successive inserts (O(n log n)).",
+  "distractorRationales": ["", "O(n log n) is the cost of n individual insertions, which the bottom-up build-heap improves upon.", "O(log n) is the height, not the cost of processing all n nodes.", "O(n²) vastly overstates the build-heap cost."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "hard",
+  "questionText": "In a binary min-heap with n nodes, the maximum element is guaranteed to be:",
+  "options": ["At one of the leaf nodes (in the last ⌈n/2⌉ positions)", "At the root", "At the second level", "At index 2 of the array"],
+  "correctIndex": 0,
+  "explanation": "In a min-heap every node is ≤ its descendants, so the maximum cannot have any children — it must be a leaf. Leaves occupy roughly the second half of the array (indices ⌊n/2⌋+1 .. n).",
+  "distractorRationales": ["", "The root holds the MINIMUM in a min-heap, not the maximum.", "The maximum need not be at the second level; it must be a leaf.", "Index 2 is an internal node for larger heaps, so it is not guaranteed to hold the max."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "hard",
+  "questionText": "A d-ary heap (each node has up to d children) has height Θ(log_d n). For extract-min, the sift-down cost is:",
+  "options": ["O(d · log_d n), because each level compares among up to d children", "O(log_2 n) regardless of d", "O(d · n)", "O(n / d)"],
+  "correctIndex": 0,
+  "explanation": "A d-ary heap is shallower (height log_d n), but each sift-down level must find the smallest of up to d children (O(d) comparisons). Total sift-down cost is O(d · log_d n).",
+  "distractorRationales": ["", "The base of the log depends on d; it is log_d n, not log_2 n, and each level costs O(d).", "O(d·n) overstates; sift-down follows one root-to-leaf path, not all nodes.", "O(n/d) does not reflect the logarithmic height of the heap."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "hard",
+  "questionText": "A Fibonacci heap improves Dijkstra's algorithm because it supports decrease-key in:",
+  "options": ["O(1) amortized time", "O(log n) worst-case time", "O(n) time", "O(log² n) time"],
+  "correctIndex": 0,
+  "explanation": "Fibonacci heaps offer O(1) amortized decrease-key and insert, with O(log n) amortized extract-min. This brings Dijkstra to O(E + V log V), better than the binary-heap O((V+E) log V) for dense graphs.",
+  "distractorRationales": ["", "O(log n) decrease-key is the binary-heap bound; Fibonacci heaps achieve O(1) amortized.", "O(n) is far worse than what Fibonacci heaps provide.", "O(log² n) is not the Fibonacci-heap decrease-key bound."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "heaps-priority-queues",
+  "difficulty": "medium",
+  "questionText": "Heap sort uses a heap to sort n elements. Its overall time complexity is:",
+  "options": ["O(n log n)", "O(n)", "O(n²)", "O(log n)"],
+  "correctIndex": 0,
+  "explanation": "Heap sort builds a heap in O(n), then performs n extract-max operations, each O(log n), totaling O(n log n) in the worst case, with O(1) extra space.",
+  "distractorRationales": ["", "O(n) is only the build-heap phase; the n extractions add the log factor.", "O(n²) is the cost of simple sorts like bubble sort, not heap sort.", "O(log n) is the cost of a single operation, not sorting all n elements."]
+ }
+]

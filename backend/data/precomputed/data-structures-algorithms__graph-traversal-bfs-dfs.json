@@ -1,0 +1,142 @@
+[
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "easy",
+  "questionText": "Breadth-First Search (BFS) explores a graph using which auxiliary data structure?",
+  "options": ["A queue (FIFO)", "A stack (LIFO)", "A priority queue", "A binary search tree"],
+  "correctIndex": 0,
+  "explanation": "BFS uses a FIFO queue to visit vertices level by level: dequeue a vertex, enqueue its unvisited neighbors. This yields a shortest-path (in edges) ordering from the source.",
+  "distractorRationales": ["", "A stack drives DFS (depth-first), not BFS.", "A priority queue is used by Dijkstra's algorithm and best-first search, not plain BFS.", "A BST is not a traversal auxiliary structure for BFS."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "easy",
+  "questionText": "Depth-First Search (DFS) can be implemented iteratively using:",
+  "options": ["A stack (LIFO)", "A queue (FIFO)", "A min-heap", "A hash table only"],
+  "correctIndex": 0,
+  "explanation": "DFS uses a LIFO stack (explicit, or the call stack via recursion): it dives deep along one path before backtracking. A queue would instead produce BFS order.",
+  "distractorRationales": ["", "A FIFO queue produces BFS order, not DFS.", "A min-heap orders by priority, used by Dijkstra/Prim, not DFS.", "A hash table tracks visited vertices but does not by itself drive the depth-first order."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "easy",
+  "questionText": "The time complexity of BFS or DFS on a graph with V vertices and E edges, using adjacency lists, is:",
+  "options": ["O(V + E)", "O(V²)", "O(V · E)", "O(E log V)"],
+  "correctIndex": 0,
+  "explanation": "Each vertex is visited once and each edge examined once (or twice for undirected graphs) using adjacency lists, giving O(V + E).",
+  "distractorRationales": ["", "O(V²) is the cost when using an adjacency matrix, not adjacency lists.", "O(V·E) overstates traversal cost; each edge is processed a constant number of times.", "O(E log V) is the complexity of heap-based Dijkstra, not plain BFS/DFS."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "A topological sort of a directed graph is possible if and only if the graph is:",
+  "options": ["A directed acyclic graph (DAG)", "Connected", "Complete", "Undirected"],
+  "correctIndex": 0,
+  "explanation": "Topological ordering requires no directed cycles; it exists iff the graph is a DAG. A cycle would make it impossible to order all vertices so every edge points forward.",
+  "distractorRationales": ["", "Connectivity is neither necessary nor sufficient; a disconnected DAG still has a topological order.", "Completeness (all possible edges) would create cycles in a directed setting, preventing ordering.", "Topological sort is defined for directed graphs, not undirected ones."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "In DFS of a directed graph, a 'back edge' (an edge to an ancestor in the DFS tree) indicates:",
+  "options": ["The presence of a cycle", "A shortest path", "A bipartite structure", "A spanning tree edge"],
+  "correctIndex": 0,
+  "explanation": "A back edge connects a vertex to one of its ancestors in the DFS tree, closing a cycle. Detecting any back edge during DFS proves the directed graph has a cycle.",
+  "distractorRationales": ["", "Back edges relate to cycles, not shortest paths (which BFS/Dijkstra compute).", "Bipartiteness is detected via 2-coloring during BFS/DFS, not specifically by back edges in a directed graph.", "Tree edges (not back edges) are the edges forming the DFS spanning tree."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "BFS from a source vertex in an unweighted graph computes:",
+  "options": ["Shortest path distances (in number of edges) from the source to all reachable vertices", "Minimum spanning tree", "Strongly connected components", "All-pairs shortest paths"],
+  "correctIndex": 0,
+  "explanation": "Because BFS visits vertices in non-decreasing order of edge-distance from the source, the level at which each vertex is discovered equals its shortest-path distance (edge count) from the source.",
+  "distractorRationales": ["", "MST requires edge weights and a greedy MST algorithm, not plain BFS.", "Strongly connected components use DFS-based algorithms (Tarjan/Kosaraju), not a single BFS.", "BFS gives single-source distances, not all-pairs."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "To detect a cycle in an UNDIRECTED graph using DFS, you check for:",
+  "options": ["An edge to an already-visited vertex that is not the immediate parent", "Any edge to a visited vertex including the parent", "A vertex with degree 1", "A self-loop only"],
+  "correctIndex": 0,
+  "explanation": "In undirected DFS, every tree edge can be traversed back to the parent, so that does not indicate a cycle. A cycle exists if you reach a visited vertex that is NOT the immediate parent (a back edge).",
+  "distractorRationales": ["", "Including the parent would falsely flag every edge as a cycle, since each tree edge revisits the parent.", "A degree-1 vertex (leaf) cannot be part of a cycle.", "Self-loops are one cycle type, but general cycles are detected via non-parent back edges."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "A graph is bipartite if and only if it:",
+  "options": ["Contains no odd-length cycle (and can be 2-colored, checkable via BFS/DFS)", "Is connected", "Has an even number of vertices", "Is acyclic"],
+  "correctIndex": 0,
+  "explanation": "A graph is bipartite iff it has no odd-length cycle, equivalently iff it can be properly 2-colored. BFS/DFS can test this by coloring vertices in alternating colors and checking for conflicts.",
+  "distractorRationales": ["", "Connectivity is unrelated; disconnected graphs can be bipartite or not.", "Having an even vertex count does not guarantee bipartiteness (a triangle plus an isolated vertex is not bipartite).", "Acyclic graphs are bipartite, but bipartite graphs can also contain even cycles, so acyclicity is not the condition."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "hard",
+  "questionText": "Kosaraju's algorithm finds strongly connected components using:",
+  "options": ["Two DFS passes — one on the graph (to order by finish time) and one on the transpose graph", "A single BFS", "Dijkstra's algorithm", "Union-find only"],
+  "correctIndex": 0,
+  "explanation": "Kosaraju's: do DFS on G pushing vertices onto a stack by finish time; reverse all edges (transpose); then DFS in stack order on the transpose — each DFS tree is one SCC. It runs in O(V + E).",
+  "distractorRationales": ["", "A single BFS cannot identify strongly connected components in a directed graph.", "Dijkstra's computes shortest paths, not SCCs.", "Union-find detects connectivity in undirected graphs, not strong connectivity in directed graphs."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "hard",
+  "questionText": "In DFS with discovery time d[v] and finish time f[v], two vertices u and v are in an ancestor-descendant relationship iff:",
+  "options": ["Their intervals [d[u], f[u]] and [d[v], f[v]] are nested (one contains the other) — the parenthesis theorem", "Their intervals are disjoint", "d[u] = d[v]", "They share the same finish time"],
+  "correctIndex": 0,
+  "explanation": "The parenthesis theorem states that in any DFS, the time intervals of two vertices are either disjoint (neither is an ancestor of the other) or one is entirely contained within the other (ancestor-descendant).",
+  "distractorRationales": ["", "Disjoint intervals mean neither vertex is an ancestor of the other.", "Discovery times are distinct for distinct vertices in a sequential DFS, so equality cannot hold.", "Distinct vertices have distinct finish times in a standard DFS."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "hard",
+  "questionText": "Which traversal naturally produces a topological ordering of a DAG?",
+  "options": ["DFS — outputting vertices in reverse order of their finish times", "BFS — outputting vertices in discovery order", "DFS — outputting vertices in discovery order", "BFS — outputting vertices in reverse discovery order"],
+  "correctIndex": 0,
+  "explanation": "Running DFS and listing vertices in decreasing finish time yields a valid topological order: a vertex finishes only after all its descendants, so it precedes them in the reversed list. (Kahn's BFS-based algorithm is the alternative.)",
+  "distractorRationales": ["", "BFS discovery order does not guarantee a topological order; Kahn's algorithm uses in-degrees, not plain discovery order.", "DFS discovery order is not a topological order; finish-time order (reversed) is.", "Reverse BFS discovery order is not a valid topological ordering in general."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "hard",
+  "questionText": "Using an adjacency matrix instead of adjacency lists, the time complexity of BFS/DFS becomes:",
+  "options": ["O(V²)", "O(V + E)", "O(E log V)", "O(E²)"],
+  "correctIndex": 0,
+  "explanation": "With an adjacency matrix, finding all neighbors of a vertex requires scanning a full row of V entries. Over all V vertices this is O(V²), regardless of the number of edges.",
+  "distractorRationales": ["", "O(V + E) is the adjacency-list complexity; the matrix forces scanning V entries per vertex.", "O(E log V) is heap-based Dijkstra, not matrix-based traversal.", "O(E²) overstates; scanning the matrix is O(V²), not quadratic in edges."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "The number of connected components in an undirected graph can be found by:",
+  "options": ["Running BFS/DFS repeatedly from each unvisited vertex and counting the number of traversals started", "Counting the number of edges", "Counting vertices with odd degree", "Computing the determinant of the adjacency matrix"],
+  "correctIndex": 0,
+  "explanation": "Each BFS/DFS started from an unvisited vertex explores exactly one connected component. Counting how many such traversals are launched gives the number of components, in O(V + E).",
+  "distractorRationales": ["", "The edge count does not directly give the number of components.", "Odd-degree vertices relate to Eulerian paths, not component counting.", "The adjacency-matrix determinant does not yield the component count (the Laplacian's properties are different)."]
+ },
+ {
+  "course": "data-structures-algorithms",
+  "subtopic": "graph-traversal-bfs-dfs",
+  "difficulty": "medium",
+  "questionText": "0-1 BFS (BFS on a graph with edge weights only 0 or 1) finds shortest paths efficiently using:",
+  "options": ["A deque — pushing 0-weight edges to the front and 1-weight edges to the back", "A max-heap", "Two stacks", "A simple FIFO queue with no modification"],
+  "correctIndex": 0,
+  "explanation": "0-1 BFS uses a double-ended queue: relax a 0-weight edge by adding the neighbor to the front (same distance level) and a 1-weight edge to the back. This achieves O(V + E) shortest paths without a heap.",
+  "distractorRationales": ["", "A max-heap would extract the largest distance first, the opposite of what shortest paths need.", "Two stacks do not model the front/back distinction 0-1 BFS requires.", "A plain FIFO queue cannot correctly order 0-weight versus 1-weight relaxations."]
+ }
+]

@@ -1,0 +1,182 @@
+[
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "easy",
+  "questionText": "In an Entity-Relationship (ER) diagram, how is an entity set conventionally represented?",
+  "options": ["Rectangle", "Diamond", "Ellipse", "Double rectangle"],
+  "correctIndex": 0,
+  "explanation": "In the standard Chen notation, an entity set is drawn as a rectangle, a relationship set as a diamond, an attribute as an ellipse, and a weak entity set as a double rectangle.",
+  "distractorRationales": ["", "A diamond represents a relationship set, not an entity set.", "An ellipse represents an attribute.", "A double rectangle represents a weak entity set, not an ordinary one."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "easy",
+  "questionText": "An attribute that can be divided into smaller subparts (each with independent meaning) is called a:",
+  "options": ["Composite attribute", "Derived attribute", "Multivalued attribute", "Key attribute"],
+  "correctIndex": 0,
+  "explanation": "A composite attribute can be split into meaningful component attributes — e.g., Name into FirstName and LastName, or Address into Street, City, Zip.",
+  "distractorRationales": ["", "A derived attribute is computed from other attributes (e.g., Age from DOB), not subdivided.", "A multivalued attribute holds a set of values, but each value is not subdivided.", "A key attribute uniquely identifies an entity; it is about uniqueness, not subdivision."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "easy",
+  "questionText": "A derived attribute (e.g., Age computed from Date-of-Birth) is drawn in an ER diagram using a:",
+  "options": ["Dashed ellipse", "Double ellipse", "Solid ellipse", "Dashed rectangle"],
+  "correctIndex": 0,
+  "explanation": "A derived attribute is shown with a dashed (broken-line) ellipse. A double ellipse denotes a multivalued attribute, and a plain solid ellipse denotes an ordinary stored attribute.",
+  "distractorRationales": ["", "A double ellipse denotes a multivalued attribute.", "A solid ellipse denotes an ordinary stored attribute, not a derived one.", "Rectangles denote entity sets, not attributes."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "easy",
+  "questionText": "The number of entity sets that participate in a relationship set is called the relationship's:",
+  "options": ["Degree", "Cardinality ratio", "Participation", "Arity of the entity"],
+  "correctIndex": 0,
+  "explanation": "The degree of a relationship is the number of participating entity sets. A binary relationship has degree 2, a ternary relationship degree 3, and a unary (recursive) relationship degree 1.",
+  "distractorRationales": ["", "Cardinality ratio (1:1, 1:N, M:N) describes how many entities can be associated, not how many sets participate.", "Participation (total/partial) describes whether every entity must take part, not the count of sets.", "Arity here refers to the relationship's degree, not an entity's."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "easy",
+  "questionText": "Which kind of attribute requires a double-line ellipse in ER notation?",
+  "options": ["Multivalued attribute", "Composite attribute", "Simple attribute", "Primary key attribute"],
+  "correctIndex": 0,
+  "explanation": "A multivalued attribute (e.g., phone numbers, where one person may have several) is drawn with a double ellipse.",
+  "distractorRationales": ["", "A composite attribute is shown as an ellipse with sub-ellipses attached, not a double ellipse.", "A simple attribute uses an ordinary single ellipse.", "A primary key attribute is shown with an underlined label inside an ordinary ellipse."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "A weak entity set must have:",
+  "options": ["Total participation in its identifying relationship with the owner entity set", "A primary key of its own that needs no owner", "A many-to-many relationship with its owner", "No attributes at all"],
+  "correctIndex": 0,
+  "explanation": "A weak entity set has no sufficient key of its own and depends on an owner (strong) entity for identification. Its existence depends on the owner, so it has total participation in the identifying relationship, and it is identified by its partial (discriminator) key combined with the owner's key.",
+  "distractorRationales": ["", "A weak entity has no complete key of its own — only a partial key (discriminator) combined with the owner's key.", "The identifying relationship to the owner is one-to-many (each weak entity belongs to exactly one owner), not many-to-many.", "A weak entity does have attributes, including a discriminator; it merely lacks a full key."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "The partial key (discriminator) of a weak entity set distinguishes:",
+  "options": ["Weak entities that are associated with the same owner entity", "Weak entities across all owners globally", "Different owner entities", "Different relationship sets"],
+  "correctIndex": 0,
+  "explanation": "A discriminator (partial key) only needs to distinguish among the weak entities that depend on the same owner. The full identifier is the owner's primary key combined with the discriminator.",
+  "distractorRationales": ["", "It need not be globally unique — only unique within the scope of a single owner.", "The owner entities are distinguished by their own primary key, not by the weak entity's discriminator.", "Discriminators identify weak entities, not relationship sets."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "When mapping a 1:N (one-to-many) binary relationship without relationship attributes to relations, the cleanest approach is to:",
+  "options": ["Add the primary key of the 'one' side as a foreign key into the relation of the 'many' side", "Create a separate relation for the relationship only", "Add the 'many' side key into the 'one' side relation", "Merge both entity sets into a single relation"],
+  "correctIndex": 0,
+  "explanation": "For a 1:N relationship, each entity on the 'many' side relates to at most one entity on the 'one' side, so placing the 'one' side's key as a foreign key in the 'many' side table represents the link with no extra relation needed.",
+  "distractorRationales": ["", "A separate relation is necessary only for M:N relationships (or 1:N with its own attributes if you prefer); for plain 1:N a foreign key suffices.", "Putting the many-side key into the one-side relation would force a single value where many are possible, which is incorrect.", "Merging entity sets is appropriate only for some 1:1 cases, not 1:N."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "A many-to-many (M:N) binary relationship set, when converted to the relational model, requires:",
+  "options": ["A separate relation whose primary key is the combination of the two participating entities' keys", "Just a foreign key in either participating relation", "Merging the two entity sets", "No representation, since M:N cannot exist"],
+  "correctIndex": 0,
+  "explanation": "An M:N relationship cannot be captured by a single foreign key. It needs its own relation (a junction/associative table) whose primary key is the union of the primary keys of the two participating entity sets, plus any relationship attributes.",
+  "distractorRationales": ["", "A single foreign key cannot represent the multiplicity on both sides of an M:N relationship.", "Merging is appropriate only for certain 1:1 relationships, not M:N.", "M:N relationships are common and fully representable via a junction relation."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "In a specialization/generalization (IS-A) hierarchy, a 'disjoint' constraint means:",
+  "options": ["An entity can belong to at most one of the lower-level (subclass) entity sets", "An entity must belong to every subclass", "An entity may belong to several subclasses simultaneously", "Subclasses cannot inherit attributes from the superclass"],
+  "correctIndex": 0,
+  "explanation": "A disjoint (exclusive) constraint restricts an entity to membership in at most one subclass of the specialization. The opposite is an overlapping constraint, which permits membership in multiple subclasses.",
+  "distractorRationales": ["", "Belonging to every subclass is neither disjoint nor a standard constraint; total participation requires belonging to at least one.", "Membership in several subclasses at once describes the overlapping constraint, not disjoint.", "Subclasses always inherit superclass attributes via the IS-A relationship; disjointness is unrelated to inheritance."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "Aggregation in the ER model is used to:",
+  "options": ["Treat a relationship set (with its participating entities) as a higher-level entity, so it can participate in another relationship", "Combine multiple attributes into one composite attribute", "Compute an aggregate function such as SUM over a relationship", "Merge two entity sets into a generalization"],
+  "correctIndex": 0,
+  "explanation": "Aggregation abstracts a relationship together with its entities into a single higher-level entity, allowing relationships among relationships — e.g., a works-on relationship between employee and project can be aggregated so a manager can be related to that whole assignment.",
+  "distractorRationales": ["", "Combining attributes describes a composite attribute, not aggregation.", "Aggregation in ER modeling has nothing to do with SQL aggregate functions like SUM.", "Merging entity sets relates to generalization, not aggregation."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "Total participation of entity set E in relationship R (drawn as a double line) means:",
+  "options": ["Every entity in E must participate in at least one instance of R", "Some entities in E participate in R", "E participates in exactly one R instance", "R has total functional dependency on E"],
+  "correctIndex": 0,
+  "explanation": "Total (mandatory) participation requires that each entity of E take part in at least one relationship of R. Partial participation (single line) allows some entities of E to not participate.",
+  "distractorRationales": ["", "Some-but-not-all participation is partial participation, drawn with a single line.", "Participating in exactly one instance is a cardinality/key constraint, not what total participation alone asserts.", "Functional dependency is a relational concept, unrelated to participation constraints."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "medium",
+  "questionText": "Consider a 1:1 binary relationship R between entity sets A and B, where A has total participation and B has partial participation. The recommended relational mapping is to:",
+  "options": ["Add B's primary key as a foreign key (NOT NULL) in A's relation", "Add A's primary key as a foreign key in B's relation only", "Create a separate relation for R with both keys", "Merge A and B into one relation always"],
+  "correctIndex": 0,
+  "explanation": "For a 1:1 relationship, put the foreign key in the relation of the side with total participation. Since A participates totally, every A row must link to a B, so placing B's key as a NOT NULL foreign key in A avoids null values and represents the constraint cleanly.",
+  "distractorRationales": ["", "Putting A's key in B would allow many B rows to have null (since B is partial), which is the less clean choice.", "A separate relation is unnecessary overhead for a plain 1:1 relationship and is preferred mainly when both sides are partial.", "Merging is only an option for 1:1 with both totals or special cases, not 'always'."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "hard",
+  "questionText": "A ternary relationship R relates entity sets A, B, and C. Which statement about replacing R with three binary relationships (A-B, B-C, A-C) is correct?",
+  "options": ["In general it is NOT equivalent; three binaries cannot always capture the constraints of one ternary relationship", "It is always equivalent and preferred", "It is equivalent only if all three are 1:1", "Ternary relationships are disallowed in the ER model"],
+  "correctIndex": 0,
+  "explanation": "A ternary relationship records associations among triples (a, b, c). Decomposing it into three binary relationships generally loses information — a true triple constraint cannot be reconstructed from the pairwise relationships alone (a lossy decomposition of the association), so it is not equivalent in general.",
+  "distractorRationales": ["", "It is not always equivalent; decomposing a ternary into binaries is typically lossy.", "Even with 1:1 constraints the pairwise relationships generally cannot reconstruct the exact set of valid triples.", "Ternary (and higher-degree) relationships are perfectly valid in the ER model."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "hard",
+  "questionText": "An entity set 'Loan' is weak and depends on a strong entity set 'Account' through an identifying relationship. When mapping to relations, the primary key of the Loan relation is:",
+  "options": ["The combination of Account's primary key and Loan's discriminator", "Loan's discriminator alone", "Account's primary key alone", "A new system-generated surrogate that ignores Account"],
+  "correctIndex": 0,
+  "explanation": "A weak entity's relation includes the owner's primary key as a foreign key, and the weak entity's full primary key is formed by combining the owner's primary key with the weak entity's discriminator (partial key).",
+  "distractorRationales": ["", "The discriminator alone is not unique across different owners; it only distinguishes weak entities within one owner.", "The owner's key alone cannot distinguish the multiple weak entities belonging to that owner.", "Although a surrogate could be added, the natural identifier mandated by the weak-entity mapping is owner key + discriminator."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "hard",
+  "questionText": "Consider an ER schema where relationship set WORKS_ON is many-to-many between EMPLOYEE and PROJECT and has its own attribute 'hours'. After mapping to relations, where must 'hours' reside?",
+  "options": ["In the separate WORKS_ON relation (keyed by employee-id + project-id)", "In the EMPLOYEE relation", "In the PROJECT relation", "It can be dropped since it is derived"],
+  "correctIndex": 0,
+  "explanation": "Because WORKS_ON is M:N, it becomes its own relation whose key is {employee-id, project-id}. A relationship attribute like 'hours' depends on the specific (employee, project) pair, so it belongs in that relation — it cannot be placed in either entity table without redundancy or loss.",
+  "distractorRationales": ["", "Placing 'hours' in EMPLOYEE is wrong because hours depend on the project too, not the employee alone.", "Placing 'hours' in PROJECT is wrong because hours depend on the employee too.", "'hours' is a genuine stored relationship attribute, not derivable from other data."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "hard",
+  "questionText": "In an EER (Enhanced ER) model, a 'category' (union type) differs from a generalization in that:",
+  "options": ["A category's subclass is a subset of the UNION of several distinct superclasses, whereas a generalization's subclasses share a single superclass", "A category cannot have attributes", "A category forbids inheritance entirely", "A category and generalization are identical"],
+  "correctIndex": 0,
+  "explanation": "A category (union type) represents a collection that is a subset of the union of two or more entity types of different kinds — for example, OWNER as a category over PERSON, BANK, and COMPANY. This is selective inheritance from one of several possible superclasses, unlike generalization where all subclasses derive from the same superclass.",
+  "distractorRationales": ["", "A category may have its own attributes like any entity type.", "A category does support inheritance — selective inheritance from the superclass an entity actually belongs to.", "They are distinct EER constructs with different inheritance semantics."]
+ },
+ {
+  "course": "dbms",
+  "subtopic": "er-modeling",
+  "difficulty": "hard",
+  "questionText": "A binary relationship R between A and B has cardinality constraint (1,1) on the A side and (0,N) on the B side (min,max notation). This means:",
+  "options": ["Each A entity participates in exactly one R; each B entity participates in zero or more R", "Each A entity participates in zero or more R; each B in exactly one", "Both sides are mandatory and single", "The relationship is many-to-many"],
+  "correctIndex": 0,
+  "explanation": "In (min,max) notation attached to an entity set, the pair gives the minimum and maximum number of relationship instances an entity of that set takes part in. (1,1) on A means each A is in exactly one R (total, single); (0,N) on B means each B is in zero or more R. This describes a 1:N relationship from B to A.",
+  "distractorRationales": ["", "This reverses the constraints; A is (1,1) and B is (0,N), not the other way around.", "B is (0,N), so B's participation is optional and multiple — not mandatory and single.", "(1,1) on one side rules out many-to-many; it is a one-to-many relationship."]
+ }
+]
