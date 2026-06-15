@@ -16,6 +16,10 @@ class Settings(BaseSettings):
     # CORS
     cors_origins: str = "http://localhost:3000,capacitor://localhost,http://localhost"
 
+    # Admin password gating the visitor-analytics read endpoints. Set via the
+    # ADMIN_PASSWORD env var (e.g. in the Render dashboard). Empty == open (dev).
+    admin_password: str = ""
+
     # LLM providers (authoring plane only). gemini | groq | claude.
     # Default stack: Gemini generates + embeds, Groq cross-checks (different
     # provider for an independent cold re-solve). Embeddings must be gemini —

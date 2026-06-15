@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Check, X } from "lucide-react";
 import type { QuestionOut } from "@/lib/api";
 import { cn } from "@/lib/utils";
@@ -32,8 +33,20 @@ export function QuestionNavigator({
   isPractice: boolean;
   onJump: (index: number) => void;
 }) {
+  const trackRef = useRef<HTMLElement>(null);
+
+  // Keep the active question's bubble visible as the user navigates the
+  // horizontally-scrolling strip (otherwise tabs past the viewport edge
+  // look like they're missing).
+  useEffect(() => {
+    const track = trackRef.current;
+    const active = track?.querySelector<HTMLButtonElement>('[data-current="true"]');
+    active?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [currentIndex]);
+
   return (
     <nav
+      ref={trackRef}
       aria-label="Question navigator"
       data-testid="question-navigator"
       className="pager-track -mx-1 px-1"

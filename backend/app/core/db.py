@@ -14,8 +14,9 @@ from app.core.config import settings
 from app.models.course import Course, Subtopic
 from app.models.question import Question
 from app.models.quiz_session import QuizSession
+from app.models.visit import Visit
 
-DOCUMENT_MODELS = [Course, Subtopic, Question, QuizSession]
+DOCUMENT_MODELS = [Course, Subtopic, Question, QuizSession, Visit]
 
 _client: AsyncMongoClient | None = None
 

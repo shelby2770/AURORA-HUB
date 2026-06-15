@@ -155,3 +155,48 @@ export const submitQuiz = (sessionId: string, answers: (number | null)[]) =>
     method: "POST",
     body: JSON.stringify({ answers }),
   });
+
+// ── Visitor tracking ───────────────────────────────────────────────────────
+export interface VisitGeo {
+  country: string | null;
+  countryCode: string | null;
+  region: string | null;
+  city: string | null;
+  lat: number | null;
+  lon: number | null;
+  timezone: string | null;
+  isp: string | null;
+}
+
+export interface Visit {
+  id: string;
+  ip: string;
+  geo: VisitGeo | null;
+  path: string | null;
+  referrer: string | null;
+  userAgent: string | null;
+  createdAt: string;
+}
+
+export interface CountryStat {
+  countryCode: string | null;
+  country: string | null;
+  count: number;
+}
+
+/** Record the current visit. Fire-and-forget; never throws to the caller. */
+export const trackVisit = (path?: string) =>
+  apiFetch<Visit>("/track/visit", {
+    method: "POST",
+    body: JSON.stringify({ path: path ?? null }),
+  }).catch(() => undefined);
+
+const adminHeaders = (password: string): RequestInit => ({
+  headers: { "X-Admin-Password": password },
+});
+
+export const getVisits = (password: string, limit = 100) =>
+  apiFetch<Visit[]>(`/track/visits?limit=${limit}`, adminHeaders(password));
+
+export const getVisitStats = (password: string) =>
+  apiFetch<CountryStat[]>("/track/stats", adminHeaders(password));

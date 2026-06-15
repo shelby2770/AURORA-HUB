@@ -532,7 +532,18 @@ body {
   box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.6);
   transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.pager-track { display: flex; gap: 8px; overflow-x: auto; padding: 2px; scrollbar-width: none; }
+.pager-track {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Fade the right edge to signal there are more questions to scroll to. */
+  -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
+}
 .pager-track::-webkit-scrollbar { display: none; }
 .bubble {
   flex: 0 0 auto;

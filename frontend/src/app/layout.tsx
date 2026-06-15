@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { PlatformClass } from "@/components/mobile/platform-class";
 import { NativeBootstrap } from "@/components/mobile/native-bootstrap";
+import { VisitTracker } from "@/components/analytics/visit-tracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({
       >
         <PlatformClass />
         <NativeBootstrap />
+        <VisitTracker />
         <Providers>{children}</Providers>
         <Toaster
           position="top-center"
