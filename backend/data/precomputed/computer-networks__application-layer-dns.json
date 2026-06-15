@@ -1,183 +1,403 @@
 [
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "easy",
-    "questionText": "The primary purpose of the Domain Name System (DNS) is to:",
-    "options": ["Translate human-readable domain names into IP addresses", "Route packets between networks", "Encrypt web traffic", "Assign MAC addresses"],
-    "correctIndex": 0,
-    "explanation": "DNS is a distributed, hierarchical naming system that resolves names like www.example.com into IP addresses (and other records). This lets users use memorable names while the network operates on IP addresses.",
-    "distractorRationales": ["", "Routing is performed by routers at the network layer, not DNS.", "Encryption of web traffic is TLS/HTTPS, not DNS (though DNSSEC/DoH add security).", "MAC addresses are assigned by hardware/resolved by ARP, not DNS."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "Which transport protocol and port does DNS typically use for standard queries?",
-    "options": ["UDP port 53 (TCP 53 for large responses/zone transfers)", "TCP port 80", "UDP port 25", "TCP port 443"],
-    "correctIndex": 0,
-    "explanation": "DNS queries usually use UDP on port 53 for low overhead; TCP port 53 is used when responses exceed UDP limits or for zone transfers. The lightweight, single-packet request/response pattern fits UDP well.",
-    "distractorRationales": ["", "Port 80 is HTTP, not DNS.", "Port 25 is SMTP (email), not DNS.", "Port 443 is HTTPS, not DNS."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "In a recursive DNS query, the contacted DNS server:",
-    "options": ["Takes responsibility for fully resolving the name, querying other servers as needed, and returns the final answer", "Returns only a referral to another server", "Refuses to answer", "Only caches without answering"],
-    "correctIndex": 0,
-    "explanation": "In recursive resolution, the resolver does the work: it queries root, TLD, and authoritative servers on the client's behalf and returns the final IP. In iterative resolution, each server instead returns a referral and the client follows the chain itself.",
-    "distractorRationales": ["", "Returning only referrals is iterative resolution, not recursive.", "A recursive resolver answers rather than refuses.", "Caching is a side effect; the recursive server still returns the answer."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "easy",
-    "questionText": "HTTP (HyperText Transfer Protocol) operates at which layer and typically over which port?",
-    "options": ["Application layer, port 80 (443 for HTTPS)", "Transport layer, port 53", "Network layer, port 25", "Data link layer, port 110"],
-    "correctIndex": 0,
-    "explanation": "HTTP is an application-layer protocol that runs over TCP, by default on port 80 (HTTPS on 443). It defines request methods (GET, POST, etc.) and responses for the Web.",
-    "distractorRationales": ["", "HTTP is application-layer, not transport; port 53 is DNS.", "HTTP is not network-layer; port 25 is SMTP.", "HTTP is not data-link; port 110 is POP3."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "hard",
-    "questionField": "type",
-    "questionText": "Which DNS record type maps a domain name to an IPv4 address?",
-    "options": ["A record", "MX record", "CNAME record", "NS record"],
-    "correctIndex": 0,
-    "explanation": "An A (Address) record maps a hostname to an IPv4 address (AAAA maps to IPv6). MX records specify mail servers, CNAME records create aliases to another name, and NS records delegate a zone to authoritative name servers.",
-    "distractorRationales": ["", "MX records identify mail exchangers, not host IPv4 addresses.", "CNAME records are aliases pointing to another name, not directly to an IP.", "NS records name the authoritative servers for a zone."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "DNS caching with a Time-To-Live (TTL) value primarily:",
-    "options": ["Reduces query load and latency by reusing answers until the TTL expires", "Encrypts the responses", "Guarantees the record never changes", "Assigns IP addresses"],
-    "correctIndex": 0,
-    "explanation": "Resolvers cache records for the duration of their TTL, so repeated lookups are answered locally — cutting latency and load on authoritative servers. A shorter TTL gives fresher data at the cost of more queries; longer TTL is more efficient but slower to reflect changes.",
-    "distractorRationales": ["", "TTL governs cache lifetime, not encryption.", "Records can change; TTL just bounds how long stale data may be served.", "IP assignment is DHCP's job, not DNS caching."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "Which protocols are used to send and to retrieve email, respectively?",
-    "options": ["SMTP to send; IMAP/POP3 to retrieve", "HTTP to send; FTP to retrieve", "DNS to send; SMTP to retrieve", "POP3 to send; SMTP to retrieve"],
-    "correctIndex": 0,
-    "explanation": "SMTP (Simple Mail Transfer Protocol) pushes mail from client to server and between mail servers. Retrieval from a mailbox uses POP3 (download) or IMAP (server-side access/sync). This send/retrieve split is a classic exam point.",
-    "distractorRationales": ["", "HTTP and FTP are web and file-transfer protocols, not the standard email pair.", "DNS resolves names; it does not send email.", "This reverses the roles; SMTP sends and POP3 retrieves, not vice versa."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "hard",
-    "questionText": "The DNS namespace is hierarchical. Resolving www.example.com.in typically proceeds in which order?",
-    "options": ["Root server → TLD (.in) server → authoritative server for example.com.in", "Authoritative server → TLD → root", "Local host file only", "Random server selection"],
-    "correctIndex": 0,
-    "explanation": "Resolution walks down the hierarchy: a resolver asks a root server (which refers to the .in TLD server), then the TLD server (which refers to the zone's authoritative server), then the authoritative server returns the final A record. Caching short-circuits repeats.",
-    "distractorRationales": ["", "Resolution proceeds top-down (root first), not bottom-up.", "A hosts file may shortcut some names but is not the general DNS hierarchy.", "Server selection follows the delegation hierarchy, not randomly."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "easy",
-    "questionText": "FTP (File Transfer Protocol) is notable for using:",
-    "options": ["Two separate connections: a control connection and a data connection", "A single UDP datagram", "Only port 80", "No connections at all"],
-    "correctIndex": 0,
-    "explanation": "FTP uses two TCP connections: a control connection (port 21) for commands/responses and a separate data connection (port 20 in active mode, or a negotiated port in passive mode) for the actual file transfer. This out-of-band control is a distinctive FTP feature.",
-    "distractorRationales": ["", "FTP uses TCP connections, not a single UDP datagram.", "FTP uses ports 20/21, not port 80 (HTTP).", "FTP is connection-oriented, using TCP connections."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "An MX record in DNS is used to:",
-    "options": ["Specify the mail server(s) responsible for receiving email for a domain", "Map a name to an IPv6 address", "Delegate a subdomain", "Store a text comment"],
-    "correctIndex": 0,
-    "explanation": "MX (Mail eXchange) records list the mail servers that accept email for a domain, each with a preference value so senders try lower-preference (higher-priority) servers first. AAAA handles IPv6, NS delegates zones, and TXT stores text.",
-    "distractorRationales": ["", "IPv6 mapping is the AAAA record's job.", "Subdomain delegation uses NS records.", "Text comments/metadata use TXT records."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "hard",
-    "questionText": "Why does HTTP/1.1 introduce persistent connections (keep-alive) compared with HTTP/1.0's default behavior?",
-    "options": ["To reuse one TCP connection for multiple requests, avoiding repeated handshakes and slow-start overhead", "To encrypt requests", "To use UDP instead of TCP", "To remove the need for DNS"],
-    "correctIndex": 0,
-    "explanation": "HTTP/1.0 opened a new TCP connection per object, paying the handshake and TCP slow-start cost each time. HTTP/1.1 keeps the connection open (persistent) so multiple requests/responses reuse it, reducing latency and overhead — especially for pages with many resources.",
-    "distractorRationales": ["", "Persistence is about connection reuse, not encryption (that is HTTPS).", "HTTP still uses TCP; persistence does not switch to UDP.", "Pages are still resolved via DNS; persistence does not remove it."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "easy",
-    "questionText": "The HTTP method used to request (retrieve) a resource without side effects is:",
-    "options": ["GET", "POST", "DELETE", "PUT"],
-    "correctIndex": 0,
-    "explanation": "GET retrieves a representation of a resource and is defined to be safe (no server-state change) and idempotent. POST submits data (often changing state), PUT replaces a resource, and DELETE removes one.",
-    "distractorRationales": ["", "POST typically creates/changes state and is not safe.", "DELETE removes a resource, a state-changing operation.", "PUT replaces/updates a resource, not a side-effect-free retrieval."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "A CNAME record in DNS provides:",
-    "options": ["An alias mapping one domain name to another (canonical) name", "A direct IPv4 mapping", "The mail server list", "The zone's authoritative servers"],
-    "correctIndex": 0,
-    "explanation": "A CNAME (Canonical Name) record aliases one name to another; resolving the alias continues by resolving the target's records. For example, www.example.com CNAME example.com. It cannot coexist with other record types at the same name.",
-    "distractorRationales": ["", "Direct IPv4 mapping is the A record's role.", "Mail server lists are MX records.", "Authoritative servers are listed in NS records."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "hard",
-    "questionText": "Loading a web page with the browser cache empty and DNS cache empty incurs, at minimum, which initial round trips before the first object byte arrives?",
-    "options": ["DNS lookup RTT + TCP handshake RTT + HTTP request RTT", "Only one RTT total", "No round trips (instant)", "Only the DNS RTT"],
-    "correctIndex": 0,
-    "explanation": "With cold caches: first a DNS query/response (≥1 RTT) to resolve the hostname, then the TCP three-way handshake (1 RTT) to the server, then the HTTP GET and its response (1 RTT). So at least three RTTs precede data, illustrating why caching and connection reuse matter.",
-    "distractorRationales": ["", "One RTT ignores the separate DNS, TCP, and HTTP exchanges.", "Network operations take measurable round trips; nothing is instant.", "DNS alone is insufficient; TCP setup and the HTTP exchange also cost RTTs."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "easy",
-    "questionText": "DHCP and DNS are both application-layer services, but they differ in that:",
-    "options": ["DHCP assigns IP configuration to hosts; DNS resolves names to IP addresses", "Both assign IP addresses", "Both resolve names", "DNS assigns MAC addresses"],
-    "correctIndex": 0,
-    "explanation": "DHCP dynamically leases IP addresses and network settings to clients joining a network; DNS translates domain names into IP addresses. They serve complementary roles in getting a host connected and able to reach named services.",
-    "distractorRationales": ["", "Only DHCP assigns IP addresses; DNS does name resolution.", "Only DNS resolves names; DHCP configures hosts.", "Neither service assigns MAC addresses (those are hardware/ARP)."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "Why is UDP a suitable transport for typical DNS queries?",
-    "options": ["Queries/responses are small and fit in one packet, so UDP's low overhead (no handshake) is efficient", "DNS needs guaranteed in-order byte streams", "UDP encrypts the data", "DNS requires connection setup"],
-    "correctIndex": 0,
-    "explanation": "Most DNS exchanges are a single small request and reply, so UDP's lack of connection setup and minimal overhead is ideal; the application retries on loss. TCP is reserved for large responses or zone transfers where reliability/size matter.",
-    "distractorRationales": ["", "DNS does not need a byte stream; small datagrams suffice, which is why UDP fits.", "UDP does not encrypt; it is simply lightweight.", "Avoiding connection setup is exactly why UDP suits DNS."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "hard",
-    "questionText": "A 'reverse DNS lookup' uses which mechanism to map an IP address back to a name?",
-    "options": ["A PTR record query in the in-addr.arpa (or ip6.arpa) domain", "An A record query", "An MX record query", "A DHCP request"],
-    "correctIndex": 0,
-    "explanation": "Reverse DNS maps an IP to a hostname using PTR records in the special in-addr.arpa namespace (the IP octets reversed), e.g., 4.3.2.1.in-addr.arpa → name. It is used by mail servers and logging to obtain hostnames for addresses.",
-    "distractorRationales": ["", "A records map names to IPs (forward), not IPs to names.", "MX records list mail servers, not reverse mappings.", "DHCP assigns addresses; it does not perform reverse name resolution."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "application-layer-dns",
-    "difficulty": "medium",
-    "questionText": "The client-server model that underlies most application-layer protocols means:",
-    "options": ["A server process awaits requests at a well-known address/port; clients initiate connections to it", "All hosts are equal peers with no roles", "Servers initiate all connections", "Clients store all data"],
-    "correctIndex": 0,
-    "explanation": "In the client-server model, a server listens at a known address and port for incoming requests, and clients initiate communication to obtain a service (web, mail, DNS). This contrasts with peer-to-peer, where hosts act as both client and server.",
-    "distractorRationales": ["", "Equal peers with no fixed roles describe peer-to-peer, not client-server.", "Clients, not servers, typically initiate connections in this model.", "Servers usually hold the authoritative data/service, not clients."]
-  }
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "easy",
+  "questionText": "The primary purpose of the Domain Name System (DNS) is to:",
+  "options": [
+   "Translate human-readable domain names into IP addresses",
+   "Route packets between networks",
+   "Encrypt web traffic",
+   "Assign MAC addresses"
+  ],
+  "correctIndex": 0,
+  "explanation": "DNS is a distributed, hierarchical naming system that resolves names like www.example.com into IP addresses (and other records). This lets users use memorable names while the network operates on IP addresses.",
+  "distractorRationales": [
+   "",
+   "Routing is performed by routers at the network layer, not DNS.",
+   "Encryption of web traffic is TLS/HTTPS, not DNS (though DNSSEC/DoH add security).",
+   "MAC addresses are assigned by hardware/resolved by ARP, not DNS."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "Which transport protocol and port does DNS typically use for standard queries?",
+  "options": [
+   "UDP port 53 (TCP 53 for large responses/zone transfers)",
+   "TCP port 80",
+   "UDP port 25",
+   "TCP port 443"
+  ],
+  "correctIndex": 0,
+  "explanation": "DNS queries usually use UDP on port 53 for low overhead; TCP port 53 is used when responses exceed UDP limits or for zone transfers. The lightweight, single-packet request/response pattern fits UDP well.",
+  "distractorRationales": [
+   "",
+   "Port 80 is HTTP, not DNS.",
+   "Port 25 is SMTP (email), not DNS.",
+   "Port 443 is HTTPS, not DNS."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "In a recursive DNS query, the contacted DNS server:",
+  "options": [
+   "Takes responsibility for fully resolving the name, querying other servers as needed, and returns the final answer",
+   "Returns only a referral to another server",
+   "Refuses to answer",
+   "Only caches without answering"
+  ],
+  "correctIndex": 0,
+  "explanation": "In recursive resolution, the resolver does the work: it queries root, TLD, and authoritative servers on the client's behalf and returns the final IP. In iterative resolution, each server instead returns a referral and the client follows the chain itself.",
+  "distractorRationales": [
+   "",
+   "Returning only referrals is iterative resolution, not recursive.",
+   "A recursive resolver answers rather than refuses.",
+   "Caching is a side effect; the recursive server still returns the answer."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "easy",
+  "questionText": "HTTP (HyperText Transfer Protocol) operates at which layer and typically over which port?",
+  "options": [
+   "Application layer, port 80 (443 for HTTPS)",
+   "Transport layer, port 53",
+   "Network layer, port 25",
+   "Data link layer, port 110"
+  ],
+  "correctIndex": 0,
+  "explanation": "HTTP is an application-layer protocol that runs over TCP, by default on port 80 (HTTPS on 443). It defines request methods (GET, POST, etc.) and responses for the Web.",
+  "distractorRationales": [
+   "",
+   "HTTP is application-layer, not transport; port 53 is DNS.",
+   "HTTP is not network-layer; port 25 is SMTP.",
+   "HTTP is not data-link; port 110 is POP3."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "hard",
+  "questionField": "type",
+  "questionText": "Which DNS record type maps a domain name to an IPv4 address?",
+  "options": [
+   "A record",
+   "MX record",
+   "CNAME record",
+   "NS record"
+  ],
+  "correctIndex": 0,
+  "explanation": "An A (Address) record maps a hostname to an IPv4 address (AAAA maps to IPv6). MX records specify mail servers, CNAME records create aliases to another name, and NS records delegate a zone to authoritative name servers.",
+  "distractorRationales": [
+   "",
+   "MX records identify mail exchangers, not host IPv4 addresses.",
+   "CNAME records are aliases pointing to another name, not directly to an IP.",
+   "NS records name the authoritative servers for a zone."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "DNS caching with a Time-To-Live (TTL) value primarily:",
+  "options": [
+   "Reduces query load and latency by reusing answers until the TTL expires",
+   "Encrypts the responses",
+   "Guarantees the record never changes",
+   "Assigns IP addresses"
+  ],
+  "correctIndex": 0,
+  "explanation": "Resolvers cache records for the duration of their TTL, so repeated lookups are answered locally — cutting latency and load on authoritative servers. A shorter TTL gives fresher data at the cost of more queries; longer TTL is more efficient but slower to reflect changes.",
+  "distractorRationales": [
+   "",
+   "TTL governs cache lifetime, not encryption.",
+   "Records can change; TTL just bounds how long stale data may be served.",
+   "IP assignment is DHCP's job, not DNS caching."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "Which protocols are used to send and to retrieve email, respectively?",
+  "options": [
+   "SMTP to send; IMAP/POP3 to retrieve",
+   "HTTP to send; FTP to retrieve",
+   "DNS to send; SMTP to retrieve",
+   "POP3 to send; SMTP to retrieve"
+  ],
+  "correctIndex": 0,
+  "explanation": "SMTP (Simple Mail Transfer Protocol) pushes mail from client to server and between mail servers. Retrieval from a mailbox uses POP3 (download) or IMAP (server-side access/sync). This send/retrieve split is a classic exam point.",
+  "distractorRationales": [
+   "",
+   "HTTP and FTP are web and file-transfer protocols, not the standard email pair.",
+   "DNS resolves names; it does not send email.",
+   "This reverses the roles; SMTP sends and POP3 retrieves, not vice versa."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "hard",
+  "questionText": "The DNS namespace is hierarchical. Resolving www.example.com.in typically proceeds in which order?",
+  "options": [
+   "Root server → TLD (.in) server → authoritative server for example.com.in",
+   "Authoritative server → TLD → root",
+   "Local host file only",
+   "Random server selection"
+  ],
+  "correctIndex": 0,
+  "explanation": "Resolution walks down the hierarchy: a resolver asks a root server (which refers to the .in TLD server), then the TLD server (which refers to the zone's authoritative server), then the authoritative server returns the final A record. Caching short-circuits repeats.",
+  "distractorRationales": [
+   "",
+   "Resolution proceeds top-down (root first), not bottom-up.",
+   "A hosts file may shortcut some names but is not the general DNS hierarchy.",
+   "Server selection follows the delegation hierarchy, not randomly."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "easy",
+  "questionText": "FTP (File Transfer Protocol) is notable for using:",
+  "options": [
+   "Two separate connections: a control connection and a data connection",
+   "A single UDP datagram",
+   "Only port 80",
+   "No connections at all"
+  ],
+  "correctIndex": 0,
+  "explanation": "FTP uses two TCP connections: a control connection (port 21) for commands/responses and a separate data connection (port 20 in active mode, or a negotiated port in passive mode) for the actual file transfer. This out-of-band control is a distinctive FTP feature.",
+  "distractorRationales": [
+   "",
+   "FTP uses TCP connections, not a single UDP datagram.",
+   "FTP uses ports 20/21, not port 80 (HTTP).",
+   "FTP is connection-oriented, using TCP connections."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "An MX record in DNS is used to:",
+  "options": [
+   "Specify the mail server(s) responsible for receiving email for a domain",
+   "Map a name to an IPv6 address",
+   "Delegate a subdomain",
+   "Store a text comment"
+  ],
+  "correctIndex": 0,
+  "explanation": "MX (Mail eXchange) records list the mail servers that accept email for a domain, each with a preference value so senders try lower-preference (higher-priority) servers first. AAAA handles IPv6, NS delegates zones, and TXT stores text.",
+  "distractorRationales": [
+   "",
+   "IPv6 mapping is the AAAA record's job.",
+   "Subdomain delegation uses NS records.",
+   "Text comments/metadata use TXT records."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "hard",
+  "questionText": "Why does HTTP/1.1 introduce persistent connections (keep-alive) compared with HTTP/1.0's default behavior?",
+  "options": [
+   "To reuse one TCP connection for multiple requests, avoiding repeated handshakes and slow-start overhead",
+   "To encrypt requests",
+   "To use UDP instead of TCP",
+   "To remove the need for DNS"
+  ],
+  "correctIndex": 0,
+  "explanation": "HTTP/1.0 opened a new TCP connection per object, paying the handshake and TCP slow-start cost each time. HTTP/1.1 keeps the connection open (persistent) so multiple requests/responses reuse it, reducing latency and overhead — especially for pages with many resources.",
+  "distractorRationales": [
+   "",
+   "Persistence is about connection reuse, not encryption (that is HTTPS).",
+   "HTTP still uses TCP; persistence does not switch to UDP.",
+   "Pages are still resolved via DNS; persistence does not remove it."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "easy",
+  "questionText": "The HTTP method used to request (retrieve) a resource without side effects is:",
+  "options": [
+   "GET",
+   "POST",
+   "DELETE",
+   "PUT"
+  ],
+  "correctIndex": 0,
+  "explanation": "GET retrieves a representation of a resource and is defined to be safe (no server-state change) and idempotent. POST submits data (often changing state), PUT replaces a resource, and DELETE removes one.",
+  "distractorRationales": [
+   "",
+   "POST typically creates/changes state and is not safe.",
+   "DELETE removes a resource, a state-changing operation.",
+   "PUT replaces/updates a resource, not a side-effect-free retrieval."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "A CNAME record in DNS provides:",
+  "options": [
+   "An alias mapping one domain name to another (canonical) name",
+   "A direct IPv4 mapping",
+   "The mail server list",
+   "The zone's authoritative servers"
+  ],
+  "correctIndex": 0,
+  "explanation": "A CNAME (Canonical Name) record aliases one name to another; resolving the alias continues by resolving the target's records. For example, www.example.com CNAME example.com. It cannot coexist with other record types at the same name.",
+  "distractorRationales": [
+   "",
+   "Direct IPv4 mapping is the A record's role.",
+   "Mail server lists are MX records.",
+   "Authoritative servers are listed in NS records."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "hard",
+  "questionText": "Loading a web page with the browser cache empty and DNS cache empty incurs, at minimum, which initial round trips before the first object byte arrives?",
+  "options": [
+   "DNS lookup RTT + TCP handshake RTT + HTTP request RTT",
+   "Only one RTT total",
+   "No round trips (instant)",
+   "Only the DNS RTT"
+  ],
+  "correctIndex": 0,
+  "explanation": "With cold caches: first a DNS query/response (≥1 RTT) to resolve the hostname, then the TCP three-way handshake (1 RTT) to the server, then the HTTP GET and its response (1 RTT). So at least three RTTs precede data, illustrating why caching and connection reuse matter.",
+  "distractorRationales": [
+   "",
+   "One RTT ignores the separate DNS, TCP, and HTTP exchanges.",
+   "Network operations take measurable round trips; nothing is instant.",
+   "DNS alone is insufficient; TCP setup and the HTTP exchange also cost RTTs."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "easy",
+  "questionText": "DHCP and DNS are both application-layer services, but they differ in that:",
+  "options": [
+   "DHCP assigns IP configuration to hosts; DNS resolves names to IP addresses",
+   "Both assign IP addresses",
+   "Both resolve names",
+   "DNS assigns MAC addresses"
+  ],
+  "correctIndex": 0,
+  "explanation": "DHCP dynamically leases IP addresses and network settings to clients joining a network; DNS translates domain names into IP addresses. They serve complementary roles in getting a host connected and able to reach named services.",
+  "distractorRationales": [
+   "",
+   "Only DHCP assigns IP addresses; DNS does name resolution.",
+   "Only DNS resolves names; DHCP configures hosts.",
+   "Neither service assigns MAC addresses (those are hardware/ARP)."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "Why is UDP a suitable transport for typical DNS queries?",
+  "options": [
+   "Queries/responses are small and fit in one packet, so UDP's low overhead (no handshake) is efficient",
+   "DNS needs guaranteed in-order byte streams",
+   "UDP encrypts the data",
+   "DNS requires connection setup"
+  ],
+  "correctIndex": 0,
+  "explanation": "Most DNS exchanges are a single small request and reply, so UDP's lack of connection setup and minimal overhead is ideal; the application retries on loss. TCP is reserved for large responses or zone transfers where reliability/size matter.",
+  "distractorRationales": [
+   "",
+   "DNS does not need a byte stream; small datagrams suffice, which is why UDP fits.",
+   "UDP does not encrypt; it is simply lightweight.",
+   "Avoiding connection setup is exactly why UDP suits DNS."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "hard",
+  "questionText": "A 'reverse DNS lookup' uses which mechanism to map an IP address back to a name?",
+  "options": [
+   "A PTR record query in the in-addr.arpa (or ip6.arpa) domain",
+   "An A record query",
+   "An MX record query",
+   "A DHCP request"
+  ],
+  "correctIndex": 0,
+  "explanation": "Reverse DNS maps an IP to a hostname using PTR records in the special in-addr.arpa namespace (the IP octets reversed), e.g., 4.3.2.1.in-addr.arpa → name. It is used by mail servers and logging to obtain hostnames for addresses.",
+  "distractorRationales": [
+   "",
+   "A records map names to IPs (forward), not IPs to names.",
+   "MX records list mail servers, not reverse mappings.",
+   "DHCP assigns addresses; it does not perform reverse name resolution."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "medium",
+  "questionText": "The client-server model that underlies most application-layer protocols means:",
+  "options": [
+   "A server process awaits requests at a well-known address/port; clients initiate connections to it",
+   "All hosts are equal peers with no roles",
+   "Servers initiate all connections",
+   "Clients store all data"
+  ],
+  "correctIndex": 0,
+  "explanation": "In the client-server model, a server listens at a known address and port for incoming requests, and clients initiate communication to obtain a service (web, mail, DNS). This contrasts with peer-to-peer, where hosts act as both client and server.",
+  "distractorRationales": [
+   "",
+   "Equal peers with no fixed roles describe peer-to-peer, not client-server.",
+   "Clients, not servers, typically initiate connections in this model.",
+   "Servers usually hold the authoritative data/service, not clients."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "A DNS resolver performing a recursive query expects the DNS server to:",
+  "options": [
+   "Return the final answer, doing any further lookups on the resolver's behalf",
+   "Return only a referral to the next server",
+   "Ignore the query if not authoritative",
+   "Translate MAC to IP"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a recursive query, the contacted server takes responsibility for fully resolving the name (querying other servers as needed) and returns the final answer. Iterative queries instead return referrals.",
+  "distractorRationales": [
+   "",
+   "Returning a referral is an iterative query, not a recursive one.",
+   "A recursive server attempts resolution rather than ignoring non-authoritative names.",
+   "MAC-to-IP translation is ARP's job, not DNS."
+  ],
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns"
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "application-layer-dns",
+  "difficulty": "easy",
+  "questionText": "An authoritative name server for a domain is best described as the server that:",
+  "options": [
+   "Holds the original, definitive DNS records for that domain's zone",
+   "Only caches answers it learned from other servers",
+   "Forwards every query to the root servers without storing any records",
+   "Translates IP addresses into MAC addresses for the domain"
+  ],
+  "correctIndex": 0,
+  "explanation": "An authoritative name server is configured with the actual zone data for a domain and gives definitive (non-cached) answers for names in that zone. Resolvers that merely cache responses are non-authoritative.",
+  "distractorRationales": [
+   "",
+   "A server that only caches is a non-authoritative (recursive/caching) resolver, not authoritative.",
+   "Forwarding without storing describes a forwarder/resolver behavior, not an authoritative server that owns the zone.",
+   "IP-to-MAC translation is ARP at the link layer, unrelated to DNS authority."
+  ]
+ }
 ]

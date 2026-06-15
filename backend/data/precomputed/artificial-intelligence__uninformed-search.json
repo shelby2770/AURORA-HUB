@@ -1,182 +1,402 @@
 [
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "easy",
-    "questionText": "What is the worst-case time complexity of breadth-first search on a tree with branching factor b and shallowest goal at depth d?",
-    "options": ["O(b^d)", "O(bd)", "O(d^b)", "O(b + d)"],
-    "correctIndex": 0,
-    "explanation": "BFS may expand all nodes down to depth d before finding the goal, and the number of nodes at depth d is b^d, giving O(b^d) time. Its space complexity is also O(b^d) because it stores the entire frontier.",
-    "distractorRationales": ["", "O(bd) is the space used by iterative-deepening or DFS, not BFS time.", "The base and exponent are swapped; growth is exponential in depth d with base b.", "Linear O(b+d) badly understates exponential search growth."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "easy",
-    "questionText": "Which uninformed search algorithm uses a Last-In-First-Out (LIFO) stack as its frontier?",
-    "options": ["Depth-first search", "Breadth-first search", "Uniform-cost search", "Bidirectional search"],
-    "correctIndex": 0,
-    "explanation": "DFS uses a LIFO stack (often via recursion), always expanding the most recently generated node, which drives it deep along one branch before backtracking. BFS uses a FIFO queue and UCS uses a priority queue.",
-    "distractorRationales": ["", "BFS uses a FIFO queue, expanding the shallowest node first.", "UCS uses a priority queue keyed on path cost, not a plain stack.", "Bidirectional search runs two frontiers; it is not defined by a single LIFO stack."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "Depth-first search is NOT complete in which setting?",
-    "options": ["Infinite-depth (or cyclic) state spaces without cycle checking", "Any finite tree", "A space with a single goal at depth 2", "A space with branching factor 1"],
-    "correctIndex": 0,
-    "explanation": "DFS can go down an infinite path (or loop forever in a cyclic graph without visited tracking) and never reach the goal, so it is incomplete in infinite or cyclic spaces. In a finite tree (with cycle handling), DFS is complete.",
-    "distractorRationales": ["", "In a finite tree DFS will eventually explore everything and find the goal, so it is complete there.", "A shallow goal at depth 2 in a finite space is reachable by DFS.", "With branching factor 1 the space is a single path; DFS trivially traverses it."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "Bidirectional search can dramatically reduce search effort by searching forward from the start and backward from the goal. Its time complexity (when applicable) is approximately:",
-    "options": ["O(b^(d/2))", "O(b^d)", "O(2^d)", "O(d^2)"],
-    "correctIndex": 0,
-    "explanation": "Two frontiers each grow to about depth d/2 before meeting in the middle, so the total work is roughly 2·b^(d/2) = O(b^(d/2)), far less than O(b^d). It requires an efficiently computable predecessor function and a way to detect when the frontiers intersect.",
-    "distractorRationales": ["", "O(b^d) is single-direction BFS; bidirectional search improves on it.", "2^d ignores the branching factor and is not the standard bound.", "The complexity is exponential (halved exponent), not polynomial in d."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "Depth-limited search (DLS) adds a depth cutoff L to DFS. What problem can arise if L is chosen smaller than the depth of the shallowest goal?",
-    "options": ["The search fails to find any solution (incompleteness from the cutoff)", "It always finds the optimal solution", "It uses exponential memory", "It becomes identical to BFS"],
-    "correctIndex": 0,
-    "explanation": "If the cutoff L is less than the goal's depth, DLS terminates without ever reaching the goal, returning failure even though a solution exists. Choosing L too large, on the other hand, just wastes effort. This sensitivity to L motivates iterative deepening.",
-    "distractorRationales": ["", "A too-shallow cutoff prevents finding a solution, optimal or not.", "DLS keeps DFS's linear O(bL) memory, not exponential.", "DLS still explores depth-first, not breadth-first like BFS."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "hard",
-    "questionText": "In iterative-deepening DFS (IDDFS) on a tree with branching factor b and goal depth d, the nodes at the shallowest levels are regenerated many times. Why is the overall time still O(b^d)?",
-    "options": ["The cost is dominated by the deepest level; repeated shallow work sums to a constant factor", "Because shallow nodes are never re-expanded", "Because IDDFS caches all generated nodes", "Because b is assumed to be 1"],
-    "correctIndex": 0,
-    "explanation": "The number of nodes grows geometrically with depth, so the bottom level (b^d nodes, generated once) dominates. The repeated regeneration of shallow levels contributes only a constant-factor overhead, leaving total work O(b^d) — the same order as BFS but with linear memory.",
-    "distractorRationales": ["", "Shallow nodes ARE re-expanded on every iteration; the point is that this overhead is bounded.", "IDDFS deliberately does not cache nodes — that is how it keeps O(bd) memory.", "The result holds for general b > 1, not only b = 1."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "easy",
-    "questionText": "Which search strategy is guaranteed to find the shallowest (fewest-edges) goal first?",
-    "options": ["Breadth-first search", "Depth-first search", "Greedy best-first search", "Depth-limited search"],
-    "correctIndex": 0,
-    "explanation": "BFS expands nodes in order of increasing depth, so it reaches the shallowest goal first. When all step costs are equal, this also makes it optimal. DFS may find a much deeper goal first; greedy best-first is not uninformed and gives no depth guarantee.",
-    "distractorRationales": ["", "DFS dives deep and may return a far deeper goal before a shallow one.", "Greedy best-first uses a heuristic and is not guaranteed to find the shallowest goal.", "DLS depends on the cutoff and explores depth-first within it."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "The space complexity of breadth-first search is the main practical reason it is often impractical for large problems. That space complexity is:",
-    "options": ["O(b^d) — it must store the whole frontier", "O(bd) — linear in depth", "O(d) — just the current path", "O(1) — constant"],
-    "correctIndex": 0,
-    "explanation": "BFS keeps every node of the current frontier in memory, and that frontier can hold O(b^d) nodes. Memory, not time, is usually what makes BFS infeasible on large state spaces, which is why iterative deepening (O(bd) space) is preferred.",
-    "distractorRationales": ["", "O(bd) is iterative-deepening's space, achieved by not storing the full frontier.", "O(d) is DFS's path memory, far less than BFS needs.", "Constant memory is impossible while holding an exponential frontier."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "hard",
-    "questionText": "For a problem with branching factor b = 10, step cost 1, and a goal at depth d = 5, which uninformed strategy offers the best combination of completeness, optimality (for unit costs), and modest memory?",
-    "options": ["Iterative-deepening DFS", "Plain depth-first search", "Breadth-first search", "A depth-limited search with L = 2"],
-    "correctIndex": 0,
-    "explanation": "IDDFS is complete, optimal for unit step costs, and uses only O(bd) memory — combining BFS's guarantees with DFS's low space. Plain DFS is non-optimal and risks incompleteness; BFS is optimal but uses O(b^d) memory; DLS with L=2 misses a goal at depth 5.",
-    "distractorRationales": ["", "Plain DFS is neither optimal nor guaranteed complete in general.", "BFS is optimal here but needs O(10^5) frontier memory, the very problem IDDFS avoids.", "L = 2 is below the goal depth of 5, so this DLS fails to find the goal."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "What distinguishes 'tree search' from 'graph search' in classical search algorithms?",
-    "options": ["Graph search keeps an explored/closed set to avoid re-expanding repeated states", "Tree search is always faster", "Graph search cannot find optimal solutions", "Tree search uses a priority queue by definition"],
-    "correctIndex": 0,
-    "explanation": "Graph search maintains a closed (explored) set so that already-expanded states are not expanded again, preventing redundant work and infinite loops on cyclic spaces. Tree search omits this set and may revisit states repeatedly.",
-    "distractorRationales": ["", "Tree search can be much slower because it re-explores repeated states.", "Graph search can still be optimal (e.g., UCS with a closed set, done carefully).", "The frontier data structure depends on the algorithm, not on tree-vs-graph search."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "easy",
-    "questionText": "In the standard state-space search formulation, what does the 'successor (transition) function' provide?",
-    "options": ["The states reachable from a given state and the action/cost to reach each", "The heuristic estimate to the goal", "The optimal solution path", "The total number of states"],
-    "correctIndex": 0,
-    "explanation": "The successor (transition) function maps a state and an action to the resulting state (and step cost), defining the connectivity of the state space. Heuristics are separate and only used by informed search; the solution path is the output, not part of the problem definition.",
-    "distractorRationales": ["", "Heuristic estimates belong to informed search, not the transition function.", "The solution path is computed by the algorithm, not supplied by the successor function.", "Knowing the total state count is not what the transition function provides."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "hard",
-    "questionText": "Uniform-cost search is optimal even with varying step costs, provided that:",
-    "options": ["All step costs are non-negative (≥ ε > 0 for completeness)", "All step costs are equal", "The heuristic is admissible", "The graph is a tree"],
-    "correctIndex": 0,
-    "explanation": "UCS expands nodes in order of least path cost and is optimal whenever step costs are non-negative; a positive lower bound ε on costs additionally guarantees completeness (preventing infinite zero-cost loops). Equal costs are not required, and UCS is uninformed so no heuristic is involved.",
-    "distractorRationales": ["", "Equal costs are not required; that special case reduces UCS to BFS.", "UCS is uninformed; admissibility of a heuristic is irrelevant to it.", "UCS works on general graphs, not only trees."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "A key disadvantage of depth-first search compared with breadth-first search for finding shortest solutions is that DFS:",
-    "options": ["May return a non-optimal (much longer) solution path", "Always uses more memory", "Cannot be implemented recursively", "Requires a heuristic function"],
-    "correctIndex": 0,
-    "explanation": "DFS returns the first goal it reaches along a deep branch, which may be far from the shallowest/cheapest goal, so it is not optimal. Its advantage is low memory; it does not need a heuristic and is naturally recursive.",
-    "distractorRationales": ["", "DFS uses less memory than BFS, not more.", "DFS is commonly implemented recursively.", "DFS is uninformed and needs no heuristic."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "easy",
-    "questionText": "When all step costs are identical, uniform-cost search behaves essentially the same as which algorithm?",
-    "options": ["Breadth-first search", "Depth-first search", "Greedy best-first search", "Hill climbing"],
-    "correctIndex": 0,
-    "explanation": "With equal step costs, path cost is proportional to depth, so UCS expands nodes in order of increasing depth — exactly BFS's behavior. UCS generalizes BFS to the case of differing step costs.",
-    "distractorRationales": ["", "DFS expands deepest-first, unlike UCS with equal costs.", "Greedy best-first is informed and goal-directed, not equivalent to UCS.", "Hill climbing is a local search method, unrelated to UCS."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "hard",
-    "questionText": "Consider a state space that is an infinite tree with branching factor 2 and a single goal at depth 3. Which statement is TRUE?",
-    "options": ["BFS and IDDFS both find the goal; plain DFS may run forever down an infinite branch", "DFS is guaranteed to find the goal fastest", "BFS will run out of depth before finding the goal", "No uninformed method can find the goal"],
-    "correctIndex": 0,
-    "explanation": "In an infinite-depth tree, plain DFS can descend an infinite path that never contains the goal, so it may not terminate. BFS and IDDFS explore by increasing depth, so both reach the depth-3 goal in finite time. IDDFS is preferred for its linear memory.",
-    "distractorRationales": ["", "DFS may never terminate here, so it is not guaranteed fastest (or to finish at all).", "BFS has no fixed depth limit; it will reach depth 3 and find the goal.", "BFS/IDDFS clearly find the goal, so 'no method can' is false."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "Why does breadth-first search store goal-test results at generation time (testing nodes as they are generated) in the optimized version, rather than at expansion time?",
-    "options": ["To return the shallowest goal as soon as it is generated, saving a full extra level of expansion", "Because expansion-time testing is incorrect", "To reduce memory to O(d)", "Because BFS cannot expand goal nodes"],
-    "correctIndex": 0,
-    "explanation": "Testing at generation lets BFS stop the moment a goal is generated, avoiding expanding the rest of that level (and the optimal-depth guarantee still holds for unit costs). Testing only at expansion would do an unnecessary extra round of work. It does not change BFS's exponential memory.",
-    "distractorRationales": ["", "Expansion-time testing is correct but slower; it is not wrong.", "This optimization saves time, not memory; BFS is still O(b^d) in space.", "BFS can expand goal nodes; the point is to avoid needless expansion."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "easy",
-    "questionText": "Uninformed (blind) search strategies are characterized by the fact that they:",
-    "options": ["Use no problem-specific information beyond the problem definition (states, actions, goal test)", "Always use a heuristic to guide search", "Are always optimal", "Require the goal location's coordinates"],
-    "correctIndex": 0,
-    "explanation": "Uninformed search uses only the information in the problem definition and cannot estimate which non-goal states are closer to the goal. Informed (heuristic) search adds such guidance. Being uninformed does not guarantee optimality (e.g., DFS is not optimal).",
-    "distractorRationales": ["", "Using a heuristic is precisely what makes a method informed, not uninformed.", "Some uninformed methods (DFS) are not optimal, so optimality is not guaranteed.", "Uninformed methods do not rely on goal coordinates or distance estimates."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "uninformed-search",
-    "difficulty": "medium",
-    "questionText": "For bidirectional search to be applied effectively, which requirement must be met?",
-    "options": ["The goal state(s) must be explicitly known and predecessors must be computable", "All step costs must be zero", "The state space must be infinite", "A heuristic must be admissible"],
-    "correctIndex": 0,
-    "explanation": "Bidirectional search runs a backward search from the goal, so the goal state must be explicit and there must be a way to generate predecessors of a state. It also needs efficient detection of the two frontiers meeting. It is an uninformed technique, so no heuristic is required.",
-    "distractorRationales": ["", "Zero step costs are not required and would raise completeness issues.", "An infinite space makes meeting in the middle harder, not a requirement.", "Bidirectional search is uninformed; admissibility of a heuristic is irrelevant."]
-  }
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "easy",
+  "questionText": "What is the worst-case time complexity of breadth-first search on a tree with branching factor b and shallowest goal at depth d?",
+  "options": [
+   "O(b^d)",
+   "O(bd)",
+   "O(d^b)",
+   "O(b + d)"
+  ],
+  "correctIndex": 0,
+  "explanation": "BFS may expand all nodes down to depth d before finding the goal, and the number of nodes at depth d is b^d, giving O(b^d) time. Its space complexity is also O(b^d) because it stores the entire frontier.",
+  "distractorRationales": [
+   "",
+   "O(bd) is the space used by iterative-deepening or DFS, not BFS time.",
+   "The base and exponent are swapped; growth is exponential in depth d with base b.",
+   "Linear O(b+d) badly understates exponential search growth."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "easy",
+  "questionText": "Which uninformed search algorithm uses a Last-In-First-Out (LIFO) stack as its frontier?",
+  "options": [
+   "Depth-first search",
+   "Breadth-first search",
+   "Uniform-cost search",
+   "Bidirectional search"
+  ],
+  "correctIndex": 0,
+  "explanation": "DFS uses a LIFO stack (often via recursion), always expanding the most recently generated node, which drives it deep along one branch before backtracking. BFS uses a FIFO queue and UCS uses a priority queue.",
+  "distractorRationales": [
+   "",
+   "BFS uses a FIFO queue, expanding the shallowest node first.",
+   "UCS uses a priority queue keyed on path cost, not a plain stack.",
+   "Bidirectional search runs two frontiers; it is not defined by a single LIFO stack."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "Depth-first search is NOT complete in which setting?",
+  "options": [
+   "Infinite-depth (or cyclic) state spaces without cycle checking",
+   "Any finite tree",
+   "A space with a single goal at depth 2",
+   "A space with branching factor 1"
+  ],
+  "correctIndex": 0,
+  "explanation": "DFS can go down an infinite path (or loop forever in a cyclic graph without visited tracking) and never reach the goal, so it is incomplete in infinite or cyclic spaces. In a finite tree (with cycle handling), DFS is complete.",
+  "distractorRationales": [
+   "",
+   "In a finite tree DFS will eventually explore everything and find the goal, so it is complete there.",
+   "A shallow goal at depth 2 in a finite space is reachable by DFS.",
+   "With branching factor 1 the space is a single path; DFS trivially traverses it."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "Bidirectional search can dramatically reduce search effort by searching forward from the start and backward from the goal. Its time complexity (when applicable) is approximately:",
+  "options": [
+   "O(b^(d/2))",
+   "O(b^d)",
+   "O(2^d)",
+   "O(d^2)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Two frontiers each grow to about depth d/2 before meeting in the middle, so the total work is roughly 2·b^(d/2) = O(b^(d/2)), far less than O(b^d). It requires an efficiently computable predecessor function and a way to detect when the frontiers intersect.",
+  "distractorRationales": [
+   "",
+   "O(b^d) is single-direction BFS; bidirectional search improves on it.",
+   "2^d ignores the branching factor and is not the standard bound.",
+   "The complexity is exponential (halved exponent), not polynomial in d."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "Depth-limited search (DLS) adds a depth cutoff L to DFS. What problem can arise if L is chosen smaller than the depth of the shallowest goal?",
+  "options": [
+   "The search fails to find any solution (incompleteness from the cutoff)",
+   "It always finds the optimal solution",
+   "It uses exponential memory",
+   "It becomes identical to BFS"
+  ],
+  "correctIndex": 0,
+  "explanation": "If the cutoff L is less than the goal's depth, DLS terminates without ever reaching the goal, returning failure even though a solution exists. Choosing L too large, on the other hand, just wastes effort. This sensitivity to L motivates iterative deepening.",
+  "distractorRationales": [
+   "",
+   "A too-shallow cutoff prevents finding a solution, optimal or not.",
+   "DLS keeps DFS's linear O(bL) memory, not exponential.",
+   "DLS still explores depth-first, not breadth-first like BFS."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "hard",
+  "questionText": "In iterative-deepening DFS (IDDFS) on a tree with branching factor b and goal depth d, the nodes at the shallowest levels are regenerated many times. Why is the overall time still O(b^d)?",
+  "options": [
+   "The cost is dominated by the deepest level; repeated shallow work sums to a constant factor",
+   "Because shallow nodes are never re-expanded",
+   "Because IDDFS caches all generated nodes",
+   "Because b is assumed to be 1"
+  ],
+  "correctIndex": 0,
+  "explanation": "The number of nodes grows geometrically with depth, so the bottom level (b^d nodes, generated once) dominates. The repeated regeneration of shallow levels contributes only a constant-factor overhead, leaving total work O(b^d) — the same order as BFS but with linear memory.",
+  "distractorRationales": [
+   "",
+   "Shallow nodes ARE re-expanded on every iteration; the point is that this overhead is bounded.",
+   "IDDFS deliberately does not cache nodes — that is how it keeps O(bd) memory.",
+   "The result holds for general b > 1, not only b = 1."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "easy",
+  "questionText": "Which search strategy is guaranteed to find the shallowest (fewest-edges) goal first?",
+  "options": [
+   "Breadth-first search",
+   "Depth-first search",
+   "Greedy best-first search",
+   "Depth-limited search"
+  ],
+  "correctIndex": 0,
+  "explanation": "BFS expands nodes in order of increasing depth, so it reaches the shallowest goal first. When all step costs are equal, this also makes it optimal. DFS may find a much deeper goal first; greedy best-first is not uninformed and gives no depth guarantee.",
+  "distractorRationales": [
+   "",
+   "DFS dives deep and may return a far deeper goal before a shallow one.",
+   "Greedy best-first uses a heuristic and is not guaranteed to find the shallowest goal.",
+   "DLS depends on the cutoff and explores depth-first within it."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "The space complexity of breadth-first search is the main practical reason it is often impractical for large problems. That space complexity is:",
+  "options": [
+   "O(b^d) — it must store the whole frontier",
+   "O(bd) — linear in depth",
+   "O(d) — just the current path",
+   "O(1) — constant"
+  ],
+  "correctIndex": 0,
+  "explanation": "BFS keeps every node of the current frontier in memory, and that frontier can hold O(b^d) nodes. Memory, not time, is usually what makes BFS infeasible on large state spaces, which is why iterative deepening (O(bd) space) is preferred.",
+  "distractorRationales": [
+   "",
+   "O(bd) is iterative-deepening's space, achieved by not storing the full frontier.",
+   "O(d) is DFS's path memory, far less than BFS needs.",
+   "Constant memory is impossible while holding an exponential frontier."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "hard",
+  "questionText": "For a problem with branching factor b = 10, step cost 1, and a goal at depth d = 5, which uninformed strategy offers the best combination of completeness, optimality (for unit costs), and modest memory?",
+  "options": [
+   "Iterative-deepening DFS",
+   "Plain depth-first search",
+   "Breadth-first search",
+   "A depth-limited search with L = 2"
+  ],
+  "correctIndex": 0,
+  "explanation": "IDDFS is complete, optimal for unit step costs, and uses only O(bd) memory — combining BFS's guarantees with DFS's low space. Plain DFS is non-optimal and risks incompleteness; BFS is optimal but uses O(b^d) memory; DLS with L=2 misses a goal at depth 5.",
+  "distractorRationales": [
+   "",
+   "Plain DFS is neither optimal nor guaranteed complete in general.",
+   "BFS is optimal here but needs O(10^5) frontier memory, the very problem IDDFS avoids.",
+   "L = 2 is below the goal depth of 5, so this DLS fails to find the goal."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "What distinguishes 'tree search' from 'graph search' in classical search algorithms?",
+  "options": [
+   "Graph search keeps an explored/closed set to avoid re-expanding repeated states",
+   "Tree search is always faster",
+   "Graph search cannot find optimal solutions",
+   "Tree search uses a priority queue by definition"
+  ],
+  "correctIndex": 0,
+  "explanation": "Graph search maintains a closed (explored) set so that already-expanded states are not expanded again, preventing redundant work and infinite loops on cyclic spaces. Tree search omits this set and may revisit states repeatedly.",
+  "distractorRationales": [
+   "",
+   "Tree search can be much slower because it re-explores repeated states.",
+   "Graph search can still be optimal (e.g., UCS with a closed set, done carefully).",
+   "The frontier data structure depends on the algorithm, not on tree-vs-graph search."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "easy",
+  "questionText": "In the standard state-space search formulation, what does the 'successor (transition) function' provide?",
+  "options": [
+   "The states reachable from a given state and the action/cost to reach each",
+   "The heuristic estimate to the goal",
+   "The optimal solution path",
+   "The total number of states"
+  ],
+  "correctIndex": 0,
+  "explanation": "The successor (transition) function maps a state and an action to the resulting state (and step cost), defining the connectivity of the state space. Heuristics are separate and only used by informed search; the solution path is the output, not part of the problem definition.",
+  "distractorRationales": [
+   "",
+   "Heuristic estimates belong to informed search, not the transition function.",
+   "The solution path is computed by the algorithm, not supplied by the successor function.",
+   "Knowing the total state count is not what the transition function provides."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "hard",
+  "questionText": "Uniform-cost search is optimal even with varying step costs, provided that:",
+  "options": [
+   "All step costs are non-negative (≥ ε > 0 for completeness)",
+   "All step costs are equal",
+   "The heuristic is admissible",
+   "The graph is a tree"
+  ],
+  "correctIndex": 0,
+  "explanation": "UCS expands nodes in order of least path cost and is optimal whenever step costs are non-negative; a positive lower bound ε on costs additionally guarantees completeness (preventing infinite zero-cost loops). Equal costs are not required, and UCS is uninformed so no heuristic is involved.",
+  "distractorRationales": [
+   "",
+   "Equal costs are not required; that special case reduces UCS to BFS.",
+   "UCS is uninformed; admissibility of a heuristic is irrelevant to it.",
+   "UCS works on general graphs, not only trees."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "A key disadvantage of depth-first search compared with breadth-first search for finding shortest solutions is that DFS:",
+  "options": [
+   "May return a non-optimal (much longer) solution path",
+   "Always uses more memory",
+   "Cannot be implemented recursively",
+   "Requires a heuristic function"
+  ],
+  "correctIndex": 0,
+  "explanation": "DFS returns the first goal it reaches along a deep branch, which may be far from the shallowest/cheapest goal, so it is not optimal. Its advantage is low memory; it does not need a heuristic and is naturally recursive.",
+  "distractorRationales": [
+   "",
+   "DFS uses less memory than BFS, not more.",
+   "DFS is commonly implemented recursively.",
+   "DFS is uninformed and needs no heuristic."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "easy",
+  "questionText": "When all step costs are identical, uniform-cost search behaves essentially the same as which algorithm?",
+  "options": [
+   "Breadth-first search",
+   "Depth-first search",
+   "Greedy best-first search",
+   "Hill climbing"
+  ],
+  "correctIndex": 0,
+  "explanation": "With equal step costs, path cost is proportional to depth, so UCS expands nodes in order of increasing depth — exactly BFS's behavior. UCS generalizes BFS to the case of differing step costs.",
+  "distractorRationales": [
+   "",
+   "DFS expands deepest-first, unlike UCS with equal costs.",
+   "Greedy best-first is informed and goal-directed, not equivalent to UCS.",
+   "Hill climbing is a local search method, unrelated to UCS."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "hard",
+  "questionText": "Consider a state space that is an infinite tree with branching factor 2 and a single goal at depth 3. Which statement is TRUE?",
+  "options": [
+   "BFS and IDDFS both find the goal; plain DFS may run forever down an infinite branch",
+   "DFS is guaranteed to find the goal fastest",
+   "BFS will run out of depth before finding the goal",
+   "No uninformed method can find the goal"
+  ],
+  "correctIndex": 0,
+  "explanation": "In an infinite-depth tree, plain DFS can descend an infinite path that never contains the goal, so it may not terminate. BFS and IDDFS explore by increasing depth, so both reach the depth-3 goal in finite time. IDDFS is preferred for its linear memory.",
+  "distractorRationales": [
+   "",
+   "DFS may never terminate here, so it is not guaranteed fastest (or to finish at all).",
+   "BFS has no fixed depth limit; it will reach depth 3 and find the goal.",
+   "BFS/IDDFS clearly find the goal, so 'no method can' is false."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "Why does breadth-first search store goal-test results at generation time (testing nodes as they are generated) in the optimized version, rather than at expansion time?",
+  "options": [
+   "To return the shallowest goal as soon as it is generated, saving a full extra level of expansion",
+   "Because expansion-time testing is incorrect",
+   "To reduce memory to O(d)",
+   "Because BFS cannot expand goal nodes"
+  ],
+  "correctIndex": 0,
+  "explanation": "Testing at generation lets BFS stop the moment a goal is generated, avoiding expanding the rest of that level (and the optimal-depth guarantee still holds for unit costs). Testing only at expansion would do an unnecessary extra round of work. It does not change BFS's exponential memory.",
+  "distractorRationales": [
+   "",
+   "Expansion-time testing is correct but slower; it is not wrong.",
+   "This optimization saves time, not memory; BFS is still O(b^d) in space.",
+   "BFS can expand goal nodes; the point is to avoid needless expansion."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "easy",
+  "questionText": "Uninformed (blind) search strategies are characterized by the fact that they:",
+  "options": [
+   "Use no problem-specific information beyond the problem definition (states, actions, goal test)",
+   "Always use a heuristic to guide search",
+   "Are always optimal",
+   "Require the goal location's coordinates"
+  ],
+  "correctIndex": 0,
+  "explanation": "Uninformed search uses only the information in the problem definition and cannot estimate which non-goal states are closer to the goal. Informed (heuristic) search adds such guidance. Being uninformed does not guarantee optimality (e.g., DFS is not optimal).",
+  "distractorRationales": [
+   "",
+   "Using a heuristic is precisely what makes a method informed, not uninformed.",
+   "Some uninformed methods (DFS) are not optimal, so optimality is not guaranteed.",
+   "Uninformed methods do not rely on goal coordinates or distance estimates."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search",
+  "difficulty": "medium",
+  "questionText": "For bidirectional search to be applied effectively, which requirement must be met?",
+  "options": [
+   "The goal state(s) must be explicitly known and predecessors must be computable",
+   "All step costs must be zero",
+   "The state space must be infinite",
+   "A heuristic must be admissible"
+  ],
+  "correctIndex": 0,
+  "explanation": "Bidirectional search runs a backward search from the goal, so the goal state must be explicit and there must be a way to generate predecessors of a state. It also needs efficient detection of the two frontiers meeting. It is an uninformed technique, so no heuristic is required.",
+  "distractorRationales": [
+   "",
+   "Zero step costs are not required and would raise completeness issues.",
+   "An infinite space makes meeting in the middle harder, not a requirement.",
+   "Bidirectional search is uninformed; admissibility of a heuristic is irrelevant."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Iterative deepening depth-first search (IDDFS) combines the benefits of BFS and DFS. Its space complexity is:",
+  "options": [
+   "O(bd) — linear, like DFS",
+   "O(b^d) — exponential, like BFS",
+   "O(d)",
+   "O(1)"
+  ],
+  "correctIndex": 0,
+  "explanation": "IDDFS runs depth-limited DFS with increasing limits. It uses DFS's linear O(bd) space while still finding the shallowest goal like BFS. The repeated work of re-expanding shallow nodes is dominated by the last level, so time stays O(b^d).",
+  "distractorRationales": [
+   "",
+   "O(b^d) space is BFS's drawback, which IDDFS specifically avoids.",
+   "O(d) ignores the branching factor b stored along the current path's frontier.",
+   "O(1) is impossible; the current path and its siblings must be stored."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search"
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Uniform-cost search (UCS) expands nodes in order of:",
+  "options": [
+   "Lowest cumulative path cost g(n) from the start",
+   "Fewest edges from the start",
+   "Lowest heuristic estimate h(n)",
+   "Most recently generated (LIFO)"
+  ],
+  "correctIndex": 0,
+  "explanation": "UCS is a best-first search that always expands the frontier node with the smallest path cost g(n). With non-negative edge costs it is optimal, generalizing BFS (which assumes uniform edge cost).",
+  "distractorRationales": [
+   "",
+   "Fewest edges is BFS, a special case of UCS only when all edges cost the same.",
+   "Using h(n) alone is greedy best-first search, not UCS.",
+   "LIFO expansion is depth-first search, not UCS."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "uninformed-search"
+ }
 ]

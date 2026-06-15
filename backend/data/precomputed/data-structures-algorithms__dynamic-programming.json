@@ -4,179 +4,399 @@
   "subtopic": "dynamic-programming",
   "difficulty": "easy",
   "questionText": "Dynamic programming is applicable when a problem has optimal substructure and:",
-  "options": ["Overlapping subproblems", "Independent subproblems only", "No recursive structure", "A single base case only"],
+  "options": [
+   "Overlapping subproblems",
+   "Independent subproblems only",
+   "No recursive structure",
+   "A single base case only"
+  ],
   "correctIndex": 0,
   "explanation": "Dynamic programming applies when subproblems overlap (the same subproblem is solved many times) so that storing their results avoids exponential recomputation, combined with optimal substructure.",
-  "distractorRationales": ["", "Fully independent subproblems are the domain of divide-and-conquer; DP gains its advantage precisely from overlap.", "DP relies on a recursive (recurrence) structure to define subproblems.", "The number of base cases is irrelevant; overlapping subproblems is the key requirement."]
+  "distractorRationales": [
+   "",
+   "Fully independent subproblems are the domain of divide-and-conquer; DP gains its advantage precisely from overlap.",
+   "DP relies on a recursive (recurrence) structure to define subproblems.",
+   "The number of base cases is irrelevant; overlapping subproblems is the key requirement."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "easy",
   "questionText": "The two principal implementation styles of dynamic programming are:",
-  "options": ["Top-down (memoization) and bottom-up (tabulation)", "Greedy and backtracking", "Recursion and iteration without storage", "Breadth-first and depth-first"],
+  "options": [
+   "Top-down (memoization) and bottom-up (tabulation)",
+   "Greedy and backtracking",
+   "Recursion and iteration without storage",
+   "Breadth-first and depth-first"
+  ],
   "correctIndex": 0,
   "explanation": "Top-down DP uses recursion with memoization (caching results as they are computed); bottom-up DP fills a table iteratively from base cases upward. Both avoid recomputation.",
-  "distractorRationales": ["", "Greedy and backtracking are different algorithmic paradigms, not DP styles.", "Plain recursion or iteration without storage misses the memoization that defines DP.", "BFS and DFS are graph traversal orders, not DP implementation styles."]
+  "distractorRationales": [
+   "",
+   "Greedy and backtracking are different algorithmic paradigms, not DP styles.",
+   "Plain recursion or iteration without storage misses the memoization that defines DP.",
+   "BFS and DFS are graph traversal orders, not DP implementation styles."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "easy",
   "questionText": "Computing the n-th Fibonacci number with memoization reduces the time complexity from exponential to:",
-  "options": ["O(n)", "O(log n)", "O(n²)", "O(2^n)"],
+  "options": [
+   "O(n)",
+   "O(log n)",
+   "O(n²)",
+   "O(2^n)"
+  ],
   "correctIndex": 0,
   "explanation": "Naive recursion recomputes overlapping subproblems, giving O(2^n). Memoizing each F(i) once means there are only n distinct subproblems, each O(1) to combine — total O(n).",
-  "distractorRationales": ["", "O(log n) is achievable only with matrix exponentiation, not basic memoization.", "O(n²) overcounts; there are only n subproblems with constant work each.", "O(2^n) is the unmemoized cost that DP specifically eliminates."]
+  "distractorRationales": [
+   "",
+   "O(log n) is achievable only with matrix exponentiation, not basic memoization.",
+   "O(n²) overcounts; there are only n subproblems with constant work each.",
+   "O(2^n) is the unmemoized cost that DP specifically eliminates."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "The 0/1 knapsack problem with n items and capacity W is solved by DP in time:",
-  "options": ["O(nW) — pseudo-polynomial", "O(n log n)", "O(2^n)", "O(n²)"],
+  "options": [
+   "O(nW) — pseudo-polynomial",
+   "O(n log n)",
+   "O(2^n)",
+   "O(n²)"
+  ],
   "correctIndex": 0,
   "explanation": "The DP table has n×W entries, each filled in O(1), giving O(nW). This is pseudo-polynomial because W is a numeric value whose magnitude (not just its bit-length) drives the runtime.",
-  "distractorRationales": ["", "O(n log n) is far too small to fill the n×W DP table.", "O(2^n) is the brute-force subset-enumeration cost that DP improves upon.", "O(n²) ignores the dependence on the capacity W."]
+  "distractorRationales": [
+   "",
+   "O(n log n) is far too small to fill the n×W DP table.",
+   "O(2^n) is the brute-force subset-enumeration cost that DP improves upon.",
+   "O(n²) ignores the dependence on the capacity W."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "The time complexity of the standard DP for the edit distance (Levenshtein) between strings of lengths m and n is:",
-  "options": ["O(mn)", "O(m + n)", "O(mn log n)", "O(2^(m+n))"],
+  "options": [
+   "O(mn)",
+   "O(m + n)",
+   "O(mn log n)",
+   "O(2^(m+n))"
+  ],
   "correctIndex": 0,
   "explanation": "The edit-distance DP fills an (m+1)×(n+1) table where each cell takes the min over insert/delete/replace in O(1), giving O(mn).",
-  "distractorRationales": ["", "O(m+n) is too small to fill a 2D table of size m×n.", "There is no extra log factor; each cell is O(1).", "O(2^(m+n)) is the exponential naive recursion DP avoids."]
+  "distractorRationales": [
+   "",
+   "O(m+n) is too small to fill a 2D table of size m×n.",
+   "There is no extra log factor; each cell is O(1).",
+   "O(2^(m+n)) is the exponential naive recursion DP avoids."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "The Longest Increasing Subsequence (LIS) of an array of n elements can be computed in which best-known time using DP with binary search?",
-  "options": ["O(n log n)", "O(n²) only", "O(n)", "O(2^n)"],
+  "options": [
+   "O(n log n)",
+   "O(n²) only",
+   "O(n)",
+   "O(2^n)"
+  ],
   "correctIndex": 0,
   "explanation": "The basic LIS DP is O(n²), but maintaining the smallest tail of all increasing subsequences of each length and using binary search to update it yields O(n log n).",
-  "distractorRationales": ["", "O(n²) is the simple DP; the patience-sorting / binary-search method improves it to O(n log n).", "O(n) is not achievable for LIS in the comparison model.", "O(2^n) is brute force over all subsequences, which DP avoids."]
+  "distractorRationales": [
+   "",
+   "O(n²) is the simple DP; the patience-sorting / binary-search method improves it to O(n log n).",
+   "O(n) is not achievable for LIS in the comparison model.",
+   "O(2^n) is brute force over all subsequences, which DP avoids."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "In the coin-change problem (minimum number of coins to make amount A with denominations of size d), the DP recurrence is dp[a] =",
-  "options": ["1 + min over coins c ≤ a of dp[a − c]", "dp[a − 1] + 1 always", "max over coins c of dp[a − c]", "dp[a/2] + dp[a/2]"],
+  "options": [
+   "1 + min over coins c ≤ a of dp[a − c]",
+   "dp[a − 1] + 1 always",
+   "max over coins c of dp[a − c]",
+   "dp[a/2] + dp[a/2]"
+  ],
   "correctIndex": 0,
   "explanation": "To make amount a, try each coin c ≤ a: the best uses dp[a−c] coins plus one for c. Taking the minimum over all coins gives dp[a] = 1 + min_c dp[a−c], with dp[0]=0.",
-  "distractorRationales": ["", "dp[a−1]+1 assumes a coin of value 1 always exists and ignores larger denominations.", "Taking the max would maximize, not minimize, the coin count.", "Splitting into halves does not respect the available coin denominations."]
+  "distractorRationales": [
+   "",
+   "dp[a−1]+1 assumes a coin of value 1 always exists and ignores larger denominations.",
+   "Taking the max would maximize, not minimize, the coin count.",
+   "Splitting into halves does not respect the available coin denominations."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "The 0/1 knapsack DP can be space-optimized to use:",
-  "options": ["O(W) space, by iterating capacity in reverse for each item", "O(nW) space always", "O(1) space", "O(n) space, independent of W"],
+  "options": [
+   "O(W) space, by iterating capacity in reverse for each item",
+   "O(nW) space always",
+   "O(1) space",
+   "O(n) space, independent of W"
+  ],
   "correctIndex": 0,
   "explanation": "Since each item's row depends only on the previous row, a single 1D array of size W suffices. Iterating capacity from high to low ensures each item is used at most once, giving O(W) space.",
-  "distractorRationales": ["", "The full 2D table needs O(nW), but rolling-array optimization reduces it to O(W).", "O(1) space cannot hold the per-capacity best values needed.", "O(n) ignores that the DP state is indexed by capacity W."]
+  "distractorRationales": [
+   "",
+   "The full 2D table needs O(nW), but rolling-array optimization reduces it to O(W).",
+   "O(1) space cannot hold the per-capacity best values needed.",
+   "O(n) ignores that the DP state is indexed by capacity W."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "Floyd-Warshall computes all-pairs shortest paths using DP in time:",
-  "options": ["O(V³)", "O(V² log V)", "O(VE)", "O(E log V)"],
+  "options": [
+   "O(V³)",
+   "O(V² log V)",
+   "O(VE)",
+   "O(E log V)"
+  ],
   "correctIndex": 0,
   "explanation": "Floyd-Warshall uses three nested loops over vertices (intermediate, source, destination), each O(V), giving O(V³). It handles negative edges (no negative cycles).",
-  "distractorRationales": ["", "O(V² log V) is the complexity of Dijkstra with a Fibonacci heap from one source, not Floyd-Warshall.", "O(VE) is Bellman-Ford for a single source, not all-pairs Floyd-Warshall.", "O(E log V) is Dijkstra with a binary heap, single-source."]
+  "distractorRationales": [
+   "",
+   "O(V² log V) is the complexity of Dijkstra with a Fibonacci heap from one source, not Floyd-Warshall.",
+   "O(VE) is Bellman-Ford for a single source, not all-pairs Floyd-Warshall.",
+   "O(E log V) is Dijkstra with a binary heap, single-source."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "Matrix-chain multiplication of n matrices is solved by DP in time and using how many scalar subproblems?",
-  "options": ["O(n³) time, with O(n²) distinct subproblems", "O(n²) time, O(n) subproblems", "O(2^n) time", "O(n log n) time"],
+  "options": [
+   "O(n³) time, with O(n²) distinct subproblems",
+   "O(n²) time, O(n) subproblems",
+   "O(2^n) time",
+   "O(n log n) time"
+  ],
   "correctIndex": 0,
   "explanation": "The DP computes the best parenthesization for each contiguous subchain (i, j) — O(n²) subproblems — and each requires trying O(n) split points, giving O(n³) total.",
-  "distractorRationales": ["", "O(n²) time is too small; each of the O(n²) subproblems itself takes O(n) to find the best split.", "O(2^n) is the cost of enumerating all parenthesizations, which DP avoids.", "O(n log n) drastically underestimates the matrix-chain DP cost."]
+  "distractorRationales": [
+   "",
+   "O(n²) time is too small; each of the O(n²) subproblems itself takes O(n) to find the best split.",
+   "O(2^n) is the cost of enumerating all parenthesizations, which DP avoids.",
+   "O(n log n) drastically underestimates the matrix-chain DP cost."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "Consider the LCS of X = 'AGGTAB' and Y = 'GXTXAYB'. What is the length of the longest common subsequence?",
-  "options": ["4", "3", "5", "2"],
+  "options": [
+   "4",
+   "3",
+   "5",
+   "2"
+  ],
   "correctIndex": 0,
   "explanation": "The LCS is 'GTAB' of length 4: G, T, A, B all appear in order in both strings (A-G-G-T-A-B and G-X-T-X-A-Y-B).",
-  "distractorRationales": ["", "3 misses one matchable character; 'GTAB' of length 4 is achievable.", "5 is too long; no common subsequence of length 5 exists for these strings.", "2 undercounts the available ordered matches."]
+  "distractorRationales": [
+   "",
+   "3 misses one matchable character; 'GTAB' of length 4 is achievable.",
+   "5 is too long; no common subsequence of length 5 exists for these strings.",
+   "2 undercounts the available ordered matches."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "The subset-sum problem (does any subset of n integers sum to target S?) has a DP that runs in:",
-  "options": ["O(nS) pseudo-polynomial time", "O(n log S)", "O(n²)", "Polynomial time in the input size (it is in P)"],
+  "options": [
+   "O(nS) pseudo-polynomial time",
+   "O(n log S)",
+   "O(n²)",
+   "Polynomial time in the input size (it is in P)"
+  ],
   "correctIndex": 0,
   "explanation": "The DP fills a boolean table of size n×S in O(nS). Because S is a numeric value, this is pseudo-polynomial, not truly polynomial in the input's bit-length — subset-sum is NP-complete.",
-  "distractorRationales": ["", "O(n log S) is far too small to fill the n×S reachability table.", "O(n²) ignores the dependence on the target value S.", "Subset-sum is NP-complete; the DP is pseudo-polynomial, not a proof that it is in P."]
+  "distractorRationales": [
+   "",
+   "O(n log S) is far too small to fill the n×S reachability table.",
+   "O(n²) ignores the dependence on the target value S.",
+   "Subset-sum is NP-complete; the DP is pseudo-polynomial, not a proof that it is in P."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "The Bellman-Ford algorithm is a DP that relaxes all edges (V−1) times. Its running time is:",
-  "options": ["O(VE)", "O(V²)", "O(E log V)", "O(V³)"],
+  "options": [
+   "O(VE)",
+   "O(V²)",
+   "O(E log V)",
+   "O(V³)"
+  ],
   "correctIndex": 0,
   "explanation": "Bellman-Ford performs V−1 passes, each relaxing all E edges, giving O(VE). It supports negative edge weights and detects negative cycles with one extra pass.",
-  "distractorRationales": ["", "O(V²) does not account for the number of edges E in each relaxation pass.", "O(E log V) is Dijkstra with a heap, which cannot handle negative edges.", "O(V³) is Floyd-Warshall for all pairs, not single-source Bellman-Ford."]
+  "distractorRationales": [
+   "",
+   "O(V²) does not account for the number of edges E in each relaxation pass.",
+   "O(E log V) is Dijkstra with a heap, which cannot handle negative edges.",
+   "O(V³) is Floyd-Warshall for all pairs, not single-source Bellman-Ford."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "For the 'rod cutting' problem (rod of length n, price[i] for a piece of length i), the DP recurrence for max revenue r(n) is:",
-  "options": ["r(n) = max over 1 ≤ i ≤ n of (price[i] + r(n − i))", "r(n) = price[n] always", "r(n) = r(n−1) + price[1]", "r(n) = min over i of (price[i] + r(n−i))"],
+  "options": [
+   "r(n) = max over 1 ≤ i ≤ n of (price[i] + r(n − i))",
+   "r(n) = price[n] always",
+   "r(n) = r(n−1) + price[1]",
+   "r(n) = min over i of (price[i] + r(n−i))"
+  ],
   "correctIndex": 0,
   "explanation": "Cut a first piece of length i for price[i], then optimally cut the remaining length n−i for r(n−i). Maximizing over all first-cut lengths i gives r(n) = max_i (price[i] + r(n−i)), with r(0)=0.",
-  "distractorRationales": ["", "Selling the rod whole (price[n]) ignores possibly more profitable cuts.", "r(n−1)+price[1] only considers cutting unit pieces, not all cut lengths.", "Taking the min would minimize revenue; the problem maximizes it."]
+  "distractorRationales": [
+   "",
+   "Selling the rod whole (price[n]) ignores possibly more profitable cuts.",
+   "r(n−1)+price[1] only considers cutting unit pieces, not all cut lengths.",
+   "Taking the min would minimize revenue; the problem maximizes it."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "Memoization differs from tabulation in that memoization:",
-  "options": ["Computes subproblems lazily on demand via recursion, only those actually needed", "Always computes every subproblem in the table", "Cannot reuse previously computed results", "Uses no extra memory"],
+  "options": [
+   "Computes subproblems lazily on demand via recursion, only those actually needed",
+   "Always computes every subproblem in the table",
+   "Cannot reuse previously computed results",
+   "Uses no extra memory"
+  ],
   "correctIndex": 0,
   "explanation": "Memoization (top-down) solves a subproblem only when it is first requested, caching the result. Tabulation (bottom-up) systematically fills the entire table, even subproblems that may not be required.",
-  "distractorRationales": ["", "Filling every subproblem regardless of need is tabulation's characteristic, not memoization's.", "Reusing cached results is exactly what memoization does.", "Memoization uses a cache (extra memory) to store results."]
+  "distractorRationales": [
+   "",
+   "Filling every subproblem regardless of need is tabulation's characteristic, not memoization's.",
+   "Reusing cached results is exactly what memoization does.",
+   "Memoization uses a cache (extra memory) to store results."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "The number of distinct ways to climb n stairs taking 1 or 2 steps at a time follows the recurrence ways(n) = ways(n−1) + ways(n−2). For n = 5, the count is:",
-  "options": ["8", "5", "13", "6"],
+  "options": [
+   "8",
+   "5",
+   "13",
+   "6"
+  ],
   "correctIndex": 0,
   "explanation": "This is the Fibonacci sequence: ways(1)=1, ways(2)=2, ways(3)=3, ways(4)=5, ways(5)=8.",
-  "distractorRationales": ["", "5 is ways(4), not ways(5).", "13 is ways(6), one term too far.", "6 does not appear in this Fibonacci-style sequence."]
+  "distractorRationales": [
+   "",
+   "5 is ways(4), not ways(5).",
+   "13 is ways(6), one term too far.",
+   "6 does not appear in this Fibonacci-style sequence."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "medium",
   "questionText": "Which problem does NOT have optimal substructure suitable for dynamic programming?",
-  "options": ["Longest simple path in a general graph", "Shortest path (single-source, non-negative weights)", "0/1 knapsack", "Matrix-chain multiplication"],
+  "options": [
+   "Longest simple path in a general graph",
+   "Shortest path (single-source, non-negative weights)",
+   "0/1 knapsack",
+   "Matrix-chain multiplication"
+  ],
   "correctIndex": 0,
   "explanation": "Longest simple path lacks optimal substructure: a subpath of a longest simple path is not necessarily a longest simple path between its endpoints (the no-repeat constraint breaks composability). It is NP-hard. The others all have clean optimal substructure.",
-  "distractorRationales": ["", "Shortest paths have optimal substructure — subpaths of shortest paths are shortest.", "0/1 knapsack has optimal substructure and is a standard DP.", "Matrix-chain multiplication has optimal substructure over subchains, a classic DP."]
+  "distractorRationales": [
+   "",
+   "Shortest paths have optimal substructure — subpaths of shortest paths are shortest.",
+   "0/1 knapsack has optimal substructure and is a standard DP.",
+   "Matrix-chain multiplication has optimal substructure over subchains, a classic DP."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "dynamic-programming",
   "difficulty": "hard",
   "questionText": "For the weighted interval scheduling problem (n intervals with weights, no overlaps), the DP uses p(j) = the largest index i < j compatible with j, and runs in:",
-  "options": ["O(n log n), dominated by sorting and binary search for p(j)", "O(n²) and no faster", "O(2^n)", "O(n)"],
+  "options": [
+   "O(n log n), dominated by sorting and binary search for p(j)",
+   "O(n²) and no faster",
+   "O(2^n)",
+   "O(n)"
+  ],
   "correctIndex": 0,
   "explanation": "Sort intervals by finish time (O(n log n)). For each j, OPT(j) = max(weight_j + OPT(p(j)), OPT(j−1)). Computing p(j) by binary search is O(log n) each, so the total is O(n log n).",
-  "distractorRationales": ["", "With binary search for p(j), the algorithm is O(n log n), not stuck at O(n²).", "O(2^n) is brute force over subsets, which DP avoids.", "O(n) ignores the sorting and the per-interval search for the compatible predecessor."]
+  "distractorRationales": [
+   "",
+   "With binary search for p(j), the algorithm is O(n log n), not stuck at O(n²).",
+   "O(2^n) is brute force over subsets, which DP avoids.",
+   "O(n) ignores the sorting and the per-interval search for the compatible predecessor."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "In dynamic programming, 'optimal substructure' means:",
+  "options": [
+   "An optimal solution to the problem contains optimal solutions to its subproblems",
+   "Subproblems never overlap",
+   "The problem has no recursive formulation",
+   "Greedy choices always work"
+  ],
+  "correctIndex": 0,
+  "explanation": "Optimal substructure is the property that an optimal global solution is composed of optimal solutions to subproblems, which lets DP build the answer from smaller optimal answers.",
+  "distractorRationales": [
+   "",
+   "Non-overlapping subproblems describe divide-and-conquer; DP relies on overlap.",
+   "DP problems do have recursive formulations (recurrences).",
+   "Greedy success requires the greedy-choice property, a separate (stronger) condition."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "dynamic-programming"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "For the 0/1 knapsack with items (weight,value) = (1,1),(3,4),(4,5),(5,7) and capacity W=7, the maximum achievable value is:",
+  "options": [
+   "9",
+   "7",
+   "11",
+   "8"
+  ],
+  "correctIndex": 0,
+  "explanation": "Consider combinations within weight 7: items (3,4)+(4,5) = weight 7, value 9. Item (5,7)+(1,1) = weight 6, value 8. So the best is 9.",
+  "distractorRationales": [
+   "",
+   "7 is just item (5,7) alone, beaten by combining (3,4) and (4,5).",
+   "11 exceeds what fits in capacity 7; e.g., (4,5)+(5,7) needs weight 9 > 7.",
+   "8 is (5,7)+(1,1), less than the optimal 9."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "dynamic-programming"
  }
 ]

@@ -1,182 +1,402 @@
 [
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "easy",
-    "questionText": "Bayes' theorem expresses the posterior P(H|E) in terms of:",
-    "options": ["P(E|H)·P(H) / P(E)", "P(H|E)·P(E)", "P(H) + P(E)", "P(E|H) - P(H)"],
-    "correctIndex": 0,
-    "explanation": "Bayes' theorem: P(H|E) = P(E|H)·P(H) / P(E). It updates the prior P(H) into the posterior using the likelihood P(E|H) and the evidence (normalizer) P(E). This is the foundation of probabilistic inference.",
-    "distractorRationales": ["", "P(H|E)·P(E) equals the joint P(H,E), not the posterior by itself.", "Probabilities are combined multiplicatively here, not by addition.", "Subtracting probabilities does not yield a valid posterior."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "Two events A and B are independent if and only if:",
-    "options": ["P(A ∩ B) = P(A)·P(B)", "P(A ∩ B) = P(A) + P(B)", "P(A|B) = P(B|A)", "P(A) = P(B)"],
-    "correctIndex": 0,
-    "explanation": "Independence means the joint probability factors as the product of marginals: P(A ∩ B) = P(A)P(B), equivalently P(A|B) = P(A). This is the key assumption that simplifies many probabilistic models.",
-    "distractorRationales": ["", "Adding marginals is the inclusion-exclusion term for unions, not the independence condition.", "P(A|B) = P(B|A) holds only under special equal-prior conditions, not in general for independence.", "Equal marginals do not imply independence."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "A full joint probability distribution over n Boolean variables requires how many independent entries to specify?",
-    "options": ["2^n - 1", "2^n", "n^2", "2n"],
-    "correctIndex": 0,
-    "explanation": "There are 2^n possible assignments of n Boolean variables; since the probabilities must sum to 1, only 2^n - 1 are independent (the last is determined). This exponential blow-up is exactly what Bayesian networks exploit conditional independence to avoid.",
-    "distractorRationales": ["", "2^n counts all entries but ignores the sum-to-one constraint that removes one degree of freedom.", "n^2 badly underestimates the exponential size.", "2n is linear and far too small for a full joint distribution."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "hard",
-    "questionText": "In a Bayesian network, a node is conditionally independent of its non-descendants given its:",
-    "options": ["Parents", "Children", "Descendants", "Markov blanket's children only"],
-    "correctIndex": 0,
-    "explanation": "The local Markov property states that each node is conditionally independent of its non-descendants given its parents. This is what allows the full joint to factor as the product of P(node | parents), shrinking the parameter count dramatically.",
-    "distractorRationales": ["", "Conditioning on children does not give the non-descendant independence; parents do.", "Descendants are not what is conditioned on for this property.", "The Markov blanket (parents, children, children's other parents) is for independence from ALL other nodes, a different statement."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "easy",
-    "questionText": "The chain rule of probability decomposes a joint distribution P(A, B, C) as:",
-    "options": ["P(A)·P(B|A)·P(C|A,B)", "P(A)·P(B)·P(C)", "P(A|B,C)·P(B|C)", "P(A) + P(B) + P(C)"],
-    "correctIndex": 0,
-    "explanation": "The chain rule expands any joint as a product of conditionals: P(A,B,C) = P(A)·P(B|A)·P(C|A,B). Bayesian networks then simplify each conditional using the independence implied by the graph structure.",
-    "distractorRationales": ["", "The product of marginals holds only under full independence, not in general.", "This is a partial expansion missing a factor and does not cover all three variables correctly.", "Joint probabilities are products of conditionals, not sums of marginals."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "hard",
-    "questionText": "In the Bayesian network A → C ← B (a 'common effect' / collider at C), what is the independence relationship between A and B?",
-    "options": ["A and B are independent, but become dependent once C is observed (explaining away)", "A and B are always dependent", "A and B are independent even after observing C", "A and B are identical"],
-    "correctIndex": 0,
-    "explanation": "At a collider A → C ← B, A and B are marginally independent, but conditioning on the common effect C (or its descendant) makes them dependent — the 'explaining away' phenomenon. This is the one v-structure case where observing the middle node creates, rather than blocks, dependence.",
-    "distractorRationales": ["", "They are NOT always dependent; they are marginally independent before observing C.", "Observing C specifically makes them dependent, not independent.", "Independence/dependence is the question; the variables are distinct, not identical."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "The Naive Bayes classifier makes which simplifying assumption?",
-    "options": ["All features are conditionally independent given the class label", "All features are mutually exclusive", "The class prior is uniform", "Features are continuous and Gaussian always"],
-    "correctIndex": 0,
-    "explanation": "Naive Bayes assumes the features are conditionally independent given the class, so P(features|class) factors into the product of per-feature likelihoods. This 'naive' assumption is often violated yet the classifier works surprisingly well in practice.",
-    "distractorRationales": ["", "It does not assume features are mutually exclusive events.", "It uses (and learns) class priors; they need not be uniform.", "Features can be discrete; the Gaussian form is just one variant, not a requirement."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "For a Bayesian network node X with k Boolean parents, the conditional probability table (CPT) for X has how many independent parameters?",
-    "options": ["2^k", "2^(k+1)", "k", "2k"],
-    "correctIndex": 0,
-    "explanation": "Each combination of the k Boolean parents (there are 2^k) needs one probability P(X=true | parents); the false case is its complement. So a Boolean node with k Boolean parents needs 2^k independent entries — far fewer than the full joint when k is small.",
-    "distractorRationales": ["", "2^(k+1) counts both X=true and X=false rows, but the false row is determined by the true one.", "k is linear and underestimates the table size.", "2k underestimates the exponential dependence on the number of parents."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "easy",
-    "questionText": "Marginalization (the sum rule) computes P(A) from a joint P(A, B) by:",
-    "options": ["Summing the joint over all values of B", "Multiplying over all values of B", "Dividing by P(B)", "Taking the maximum over B"],
-    "correctIndex": 0,
-    "explanation": "Marginalizing out B: P(A) = Σ_b P(A, B=b). Summing the joint over the unwanted variable's values yields the marginal of the remaining variable(s). Dividing by P(B) instead gives a conditional, not a marginal.",
-    "distractorRationales": ["", "Marginalization sums over B; it does not multiply.", "Dividing by P(B) computes a conditional P(A|B), not the marginal P(A).", "Taking the maximum is a MAP-style operation, not marginalization."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "hard",
-    "questionText": "Exact inference in general Bayesian networks (computing a posterior) is known to be:",
-    "options": ["NP-hard in the worst case", "Always solvable in linear time", "Solvable only for trees and never for other structures", "Equivalent to sorting"],
-    "correctIndex": 0,
-    "explanation": "Exact inference in arbitrary Bayesian networks is NP-hard (#P-hard for computing exact probabilities). Efficient exact inference exists for special structures (polytrees, low treewidth) via variable elimination/junction trees; otherwise approximate methods like sampling are used.",
-    "distractorRationales": ["", "It is not generally linear-time; only restricted structures are efficient.", "Inference is feasible for polytrees and low-treewidth nets, not only literal trees, but is hard in general.", "It is far harder than sorting in the general case."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "Variable elimination performs Bayesian network inference more efficiently than enumerating the full joint by:",
-    "options": ["Summing out variables one at a time and reusing intermediate factors", "Ignoring the network structure entirely", "Sampling random assignments", "Converting the network to CNF"],
-    "correctIndex": 0,
-    "explanation": "Variable elimination interleaves multiplication of factors with summing out (eliminating) hidden variables, caching intermediate factors to avoid recomputation. By exploiting the factored structure, it avoids constructing the exponential full joint. The elimination ordering strongly affects efficiency.",
-    "distractorRationales": ["", "It specifically exploits the network's factored structure rather than ignoring it.", "Sampling is an approximate method (e.g., likelihood weighting), not variable elimination.", "It manipulates probability factors, not logical CNF clauses."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "easy",
-    "questionText": "The Markov blanket of a node X in a Bayesian network consists of its:",
-    "options": ["Parents, children, and children's other parents", "Parents only", "Descendants only", "All other nodes"],
-    "correctIndex": 0,
-    "explanation": "X's Markov blanket — its parents, its children, and its children's other parents — renders X conditionally independent of all other nodes in the network. Knowing the blanket's values is sufficient to determine X's distribution.",
-    "distractorRationales": ["", "Parents alone give independence only from non-descendants, not from all other nodes.", "Descendants alone are insufficient for the Markov-blanket property.", "The whole point of the blanket is that it is a small set, not all other nodes."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "hard",
-    "questionText": "In a serial connection A → B → C (a causal chain), A and C are:",
-    "options": ["Dependent in general, but conditionally independent given B", "Always independent", "Dependent even given B", "Identical events"],
-    "correctIndex": 0,
-    "explanation": "In a chain A → B → C, information flows from A to C through B, so A and C are marginally dependent; once B is observed, it 'blocks' the path (d-separation), making A and C conditionally independent given B.",
-    "distractorRationales": ["", "They are not always independent; the chain induces marginal dependence.", "Observing B blocks the path, so they become independent, not remain dependent.", "A and C are distinct variables, not identical."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "Maximum a posteriori (MAP) estimation differs from maximum likelihood estimation (MLE) in that MAP:",
-    "options": ["Incorporates a prior over the parameters in addition to the likelihood", "Ignores the data entirely", "Always gives a uniform distribution", "Uses only the prior and no likelihood"],
-    "correctIndex": 0,
-    "explanation": "MAP maximizes the posterior ∝ likelihood × prior, so it combines the observed data (likelihood) with prior beliefs about the parameters. MLE maximizes only the likelihood; with a uniform (flat) prior, MAP reduces to MLE.",
-    "distractorRationales": ["", "MAP uses the data through the likelihood term.", "MAP yields a point estimate (the mode), not a uniform distribution.", "MAP uses both prior and likelihood; using only the prior would ignore the data."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "easy",
-    "questionText": "A probability distribution over a random variable must satisfy which two basic axioms?",
-    "options": ["Each probability is in [0,1] and all probabilities sum to 1", "Each probability is negative and they sum to 0", "Probabilities can exceed 1 if normalized later", "Only the largest probability matters"],
-    "correctIndex": 0,
-    "explanation": "Kolmogorov's axioms require every probability to lie between 0 and 1 and the probabilities of mutually exclusive, exhaustive outcomes to sum to 1. These constraints underlie all valid probabilistic reasoning.",
-    "distractorRationales": ["", "Probabilities are non-negative and sum to 1, not negative summing to 0.", "Individual probabilities can never exceed 1; that is not fixed by later normalization.", "All outcomes' probabilities matter; the distribution is not just its mode."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "hard",
-    "questionText": "Likelihood weighting, an approximate inference method, improves on plain rejection sampling by:",
-    "options": ["Fixing the evidence variables and weighting each sample by the likelihood of that evidence", "Discarding all samples that disagree with the evidence", "Enumerating the full joint exactly", "Ignoring the evidence completely"],
-    "correctIndex": 0,
-    "explanation": "Likelihood weighting never rejects samples: it clamps the evidence variables to their observed values and samples the rest, weighting each sample by the product of the conditional probabilities of the evidence given its parents. This avoids the wastefulness of rejection sampling when evidence is unlikely.",
-    "distractorRationales": ["", "Discarding disagreeing samples is exactly rejection sampling, which likelihood weighting avoids.", "It is an approximate sampling method, not exact enumeration.", "It explicitly conditions on the evidence via weights; it does not ignore it."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "The product rule relates the joint and conditional probabilities as:",
-    "options": ["P(A, B) = P(A|B)·P(B) = P(B|A)·P(A)", "P(A, B) = P(A) + P(B)", "P(A, B) = P(A|B) / P(B)", "P(A, B) = P(A) - P(B)"],
-    "correctIndex": 0,
-    "explanation": "The product (multiplication) rule states P(A, B) = P(A|B)P(B) = P(B|A)P(A). Equating the two right-hand expressions and rearranging directly yields Bayes' theorem.",
-    "distractorRationales": ["", "Addition gives a term in the union formula, not the joint.", "Dividing by P(B) gives a conditional, not the joint.", "Subtraction is not a valid rule for combining these probabilities."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "probabilistic-reasoning",
-    "difficulty": "medium",
-    "questionText": "A Hidden Markov Model (HMM) represents a sequence with hidden states and observations, assuming the current state depends only on:",
-    "options": ["The immediately previous state (the Markov assumption)", "All previous states equally", "Only the observations", "The final state of the sequence"],
-    "correctIndex": 0,
-    "explanation": "An HMM makes the (first-order) Markov assumption: the next hidden state depends only on the current state, and each observation depends only on the current hidden state. This enables efficient algorithms like forward-backward and Viterbi.",
-    "distractorRationales": ["", "The Markov assumption ignores states before the immediate predecessor.", "States depend on the previous state; observations are a separate emission, not the state-transition driver.", "Future/final states do not determine the current state in a (forward) Markov chain."]
-  }
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "easy",
+  "questionText": "Bayes' theorem expresses the posterior P(H|E) in terms of:",
+  "options": [
+   "P(E|H)·P(H) / P(E)",
+   "P(H|E)·P(E)",
+   "P(H) + P(E)",
+   "P(E|H) - P(H)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Bayes' theorem: P(H|E) = P(E|H)·P(H) / P(E). It updates the prior P(H) into the posterior using the likelihood P(E|H) and the evidence (normalizer) P(E). This is the foundation of probabilistic inference.",
+  "distractorRationales": [
+   "",
+   "P(H|E)·P(E) equals the joint P(H,E), not the posterior by itself.",
+   "Probabilities are combined multiplicatively here, not by addition.",
+   "Subtracting probabilities does not yield a valid posterior."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "Two events A and B are independent if and only if:",
+  "options": [
+   "P(A ∩ B) = P(A)·P(B)",
+   "P(A ∩ B) = P(A) + P(B)",
+   "P(A|B) = P(B|A)",
+   "P(A) = P(B)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Independence means the joint probability factors as the product of marginals: P(A ∩ B) = P(A)P(B), equivalently P(A|B) = P(A). This is the key assumption that simplifies many probabilistic models.",
+  "distractorRationales": [
+   "",
+   "Adding marginals is the inclusion-exclusion term for unions, not the independence condition.",
+   "P(A|B) = P(B|A) holds only under special equal-prior conditions, not in general for independence.",
+   "Equal marginals do not imply independence."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "A full joint probability distribution over n Boolean variables requires how many independent entries to specify?",
+  "options": [
+   "2^n - 1",
+   "2^n",
+   "n^2",
+   "2n"
+  ],
+  "correctIndex": 0,
+  "explanation": "There are 2^n possible assignments of n Boolean variables; since the probabilities must sum to 1, only 2^n - 1 are independent (the last is determined). This exponential blow-up is exactly what Bayesian networks exploit conditional independence to avoid.",
+  "distractorRationales": [
+   "",
+   "2^n counts all entries but ignores the sum-to-one constraint that removes one degree of freedom.",
+   "n^2 badly underestimates the exponential size.",
+   "2n is linear and far too small for a full joint distribution."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "hard",
+  "questionText": "In a Bayesian network, a node is conditionally independent of its non-descendants given its:",
+  "options": [
+   "Parents",
+   "Children",
+   "Descendants",
+   "Markov blanket's children only"
+  ],
+  "correctIndex": 0,
+  "explanation": "The local Markov property states that each node is conditionally independent of its non-descendants given its parents. This is what allows the full joint to factor as the product of P(node | parents), shrinking the parameter count dramatically.",
+  "distractorRationales": [
+   "",
+   "Conditioning on children does not give the non-descendant independence; parents do.",
+   "Descendants are not what is conditioned on for this property.",
+   "The Markov blanket (parents, children, children's other parents) is for independence from ALL other nodes, a different statement."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "easy",
+  "questionText": "The chain rule of probability decomposes a joint distribution P(A, B, C) as:",
+  "options": [
+   "P(A)·P(B|A)·P(C|A,B)",
+   "P(A)·P(B)·P(C)",
+   "P(A|B,C)·P(B|C)",
+   "P(A) + P(B) + P(C)"
+  ],
+  "correctIndex": 0,
+  "explanation": "The chain rule expands any joint as a product of conditionals: P(A,B,C) = P(A)·P(B|A)·P(C|A,B). Bayesian networks then simplify each conditional using the independence implied by the graph structure.",
+  "distractorRationales": [
+   "",
+   "The product of marginals holds only under full independence, not in general.",
+   "This is a partial expansion missing a factor and does not cover all three variables correctly.",
+   "Joint probabilities are products of conditionals, not sums of marginals."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "hard",
+  "questionText": "In the Bayesian network A → C ← B (a 'common effect' / collider at C), what is the independence relationship between A and B?",
+  "options": [
+   "A and B are independent, but become dependent once C is observed (explaining away)",
+   "A and B are always dependent",
+   "A and B are independent even after observing C",
+   "A and B are identical"
+  ],
+  "correctIndex": 0,
+  "explanation": "At a collider A → C ← B, A and B are marginally independent, but conditioning on the common effect C (or its descendant) makes them dependent — the 'explaining away' phenomenon. This is the one v-structure case where observing the middle node creates, rather than blocks, dependence.",
+  "distractorRationales": [
+   "",
+   "They are NOT always dependent; they are marginally independent before observing C.",
+   "Observing C specifically makes them dependent, not independent.",
+   "Independence/dependence is the question; the variables are distinct, not identical."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "The Naive Bayes classifier makes which simplifying assumption?",
+  "options": [
+   "All features are conditionally independent given the class label",
+   "All features are mutually exclusive",
+   "The class prior is uniform",
+   "Features are continuous and Gaussian always"
+  ],
+  "correctIndex": 0,
+  "explanation": "Naive Bayes assumes the features are conditionally independent given the class, so P(features|class) factors into the product of per-feature likelihoods. This 'naive' assumption is often violated yet the classifier works surprisingly well in practice.",
+  "distractorRationales": [
+   "",
+   "It does not assume features are mutually exclusive events.",
+   "It uses (and learns) class priors; they need not be uniform.",
+   "Features can be discrete; the Gaussian form is just one variant, not a requirement."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "For a Bayesian network node X with k Boolean parents, the conditional probability table (CPT) for X has how many independent parameters?",
+  "options": [
+   "2^k",
+   "2^(k+1)",
+   "k",
+   "2k"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each combination of the k Boolean parents (there are 2^k) needs one probability P(X=true | parents); the false case is its complement. So a Boolean node with k Boolean parents needs 2^k independent entries — far fewer than the full joint when k is small.",
+  "distractorRationales": [
+   "",
+   "2^(k+1) counts both X=true and X=false rows, but the false row is determined by the true one.",
+   "k is linear and underestimates the table size.",
+   "2k underestimates the exponential dependence on the number of parents."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "easy",
+  "questionText": "Marginalization (the sum rule) computes P(A) from a joint P(A, B) by:",
+  "options": [
+   "Summing the joint over all values of B",
+   "Multiplying over all values of B",
+   "Dividing by P(B)",
+   "Taking the maximum over B"
+  ],
+  "correctIndex": 0,
+  "explanation": "Marginalizing out B: P(A) = Σ_b P(A, B=b). Summing the joint over the unwanted variable's values yields the marginal of the remaining variable(s). Dividing by P(B) instead gives a conditional, not a marginal.",
+  "distractorRationales": [
+   "",
+   "Marginalization sums over B; it does not multiply.",
+   "Dividing by P(B) computes a conditional P(A|B), not the marginal P(A).",
+   "Taking the maximum is a MAP-style operation, not marginalization."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "hard",
+  "questionText": "Exact inference in general Bayesian networks (computing a posterior) is known to be:",
+  "options": [
+   "NP-hard in the worst case",
+   "Always solvable in linear time",
+   "Solvable only for trees and never for other structures",
+   "Equivalent to sorting"
+  ],
+  "correctIndex": 0,
+  "explanation": "Exact inference in arbitrary Bayesian networks is NP-hard (#P-hard for computing exact probabilities). Efficient exact inference exists for special structures (polytrees, low treewidth) via variable elimination/junction trees; otherwise approximate methods like sampling are used.",
+  "distractorRationales": [
+   "",
+   "It is not generally linear-time; only restricted structures are efficient.",
+   "Inference is feasible for polytrees and low-treewidth nets, not only literal trees, but is hard in general.",
+   "It is far harder than sorting in the general case."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "Variable elimination performs Bayesian network inference more efficiently than enumerating the full joint by:",
+  "options": [
+   "Summing out variables one at a time and reusing intermediate factors",
+   "Ignoring the network structure entirely",
+   "Sampling random assignments",
+   "Converting the network to CNF"
+  ],
+  "correctIndex": 0,
+  "explanation": "Variable elimination interleaves multiplication of factors with summing out (eliminating) hidden variables, caching intermediate factors to avoid recomputation. By exploiting the factored structure, it avoids constructing the exponential full joint. The elimination ordering strongly affects efficiency.",
+  "distractorRationales": [
+   "",
+   "It specifically exploits the network's factored structure rather than ignoring it.",
+   "Sampling is an approximate method (e.g., likelihood weighting), not variable elimination.",
+   "It manipulates probability factors, not logical CNF clauses."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "easy",
+  "questionText": "The Markov blanket of a node X in a Bayesian network consists of its:",
+  "options": [
+   "Parents, children, and children's other parents",
+   "Parents only",
+   "Descendants only",
+   "All other nodes"
+  ],
+  "correctIndex": 0,
+  "explanation": "X's Markov blanket — its parents, its children, and its children's other parents — renders X conditionally independent of all other nodes in the network. Knowing the blanket's values is sufficient to determine X's distribution.",
+  "distractorRationales": [
+   "",
+   "Parents alone give independence only from non-descendants, not from all other nodes.",
+   "Descendants alone are insufficient for the Markov-blanket property.",
+   "The whole point of the blanket is that it is a small set, not all other nodes."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "hard",
+  "questionText": "In a serial connection A → B → C (a causal chain), A and C are:",
+  "options": [
+   "Dependent in general, but conditionally independent given B",
+   "Always independent",
+   "Dependent even given B",
+   "Identical events"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a chain A → B → C, information flows from A to C through B, so A and C are marginally dependent; once B is observed, it 'blocks' the path (d-separation), making A and C conditionally independent given B.",
+  "distractorRationales": [
+   "",
+   "They are not always independent; the chain induces marginal dependence.",
+   "Observing B blocks the path, so they become independent, not remain dependent.",
+   "A and C are distinct variables, not identical."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "Maximum a posteriori (MAP) estimation differs from maximum likelihood estimation (MLE) in that MAP:",
+  "options": [
+   "Incorporates a prior over the parameters in addition to the likelihood",
+   "Ignores the data entirely",
+   "Always gives a uniform distribution",
+   "Uses only the prior and no likelihood"
+  ],
+  "correctIndex": 0,
+  "explanation": "MAP maximizes the posterior ∝ likelihood × prior, so it combines the observed data (likelihood) with prior beliefs about the parameters. MLE maximizes only the likelihood; with a uniform (flat) prior, MAP reduces to MLE.",
+  "distractorRationales": [
+   "",
+   "MAP uses the data through the likelihood term.",
+   "MAP yields a point estimate (the mode), not a uniform distribution.",
+   "MAP uses both prior and likelihood; using only the prior would ignore the data."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "easy",
+  "questionText": "A probability distribution over a random variable must satisfy which two basic axioms?",
+  "options": [
+   "Each probability is in [0,1] and all probabilities sum to 1",
+   "Each probability is negative and they sum to 0",
+   "Probabilities can exceed 1 if normalized later",
+   "Only the largest probability matters"
+  ],
+  "correctIndex": 0,
+  "explanation": "Kolmogorov's axioms require every probability to lie between 0 and 1 and the probabilities of mutually exclusive, exhaustive outcomes to sum to 1. These constraints underlie all valid probabilistic reasoning.",
+  "distractorRationales": [
+   "",
+   "Probabilities are non-negative and sum to 1, not negative summing to 0.",
+   "Individual probabilities can never exceed 1; that is not fixed by later normalization.",
+   "All outcomes' probabilities matter; the distribution is not just its mode."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "hard",
+  "questionText": "Likelihood weighting, an approximate inference method, improves on plain rejection sampling by:",
+  "options": [
+   "Fixing the evidence variables and weighting each sample by the likelihood of that evidence",
+   "Discarding all samples that disagree with the evidence",
+   "Enumerating the full joint exactly",
+   "Ignoring the evidence completely"
+  ],
+  "correctIndex": 0,
+  "explanation": "Likelihood weighting never rejects samples: it clamps the evidence variables to their observed values and samples the rest, weighting each sample by the product of the conditional probabilities of the evidence given its parents. This avoids the wastefulness of rejection sampling when evidence is unlikely.",
+  "distractorRationales": [
+   "",
+   "Discarding disagreeing samples is exactly rejection sampling, which likelihood weighting avoids.",
+   "It is an approximate sampling method, not exact enumeration.",
+   "It explicitly conditions on the evidence via weights; it does not ignore it."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "The product rule relates the joint and conditional probabilities as:",
+  "options": [
+   "P(A, B) = P(A|B)·P(B) = P(B|A)·P(A)",
+   "P(A, B) = P(A) + P(B)",
+   "P(A, B) = P(A|B) / P(B)",
+   "P(A, B) = P(A) - P(B)"
+  ],
+  "correctIndex": 0,
+  "explanation": "The product (multiplication) rule states P(A, B) = P(A|B)P(B) = P(B|A)P(A). Equating the two right-hand expressions and rearranging directly yields Bayes' theorem.",
+  "distractorRationales": [
+   "",
+   "Addition gives a term in the union formula, not the joint.",
+   "Dividing by P(B) gives a conditional, not the joint.",
+   "Subtraction is not a valid rule for combining these probabilities."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning",
+  "difficulty": "medium",
+  "questionText": "A Hidden Markov Model (HMM) represents a sequence with hidden states and observations, assuming the current state depends only on:",
+  "options": [
+   "The immediately previous state (the Markov assumption)",
+   "All previous states equally",
+   "Only the observations",
+   "The final state of the sequence"
+  ],
+  "correctIndex": 0,
+  "explanation": "An HMM makes the (first-order) Markov assumption: the next hidden state depends only on the current state, and each observation depends only on the current hidden state. This enables efficient algorithms like forward-backward and Viterbi.",
+  "distractorRationales": [
+   "",
+   "The Markov assumption ignores states before the immediate predecessor.",
+   "States depend on the previous state; observations are a separate emission, not the state-transition driver.",
+   "Future/final states do not determine the current state in a (forward) Markov chain."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In a Bayesian network, a node is conditionally independent of its non-descendants given:",
+  "options": [
+   "Its parents",
+   "Its children",
+   "All other nodes",
+   "Its descendants"
+  ],
+  "correctIndex": 0,
+  "explanation": "The local Markov property: each node is conditionally independent of its non-descendants given its parents. This factorization is what lets the joint distribution be written as a product of per-node conditional probabilities.",
+  "distractorRationales": [
+   "",
+   "Conditioning on children can actually create dependence (explaining away), not the independence property.",
+   "Conditioning on all other nodes is the Markov blanket idea, broader than the parents-based local property.",
+   "Descendants are exactly what the node is NOT independent of in general."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "A test for a disease has 99% sensitivity and 99% specificity. The disease affects 1 in 10,000 people. If a random person tests positive, the probability they actually have the disease is closest to:",
+  "options": [
+   "About 1%",
+   "About 99%",
+   "About 50%",
+   "About 90%"
+  ],
+  "correctIndex": 0,
+  "explanation": "By Bayes: P(D|+) = (0.99·0.0001) / (0.99·0.0001 + 0.01·0.9999) ≈ 0.000099 / 0.0100 ≈ 0.0098 ≈ 1%. The very low base rate means most positives are false positives.",
+  "distractorRationales": [
+   "",
+   "99% confuses the test's sensitivity with the posterior probability; the low prior dominates.",
+   "50% ignores the base rate entirely.",
+   "90% overstates the posterior; the rare prior pulls it down to ~1%."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "probabilistic-reasoning"
+ }
 ]

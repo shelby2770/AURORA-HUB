@@ -1,182 +1,402 @@
 [
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "easy",
-    "questionText": "Which CPU scheduling algorithm can cause starvation of low-priority processes?",
-    "options": ["Priority scheduling (without aging)", "First-Come-First-Served", "Round Robin", "First-In-First-Out by arrival"],
-    "correctIndex": 0,
-    "explanation": "In priority scheduling, a steady stream of higher-priority processes can indefinitely postpone a low-priority process, causing starvation. Aging (gradually raising the priority of waiting processes) is the standard remedy. FCFS and Round Robin serve every process in turn, so they do not starve.",
-    "distractorRationales": ["", "FCFS serves processes in arrival order; every process eventually runs.", "Round Robin gives every process a time slice in rotation, preventing starvation.", "FIFO by arrival is essentially FCFS and does not starve processes."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "Which scheduling algorithm provably minimizes the average waiting time for a given set of processes available simultaneously?",
-    "options": ["Shortest-Job-First (SJF)", "First-Come-First-Served", "Round Robin", "Highest priority number first"],
-    "correctIndex": 0,
-    "explanation": "For a fixed batch of jobs, SJF (shortest next CPU burst first) yields the minimum possible average waiting time, because running shorter jobs first reduces the cumulative waiting experienced by the others. Its drawback is needing to know/estimate burst lengths and possible starvation of long jobs.",
-    "distractorRationales": ["", "FCFS can suffer the convoy effect, giving large average waiting times.", "Round Robin reduces response time but generally has higher average waiting time than SJF.", "Priority order does not minimize average waiting time unless it coincides with SJF."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "hard",
-    "questionText": "Three processes arrive at time 0 with burst times P1=6, P2=8, P3=7 ms, scheduled by non-preemptive SJF. What is the average waiting time?",
-    "options": ["6.33 ms", "7.0 ms", "10.0 ms", "5.0 ms"],
-    "correctIndex": 0,
-    "explanation": "SJF order by burst: P1(6), P3(7), P2(8). Waiting times: P1=0, P3=6, P2=6+7=13. Average = (0+6+13)/3 = 19/3 ≈ 6.33 ms.",
-    "distractorRationales": ["", "7.0 ms would result from FCFS order (P1,P2,P3): (0+6+14)/3 = 6.67, still not 7; this value does not match SJF.", "10.0 ms overstates the waiting; it does not correspond to the SJF schedule.", "5.0 ms is too low for these bursts under any order."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "In Round Robin scheduling, choosing a very large time quantum makes the algorithm behave like:",
-    "options": ["First-Come-First-Served", "Shortest-Job-First", "Priority scheduling", "Multilevel feedback queue"],
-    "correctIndex": 0,
-    "explanation": "If the time quantum is larger than every process's CPU burst, no preemption occurs and each process runs to completion in arrival order — exactly FCFS. A very small quantum, conversely, increases context-switch overhead.",
-    "distractorRationales": ["", "SJF requires ordering by burst length, which a large RR quantum does not do.", "Priority scheduling depends on priorities, not quantum size.", "Multilevel feedback queues use multiple queues and rules, unrelated to a large RR quantum."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "easy",
-    "questionText": "The 'turnaround time' of a process is defined as:",
-    "options": ["Completion time minus arrival time", "Time spent waiting in the ready queue only", "CPU burst time only", "Time of first response minus arrival time"],
-    "correctIndex": 0,
-    "explanation": "Turnaround time = completion time − arrival time: the total time from submission to completion, including waiting, I/O, and CPU execution. Waiting time is turnaround minus the CPU burst time, and response time is the time to first execution.",
-    "distractorRationales": ["", "Waiting time, not turnaround time, is just the time spent in the ready queue.", "The CPU burst alone is the service time, not turnaround.", "First response minus arrival is the response time, a different metric."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "hard",
-    "questionText": "The preemptive version of Shortest-Job-First scheduling is called:",
-    "options": ["Shortest-Remaining-Time-First (SRTF)", "Round Robin", "Longest-Job-First", "Multilevel queue"],
-    "correctIndex": 0,
-    "explanation": "SRTF is preemptive SJF: whenever a new process arrives with a burst shorter than the remaining time of the running process, the CPU is preempted to the shorter job. It further reduces average waiting time but increases context switches and can starve long jobs.",
-    "distractorRationales": ["", "Round Robin preempts by time quantum, not by remaining burst length.", "Longest-Job-First is the opposite policy and is rarely used.", "A multilevel queue separates processes into classes; it is not preemptive SJF."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "The 'convoy effect' in FCFS scheduling occurs when:",
-    "options": ["Short processes wait behind one long CPU-bound process, hurting average waiting time", "Processes are scheduled in shortest-first order", "The time quantum is too small", "Priorities cause starvation"],
-    "correctIndex": 0,
-    "explanation": "In FCFS, if a long CPU-bound job arrives first, many short jobs queue behind it and all wait a long time — the convoy effect — inflating average waiting and response times. SJF/SRTF and Round Robin mitigate this.",
-    "distractorRationales": ["", "Shortest-first order is SJF, which avoids the convoy effect.", "Quantum size is a Round Robin parameter, not the cause of the FCFS convoy effect.", "Starvation from priorities is a separate problem from the convoy effect."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "hard",
-    "questionText": "Using Round Robin with quantum = 2 for P1(burst 4), P2(burst 3), P3(burst 1), all arriving at time 0 in that order, what is the completion time of P2?",
-    "options": ["8", "7", "6", "5"],
-    "correctIndex": 0,
-    "explanation": "Timeline (quantum 2): P1[0-2], P2[2-4], P3[4-5] (done), P1[5-7] (done), P2[7-8] (done, had 1 left). P2 completes at time 8.",
-    "distractorRationales": ["", "7 is P1's completion time, not P2's.", "6 does not match any process completion in this schedule.", "5 is P3's completion time, not P2's."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "easy",
-    "questionText": "A scheduling algorithm is 'preemptive' if:",
-    "options": ["The OS can forcibly take the CPU from a running process before it finishes", "Each process runs to completion once started", "It only schedules at process termination", "Processes voluntarily yield the CPU only"],
-    "correctIndex": 0,
-    "explanation": "Preemptive scheduling lets the OS interrupt a running process (e.g., on a timer tick or arrival of a higher-priority process) and switch the CPU to another. Non-preemptive (cooperative) scheduling only switches when a process blocks, yields, or terminates.",
-    "distractorRationales": ["", "Running to completion describes non-preemptive scheduling.", "Scheduling only at termination is non-preemptive behavior.", "Relying solely on voluntary yields is cooperative, non-preemptive scheduling."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "A Multilevel Feedback Queue scheduler primarily aims to:",
-    "options": ["Separate processes by behavior (CPU-bound vs I/O-bound) and adjust their priority dynamically", "Use a single FCFS queue", "Run only the shortest job", "Disable preemption"],
-    "correctIndex": 0,
-    "explanation": "Multilevel feedback queues use several queues with different priorities/quanta and move processes between them based on observed behavior: a process using its full quantum (CPU-bound) is demoted, while one that yields for I/O stays high-priority. This favors interactive jobs without needing burst lengths in advance.",
-    "distractorRationales": ["", "A single FCFS queue is the opposite of a multilevel scheme.", "It does not require knowing/selecting the shortest job explicitly.", "It is preemptive and uses time quanta, not disabled preemption."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "hard",
-    "questionText": "Exponential averaging predicts the next CPU burst as τ(n+1) = α·t(n) + (1-α)·τ(n). With α = 0.5, τ(n) = 10, and the actual last burst t(n) = 6, the predicted next burst is:",
-    "options": ["8", "6", "10", "16"],
-    "correctIndex": 0,
-    "explanation": "τ(n+1) = 0.5·6 + 0.5·10 = 3 + 5 = 8. This formula blends the most recent actual burst with the prior prediction; α controls how strongly recent history is weighted.",
-    "distractorRationales": ["", "6 is the most recent actual burst t(n), not the weighted prediction.", "10 is the prior prediction τ(n), unchanged, which ignores the new measurement.", "16 incorrectly adds the two terms instead of weighting them by α and (1-α)."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "easy",
-    "questionText": "Which metric is most important for interactive (e.g., desktop) systems?",
-    "options": ["Response time (time to first response)", "Throughput only", "Total turnaround for batch jobs", "Disk utilization"],
-    "correctIndex": 0,
-    "explanation": "Interactive systems prioritize response time — how quickly the system reacts to user input — so the user perceives the system as snappy. Batch systems instead optimize throughput and turnaround. Round Robin and feedback queues target good response time.",
-    "distractorRationales": ["", "Throughput matters more for batch/server workloads than interactive responsiveness.", "Batch turnaround is the wrong objective for interactive use.", "Disk utilization is a storage metric, not a CPU-scheduling goal for interactivity."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "In priority scheduling, 'aging' is a technique that:",
-    "options": ["Gradually increases the priority of processes that have waited a long time", "Decreases the priority of new processes", "Removes old processes from memory", "Lowers the time quantum over time"],
-    "correctIndex": 0,
-    "explanation": "Aging raises the priority of a process the longer it waits in the ready queue, ensuring that even low-priority processes eventually run and thus preventing indefinite starvation under priority scheduling.",
-    "distractorRationales": ["", "Aging raises, not lowers, the priority of long-waiting processes.", "It is unrelated to swapping processes out of memory.", "It adjusts priority, not the time quantum."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "hard",
-    "questionText": "Two processes P1 (burst 5, arrival 0) and P2 (burst 3, arrival 1) are scheduled by SRTF (preemptive SJF). What is P1's turnaround time?",
-    "options": ["8", "5", "4", "7"],
-    "correctIndex": 0,
-    "explanation": "P1 runs [0-1] (4 left). At t=1, P2 arrives with burst 3 < 4, so P2 preempts and runs [1-4] (done). P1 resumes [4-8], completing at 8. Turnaround = 8 − 0 = 8.",
-    "distractorRationales": ["", "5 is P1's burst time, not its turnaround including the preemption wait.", "4 is P2's completion time, not P1's turnaround.", "7 omits one unit; P1 finishes at 8, so turnaround is 8."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "easy",
-    "questionText": "CPU utilization is maximized in a system by:",
-    "options": ["Keeping the CPU busy with ready processes (e.g., via multiprogramming)", "Minimizing the number of processes", "Increasing context-switch frequency", "Running only one process at a time to completion"],
-    "correctIndex": 0,
-    "explanation": "Multiprogramming keeps several processes in memory so that when one blocks for I/O, the CPU switches to another ready process, keeping utilization high. Idle CPU time (no ready process) and excessive context switching reduce useful utilization.",
-    "distractorRationales": ["", "Fewer processes means the CPU more often idles waiting on I/O.", "More context switches add overhead, lowering useful utilization.", "Running one job to completion leaves the CPU idle during that job's I/O waits."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "Why is Round Robin scheduling well-suited to time-sharing systems?",
-    "options": ["It gives each process a fair, bounded share of CPU, ensuring good response time", "It always minimizes average turnaround time", "It never causes context switches", "It requires knowing burst times in advance"],
-    "correctIndex": 0,
-    "explanation": "Round Robin cycles through ready processes giving each a fixed quantum, so no process waits longer than (n-1)·quantum for its next turn — bounded, fair response time ideal for interactive time-sharing. It does not minimize turnaround and incurs context-switch overhead.",
-    "distractorRationales": ["", "RR does not minimize average turnaround; SJF does that.", "RR causes frequent context switches at quantum boundaries.", "RR needs no knowledge of burst times, unlike SJF."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "hard",
-    "questionText": "If the context-switch time is large relative to the Round Robin quantum, the main effect is:",
-    "options": ["A large fraction of CPU time is wasted on switching overhead, reducing efficiency", "Average waiting time becomes zero", "Starvation of all processes", "The algorithm becomes SJF"],
-    "correctIndex": 0,
-    "explanation": "If the quantum is small compared to context-switch time, the CPU spends a large proportion of each cycle switching rather than executing user code, drastically lowering efficiency. The quantum should be chosen large relative to switch time but small enough for responsiveness.",
-    "distractorRationales": ["", "Waiting time cannot become zero; overhead actually increases delays.", "RR does not starve processes; the issue is overhead, not starvation.", "Overhead does not transform RR into SJF."]
-  },
-  {
-    "course": "operating-systems",
-    "subtopic": "cpu-scheduling",
-    "difficulty": "medium",
-    "questionText": "The dispatcher's 'dispatch latency' is:",
-    "options": ["The time to stop one process and start another running", "The total burst time of a process", "The time a process waits in the ready queue", "The time to complete all jobs"],
-    "correctIndex": 0,
-    "explanation": "Dispatch latency is the time the dispatcher takes to switch the CPU from one process to another — saving the old context, switching, and loading the new context. Keeping it small is important for responsiveness, especially in real-time systems.",
-    "distractorRationales": ["", "A process's burst time is its CPU service time, not dispatch latency.", "Ready-queue waiting is the waiting time, a different metric.", "Completing all jobs relates to makespan/throughput, not dispatch latency."]
-  }
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "easy",
+  "questionText": "Which CPU scheduling algorithm can cause starvation of low-priority processes?",
+  "options": [
+   "Priority scheduling (without aging)",
+   "First-Come-First-Served",
+   "Round Robin",
+   "First-In-First-Out by arrival"
+  ],
+  "correctIndex": 0,
+  "explanation": "In priority scheduling, a steady stream of higher-priority processes can indefinitely postpone a low-priority process, causing starvation. Aging (gradually raising the priority of waiting processes) is the standard remedy. FCFS and Round Robin serve every process in turn, so they do not starve.",
+  "distractorRationales": [
+   "",
+   "FCFS serves processes in arrival order; every process eventually runs.",
+   "Round Robin gives every process a time slice in rotation, preventing starvation.",
+   "FIFO by arrival is essentially FCFS and does not starve processes."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "Which scheduling algorithm provably minimizes the average waiting time for a given set of processes available simultaneously?",
+  "options": [
+   "Shortest-Job-First (SJF)",
+   "First-Come-First-Served",
+   "Round Robin",
+   "Highest priority number first"
+  ],
+  "correctIndex": 0,
+  "explanation": "For a fixed batch of jobs, SJF (shortest next CPU burst first) yields the minimum possible average waiting time, because running shorter jobs first reduces the cumulative waiting experienced by the others. Its drawback is needing to know/estimate burst lengths and possible starvation of long jobs.",
+  "distractorRationales": [
+   "",
+   "FCFS can suffer the convoy effect, giving large average waiting times.",
+   "Round Robin reduces response time but generally has higher average waiting time than SJF.",
+   "Priority order does not minimize average waiting time unless it coincides with SJF."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "hard",
+  "questionText": "Three processes arrive at time 0 with burst times P1=6, P2=8, P3=7 ms, scheduled by non-preemptive SJF. What is the average waiting time?",
+  "options": [
+   "6.33 ms",
+   "7.0 ms",
+   "10.0 ms",
+   "5.0 ms"
+  ],
+  "correctIndex": 0,
+  "explanation": "SJF order by burst: P1(6), P3(7), P2(8). Waiting times: P1=0, P3=6, P2=6+7=13. Average = (0+6+13)/3 = 19/3 ≈ 6.33 ms.",
+  "distractorRationales": [
+   "",
+   "7.0 ms would result from FCFS order (P1,P2,P3): (0+6+14)/3 = 6.67, still not 7; this value does not match SJF.",
+   "10.0 ms overstates the waiting; it does not correspond to the SJF schedule.",
+   "5.0 ms is too low for these bursts under any order."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "In Round Robin scheduling, choosing a very large time quantum makes the algorithm behave like:",
+  "options": [
+   "First-Come-First-Served",
+   "Shortest-Job-First",
+   "Priority scheduling",
+   "Multilevel feedback queue"
+  ],
+  "correctIndex": 0,
+  "explanation": "If the time quantum is larger than every process's CPU burst, no preemption occurs and each process runs to completion in arrival order — exactly FCFS. A very small quantum, conversely, increases context-switch overhead.",
+  "distractorRationales": [
+   "",
+   "SJF requires ordering by burst length, which a large RR quantum does not do.",
+   "Priority scheduling depends on priorities, not quantum size.",
+   "Multilevel feedback queues use multiple queues and rules, unrelated to a large RR quantum."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "easy",
+  "questionText": "The 'turnaround time' of a process is defined as:",
+  "options": [
+   "Completion time minus arrival time",
+   "Time spent waiting in the ready queue only",
+   "CPU burst time only",
+   "Time of first response minus arrival time"
+  ],
+  "correctIndex": 0,
+  "explanation": "Turnaround time = completion time − arrival time: the total time from submission to completion, including waiting, I/O, and CPU execution. Waiting time is turnaround minus the CPU burst time, and response time is the time to first execution.",
+  "distractorRationales": [
+   "",
+   "Waiting time, not turnaround time, is just the time spent in the ready queue.",
+   "The CPU burst alone is the service time, not turnaround.",
+   "First response minus arrival is the response time, a different metric."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "hard",
+  "questionText": "The preemptive version of Shortest-Job-First scheduling is called:",
+  "options": [
+   "Shortest-Remaining-Time-First (SRTF)",
+   "Round Robin",
+   "Longest-Job-First",
+   "Multilevel queue"
+  ],
+  "correctIndex": 0,
+  "explanation": "SRTF is preemptive SJF: whenever a new process arrives with a burst shorter than the remaining time of the running process, the CPU is preempted to the shorter job. It further reduces average waiting time but increases context switches and can starve long jobs.",
+  "distractorRationales": [
+   "",
+   "Round Robin preempts by time quantum, not by remaining burst length.",
+   "Longest-Job-First is the opposite policy and is rarely used.",
+   "A multilevel queue separates processes into classes; it is not preemptive SJF."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "The 'convoy effect' in FCFS scheduling occurs when:",
+  "options": [
+   "Short processes wait behind one long CPU-bound process, hurting average waiting time",
+   "Processes are scheduled in shortest-first order",
+   "The time quantum is too small",
+   "Priorities cause starvation"
+  ],
+  "correctIndex": 0,
+  "explanation": "In FCFS, if a long CPU-bound job arrives first, many short jobs queue behind it and all wait a long time — the convoy effect — inflating average waiting and response times. SJF/SRTF and Round Robin mitigate this.",
+  "distractorRationales": [
+   "",
+   "Shortest-first order is SJF, which avoids the convoy effect.",
+   "Quantum size is a Round Robin parameter, not the cause of the FCFS convoy effect.",
+   "Starvation from priorities is a separate problem from the convoy effect."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "hard",
+  "questionText": "Using Round Robin with quantum = 2 for P1(burst 4), P2(burst 3), P3(burst 1), all arriving at time 0 in that order, what is the completion time of P2?",
+  "options": [
+   "8",
+   "7",
+   "6",
+   "5"
+  ],
+  "correctIndex": 0,
+  "explanation": "Timeline (quantum 2): P1[0-2], P2[2-4], P3[4-5] (done), P1[5-7] (done), P2[7-8] (done, had 1 left). P2 completes at time 8.",
+  "distractorRationales": [
+   "",
+   "7 is P1's completion time, not P2's.",
+   "6 does not match any process completion in this schedule.",
+   "5 is P3's completion time, not P2's."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "easy",
+  "questionText": "A scheduling algorithm is 'preemptive' if:",
+  "options": [
+   "The OS can forcibly take the CPU from a running process before it finishes",
+   "Each process runs to completion once started",
+   "It only schedules at process termination",
+   "Processes voluntarily yield the CPU only"
+  ],
+  "correctIndex": 0,
+  "explanation": "Preemptive scheduling lets the OS interrupt a running process (e.g., on a timer tick or arrival of a higher-priority process) and switch the CPU to another. Non-preemptive (cooperative) scheduling only switches when a process blocks, yields, or terminates.",
+  "distractorRationales": [
+   "",
+   "Running to completion describes non-preemptive scheduling.",
+   "Scheduling only at termination is non-preemptive behavior.",
+   "Relying solely on voluntary yields is cooperative, non-preemptive scheduling."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "A Multilevel Feedback Queue scheduler primarily aims to:",
+  "options": [
+   "Separate processes by behavior (CPU-bound vs I/O-bound) and adjust their priority dynamically",
+   "Use a single FCFS queue",
+   "Run only the shortest job",
+   "Disable preemption"
+  ],
+  "correctIndex": 0,
+  "explanation": "Multilevel feedback queues use several queues with different priorities/quanta and move processes between them based on observed behavior: a process using its full quantum (CPU-bound) is demoted, while one that yields for I/O stays high-priority. This favors interactive jobs without needing burst lengths in advance.",
+  "distractorRationales": [
+   "",
+   "A single FCFS queue is the opposite of a multilevel scheme.",
+   "It does not require knowing/selecting the shortest job explicitly.",
+   "It is preemptive and uses time quanta, not disabled preemption."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "hard",
+  "questionText": "Exponential averaging predicts the next CPU burst as τ(n+1) = α·t(n) + (1-α)·τ(n). With α = 0.5, τ(n) = 10, and the actual last burst t(n) = 6, the predicted next burst is:",
+  "options": [
+   "8",
+   "6",
+   "10",
+   "16"
+  ],
+  "correctIndex": 0,
+  "explanation": "τ(n+1) = 0.5·6 + 0.5·10 = 3 + 5 = 8. This formula blends the most recent actual burst with the prior prediction; α controls how strongly recent history is weighted.",
+  "distractorRationales": [
+   "",
+   "6 is the most recent actual burst t(n), not the weighted prediction.",
+   "10 is the prior prediction τ(n), unchanged, which ignores the new measurement.",
+   "16 incorrectly adds the two terms instead of weighting them by α and (1-α)."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "easy",
+  "questionText": "Which metric is most important for interactive (e.g., desktop) systems?",
+  "options": [
+   "Response time (time to first response)",
+   "Throughput only",
+   "Total turnaround for batch jobs",
+   "Disk utilization"
+  ],
+  "correctIndex": 0,
+  "explanation": "Interactive systems prioritize response time — how quickly the system reacts to user input — so the user perceives the system as snappy. Batch systems instead optimize throughput and turnaround. Round Robin and feedback queues target good response time.",
+  "distractorRationales": [
+   "",
+   "Throughput matters more for batch/server workloads than interactive responsiveness.",
+   "Batch turnaround is the wrong objective for interactive use.",
+   "Disk utilization is a storage metric, not a CPU-scheduling goal for interactivity."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "In priority scheduling, 'aging' is a technique that:",
+  "options": [
+   "Gradually increases the priority of processes that have waited a long time",
+   "Decreases the priority of new processes",
+   "Removes old processes from memory",
+   "Lowers the time quantum over time"
+  ],
+  "correctIndex": 0,
+  "explanation": "Aging raises the priority of a process the longer it waits in the ready queue, ensuring that even low-priority processes eventually run and thus preventing indefinite starvation under priority scheduling.",
+  "distractorRationales": [
+   "",
+   "Aging raises, not lowers, the priority of long-waiting processes.",
+   "It is unrelated to swapping processes out of memory.",
+   "It adjusts priority, not the time quantum."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "hard",
+  "questionText": "Two processes P1 (burst 5, arrival 0) and P2 (burst 3, arrival 1) are scheduled by SRTF (preemptive SJF). What is P1's turnaround time?",
+  "options": [
+   "8",
+   "5",
+   "4",
+   "7"
+  ],
+  "correctIndex": 0,
+  "explanation": "P1 runs [0-1] (4 left). At t=1, P2 arrives with burst 3 < 4, so P2 preempts and runs [1-4] (done). P1 resumes [4-8], completing at 8. Turnaround = 8 − 0 = 8.",
+  "distractorRationales": [
+   "",
+   "5 is P1's burst time, not its turnaround including the preemption wait.",
+   "4 is P2's completion time, not P1's turnaround.",
+   "7 omits one unit; P1 finishes at 8, so turnaround is 8."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "easy",
+  "questionText": "CPU utilization is maximized in a system by:",
+  "options": [
+   "Keeping the CPU busy with ready processes (e.g., via multiprogramming)",
+   "Minimizing the number of processes",
+   "Increasing context-switch frequency",
+   "Running only one process at a time to completion"
+  ],
+  "correctIndex": 0,
+  "explanation": "Multiprogramming keeps several processes in memory so that when one blocks for I/O, the CPU switches to another ready process, keeping utilization high. Idle CPU time (no ready process) and excessive context switching reduce useful utilization.",
+  "distractorRationales": [
+   "",
+   "Fewer processes means the CPU more often idles waiting on I/O.",
+   "More context switches add overhead, lowering useful utilization.",
+   "Running one job to completion leaves the CPU idle during that job's I/O waits."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "Why is Round Robin scheduling well-suited to time-sharing systems?",
+  "options": [
+   "It gives each process a fair, bounded share of CPU, ensuring good response time",
+   "It always minimizes average turnaround time",
+   "It never causes context switches",
+   "It requires knowing burst times in advance"
+  ],
+  "correctIndex": 0,
+  "explanation": "Round Robin cycles through ready processes giving each a fixed quantum, so no process waits longer than (n-1)·quantum for its next turn — bounded, fair response time ideal for interactive time-sharing. It does not minimize turnaround and incurs context-switch overhead.",
+  "distractorRationales": [
+   "",
+   "RR does not minimize average turnaround; SJF does that.",
+   "RR causes frequent context switches at quantum boundaries.",
+   "RR needs no knowledge of burst times, unlike SJF."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "hard",
+  "questionText": "If the context-switch time is large relative to the Round Robin quantum, the main effect is:",
+  "options": [
+   "A large fraction of CPU time is wasted on switching overhead, reducing efficiency",
+   "Average waiting time becomes zero",
+   "Starvation of all processes",
+   "The algorithm becomes SJF"
+  ],
+  "correctIndex": 0,
+  "explanation": "If the quantum is small compared to context-switch time, the CPU spends a large proportion of each cycle switching rather than executing user code, drastically lowering efficiency. The quantum should be chosen large relative to switch time but small enough for responsiveness.",
+  "distractorRationales": [
+   "",
+   "Waiting time cannot become zero; overhead actually increases delays.",
+   "RR does not starve processes; the issue is overhead, not starvation.",
+   "Overhead does not transform RR into SJF."
+  ]
+ },
+ {
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling",
+  "difficulty": "medium",
+  "questionText": "The dispatcher's 'dispatch latency' is:",
+  "options": [
+   "The time to stop one process and start another running",
+   "The total burst time of a process",
+   "The time a process waits in the ready queue",
+   "The time to complete all jobs"
+  ],
+  "correctIndex": 0,
+  "explanation": "Dispatch latency is the time the dispatcher takes to switch the CPU from one process to another — saving the old context, switching, and loading the new context. Keeping it small is important for responsiveness, especially in real-time systems.",
+  "distractorRationales": [
+   "",
+   "A process's burst time is its CPU service time, not dispatch latency.",
+   "Ready-queue waiting is the waiting time, a different metric.",
+   "Completing all jobs relates to makespan/throughput, not dispatch latency."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Which scheduling algorithm can lead to starvation of long jobs if short jobs keep arriving?",
+  "options": [
+   "Shortest Job First (SJF)",
+   "First-Come First-Served (FCFS)",
+   "Round Robin",
+   "FIFO"
+  ],
+  "correctIndex": 0,
+  "explanation": "SJF (and shortest-remaining-time) always favors shorter jobs, so a steady stream of short jobs can indefinitely postpone a long job — starvation. Aging is used to mitigate it.",
+  "distractorRationales": [
+   "",
+   "FCFS serves in arrival order, so no job is indefinitely postponed (though convoy effect can occur).",
+   "Round Robin gives each process a time slice, preventing starvation.",
+   "FIFO is essentially FCFS; it does not starve long jobs."
+  ],
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "For processes with burst times P1=6, P2=8, P3=7, P4=3 (all arriving at time 0) under non-preemptive SJF, the average waiting time is:",
+  "options": [
+   "7",
+   "8.75",
+   "6.25",
+   "10"
+  ],
+  "correctIndex": 0,
+  "explanation": "SJF order by burst: P4(3), P1(6), P3(7), P2(8). Waiting times: P4=0, P1=3, P3=9, P2=16. Average = (0+3+9+16)/4 = 28/4 = 7.",
+  "distractorRationales": [
+   "",
+   "8.75 is the FCFS average (0+6+14+21)/4 for the original order, not SJF.",
+   "6.25 does not match the SJF schedule's waiting times.",
+   "10 overstates; the correct SJF average is 7."
+  ],
+  "course": "operating-systems",
+  "subtopic": "cpu-scheduling"
+ }
 ]

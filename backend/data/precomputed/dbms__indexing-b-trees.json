@@ -4,179 +4,399 @@
   "subtopic": "indexing-b-trees",
   "difficulty": "easy",
   "questionText": "In a database index, a 'dense' index has:",
-  "options": ["One index entry for every search-key value in the data file", "One index entry per block of the data file", "Index entries only for primary keys", "No index entries, only pointers"],
+  "options": [
+   "One index entry for every search-key value in the data file",
+   "One index entry per block of the data file",
+   "Index entries only for primary keys",
+   "No index entries, only pointers"
+  ],
   "correctIndex": 0,
   "explanation": "A dense index contains an entry for each distinct search-key value (or each record) in the file. A sparse index, by contrast, stores one entry per data block.",
-  "distractorRationales": ["", "Having one entry per block describes a sparse index, not a dense one.", "Density is about entry count vs. keys, not about whether the key is primary.", "An index by definition contains entries; an index with no entries is a contradiction."]
+  "distractorRationales": [
+   "",
+   "Having one entry per block describes a sparse index, not a dense one.",
+   "Density is about entry count vs. keys, not about whether the key is primary.",
+   "An index by definition contains entries; an index with no entries is a contradiction."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "easy",
   "questionText": "A primary (clustering) index is built on:",
-  "options": ["The attribute by which the data file is physically sorted", "Any non-key attribute", "A hash of the record", "The block number only"],
+  "options": [
+   "The attribute by which the data file is physically sorted",
+   "Any non-key attribute",
+   "A hash of the record",
+   "The block number only"
+  ],
   "correctIndex": 0,
   "explanation": "A primary/clustering index is defined on the ordering key field of a sequentially ordered file — the field by which records are physically sorted. A secondary index is on a non-ordering field.",
-  "distractorRationales": ["", "An index on a non-ordering field is a secondary index, not a primary one.", "Hashing records is a different access method (hash index), not a primary index.", "A primary index is on a key field's values, not merely block numbers."]
+  "distractorRationales": [
+   "",
+   "An index on a non-ordering field is a secondary index, not a primary one.",
+   "Hashing records is a different access method (hash index), not a primary index.",
+   "A primary index is on a key field's values, not merely block numbers."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "easy",
   "questionText": "In a B+ tree, where are the actual data record pointers (or records) stored?",
-  "options": ["Only in the leaf nodes", "Only in the root", "In all internal nodes", "In a separate hash table"],
+  "options": [
+   "Only in the leaf nodes",
+   "Only in the root",
+   "In all internal nodes",
+   "In a separate hash table"
+  ],
   "correctIndex": 0,
   "explanation": "In a B+ tree, all data pointers reside in the leaf nodes; internal nodes hold only keys to direct the search. Leaves are also linked sequentially to support range scans.",
-  "distractorRationales": ["", "The root is an internal/index node; it holds routing keys, not data pointers (unless the tree is a single leaf).", "Internal nodes of a B+ tree hold only separator keys, not data pointers — this is the key difference from a B-tree.", "B+ tree data pointers are in its own leaves, not an external hash table."]
+  "distractorRationales": [
+   "",
+   "The root is an internal/index node; it holds routing keys, not data pointers (unless the tree is a single leaf).",
+   "Internal nodes of a B+ tree hold only separator keys, not data pointers — this is the key difference from a B-tree.",
+   "B+ tree data pointers are in its own leaves, not an external hash table."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "easy",
   "questionText": "The main advantage of a B+ tree over a B-tree for database indexing is:",
-  "options": ["Leaf nodes are linked, enabling efficient sequential and range queries", "It uses less total storage always", "It has fewer levels for the same data in every case", "It eliminates the need for disk access"],
+  "options": [
+   "Leaf nodes are linked, enabling efficient sequential and range queries",
+   "It uses less total storage always",
+   "It has fewer levels for the same data in every case",
+   "It eliminates the need for disk access"
+  ],
   "correctIndex": 0,
   "explanation": "Because a B+ tree keeps all data pointers in linked leaf nodes, range and sequential scans simply traverse the leaf chain. A B-tree stores data in internal nodes too, complicating ordered traversal.",
-  "distractorRationales": ["", "A B+ tree may store keys redundantly in internal nodes, so it does not always use less storage.", "Height differences depend on parameters; B+ trees are not universally shorter than B-trees.", "Indexes still require disk access; they reduce, not eliminate, it."]
+  "distractorRationales": [
+   "",
+   "A B+ tree may store keys redundantly in internal nodes, so it does not always use less storage.",
+   "Height differences depend on parameters; B+ trees are not universally shorter than B-trees.",
+   "Indexes still require disk access; they reduce, not eliminate, it."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "A B+ tree index has search-key size 9 bytes, block (node) size 512 bytes, and block pointer size 7 bytes. What is the maximum order (number of tree pointers) p of an internal node? (Use p·7 + (p−1)·9 ≤ 512.)",
-  "options": ["32", "34", "30", "28"],
+  "options": [
+   "32",
+   "34",
+   "30",
+   "28"
+  ],
   "correctIndex": 0,
   "explanation": "An internal node with p tree pointers holds p−1 keys: p·7 + (p−1)·9 ≤ 512 → 7p + 9p − 9 ≤ 512 → 16p ≤ 521 → p ≤ 32.56. So the maximum order is p = 32.",
-  "distractorRationales": ["", "34 would need 16·34 − 9 = 535 bytes > 512, exceeding the block.", "30 satisfies the bound but is not the maximum; 32 fits.", "28 is below the maximum; the node can hold up to 32 pointers."]
+  "distractorRationales": [
+   "",
+   "34 would need 16·34 − 9 = 535 bytes > 512, exceeding the block.",
+   "30 satisfies the bound but is not the maximum; 32 fits.",
+   "28 is below the maximum; the node can hold up to 32 pointers."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "In a B+ tree of order p (internal) with n keys, the height (number of levels) is approximately:",
-  "options": ["O(log_p n)", "O(log_2 n)", "O(n)", "O(√n)"],
+  "options": [
+   "O(log_p n)",
+   "O(log_2 n)",
+   "O(n)",
+   "O(√n)"
+  ],
   "correctIndex": 0,
   "explanation": "Each internal node has up to p children, so the tree's fan-out is p and its height is logarithmic in base p: O(log_p n). High fan-out keeps the tree shallow, minimizing disk I/O.",
-  "distractorRationales": ["", "log base 2 corresponds to a binary tree; B+ trees have fan-out p, giving log base p (much shallower).", "O(n) would be a linear/list structure, not a balanced tree.", "O(√n) is not the growth of a balanced multiway search tree."]
+  "distractorRationales": [
+   "",
+   "log base 2 corresponds to a binary tree; B+ trees have fan-out p, giving log base p (much shallower).",
+   "O(n) would be a linear/list structure, not a balanced tree.",
+   "O(√n) is not the growth of a balanced multiway search tree."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "A secondary index on a non-key (non-ordering, non-unique) field is typically:",
-  "options": ["A dense index, often using an extra level of indirection for multiple matching records", "A sparse index by definition", "Impossible to build", "Always a clustering index"],
+  "options": [
+   "A dense index, often using an extra level of indirection for multiple matching records",
+   "A sparse index by definition",
+   "Impossible to build",
+   "Always a clustering index"
+  ],
   "correctIndex": 0,
   "explanation": "A secondary index on a non-ordering field must be dense (the file is not sorted by it, so you cannot skip values). For a non-unique field, a level of indirection (a bucket of record pointers per key value) is commonly used.",
-  "distractorRationales": ["", "A sparse secondary index would miss records since the file is not ordered on that field; secondary indexes are dense.", "Secondary indexes are common and entirely buildable.", "A clustering index is on the physical ordering field; a secondary index is, by definition, not the clustering index."]
+  "distractorRationales": [
+   "",
+   "A sparse secondary index would miss records since the file is not ordered on that field; secondary indexes are dense.",
+   "Secondary indexes are common and entirely buildable.",
+   "A clustering index is on the physical ordering field; a secondary index is, by definition, not the clustering index."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "A file has 100,000 records, 10 records per block (1000 data blocks). A multilevel primary (sparse) index has blocking factor 100 index entries per block. How many index blocks are at the first index level?",
-  "options": ["10", "100", "1000", "1"],
+  "options": [
+   "10",
+   "100",
+   "1000",
+   "1"
+  ],
   "correctIndex": 0,
   "explanation": "A sparse primary index has one entry per data block = 1000 entries. With 100 entries per index block, the first index level needs 1000/100 = 10 blocks.",
-  "distractorRationales": ["", "100 would be the number of entries per block, not the count of first-level blocks.", "1000 is the number of data blocks (= first-level index entries), not blocks.", "1 would be the top level after further index levels reduce 10 → 1."]
+  "distractorRationales": [
+   "",
+   "100 would be the number of entries per block, not the count of first-level blocks.",
+   "1000 is the number of data blocks (= first-level index entries), not blocks.",
+   "1 would be the top level after further index levels reduce 10 → 1."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "When a B+ tree leaf node overflows on insertion, the standard action is to:",
-  "options": ["Split the leaf and copy up the middle (smallest of the right half) key to the parent", "Split the leaf and move up the middle key (removing it from leaves)", "Merge it with a sibling", "Rebuild the entire tree"],
+  "options": [
+   "Split the leaf and copy up the middle (smallest of the right half) key to the parent",
+   "Split the leaf and move up the middle key (removing it from leaves)",
+   "Merge it with a sibling",
+   "Rebuild the entire tree"
+  ],
   "correctIndex": 0,
   "explanation": "In a B+ tree, a leaf split copies up a separator key (the smallest key of the new right leaf) to the parent while keeping all keys in the leaves. Contrast with a B-tree, where the median key moves up and is removed from the children.",
-  "distractorRationales": ["", "Moving up and removing the key from the leaves is B-tree behavior; B+ trees copy the key up but retain it in the leaf.", "Merging happens on underflow during deletion, not on insertion overflow.", "Rebuilding the whole tree is unnecessary; a local split suffices."]
+  "distractorRationales": [
+   "",
+   "Moving up and removing the key from the leaves is B-tree behavior; B+ trees copy the key up but retain it in the leaf.",
+   "Merging happens on underflow during deletion, not on insertion overflow.",
+   "Rebuilding the whole tree is unnecessary; a local split suffices."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "Which statement about hash indexes versus B+ tree indexes is TRUE?",
-  "options": ["Hash indexes give O(1) average equality lookups but cannot efficiently answer range queries", "Hash indexes are better for range queries", "B+ trees cannot answer equality queries", "Hash indexes keep keys in sorted order"],
+  "options": [
+   "Hash indexes give O(1) average equality lookups but cannot efficiently answer range queries",
+   "Hash indexes are better for range queries",
+   "B+ trees cannot answer equality queries",
+   "Hash indexes keep keys in sorted order"
+  ],
   "correctIndex": 0,
   "explanation": "A hash index supports point/equality lookups in expected O(1) time but scatters keys across buckets, so range queries (e.g., key BETWEEN x AND y) are not supported efficiently. B+ trees keep keys ordered, handling both equality and ranges.",
-  "distractorRationales": ["", "Range queries are a weakness of hashing, not a strength, because order is not preserved.", "B+ trees handle equality queries fine via root-to-leaf descent.", "Hashing deliberately scrambles key order; keys are not sorted."]
+  "distractorRationales": [
+   "",
+   "Range queries are a weakness of hashing, not a strength, because order is not preserved.",
+   "B+ trees handle equality queries fine via root-to-leaf descent.",
+   "Hashing deliberately scrambles key order; keys are not sorted."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "In extendible hashing, the global depth d means:",
-  "options": ["The directory has 2^d entries, indexed by the first d bits of the hash value", "Each bucket stores exactly d records", "There are d levels in the hash tree", "The hash function produces d-byte outputs"],
+  "options": [
+   "The directory has 2^d entries, indexed by the first d bits of the hash value",
+   "Each bucket stores exactly d records",
+   "There are d levels in the hash tree",
+   "The hash function produces d-byte outputs"
+  ],
   "correctIndex": 0,
   "explanation": "In extendible hashing, the directory has 2^d slots and is addressed using the leading d bits of the hash. Local depth of a bucket may be ≤ d; when a bucket with local depth = d overflows, the directory doubles (d increases).",
-  "distractorRationales": ["", "Bucket capacity is a fixed block size, unrelated to global depth d.", "Extendible hashing uses a directory plus buckets, not a multi-level tree of d levels.", "The hash output size is fixed; d refers to how many leading bits the directory uses."]
+  "distractorRationales": [
+   "",
+   "Bucket capacity is a fixed block size, unrelated to global depth d.",
+   "Extendible hashing uses a directory plus buckets, not a multi-level tree of d levels.",
+   "The hash output size is fixed; d refers to how many leading bits the directory uses."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "hard",
   "questionText": "A B+ tree stores keys of 4 bytes and pointers of 8 bytes in 4096-byte nodes. An internal node holds m pointers and m−1 keys. What is the maximum value of m?",
-  "options": ["341", "342", "340", "512"],
+  "options": [
+   "341",
+   "342",
+   "340",
+   "512"
+  ],
   "correctIndex": 0,
   "explanation": "8m + 4(m−1) ≤ 4096 → 8m + 4m − 4 ≤ 4096 → 12m ≤ 4100 → m ≤ 341.67. The maximum number of pointers is m = 341.",
-  "distractorRationales": ["", "342 needs 12·342 − 4 = 4100 bytes > 4096, which overflows the node.", "340 fits but is not the maximum; 341 also fits.", "512 vastly exceeds the byte budget of a 4096-byte node."]
+  "distractorRationales": [
+   "",
+   "342 needs 12·342 − 4 = 4100 bytes > 4096, which overflows the node.",
+   "340 fits but is not the maximum; 341 also fits.",
+   "512 vastly exceeds the byte budget of a 4096-byte node."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "hard",
   "questionText": "Consider a B+ tree where each node holds up to 4 keys (order 5). Records are inserted; what is the minimum number of keys a non-root internal node must contain (rounding up)?",
-  "options": ["2", "1", "3", "4"],
+  "options": [
+   "2",
+   "1",
+   "3",
+   "4"
+  ],
   "correctIndex": 0,
   "explanation": "For order p = 5 (max 5 children, 4 keys), a non-root internal node must be at least half full: it must have at least ⌈p/2⌉ = ⌈5/2⌉ = 3 children, i.e., at least 2 keys. So the minimum number of keys is 2.",
-  "distractorRationales": ["", "1 key (2 children) is below the ⌈5/2⌉ = 3 children minimum for a non-root internal node.", "3 keys (4 children) is above the minimum, not the least required.", "4 keys is the maximum for this node, not the minimum."]
+  "distractorRationales": [
+   "",
+   "1 key (2 children) is below the ⌈5/2⌉ = 3 children minimum for a non-root internal node.",
+   "3 keys (4 children) is above the minimum, not the least required.",
+   "4 keys is the maximum for this node, not the minimum."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "hard",
   "questionText": "A relation has 1,000,000 records of 200 bytes each on a disk with 4096-byte blocks (unspanned). A B+ tree index on a 10-byte key with 8-byte pointers is built. Roughly how many leaf-level blocks does the (dense) index need? (Leaf entry = key + pointer = 18 bytes; ~227 entries/block.)",
-  "options": ["About 4,407 blocks", "About 1,000 blocks", "About 49,000 blocks", "About 227 blocks"],
+  "options": [
+   "About 4,407 blocks",
+   "About 1,000 blocks",
+   "About 49,000 blocks",
+   "About 227 blocks"
+  ],
   "correctIndex": 0,
   "explanation": "A dense index has one entry per record = 1,000,000 entries. Each entry is 10 + 8 = 18 bytes, so a 4096-byte block holds ⌊4096/18⌋ = 227 entries. Leaf blocks ≈ 1,000,000 / 227 ≈ 4,407.",
-  "distractorRationales": ["", "1,000 confuses this with a sparse index of one entry per data block, not a dense leaf level.", "49,000 would correspond to far fewer entries per block than 227.", "227 is the entries-per-block figure, not the total number of leaf blocks."]
+  "distractorRationales": [
+   "",
+   "1,000 confuses this with a sparse index of one entry per data block, not a dense leaf level.",
+   "49,000 would correspond to far fewer entries per block than 227.",
+   "227 is the entries-per-block figure, not the total number of leaf blocks."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "hard",
   "questionText": "In a B+ tree, the number of disk block accesses for an equality search (point query) is proportional to:",
-  "options": ["The height of the tree (root to leaf), i.e., O(log_p n)", "The number of records n", "1, regardless of tree size", "The number of leaf nodes"],
+  "options": [
+   "The height of the tree (root to leaf), i.e., O(log_p n)",
+   "The number of records n",
+   "1, regardless of tree size",
+   "The number of leaf nodes"
+  ],
   "correctIndex": 0,
   "explanation": "An equality search descends one path from the root to a leaf, reading one node per level. Thus the I/O cost equals the height of the tree, O(log_p n) where p is the fan-out.",
-  "distractorRationales": ["", "O(n) would be a full scan; the tree's whole purpose is to avoid that.", "It is not constant; it grows (slowly) with the number of levels as data grows.", "It is the path length (height), not the count of all leaf nodes."]
+  "distractorRationales": [
+   "",
+   "O(n) would be a full scan; the tree's whole purpose is to avoid that.",
+   "It is not constant; it grows (slowly) with the number of levels as data grows.",
+   "It is the path length (height), not the count of all leaf nodes."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "hard",
   "questionText": "Linear hashing differs from extendible hashing primarily in that linear hashing:",
-  "options": ["Grows the file one bucket at a time without a directory, splitting buckets in a predetermined round-robin order", "Requires a directory that doubles in size", "Cannot handle overflow at all", "Uses a B+ tree for the directory"],
+  "options": [
+   "Grows the file one bucket at a time without a directory, splitting buckets in a predetermined round-robin order",
+   "Requires a directory that doubles in size",
+   "Cannot handle overflow at all",
+   "Uses a B+ tree for the directory"
+  ],
   "correctIndex": 0,
   "explanation": "Linear hashing avoids a directory: it splits buckets in a fixed (round-robin) sequence regardless of which bucket overflowed, growing the address space one bucket at a time using a 'split pointer'. Extendible hashing instead maintains a directory that doubles.",
-  "distractorRationales": ["", "Doubling a directory is the extendible hashing approach; linear hashing has no directory.", "Linear hashing handles overflow using overflow chains until the relevant bucket is split.", "Linear hashing uses a split pointer and hash functions, not a B+ tree directory."]
+  "distractorRationales": [
+   "",
+   "Doubling a directory is the extendible hashing approach; linear hashing has no directory.",
+   "Linear hashing handles overflow using overflow chains until the relevant bucket is split.",
+   "Linear hashing uses a split pointer and hash functions, not a B+ tree directory."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "medium",
   "questionText": "A covering index for a query is one that:",
-  "options": ["Contains all the columns the query needs, so the base table need not be accessed", "Covers every column of the table", "Is built on the primary key only", "Spans multiple tables"],
+  "options": [
+   "Contains all the columns the query needs, so the base table need not be accessed",
+   "Covers every column of the table",
+   "Is built on the primary key only",
+   "Spans multiple tables"
+  ],
   "correctIndex": 0,
   "explanation": "A covering index includes all columns referenced by a query (in the key or as included columns), allowing an index-only scan that satisfies the query without fetching rows from the table — saving I/O.",
-  "distractorRationales": ["", "It need only cover the columns the query uses, not every column of the table.", "It need not be on the primary key; it covers whatever columns the query requires.", "Standard indexes are on a single table; covering refers to columns, not multiple tables."]
+  "distractorRationales": [
+   "",
+   "It need only cover the columns the query uses, not every column of the table.",
+   "It need not be on the primary key; it covers whatever columns the query requires.",
+   "Standard indexes are on a single table; covering refers to columns, not multiple tables."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "indexing-b-trees",
   "difficulty": "easy",
   "questionText": "A clustering index can exist on at most how many fields of a given table (in terms of physical ordering)?",
-  "options": ["One, because a file can be physically ordered on only one key", "Two", "As many as there are columns", "Zero"],
+  "options": [
+   "One, because a file can be physically ordered on only one key",
+   "Two",
+   "As many as there are columns",
+   "Zero"
+  ],
   "correctIndex": 0,
   "explanation": "Physical record ordering can follow only one key at a time, so a table can have at most one clustering (primary) index. Additional indexes on other fields must be secondary (non-clustering).",
-  "distractorRationales": ["", "Two clustering indexes would require two physical orderings of the same file, which is impossible.", "Only one physical ordering exists; other indexes are secondary.", "A table can have a clustering index; zero is not the maximum."]
+  "distractorRationales": [
+   "",
+   "Two clustering indexes would require two physical orderings of the same file, which is impossible.",
+   "Only one physical ordering exists; other indexes are secondary.",
+   "A table can have a clustering index; zero is not the maximum."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Compared to a sparse index, a dense index generally provides:",
+  "options": [
+   "Faster point lookups (every key has an entry) at the cost of more index space",
+   "Slower lookups with less space",
+   "No lookups at all",
+   "Identical behavior"
+  ],
+  "correctIndex": 0,
+  "explanation": "A dense index has an entry per search-key value, so a lookup finds the record directly without scanning data blocks. It uses more space than a sparse index (one entry per block) but can locate any key immediately.",
+  "distractorRationales": [
+   "",
+   "Dense indexes are faster for point lookups, not slower, though they use more space.",
+   "Dense indexes do support lookups; that is their purpose.",
+   "Dense and sparse indexes differ in granularity and behavior."
+  ],
+  "course": "dbms",
+  "subtopic": "indexing-b-trees"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In a B-tree (not B+ tree), data record pointers are stored:",
+  "options": [
+   "In both internal nodes and leaf nodes",
+   "Only in leaf nodes",
+   "Only in the root",
+   "In a separate hash table"
+  ],
+  "correctIndex": 0,
+  "explanation": "A B-tree stores keys and their associated data pointers in all nodes, including internal ones. A B+ tree differs by keeping data pointers only in leaves (with internal nodes holding routing keys).",
+  "distractorRationales": [
+   "",
+   "Storing data pointers only in leaves is the B+ tree property, not the B-tree.",
+   "Restricting data to the root is neither a B-tree nor B+ tree property.",
+   "B-tree data is in its own nodes, not an external hash table."
+  ],
+  "course": "dbms",
+  "subtopic": "indexing-b-trees"
  }
 ]

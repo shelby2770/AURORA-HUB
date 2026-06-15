@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aurora Hub round app icon">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16161c"></stop>
+      <stop offset="0.55" stop-color="#0b0b10"></stop>
+      <stop offset="1" stop-color="#070709"></stop>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.5" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#2dd4a8" stop-opacity="0.28"></stop>
+      <stop offset="0.5" stop-color="#38bdf8" stop-opacity="0.10"></stop>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"></stop>
+    </radialGradient>
+    <linearGradient id="aurT" x1="56" y1="200" x2="456" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34d399"></stop>
+      <stop offset="0.48" stop-color="#38bdf8"></stop>
+      <stop offset="1" stop-color="#a78bfa"></stop>
+    </linearGradient>
+    <radialGradient id="hubGlowT" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c6fbe6"></stop>
+      <stop offset="0.55" stop-color="#6ee7b7"></stop>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"></stop>
+    </radialGradient>
+    <clipPath id="circle"><circle cx="256" cy="256" r="256"></circle></clipPath>
+  </defs>
+  <g clip-path="url(#circle)">
+    <rect width="512" height="512" fill="url(#tile)"></rect>
+    <rect width="512" height="512" fill="url(#tileGlow)"></rect>
+    <path d="M71 350 A185 185 0 0 1 441 350" stroke="url(#aurT)" stroke-width="20" stroke-linecap="round" opacity="0.5"></path>
+    <path d="M131 350 A125 125 0 0 1 381 350" stroke="url(#aurT)" stroke-width="44" stroke-linecap="round"></path>
+    <circle cx="256" cy="350" r="44" fill="url(#hubGlowT)" opacity="0.9"></circle>
+    <circle cx="256" cy="350" r="21" fill="#f4fffb"></circle>
+  </g>
+</svg>

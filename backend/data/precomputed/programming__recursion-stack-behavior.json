@@ -1,182 +1,402 @@
 [
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "easy",
-    "questionText": "Every recursive function must have a base case in order to:",
-    "options": ["Terminate the recursion and avoid infinite calls / stack overflow", "Run faster than iteration", "Avoid using parameters", "Return a pointer"],
-    "correctIndex": 0,
-    "explanation": "The base case is the condition under which the function returns without recursing, stopping the chain of calls. Without it, the function recurses forever, exhausting the call stack and crashing (stack overflow).",
-    "distractorRationales": ["", "Recursion is not inherently faster than iteration; the base case is about termination.", "Recursive functions still use parameters; the base case is unrelated to that.", "The base case concerns termination, not the return type."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "What does fact(4) return for:\nint fact(int n){ if(n<=1) return 1; return n*fact(n-1); }",
-    "options": ["24", "12", "4", "10"],
-    "correctIndex": 0,
-    "explanation": "fact(4) = 4*fact(3) = 4*3*fact(2) = 4*3*2*fact(1) = 4*3*2*1 = 24. This is the standard factorial recursion.",
-    "distractorRationales": ["", "12 = 4*3, missing the deeper multiplications.", "4 is just n, not the product.", "10 is the sum 1+2+3+4, not the factorial."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "Each recursive call adds a new ____ to the call stack, holding its parameters, local variables, and return address.",
-    "options": ["Activation record (stack frame)", "Heap block", "Global variable", "Page table"],
-    "correctIndex": 0,
-    "explanation": "A recursive call pushes a new activation record (stack frame) containing that invocation's parameters, locals, and the return address. The depth of recursion equals the number of frames, which is why deep recursion can overflow the stack.",
-    "distractorRationales": ["", "Recursion uses the call stack, not heap blocks (those come from malloc).", "Each call has its own locals in its frame, not shared globals.", "Page tables are a memory-management structure, unrelated to call frames."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "What is the value of f(5) for the Fibonacci function:\nint f(int n){ if(n<=1) return n; return f(n-1)+f(n-2); }",
-    "options": ["5", "8", "3", "13"],
-    "correctIndex": 0,
-    "explanation": "With f(0)=0, f(1)=1: f(2)=1, f(3)=2, f(4)=3, f(5)=f(4)+f(3)=3+2=5. So f(5)=5.",
-    "distractorRationales": ["", "8 is f(6), one index too far.", "3 is f(4), one index short.", "13 is f(7), too far ahead."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "The naive recursive Fibonacci f(n)=f(n-1)+f(n-2) has time complexity:",
-    "options": ["Exponential, O(φ^n) ≈ O(2^n)", "O(n)", "O(n log n)", "O(1)"],
-    "correctIndex": 0,
-    "explanation": "The naive recursion recomputes overlapping subproblems, branching into two calls each level, giving roughly 2^n calls — exponential time (precisely O(φ^n), φ≈1.618). Memoization or iteration reduces it to O(n).",
-    "distractorRationales": ["", "O(n) is achievable only with memoization/DP, not the naive recursion.", "O(n log n) does not arise here; the recursion tree is exponential.", "O(1) is impossible; the work grows with n."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "A 'tail-recursive' function is one where:",
-    "options": ["The recursive call is the last operation performed, enabling tail-call optimization", "It recurses at the beginning", "It uses two recursive calls", "It never reaches a base case"],
-    "correctIndex": 0,
-    "explanation": "In tail recursion the recursive call is the final action, with no pending computation after it returns. Compilers can then reuse the current stack frame (tail-call optimization), turning the recursion into a loop and using O(1) stack space.",
-    "distractorRationales": ["", "The position of recursion that matters is the last operation, not the first.", "Using two recursive calls (like Fibonacci) is not tail recursion.", "A correct tail-recursive function still has a base case."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "What does g(4) return?\nint g(int n){ if(n==0) return 0; return n + g(n-1); }",
-    "options": ["10", "24", "4", "6"],
-    "correctIndex": 0,
-    "explanation": "g sums 1..n: g(4)=4+g(3)=4+3+g(2)=4+3+2+g(1)=4+3+2+1+g(0)=10. So g(4)=10.",
-    "distractorRationales": ["", "24 is 4! (the product), but g adds rather than multiplies.", "4 is just n, not the accumulated sum.", "6 is 1+2+3 (g(3)), one term short."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "The maximum recursion depth before a program crashes is primarily limited by:",
-    "options": ["The size of the call stack", "The size of the heap", "The number of global variables", "The CPU clock speed"],
-    "correctIndex": 0,
-    "explanation": "Each recursive call consumes stack space for its frame; when total frames exceed the fixed call-stack size, a stack overflow occurs. Heap size, global count, and clock speed do not bound recursion depth.",
-    "distractorRationales": ["", "The heap is for dynamic allocation, not call frames.", "Global variables live in static storage, unrelated to recursion depth.", "Clock speed affects time, not how deep the stack can grow."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "How many times is the function called in total (including the initial call) to compute the naive recursive Fibonacci f(4), where f(0)=0,f(1)=1?",
-    "options": ["9", "5", "4", "7"],
-    "correctIndex": 0,
-    "explanation": "The call tree for f(4): f(4) calls f(3)+f(2); f(3)→f(2)+f(1); f(2)→f(1)+f(0). Counting all nodes: f(4),f(3),f(2),f(1),f(0) on one side and the repeated f(2),f(1),f(0)... Total calls = 9 (the number of nodes in the recursion tree of f(4)).",
-    "distractorRationales": ["", "5 counts only distinct values, but recursion repeats subcalls.", "4 is n, not the call count.", "7 undercounts the repeated subtree calls."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "easy",
-    "questionText": "Recursion can always be converted to iteration. To do so manually one typically uses:",
-    "options": ["An explicit stack data structure to mimic the call stack", "A global counter only", "More recursion", "A hash table"],
-    "correctIndex": 0,
-    "explanation": "Any recursive algorithm can be rewritten iteratively by maintaining an explicit stack that holds the state (parameters/partial results) the call stack would have held. For simple linear recursion, a plain loop suffices.",
-    "distractorRationales": ["", "A single counter cannot capture the saved states of nested calls in general.", "Using more recursion does not convert it to iteration.", "A hash table aids memoization but is not the general tool for derecursion."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "The Tower of Hanoi for n disks requires how many moves, computed by the recurrence T(n) = 2T(n-1) + 1?",
-    "options": ["2^n - 1", "n^2", "2n", "n!"],
-    "correctIndex": 0,
-    "explanation": "Solving T(n) = 2T(n-1) + 1 with T(1)=1 gives T(n) = 2^n − 1. The recursion moves n-1 disks aside, moves the largest, then moves the n-1 disks back — doubling plus one each level.",
-    "distractorRationales": ["", "n^2 grows far too slowly compared to the exponential solution.", "2n is linear and incorrect for this exponential recurrence.", "n! does not satisfy the recurrence T(n)=2T(n-1)+1."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "What does this C function return for mystery(6)?\nint mystery(int n){ if(n==0) return 0; return mystery(n-2) + n; }",
-    "options": ["12", "6", "21", "18"],
-    "correctIndex": 0,
-    "explanation": "It sums n, n-2, n-4, ... down to 0: mystery(6)=6+mystery(4)=6+4+mystery(2)=6+4+2+mystery(0)=6+4+2+0=12.",
-    "distractorRationales": ["", "6 is just the first term n.", "21 = 1+2+...+6, but this sums only even values down from 6.", "18 overcounts; the even sum 6+4+2 is 12, not 18."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "easy",
-    "questionText": "Indirect (mutual) recursion occurs when:",
-    "options": ["Function A calls B and B calls A (a cycle of calls)", "A function calls itself directly", "A loop calls a function", "A function has no parameters"],
-    "correctIndex": 0,
-    "explanation": "Mutual (indirect) recursion is when two or more functions call each other in a cycle (A→B→A...). Direct recursion is a function calling itself. Both must eventually reach base cases to terminate.",
-    "distractorRationales": ["", "A function calling itself directly is direct recursion, not indirect.", "A loop invoking a function is iteration, not recursion.", "Parameter count is unrelated to recursion type."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "What does this function compute for power(2, 5)?\nint power(int b, int e){ if(e==0) return 1; return b * power(b, e-1); }",
-    "options": ["32", "10", "25", "16"],
-    "correctIndex": 0,
-    "explanation": "It computes b^e: power(2,5)=2*2*2*2*2*1 = 32. Each call multiplies b once and reduces the exponent until e reaches 0 (returning 1).",
-    "distractorRationales": ["", "10 is 2×5, not 2^5.", "25 is 5², the operands swapped.", "16 is 2^4, one factor short."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "Memoization speeds up recursive algorithms with overlapping subproblems by:",
-    "options": ["Caching results of subproblems so each is computed only once", "Removing the base case", "Increasing the recursion depth", "Converting them to floating point"],
-    "correctIndex": 0,
-    "explanation": "Memoization stores each subproblem's result (e.g., in an array or hash table) the first time it is computed and returns the cached value on later calls. For Fibonacci this cuts exponential time to O(n) by eliminating repeated recomputation.",
-    "distractorRationales": ["", "Memoization keeps the base case; it just caches recursive results.", "It reduces redundant work, not increases depth.", "It is unrelated to numeric type conversion."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "hard",
-    "questionText": "What does this C function print for count(3)?\nvoid count(int n){ if(n==0) return; printf(\"%d\", n); count(n-1); printf(\"%d\", n); }",
-    "options": ["321123", "321", "123", "333"],
-    "correctIndex": 0,
-    "explanation": "On the way down it prints 3,2,1 (before each recursive call); count(0) returns; then as the stack unwinds it prints 1,2,3 (after each call). Result: '321123'. This shows pre- and post-recursion ordering via the stack.",
-    "distractorRationales": ["", "321 captures only the descent, ignoring the prints during unwinding.", "123 captures only the unwinding, ignoring the descent prints.", "333 would require n to never change, but it decreases each call."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "easy",
-    "questionText": "Compared to iteration, a drawback of recursion for simple repetitive tasks is:",
-    "options": ["Function-call overhead and extra stack memory per call", "It cannot express any algorithm", "It always produces wrong answers", "It cannot use parameters"],
-    "correctIndex": 0,
-    "explanation": "Each recursive call incurs the cost of a function call (pushing a frame, saving registers) and consumes stack space, so for simple loops iteration is usually more efficient. Recursion is valuable when it expresses the problem more naturally (trees, divide-and-conquer).",
-    "distractorRationales": ["", "Recursion is fully general; it can express any computable algorithm.", "Correctly written recursion gives correct answers.", "Recursive functions do use parameters."]
-  },
-  {
-    "course": "programming",
-    "subtopic": "recursion-stack-behavior",
-    "difficulty": "medium",
-    "questionText": "When a recursive call returns, control resumes:",
-    "options": ["At the instruction after the call, in the caller's restored stack frame", "At the start of the program", "In a new heap block", "At the base case again"],
-    "correctIndex": 0,
-    "explanation": "Returning from a call pops the callee's frame and uses the saved return address to resume execution right after the call site, in the caller's frame (whose locals are restored). This unwinding is how partial results combine on the way back up.",
-    "distractorRationales": ["", "It does not restart the program; it returns to the call site.", "Frames live on the stack, not the heap.", "It resumes in the caller, not by re-entering the base case."]
-  }
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "easy",
+  "questionText": "Every recursive function must have a base case in order to:",
+  "options": [
+   "Terminate the recursion and avoid infinite calls / stack overflow",
+   "Run faster than iteration",
+   "Avoid using parameters",
+   "Return a pointer"
+  ],
+  "correctIndex": 0,
+  "explanation": "The base case is the condition under which the function returns without recursing, stopping the chain of calls. Without it, the function recurses forever, exhausting the call stack and crashing (stack overflow).",
+  "distractorRationales": [
+   "",
+   "Recursion is not inherently faster than iteration; the base case is about termination.",
+   "Recursive functions still use parameters; the base case is unrelated to that.",
+   "The base case concerns termination, not the return type."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "What does fact(4) return for:\nint fact(int n){ if(n<=1) return 1; return n*fact(n-1); }",
+  "options": [
+   "24",
+   "12",
+   "4",
+   "10"
+  ],
+  "correctIndex": 0,
+  "explanation": "fact(4) = 4*fact(3) = 4*3*fact(2) = 4*3*2*fact(1) = 4*3*2*1 = 24. This is the standard factorial recursion.",
+  "distractorRationales": [
+   "",
+   "12 = 4*3, missing the deeper multiplications.",
+   "4 is just n, not the product.",
+   "10 is the sum 1+2+3+4, not the factorial."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "Each recursive call adds a new ____ to the call stack, holding its parameters, local variables, and return address.",
+  "options": [
+   "Activation record (stack frame)",
+   "Heap block",
+   "Global variable",
+   "Page table"
+  ],
+  "correctIndex": 0,
+  "explanation": "A recursive call pushes a new activation record (stack frame) containing that invocation's parameters, locals, and the return address. The depth of recursion equals the number of frames, which is why deep recursion can overflow the stack.",
+  "distractorRationales": [
+   "",
+   "Recursion uses the call stack, not heap blocks (those come from malloc).",
+   "Each call has its own locals in its frame, not shared globals.",
+   "Page tables are a memory-management structure, unrelated to call frames."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "What is the value of f(5) for the Fibonacci function:\nint f(int n){ if(n<=1) return n; return f(n-1)+f(n-2); }",
+  "options": [
+   "5",
+   "8",
+   "3",
+   "13"
+  ],
+  "correctIndex": 0,
+  "explanation": "With f(0)=0, f(1)=1: f(2)=1, f(3)=2, f(4)=3, f(5)=f(4)+f(3)=3+2=5. So f(5)=5.",
+  "distractorRationales": [
+   "",
+   "8 is f(6), one index too far.",
+   "3 is f(4), one index short.",
+   "13 is f(7), too far ahead."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "The naive recursive Fibonacci f(n)=f(n-1)+f(n-2) has time complexity:",
+  "options": [
+   "Exponential, O(φ^n) ≈ O(2^n)",
+   "O(n)",
+   "O(n log n)",
+   "O(1)"
+  ],
+  "correctIndex": 0,
+  "explanation": "The naive recursion recomputes overlapping subproblems, branching into two calls each level, giving roughly 2^n calls — exponential time (precisely O(φ^n), φ≈1.618). Memoization or iteration reduces it to O(n).",
+  "distractorRationales": [
+   "",
+   "O(n) is achievable only with memoization/DP, not the naive recursion.",
+   "O(n log n) does not arise here; the recursion tree is exponential.",
+   "O(1) is impossible; the work grows with n."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "A 'tail-recursive' function is one where:",
+  "options": [
+   "The recursive call is the last operation performed, enabling tail-call optimization",
+   "It recurses at the beginning",
+   "It uses two recursive calls",
+   "It never reaches a base case"
+  ],
+  "correctIndex": 0,
+  "explanation": "In tail recursion the recursive call is the final action, with no pending computation after it returns. Compilers can then reuse the current stack frame (tail-call optimization), turning the recursion into a loop and using O(1) stack space.",
+  "distractorRationales": [
+   "",
+   "The position of recursion that matters is the last operation, not the first.",
+   "Using two recursive calls (like Fibonacci) is not tail recursion.",
+   "A correct tail-recursive function still has a base case."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "What does g(4) return?\nint g(int n){ if(n==0) return 0; return n + g(n-1); }",
+  "options": [
+   "10",
+   "24",
+   "4",
+   "6"
+  ],
+  "correctIndex": 0,
+  "explanation": "g sums 1..n: g(4)=4+g(3)=4+3+g(2)=4+3+2+g(1)=4+3+2+1+g(0)=10. So g(4)=10.",
+  "distractorRationales": [
+   "",
+   "24 is 4! (the product), but g adds rather than multiplies.",
+   "4 is just n, not the accumulated sum.",
+   "6 is 1+2+3 (g(3)), one term short."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "The maximum recursion depth before a program crashes is primarily limited by:",
+  "options": [
+   "The size of the call stack",
+   "The size of the heap",
+   "The number of global variables",
+   "The CPU clock speed"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each recursive call consumes stack space for its frame; when total frames exceed the fixed call-stack size, a stack overflow occurs. Heap size, global count, and clock speed do not bound recursion depth.",
+  "distractorRationales": [
+   "",
+   "The heap is for dynamic allocation, not call frames.",
+   "Global variables live in static storage, unrelated to recursion depth.",
+   "Clock speed affects time, not how deep the stack can grow."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "How many times is the function called in total (including the initial call) to compute the naive recursive Fibonacci f(4), where f(0)=0,f(1)=1?",
+  "options": [
+   "9",
+   "5",
+   "4",
+   "7"
+  ],
+  "correctIndex": 0,
+  "explanation": "The call tree for f(4): f(4) calls f(3)+f(2); f(3)→f(2)+f(1); f(2)→f(1)+f(0). Counting all nodes: f(4),f(3),f(2),f(1),f(0) on one side and the repeated f(2),f(1),f(0)... Total calls = 9 (the number of nodes in the recursion tree of f(4)).",
+  "distractorRationales": [
+   "",
+   "5 counts only distinct values, but recursion repeats subcalls.",
+   "4 is n, not the call count.",
+   "7 undercounts the repeated subtree calls."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "easy",
+  "questionText": "Recursion can always be converted to iteration. To do so manually one typically uses:",
+  "options": [
+   "An explicit stack data structure to mimic the call stack",
+   "A global counter only",
+   "More recursion",
+   "A hash table"
+  ],
+  "correctIndex": 0,
+  "explanation": "Any recursive algorithm can be rewritten iteratively by maintaining an explicit stack that holds the state (parameters/partial results) the call stack would have held. For simple linear recursion, a plain loop suffices.",
+  "distractorRationales": [
+   "",
+   "A single counter cannot capture the saved states of nested calls in general.",
+   "Using more recursion does not convert it to iteration.",
+   "A hash table aids memoization but is not the general tool for derecursion."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "The Tower of Hanoi for n disks requires how many moves, computed by the recurrence T(n) = 2T(n-1) + 1?",
+  "options": [
+   "2^n - 1",
+   "n^2",
+   "2n",
+   "n!"
+  ],
+  "correctIndex": 0,
+  "explanation": "Solving T(n) = 2T(n-1) + 1 with T(1)=1 gives T(n) = 2^n − 1. The recursion moves n-1 disks aside, moves the largest, then moves the n-1 disks back — doubling plus one each level.",
+  "distractorRationales": [
+   "",
+   "n^2 grows far too slowly compared to the exponential solution.",
+   "2n is linear and incorrect for this exponential recurrence.",
+   "n! does not satisfy the recurrence T(n)=2T(n-1)+1."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "What does this C function return for mystery(6)?\nint mystery(int n){ if(n==0) return 0; return mystery(n-2) + n; }",
+  "options": [
+   "12",
+   "6",
+   "21",
+   "18"
+  ],
+  "correctIndex": 0,
+  "explanation": "It sums n, n-2, n-4, ... down to 0: mystery(6)=6+mystery(4)=6+4+mystery(2)=6+4+2+mystery(0)=6+4+2+0=12.",
+  "distractorRationales": [
+   "",
+   "6 is just the first term n.",
+   "21 = 1+2+...+6, but this sums only even values down from 6.",
+   "18 overcounts; the even sum 6+4+2 is 12, not 18."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "easy",
+  "questionText": "Indirect (mutual) recursion occurs when:",
+  "options": [
+   "Function A calls B and B calls A (a cycle of calls)",
+   "A function calls itself directly",
+   "A loop calls a function",
+   "A function has no parameters"
+  ],
+  "correctIndex": 0,
+  "explanation": "Mutual (indirect) recursion is when two or more functions call each other in a cycle (A→B→A...). Direct recursion is a function calling itself. Both must eventually reach base cases to terminate.",
+  "distractorRationales": [
+   "",
+   "A function calling itself directly is direct recursion, not indirect.",
+   "A loop invoking a function is iteration, not recursion.",
+   "Parameter count is unrelated to recursion type."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "What does this function compute for power(2, 5)?\nint power(int b, int e){ if(e==0) return 1; return b * power(b, e-1); }",
+  "options": [
+   "32",
+   "10",
+   "25",
+   "16"
+  ],
+  "correctIndex": 0,
+  "explanation": "It computes b^e: power(2,5)=2*2*2*2*2*1 = 32. Each call multiplies b once and reduces the exponent until e reaches 0 (returning 1).",
+  "distractorRationales": [
+   "",
+   "10 is 2×5, not 2^5.",
+   "25 is 5², the operands swapped.",
+   "16 is 2^4, one factor short."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "Memoization speeds up recursive algorithms with overlapping subproblems by:",
+  "options": [
+   "Caching results of subproblems so each is computed only once",
+   "Removing the base case",
+   "Increasing the recursion depth",
+   "Converting them to floating point"
+  ],
+  "correctIndex": 0,
+  "explanation": "Memoization stores each subproblem's result (e.g., in an array or hash table) the first time it is computed and returns the cached value on later calls. For Fibonacci this cuts exponential time to O(n) by eliminating repeated recomputation.",
+  "distractorRationales": [
+   "",
+   "Memoization keeps the base case; it just caches recursive results.",
+   "It reduces redundant work, not increases depth.",
+   "It is unrelated to numeric type conversion."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "hard",
+  "questionText": "What does this C function print for count(3)?\nvoid count(int n){ if(n==0) return; printf(\"%d\", n); count(n-1); printf(\"%d\", n); }",
+  "options": [
+   "321123",
+   "321",
+   "123",
+   "333"
+  ],
+  "correctIndex": 0,
+  "explanation": "On the way down it prints 3,2,1 (before each recursive call); count(0) returns; then as the stack unwinds it prints 1,2,3 (after each call). Result: '321123'. This shows pre- and post-recursion ordering via the stack.",
+  "distractorRationales": [
+   "",
+   "321 captures only the descent, ignoring the prints during unwinding.",
+   "123 captures only the unwinding, ignoring the descent prints.",
+   "333 would require n to never change, but it decreases each call."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "easy",
+  "questionText": "Compared to iteration, a drawback of recursion for simple repetitive tasks is:",
+  "options": [
+   "Function-call overhead and extra stack memory per call",
+   "It cannot express any algorithm",
+   "It always produces wrong answers",
+   "It cannot use parameters"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each recursive call incurs the cost of a function call (pushing a frame, saving registers) and consumes stack space, so for simple loops iteration is usually more efficient. Recursion is valuable when it expresses the problem more naturally (trees, divide-and-conquer).",
+  "distractorRationales": [
+   "",
+   "Recursion is fully general; it can express any computable algorithm.",
+   "Correctly written recursion gives correct answers.",
+   "Recursive functions do use parameters."
+  ]
+ },
+ {
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior",
+  "difficulty": "medium",
+  "questionText": "When a recursive call returns, control resumes:",
+  "options": [
+   "At the instruction after the call, in the caller's restored stack frame",
+   "At the start of the program",
+   "In a new heap block",
+   "At the base case again"
+  ],
+  "correctIndex": 0,
+  "explanation": "Returning from a call pops the callee's frame and uses the saved return address to resume execution right after the call site, in the caller's frame (whose locals are restored). This unwinding is how partial results combine on the way back up.",
+  "distractorRationales": [
+   "",
+   "It does not restart the program; it returns to the call site.",
+   "Frames live on the stack, not the heap.",
+   "It resumes in the caller, not by re-entering the base case."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "A recursive function without a proper base case (or that never reaches it) typically causes:",
+  "options": [
+   "A stack overflow due to unbounded call-stack growth",
+   "A compile-time error",
+   "An immediate return of 0",
+   "Faster execution"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each recursive call pushes a new stack frame. Without a reachable base case, frames accumulate until the call stack is exhausted, causing a stack overflow at runtime.",
+  "distractorRationales": [
+   "",
+   "Missing a base case is a logic error, generally not caught at compile time.",
+   "There is no automatic return of 0; the recursion continues until the stack overflows.",
+   "Unbounded recursion is slower and ultimately crashes, not faster."
+  ],
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "Tail recursion can be optimized by compilers into iteration because:",
+  "options": [
+   "The recursive call is the last operation, so the current stack frame can be reused instead of allocating a new one",
+   "It uses more memory than a loop",
+   "It always returns void",
+   "It cannot call itself"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a tail call, nothing remains to do after the recursive call returns, so the compiler can reuse the current frame (tail-call optimization), turning O(n) stack usage into O(1) like a loop.",
+  "distractorRationales": [
+   "",
+   "TCO reduces memory use to O(1); the point is that it uses LESS, not more.",
+   "Tail-recursive functions can return values; void return is not required.",
+   "A tail-recursive function does call itself — that is what makes it recursive."
+  ],
+  "course": "programming",
+  "subtopic": "recursion-stack-behavior"
+ }
 ]

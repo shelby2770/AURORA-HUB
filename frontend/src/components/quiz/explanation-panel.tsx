@@ -5,6 +5,8 @@ import type { QuestionOut } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { MathText } from "./math-text";
 
+const LETTERS = ["A", "B", "C", "D", "E", "F"];
+
 export function ExplanationPanel({
   question,
   selectedIndex,
@@ -18,28 +20,23 @@ export function ExplanationPanel({
   return (
     <div
       data-testid="explanation"
-      className={cn(
-        "flex flex-col gap-3 rounded-xl border p-4 text-sm",
-        correct
-          ? "border-emerald-500/40 bg-emerald-500/5"
-          : "border-destructive/40 bg-destructive/5",
-      )}
+      className={cn("feedback", correct ? "ok" : "bad")}
     >
-      <div className="flex items-center gap-2 font-semibold">
+      <div className="feedback-head">
         {correct ? (
           <>
-            <CheckCircle2 className="size-4 text-emerald-500" /> Correct
+            <CheckCircle2 className="size-4" /> Correct
           </>
         ) : (
           <>
-            <XCircle className="size-4 text-destructive" />
+            <XCircle className="size-4" />
             {selectedIndex == null ? "Not answered" : "Incorrect"}
           </>
         )}
       </div>
 
       {question.explanation ? (
-        <p className="flex gap-2 leading-relaxed text-foreground/90">
+        <p className="feedback-body flex gap-2 leading-relaxed">
           <Lightbulb className="mt-0.5 size-4 shrink-0 text-amber-400" />
           <span>
             <MathText>{question.explanation}</MathText>
@@ -49,13 +46,11 @@ export function ExplanationPanel({
 
       {question.distractorRationales &&
       question.distractorRationales.length > 0 ? (
-        <ul className="flex flex-col gap-1 text-muted-foreground">
+        <ul className="feedback-rationales">
           {question.distractorRationales.map((r, i) =>
             r && i !== question.correctIndex ? (
               <li key={i} className="flex gap-2">
-                <span className="font-mono text-xs">
-                  {["A", "B", "C", "D"][i]}
-                </span>
+                <span className="font-mono text-xs">{LETTERS[i]}</span>
                 <span>
                   <MathText>{r}</MathText>
                 </span>

@@ -358,5 +358,45 @@
    "The medium-term scheduler swaps processes in/out of memory to control load, not initial admission.",
    "The dispatcher performs the actual context switch, not admission decisions."
   ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Which of the following is NOT shared among threads of the same process?",
+  "options": [
+   "The register set and stack",
+   "The code (text) segment",
+   "The heap",
+   "Open file descriptors"
+  ],
+  "correctIndex": 0,
+  "explanation": "Threads share the process's code, heap, global data, and open files, but each thread has its OWN registers, program counter, and stack so it can execute independently.",
+  "distractorRationales": [
+   "",
+   "The code/text segment is shared by all threads of a process.",
+   "The heap is shared, enabling threads to access common dynamically allocated data.",
+   "Open file descriptors are shared at the process level across threads."
+  ],
+  "course": "operating-systems",
+  "subtopic": "processes-threads"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "A context switch between two processes is generally more expensive than between two threads of the same process because it requires:",
+  "options": [
+   "Switching the address space (e.g., flushing/reloading TLB and page tables)",
+   "Saving fewer registers",
+   "No kernel involvement",
+   "Copying the entire heap"
+  ],
+  "correctIndex": 0,
+  "explanation": "Process switches change the memory address space, often invalidating the TLB and switching page tables. Threads within one process share the address space, so a thread switch avoids that costly memory-management overhead.",
+  "distractorRationales": [
+   "",
+   "Both switches save the register set; that is not the source of the extra cost.",
+   "Process context switches do involve the kernel; they are not kernel-free.",
+   "The heap is not copied during a context switch; address-space switching is the cost."
+  ],
+  "course": "operating-systems",
+  "subtopic": "processes-threads"
  }
 ]

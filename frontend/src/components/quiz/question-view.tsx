@@ -2,7 +2,7 @@
 
 import { BlockMath } from "react-katex";
 import type { QuestionOut } from "@/lib/api";
-import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { MathText } from "./math-text";
 import { CodeBlock } from "./code-block";
 import { OptionButton, computeOptionState } from "./option-button";
@@ -22,11 +22,11 @@ export function QuestionView({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <Badge variant="secondary" className="w-fit capitalize">
+      <span className={cn("diff-chip w-fit", `diff-${question.difficulty}`)}>
         {question.difficulty}
-      </Badge>
+      </span>
 
-      <h2 className="text-lg font-medium leading-relaxed">
+      <h2 className="qtext">
         <MathText>{question.questionText}</MathText>
       </h2>
 

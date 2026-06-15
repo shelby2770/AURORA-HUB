@@ -4,179 +4,399 @@
   "subtopic": "transactions-concurrency-control",
   "difficulty": "easy",
   "questionText": "The ACID property that guarantees a transaction either completes fully or has no effect at all is:",
-  "options": ["Atomicity", "Consistency", "Isolation", "Durability"],
+  "options": [
+   "Atomicity",
+   "Consistency",
+   "Isolation",
+   "Durability"
+  ],
   "correctIndex": 0,
   "explanation": "Atomicity ensures all-or-nothing execution: if any part of a transaction fails, the whole transaction is rolled back, leaving the database as if it never ran.",
-  "distractorRationales": ["", "Consistency ensures a transaction moves the database from one valid state to another, not the all-or-nothing guarantee.", "Isolation ensures concurrent transactions do not interfere, not atomic completion.", "Durability ensures committed changes survive crashes, not all-or-nothing behavior."]
+  "distractorRationales": [
+   "",
+   "Consistency ensures a transaction moves the database from one valid state to another, not the all-or-nothing guarantee.",
+   "Isolation ensures concurrent transactions do not interfere, not atomic completion.",
+   "Durability ensures committed changes survive crashes, not all-or-nothing behavior."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "easy",
   "questionText": "A schedule is called 'serial' if:",
-  "options": ["Transactions are executed one after another with no interleaving of operations", "Operations of different transactions are interleaved", "It always produces incorrect results", "It uses two-phase locking"],
+  "options": [
+   "Transactions are executed one after another with no interleaving of operations",
+   "Operations of different transactions are interleaved",
+   "It always produces incorrect results",
+   "It uses two-phase locking"
+  ],
   "correctIndex": 0,
   "explanation": "A serial schedule runs each transaction to completion before the next begins — no interleaving. Serial schedules are always correct but allow no concurrency.",
-  "distractorRationales": ["", "Interleaving operations describes a concurrent (non-serial) schedule.", "Serial schedules are by definition correct, not incorrect.", "Locking is a concurrency-control mechanism, unrelated to the definition of a serial schedule."]
+  "distractorRationales": [
+   "",
+   "Interleaving operations describes a concurrent (non-serial) schedule.",
+   "Serial schedules are by definition correct, not incorrect.",
+   "Locking is a concurrency-control mechanism, unrelated to the definition of a serial schedule."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "easy",
   "questionText": "A 'dirty read' occurs when a transaction:",
-  "options": ["Reads data written by another transaction that has not yet committed", "Reads only committed data", "Writes data twice", "Reads the same value twice and gets the same result"],
+  "options": [
+   "Reads data written by another transaction that has not yet committed",
+   "Reads only committed data",
+   "Writes data twice",
+   "Reads the same value twice and gets the same result"
+  ],
   "correctIndex": 0,
   "explanation": "A dirty read is reading uncommitted changes of another transaction. If that other transaction later aborts, the reader has used data that never officially existed.",
-  "distractorRationales": ["", "Reading only committed data is the safe behavior that avoids dirty reads.", "Writing twice (lost update / double write) is a different anomaly.", "Reading the same value twice consistently is the absence of a non-repeatable read, not a dirty read."]
+  "distractorRationales": [
+   "",
+   "Reading only committed data is the safe behavior that avoids dirty reads.",
+   "Writing twice (lost update / double write) is a different anomaly.",
+   "Reading the same value twice consistently is the absence of a non-repeatable read, not a dirty read."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "easy",
   "questionText": "Two-phase locking (2PL) consists of which two phases in order?",
-  "options": ["A growing phase (acquire locks) followed by a shrinking phase (release locks)", "A shrinking phase followed by a growing phase", "A read phase followed by a validation phase", "A logging phase followed by a commit phase"],
+  "options": [
+   "A growing phase (acquire locks) followed by a shrinking phase (release locks)",
+   "A shrinking phase followed by a growing phase",
+   "A read phase followed by a validation phase",
+   "A logging phase followed by a commit phase"
+  ],
   "correctIndex": 0,
   "explanation": "In 2PL a transaction first only acquires locks (growing phase); once it releases any lock it enters the shrinking phase and may only release, never acquire, locks. This ordering guarantees conflict-serializability.",
-  "distractorRationales": ["", "The order is growing then shrinking; reversing it would not enforce serializability.", "Read phase then validation describes optimistic concurrency control, not 2PL.", "Logging then commit describes recovery/commit processing, not the locking phases."]
+  "distractorRationales": [
+   "",
+   "The order is growing then shrinking; reversing it would not enforce serializability.",
+   "Read phase then validation describes optimistic concurrency control, not 2PL.",
+   "Logging then commit describes recovery/commit processing, not the locking phases."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "Conflict-serializability of a schedule can be tested by checking that its precedence (serialization) graph:",
-  "options": ["Has no cycle (is acyclic)", "Has at least one cycle", "Is a complete graph", "Has no edges at all"],
+  "options": [
+   "Has no cycle (is acyclic)",
+   "Has at least one cycle",
+   "Is a complete graph",
+   "Has no edges at all"
+  ],
   "correctIndex": 0,
   "explanation": "Build a precedence graph with a node per transaction and an edge Ti → Tj for each pair of conflicting operations where Ti's comes first. The schedule is conflict-serializable iff this graph is acyclic.",
-  "distractorRationales": ["", "A cycle means the schedule is NOT conflict-serializable.", "Being a complete graph is irrelevant; what matters is the absence of cycles.", "A graph can have edges (conflicts) and still be serializable as long as it is acyclic."]
+  "distractorRationales": [
+   "",
+   "A cycle means the schedule is NOT conflict-serializable.",
+   "Being a complete graph is irrelevant; what matters is the absence of cycles.",
+   "A graph can have edges (conflicts) and still be serializable as long as it is acyclic."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "Strict two-phase locking (Strict 2PL) additionally requires that:",
-  "options": ["All exclusive (write) locks are held until the transaction commits or aborts", "Locks may be released as soon as the last operation on an item finishes", "Only shared locks are used", "Locks are never acquired"],
+  "options": [
+   "All exclusive (write) locks are held until the transaction commits or aborts",
+   "Locks may be released as soon as the last operation on an item finishes",
+   "Only shared locks are used",
+   "Locks are never acquired"
+  ],
   "correctIndex": 0,
   "explanation": "Strict 2PL keeps all write locks (often all exclusive locks) until commit/abort, which prevents other transactions from reading uncommitted data — guaranteeing cascadeless, recoverable schedules in addition to serializability.",
-  "distractorRationales": ["", "Releasing locks early (before commit) is basic 2PL, not strict 2PL; it can allow cascading aborts.", "Strict 2PL uses both shared and exclusive locks, not shared only.", "It certainly acquires locks; the 'strict' part is about holding them until commit."]
+  "distractorRationales": [
+   "",
+   "Releasing locks early (before commit) is basic 2PL, not strict 2PL; it can allow cascading aborts.",
+   "Strict 2PL uses both shared and exclusive locks, not shared only.",
+   "It certainly acquires locks; the 'strict' part is about holding them until commit."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "A schedule is 'recoverable' if:",
-  "options": ["A transaction commits only after all transactions whose changes it read have committed", "It produces the same result as some serial schedule", "It uses timestamp ordering", "Every transaction reads only its own writes"],
+  "options": [
+   "A transaction commits only after all transactions whose changes it read have committed",
+   "It produces the same result as some serial schedule",
+   "It uses timestamp ordering",
+   "Every transaction reads only its own writes"
+  ],
   "correctIndex": 0,
   "explanation": "Recoverability requires that if Tj reads a value written by Ti, then Tj must not commit before Ti commits. Otherwise, if Ti later aborts, a committed Tj would have read invalid data, which cannot be undone.",
-  "distractorRationales": ["", "Producing a result equivalent to a serial schedule is serializability, a different property.", "Timestamp ordering is a concurrency-control protocol, not the definition of recoverability.", "Reading only one's own writes is unrelated to the recoverability condition between transactions."]
+  "distractorRationales": [
+   "",
+   "Producing a result equivalent to a serial schedule is serializability, a different property.",
+   "Timestamp ordering is a concurrency-control protocol, not the definition of recoverability.",
+   "Reading only one's own writes is unrelated to the recoverability condition between transactions."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "Which anomaly does the isolation level READ COMMITTED prevent, while still possibly allowing non-repeatable reads?",
-  "options": ["Dirty reads", "Lost updates only", "Phantom reads only", "All anomalies"],
+  "options": [
+   "Dirty reads",
+   "Lost updates only",
+   "Phantom reads only",
+   "All anomalies"
+  ],
   "correctIndex": 0,
   "explanation": "READ COMMITTED guarantees a transaction never reads uncommitted data (no dirty reads), but it may still see different values on re-reading the same row (non-repeatable reads) and phantoms.",
-  "distractorRationales": ["", "READ COMMITTED's defining guarantee is preventing dirty reads, not specifically lost updates.", "Phantom reads are prevented by SERIALIZABLE, not READ COMMITTED.", "READ COMMITTED does not prevent all anomalies; non-repeatable and phantom reads remain possible."]
+  "distractorRationales": [
+   "",
+   "READ COMMITTED's defining guarantee is preventing dirty reads, not specifically lost updates.",
+   "Phantom reads are prevented by SERIALIZABLE, not READ COMMITTED.",
+   "READ COMMITTED does not prevent all anomalies; non-repeatable and phantom reads remain possible."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "In timestamp-ordering concurrency control, a read by transaction T on item X is rejected (T aborted) when:",
-  "options": ["The write-timestamp of X is greater than TS(T) — a younger transaction already wrote X", "The read-timestamp of X equals TS(T)", "X has never been written", "TS(T) is the smallest timestamp"],
+  "options": [
+   "The write-timestamp of X is greater than TS(T) — a younger transaction already wrote X",
+   "The read-timestamp of X equals TS(T)",
+   "X has never been written",
+   "TS(T) is the smallest timestamp"
+  ],
   "correctIndex": 0,
   "explanation": "Under basic timestamp ordering, T's read of X is allowed only if no younger transaction has already written X. If W-timestamp(X) > TS(T), T is trying to read a value overwritten by a later transaction, so T is rolled back.",
-  "distractorRationales": ["", "Equality of the read-timestamp with TS(T) does not by itself force an abort.", "An item never written can still be read (it returns the initial value); that is not a rejection condition.", "Being the oldest transaction does not cause a read to be rejected; younger writers do."]
+  "distractorRationales": [
+   "",
+   "Equality of the read-timestamp with TS(T) does not by itself force an abort.",
+   "An item never written can still be read (it returns the initial value); that is not a rejection condition.",
+   "Being the oldest transaction does not cause a read to be rejected; younger writers do."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "The 'lost update' problem occurs when:",
-  "options": ["Two transactions read the same item and both update it, so one update overwrites and discards the other", "A transaction reads uncommitted data", "A transaction is rolled back", "An index becomes corrupted"],
+  "options": [
+   "Two transactions read the same item and both update it, so one update overwrites and discards the other",
+   "A transaction reads uncommitted data",
+   "A transaction is rolled back",
+   "An index becomes corrupted"
+  ],
   "correctIndex": 0,
   "explanation": "In a lost update, T1 and T2 both read X, then both write back based on the old value; the second write overwrites the first, and T1's update is lost. Proper locking or higher isolation prevents this.",
-  "distractorRationales": ["", "Reading uncommitted data is a dirty read, a different anomaly.", "A rollback is a normal recovery action, not the lost-update anomaly.", "Index corruption is a storage-level failure, unrelated to the concurrency lost-update problem."]
+  "distractorRationales": [
+   "",
+   "Reading uncommitted data is a dirty read, a different anomaly.",
+   "A rollback is a normal recovery action, not the lost-update anomaly.",
+   "Index corruption is a storage-level failure, unrelated to the concurrency lost-update problem."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "hard",
   "questionText": "Consider schedule S: R1(X) R2(X) W1(X) W2(X). Is S conflict-serializable?",
-  "options": ["No — the precedence graph has a cycle T1 ↔ T2", "Yes, equivalent to T1 then T2", "Yes, equivalent to T2 then T1", "Yes, it is serial"],
+  "options": [
+   "No — the precedence graph has a cycle T1 ↔ T2",
+   "Yes, equivalent to T1 then T2",
+   "Yes, equivalent to T2 then T1",
+   "Yes, it is serial"
+  ],
   "correctIndex": 0,
   "explanation": "R1(X) before W2(X) gives edge T1→T2 (read-write conflict). R2(X) before W1(X) gives edge T2→T1 (read-write conflict). The two edges form a cycle T1↔T2, so S is NOT conflict-serializable.",
-  "distractorRationales": ["", "Equivalence to T1→T2 is impossible because there is also an edge T2→T1.", "Equivalence to T2→T1 is impossible because there is also an edge T1→T2.", "S interleaves operations, so it is not serial, and it is not even serializable."]
+  "distractorRationales": [
+   "",
+   "Equivalence to T1→T2 is impossible because there is also an edge T2→T1.",
+   "Equivalence to T2→T1 is impossible because there is also an edge T1→T2.",
+   "S interleaves operations, so it is not serial, and it is not even serializable."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "hard",
   "questionText": "A 'cascadeless' schedule is one in which:",
-  "options": ["A transaction reads a value only after the transaction that wrote it has committed", "Aborting one transaction forces aborting others", "Transactions never abort", "All transactions run serially"],
+  "options": [
+   "A transaction reads a value only after the transaction that wrote it has committed",
+   "Aborting one transaction forces aborting others",
+   "Transactions never abort",
+   "All transactions run serially"
+  ],
   "correctIndex": 0,
   "explanation": "Cascadeless (avoiding cascading aborts) means every read is of a committed value. This ensures that aborting one transaction never forces other transactions to abort, since no one read its uncommitted data.",
-  "distractorRationales": ["", "Forcing other aborts is cascading rollback — exactly what cascadeless schedules prevent.", "Transactions can still abort; the point is that their aborts don't cascade.", "Serial execution is sufficient but not the definition; cascadelessness is about reading only committed values."]
+  "distractorRationales": [
+   "",
+   "Forcing other aborts is cascading rollback — exactly what cascadeless schedules prevent.",
+   "Transactions can still abort; the point is that their aborts don't cascade.",
+   "Serial execution is sufficient but not the definition; cascadelessness is about reading only committed values."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "hard",
   "questionText": "Deadlock prevention using the 'wait-die' scheme (with older = smaller timestamp) works as follows: when Ti requests a lock held by Tj,",
-  "options": ["Ti waits if Ti is older than Tj; otherwise Ti is rolled back (dies)", "Ti always waits", "Tj is always rolled back", "Ti is rolled back if it is older than Tj"],
+  "options": [
+   "Ti waits if Ti is older than Tj; otherwise Ti is rolled back (dies)",
+   "Ti always waits",
+   "Tj is always rolled back",
+   "Ti is rolled back if it is older than Tj"
+  ],
   "correctIndex": 0,
   "explanation": "Wait-die is non-preemptive: an older (smaller timestamp) requesting transaction is allowed to wait for a younger one; a younger requester that wants a resource held by an older transaction is aborted (dies) and restarts later with the same timestamp.",
-  "distractorRationales": ["", "Always waiting could create deadlock; wait-die only lets older transactions wait.", "Wait-die never rolls back the holder Tj; it rolls back the younger requester.", "It is the YOUNGER requester (larger timestamp) that dies, not the older one."]
+  "distractorRationales": [
+   "",
+   "Always waiting could create deadlock; wait-die only lets older transactions wait.",
+   "Wait-die never rolls back the holder Tj; it rolls back the younger requester.",
+   "It is the YOUNGER requester (larger timestamp) that dies, not the older one."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "hard",
   "questionText": "In the wound-wait deadlock-prevention scheme, when an older transaction Ti requests a lock held by a younger Tj:",
-  "options": ["Ti 'wounds' (rolls back) Tj and takes the lock; a younger requester would instead wait", "Ti waits for Tj", "Ti is rolled back", "Both are rolled back"],
+  "options": [
+   "Ti 'wounds' (rolls back) Tj and takes the lock; a younger requester would instead wait",
+   "Ti waits for Tj",
+   "Ti is rolled back",
+   "Both are rolled back"
+  ],
   "correctIndex": 0,
   "explanation": "Wound-wait is preemptive: an older transaction requesting a resource held by a younger one preempts (wounds/aborts) the younger transaction. A younger transaction requesting a resource held by an older one simply waits.",
-  "distractorRationales": ["", "In wound-wait the older transaction does not wait; it preempts the younger holder.", "The older requester is not rolled back; it is the privileged one that wounds the younger.", "Only the younger transaction is rolled back, not both."]
+  "distractorRationales": [
+   "",
+   "In wound-wait the older transaction does not wait; it preempts the younger holder.",
+   "The older requester is not rolled back; it is the privileged one that wounds the younger.",
+   "Only the younger transaction is rolled back, not both."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "hard",
   "questionText": "Which statement about view-serializability versus conflict-serializability is TRUE?",
-  "options": ["Every conflict-serializable schedule is view-serializable, but not vice versa", "Every view-serializable schedule is conflict-serializable", "They are exactly equivalent", "Neither implies the other"],
+  "options": [
+   "Every conflict-serializable schedule is view-serializable, but not vice versa",
+   "Every view-serializable schedule is conflict-serializable",
+   "They are exactly equivalent",
+   "Neither implies the other"
+  ],
   "correctIndex": 0,
   "explanation": "Conflict-serializability is a stricter (sufficient) condition: every conflict-serializable schedule is view-serializable, but some view-serializable schedules (those involving blind writes) are not conflict-serializable. View-serializability is the larger class.",
-  "distractorRationales": ["", "The implication goes the other way; view-serializable does not imply conflict-serializable.", "They are not equivalent — view-serializability is strictly broader.", "Conflict-serializability does imply view-serializability, so it is not 'neither'."]
+  "distractorRationales": [
+   "",
+   "The implication goes the other way; view-serializable does not imply conflict-serializable.",
+   "They are not equivalent — view-serializability is strictly broader.",
+   "Conflict-serializability does imply view-serializability, so it is not 'neither'."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "Optimistic concurrency control (validation-based) is most appropriate when:",
-  "options": ["Conflicts between transactions are rare, so checking at commit time is cheaper than locking throughout", "Conflicts are extremely frequent", "Transactions are very long and conflict-heavy", "Locking is impossible to implement"],
+  "options": [
+   "Conflicts between transactions are rare, so checking at commit time is cheaper than locking throughout",
+   "Conflicts are extremely frequent",
+   "Transactions are very long and conflict-heavy",
+   "Locking is impossible to implement"
+  ],
   "correctIndex": 0,
   "explanation": "Optimistic concurrency control assumes conflicts are infrequent: transactions execute on local copies and validate at commit. This avoids locking overhead when contention is low, but causes many costly aborts under heavy conflict.",
-  "distractorRationales": ["", "Frequent conflicts cause many validation failures and rollbacks, making OCC perform poorly.", "Long, conflict-heavy transactions are the worst case for OCC due to repeated aborts.", "OCC is a design choice, not a fallback for when locking is impossible."]
+  "distractorRationales": [
+   "",
+   "Frequent conflicts cause many validation failures and rollbacks, making OCC perform poorly.",
+   "Long, conflict-heavy transactions are the worst case for OCC due to repeated aborts.",
+   "OCC is a design choice, not a fallback for when locking is impossible."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "medium",
   "questionText": "A phantom read occurs when:",
-  "options": ["A transaction re-runs a range query and sees new rows inserted by another committed transaction", "A transaction reads its own uncommitted write", "A transaction reads the same single row twice with the same value", "A transaction never reads any data"],
+  "options": [
+   "A transaction re-runs a range query and sees new rows inserted by another committed transaction",
+   "A transaction reads its own uncommitted write",
+   "A transaction reads the same single row twice with the same value",
+   "A transaction never reads any data"
+  ],
   "correctIndex": 0,
   "explanation": "A phantom appears when a transaction executes a predicate-based (range) query twice and a concurrent transaction inserts/deletes rows matching that predicate, so the second read returns a different set of rows. Preventing phantoms requires SERIALIZABLE isolation (e.g., predicate/index-range locking).",
-  "distractorRationales": ["", "Reading one's own write is normal intra-transaction behavior, not a phantom.", "Getting the same value for the same row twice is the absence of a non-repeatable read, not a phantom.", "Reading no data is unrelated to the phantom phenomenon."]
+  "distractorRationales": [
+   "",
+   "Reading one's own write is normal intra-transaction behavior, not a phantom.",
+   "Getting the same value for the same row twice is the absence of a non-repeatable read, not a phantom.",
+   "Reading no data is unrelated to the phantom phenomenon."
+  ]
  },
  {
   "course": "dbms",
   "subtopic": "transactions-concurrency-control",
   "difficulty": "hard",
   "questionText": "Consider schedule S: R1(A) W1(A) R2(A) W2(A) R1(B) W1(B) R2(B) W2(B). Is S conflict-serializable, and to which serial order?",
-  "options": ["Yes — equivalent to the serial order T1 then T2", "Yes — equivalent to T2 then T1", "No — it has a cycle", "It is already serial"],
+  "options": [
+   "Yes — equivalent to the serial order T1 then T2",
+   "Yes — equivalent to T2 then T1",
+   "No — it has a cycle",
+   "It is already serial"
+  ],
   "correctIndex": 0,
   "explanation": "All of T1's conflicting operations on A and B precede T2's, giving only edges T1→T2 (e.g., W1(A) before R2(A), W1(B) before R2(B)). The precedence graph is acyclic, so S is conflict-serializable and equivalent to T1 followed by T2.",
-  "distractorRationales": ["", "There is no edge T2→T1, so the equivalent serial order is not T2 then T1.", "The precedence graph has only T1→T2 edges and thus no cycle.", "Although ordered cleanly, the operations on A and B interleave between T1 and T2, so S is not literally serial — it is serializable."]
+  "distractorRationales": [
+   "",
+   "There is no edge T2→T1, so the equivalent serial order is not T2 then T1.",
+   "The precedence graph has only T1→T2 edges and thus no cycle.",
+   "Although ordered cleanly, the operations on A and B interleave between T1 and T2, so S is not literally serial — it is serializable."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "The ACID property of Durability guarantees that:",
+  "options": [
+   "Once a transaction commits, its changes survive subsequent system failures",
+   "Transactions execute in isolation",
+   "A transaction is all-or-nothing",
+   "The database stays in a consistent state"
+  ],
+  "correctIndex": 0,
+  "explanation": "Durability ensures committed changes persist even after crashes, typically via write-ahead logging and recovery. The other ACID letters cover isolation, atomicity, and consistency.",
+  "distractorRationales": [
+   "",
+   "Isolation (not durability) concerns concurrent execution non-interference.",
+   "All-or-nothing is atomicity, not durability.",
+   "Maintaining valid states is consistency, not durability."
+  ],
+  "course": "dbms",
+  "subtopic": "transactions-concurrency-control"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In a wait-for graph used for deadlock detection, a deadlock exists if and only if the graph:",
+  "options": [
+   "Contains a cycle",
+   "Is acyclic",
+   "Has more edges than nodes",
+   "Is a complete graph"
+  ],
+  "correctIndex": 0,
+  "explanation": "A wait-for graph has an edge Ti → Tj when Ti waits for a lock held by Tj. A cycle means a set of transactions are mutually waiting — a deadlock. Detection algorithms search for such cycles.",
+  "distractorRationales": [
+   "",
+   "An acyclic wait-for graph means no deadlock.",
+   "Edge count alone does not indicate a deadlock; a cycle does.",
+   "Completeness is irrelevant; a single cycle suffices for deadlock."
+  ],
+  "course": "dbms",
+  "subtopic": "transactions-concurrency-control"
  }
 ]

@@ -1,182 +1,402 @@
 [
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "The FLP impossibility result states that in an asynchronous system, consensus cannot be guaranteed if there is even one faulty process. Which type of fault does it assume?",
-    "options": ["A single crash (fail-stop) fault", "Byzantine (arbitrary) faults only", "Network partition with no recovery", "Malicious collusion among a majority"],
-    "correctIndex": 0,
-    "explanation": "The Fischer–Lynch–Paterson result is striking precisely because it assumes only one benign crash fault and a purely asynchronous network with no timing bounds. Even under this weakest fault model, no deterministic algorithm can guarantee both safety and termination.",
-    "distractorRationales": ["", "FLP needs only a single crash fault, not the much stronger Byzantine model.", "It concerns asynchrony and a crash, not specifically an unrecoverable partition.", "No majority collusion is needed; one crash suffices for the impossibility."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "hard",
-    "questionText": "A Byzantine fault-tolerant consensus protocol (e.g., PBFT) can tolerate f Byzantine faulty nodes only if the total number of nodes n satisfies:",
-    "options": ["n ≥ 3f + 1", "n ≥ 2f + 1", "n ≥ f + 1", "n ≥ f^2"],
-    "correctIndex": 0,
-    "explanation": "Byzantine agreement requires n ≥ 3f + 1: with up to f arbitrary (lying) nodes, you need 2f + 1 honest nodes to outvote both the f faulty ones and tolerate f silent ones, hence 3f + 1 total. Crash-only protocols need just 2f + 1.",
-    "distractorRationales": ["", "2f + 1 is the bound for crash faults, insufficient against arbitrary/lying nodes.", "f + 1 only ensures one honest node survives — far too weak for Byzantine agreement.", "There is no quadratic requirement; the bound is linear in f."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "In the Paxos algorithm, the role responsible for proposing values and driving a round to agreement is the:",
-    "options": ["Proposer", "Acceptor", "Learner", "Observer"],
-    "correctIndex": 0,
-    "explanation": "Paxos defines proposers (suggest values and run the two-phase prepare/accept protocol), acceptors (vote on proposals and form the quorum), and learners (discover the chosen value). The proposer drives a round toward agreement.",
-    "distractorRationales": ["", "Acceptors vote on proposals but do not initiate them.", "Learners only find out the chosen value; they do not propose.", "'Observer' is not a standard Paxos role."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "hard",
-    "questionText": "In Paxos, a proposer must complete Phase 1 (Prepare) with a majority of acceptors before Phase 2. If some acceptor in that majority has already accepted a value v with a lower proposal number, the proposer must:",
-    "options": ["Propose v (the highest-numbered already-accepted value) in Phase 2", "Propose its own original value regardless", "Abort and never retry", "Choose a random value"],
-    "correctIndex": 0,
-    "explanation": "Paxos safety hinges on this rule: if any acceptor in the prepare-quorum reports a previously accepted value, the proposer must adopt the value with the highest accepted proposal number. This prevents two different values from ever being chosen.",
-    "distractorRationales": ["", "Ignoring an already-accepted value could lead two proposers to chose conflicting values, breaking safety.", "Aborting forever loses liveness; the proposer should retry with a higher number.", "Choosing randomly would violate the agreement property entirely."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "easy",
-    "questionText": "The three safety/liveness properties that define the consensus problem are agreement, validity, and termination. 'Agreement' means:",
-    "options": ["All correct processes decide on the same value", "Every process eventually decides", "The decided value was proposed by some process", "Processes decide in timestamp order"],
-    "correctIndex": 0,
-    "explanation": "Agreement requires that no two correct processes decide differently. Validity requires the decided value to be one that was actually proposed, and termination requires that every correct process eventually decides.",
-    "distractorRationales": ["", "That is termination, a separate property.", "That is validity, not agreement.", "Consensus does not require decisions in timestamp order."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "Raft simplifies consensus relative to Paxos primarily by:",
-    "options": ["Electing a single strong leader that fully manages the replicated log", "Eliminating the need for any quorum", "Tolerating Byzantine faults natively", "Avoiding the use of terms or elections"],
-    "correctIndex": 0,
-    "explanation": "Raft decomposes consensus into leader election, log replication, and safety, with a single elected leader handling all client requests and log management. This leader-centric design makes Raft easier to understand than multi-proposer Paxos, while still using majority quorums.",
-    "distractorRationales": ["", "Raft still relies on majority quorums for elections and commits.", "Raft handles crash faults, not Byzantine faults.", "Raft is built around terms and leader elections — central to its design."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "hard",
-    "questionText": "In Raft, a log entry is considered committed once it is:",
-    "options": ["Replicated on a majority of servers (and from the leader's current term)", "Written to the leader's local log only", "Acknowledged by any single follower", "Replicated on all servers without exception"],
-    "correctIndex": 0,
-    "explanation": "Raft commits an entry when the leader has replicated it on a majority of servers; the leader additionally only counts entries from its current term toward commitment. Requiring a majority ensures durability across a minority of crashes, without needing every server.",
-    "distractorRationales": ["", "A leader-only write is not durable; a crash before replication would lose it.", "A single follower's ack does not form a majority and is not enough to commit.", "Requiring all servers would block on any single failure, defeating fault tolerance."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "In primary-backup (passive) replication, client write requests are handled by:",
-    "options": ["The primary, which then propagates updates to the backups", "Any replica, with conflicts resolved later", "All replicas independently in parallel", "A randomly chosen backup each time"],
-    "correctIndex": 0,
-    "explanation": "In passive (primary-backup) replication, all updates go to a single primary that applies them and forwards state/updates to the backups. This gives a simple consistent order at the cost of the primary being a bottleneck and requiring failover on primary crash.",
-    "distractorRationales": ["", "Allowing writes at any replica with later conflict resolution describes optimistic/multi-master replication, not primary-backup.", "Independent parallel application at all replicas is active replication, a different model.", "Backups do not serve writes directly; they receive updates from the primary."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "In active replication (state-machine replication), all replicas process the same client requests. For replicas to stay consistent, the requests must be:",
-    "options": ["Delivered to every replica in the same total order, and operations deterministic", "Delivered to only a majority of replicas", "Processed in random order for load balancing", "Batched and applied days apart"],
-    "correctIndex": 0,
-    "explanation": "State-machine replication requires deterministic state machines fed an identical, totally-ordered sequence of commands; given the same start state and same ordered inputs, every replica reaches the same state. Total order broadcast is the enabling primitive.",
-    "distractorRationales": ["", "All replicas (not just a majority) must apply the commands to stay identical in active replication.", "Random order would make replicas diverge, violating consistency.", "Large delays do not help; the requirement is identical ordering, not timing."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "easy",
-    "questionText": "A quorum system uses read quorum R and write quorum W over N replicas. To guarantee a read always sees the latest write, the configuration must satisfy:",
-    "options": ["W + R > N", "W + R < N", "W = R", "W + R = 1"],
-    "correctIndex": 0,
-    "explanation": "If W + R > N, every read quorum overlaps every write quorum in at least one replica, so a read is guaranteed to include a replica holding the most recent write. Additionally W > N/2 prevents two concurrent writes from both succeeding.",
-    "distractorRationales": ["", "W + R < N leaves a gap with no overlap, so a read can miss the latest write.", "Equal R and W does not by itself guarantee overlap unless their sum exceeds N.", "A sum of 1 cannot overlap across N replicas."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "hard",
-    "questionText": "With N = 5 replicas, which (W, R) quorum pair both guarantees read-your-writes overlap AND tolerates the failure of 2 replicas for reads?",
-    "options": ["W = 4, R = 3", "W = 2, R = 2", "W = 3, R = 2", "W = 5, R = 1"],
-    "correctIndex": 0,
-    "explanation": "Overlap needs W + R > 5. With W = 4, R = 3 we get 7 > 5 (overlap holds), and R = 3 means a read can still complete with 2 replicas down (3 of 5 available). W = 3, R = 2 gives only 5, which is not > 5. W = 5 cannot tolerate any write-side failure.",
-    "distractorRationales": ["", "W = 2, R = 2 sums to 4 < 5, so read and write quorums need not overlap.", "W = 3, R = 2 sums to exactly 5, which is not strictly greater than N, so overlap is not guaranteed.", "W = 5 requires all replicas for a write, tolerating zero write-side failures."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "Two-phase commit (2PC) is a consensus-like protocol for atomic commitment. Its well-known limitation is that it is a:",
-    "options": ["Blocking protocol: a coordinator crash can leave participants stuck", "Non-deterministic protocol that may commit different values", "Protocol that tolerates Byzantine participants", "Protocol requiring no coordinator"],
-    "correctIndex": 0,
-    "explanation": "2PC blocks: if the coordinator crashes after participants vote YES but before delivering the decision, participants holding locks cannot safely commit or abort and must wait. Three-phase commit (3PC) addresses this under stronger timing assumptions.",
-    "distractorRationales": ["", "2PC is deterministic; all participants reach the same commit/abort decision.", "2PC assumes crash faults, not Byzantine behavior.", "2PC explicitly relies on a coordinator to drive the two phases."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "easy",
-    "questionText": "Why is replication used in distributed systems?",
-    "options": ["To increase availability and fault tolerance (and often read performance)", "To reduce total storage usage", "To eliminate the need for consensus", "To guarantee linearizability for free"],
-    "correctIndex": 0,
-    "explanation": "Maintaining multiple copies of data lets the system survive replica failures and serve reads from nearby copies, improving availability, fault tolerance, and read latency/throughput. The cost is the difficulty of keeping replicas consistent.",
-    "distractorRationales": ["", "Replication increases storage use; it does not reduce it.", "Keeping replicas consistent on updates often requires consensus, not removes it.", "Strong consistency like linearizability requires careful protocols; replication alone does not provide it."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "hard",
-    "questionText": "In Raft, why does a candidate require votes from a majority of the cluster to become leader, rather than just a plurality?",
-    "options": ["Majority quorums of any two leaders overlap, preventing two leaders in the same term", "It reduces the number of messages needed", "It allows Byzantine fault tolerance", "It guarantees the fastest server always wins"],
-    "correctIndex": 0,
-    "explanation": "Because any two majorities of a set must intersect, at most one candidate can collect a majority of votes in a given term. This overlap is what prevents 'split brain' (two simultaneous leaders) and underlies Raft's election safety.",
-    "distractorRationales": ["", "Majorities increase message requirements relative to a plurality; efficiency is not the reason.", "Raft is not Byzantine fault tolerant regardless of quorum choice.", "Election outcome depends on votes and log up-to-dateness, not raw speed."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "The 'split brain' problem in replicated systems refers to:",
-    "options": ["A network partition causing two sides to each elect a leader and diverge", "A single node running out of memory", "Replicas applying updates in the same order", "A coordinator broadcasting to all replicas"],
-    "correctIndex": 0,
-    "explanation": "Split brain occurs when a partition lets two subsets of nodes each believe they are the authoritative group, electing separate leaders and accepting conflicting writes. Majority-quorum requirements prevent it by ensuring only the majority side can make progress.",
-    "distractorRationales": ["", "Running out of memory is a local resource issue, unrelated to split brain.", "Identical ordering is the goal of replication, the opposite of split brain.", "Normal coordinator broadcast is healthy operation, not split brain."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "medium",
-    "questionText": "In Paxos, the use of monotonically increasing, globally-unique proposal numbers serves to:",
-    "options": ["Let acceptors reject stale/older proposals and order competing proposers", "Encrypt the proposed values", "Count the number of learners", "Synchronize physical clocks"],
-    "correctIndex": 0,
-    "explanation": "Proposal numbers totally order proposals across proposers; acceptors promise not to accept anything numbered lower than the highest prepare they have seen, which lets newer proposals supersede stale ones and is essential to Paxos's safety argument.",
-    "distractorRationales": ["", "Proposal numbers provide ordering, not encryption.", "They do not count learners; they sequence proposals.", "They are logical ordering tokens, not physical clock synchronization."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "easy",
-    "questionText": "Which statement about the relationship between consensus and total-order (atomic) broadcast is correct?",
-    "options": ["They are equivalent: each can be used to implement the other", "Consensus is strictly easier and never needs broadcast", "Atomic broadcast requires no agreement among processes", "Consensus is solvable in asynchronous systems but atomic broadcast is not"],
-    "correctIndex": 0,
-    "explanation": "It is a classical result that consensus and atomic (total order) broadcast are equivalent problems: a solution to one yields a solution to the other. Both are subject to the FLP impossibility in pure asynchrony.",
-    "distractorRationales": ["", "They are equivalent in difficulty; neither is strictly easier.", "Atomic broadcast requires processes to agree on a delivery order — that is agreement.", "Both face the same FLP impossibility in asynchronous systems."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "consensus-replication",
-    "difficulty": "hard",
-    "questionText": "A practical way real systems 'circumvent' the FLP impossibility to achieve consensus is by:",
-    "options": ["Adding partial synchrony / timeouts (failure detectors) or randomization", "Assuming there are never any faults", "Using larger integers for timestamps", "Forbidding processes from communicating"],
-    "correctIndex": 0,
-    "explanation": "FLP rules out a deterministic, always-terminating algorithm in a fully asynchronous model. Real protocols (Paxos, Raft) assume partial synchrony — eventually-bounded message delays detected via timeouts — to ensure liveness, while keeping safety always. Randomized algorithms are another route.",
-    "distractorRationales": ["", "Assuming zero faults dodges the problem rather than solving consensus under faults.", "Timestamp width is irrelevant to the impossibility.", "Forbidding communication makes consensus impossible, not easier."]
-  }
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "The FLP impossibility result states that in an asynchronous system, consensus cannot be guaranteed if there is even one faulty process. Which type of fault does it assume?",
+  "options": [
+   "A single crash (fail-stop) fault",
+   "Byzantine (arbitrary) faults only",
+   "Network partition with no recovery",
+   "Malicious collusion among a majority"
+  ],
+  "correctIndex": 0,
+  "explanation": "The Fischer–Lynch–Paterson result is striking precisely because it assumes only one benign crash fault and a purely asynchronous network with no timing bounds. Even under this weakest fault model, no deterministic algorithm can guarantee both safety and termination.",
+  "distractorRationales": [
+   "",
+   "FLP needs only a single crash fault, not the much stronger Byzantine model.",
+   "It concerns asynchrony and a crash, not specifically an unrecoverable partition.",
+   "No majority collusion is needed; one crash suffices for the impossibility."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "hard",
+  "questionText": "A Byzantine fault-tolerant consensus protocol (e.g., PBFT) can tolerate f Byzantine faulty nodes only if the total number of nodes n satisfies:",
+  "options": [
+   "n ≥ 3f + 1",
+   "n ≥ 2f + 1",
+   "n ≥ f + 1",
+   "n ≥ f^2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Byzantine agreement requires n ≥ 3f + 1: with up to f arbitrary (lying) nodes, you need 2f + 1 honest nodes to outvote both the f faulty ones and tolerate f silent ones, hence 3f + 1 total. Crash-only protocols need just 2f + 1.",
+  "distractorRationales": [
+   "",
+   "2f + 1 is the bound for crash faults, insufficient against arbitrary/lying nodes.",
+   "f + 1 only ensures one honest node survives — far too weak for Byzantine agreement.",
+   "There is no quadratic requirement; the bound is linear in f."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "In the Paxos algorithm, the role responsible for proposing values and driving a round to agreement is the:",
+  "options": [
+   "Proposer",
+   "Acceptor",
+   "Learner",
+   "Observer"
+  ],
+  "correctIndex": 0,
+  "explanation": "Paxos defines proposers (suggest values and run the two-phase prepare/accept protocol), acceptors (vote on proposals and form the quorum), and learners (discover the chosen value). The proposer drives a round toward agreement.",
+  "distractorRationales": [
+   "",
+   "Acceptors vote on proposals but do not initiate them.",
+   "Learners only find out the chosen value; they do not propose.",
+   "'Observer' is not a standard Paxos role."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "hard",
+  "questionText": "In Paxos, a proposer must complete Phase 1 (Prepare) with a majority of acceptors before Phase 2. If some acceptor in that majority has already accepted a value v with a lower proposal number, the proposer must:",
+  "options": [
+   "Propose v (the highest-numbered already-accepted value) in Phase 2",
+   "Propose its own original value regardless",
+   "Abort and never retry",
+   "Choose a random value"
+  ],
+  "correctIndex": 0,
+  "explanation": "Paxos safety hinges on this rule: if any acceptor in the prepare-quorum reports a previously accepted value, the proposer must adopt the value with the highest accepted proposal number. This prevents two different values from ever being chosen.",
+  "distractorRationales": [
+   "",
+   "Ignoring an already-accepted value could lead two proposers to chose conflicting values, breaking safety.",
+   "Aborting forever loses liveness; the proposer should retry with a higher number.",
+   "Choosing randomly would violate the agreement property entirely."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "easy",
+  "questionText": "The three safety/liveness properties that define the consensus problem are agreement, validity, and termination. 'Agreement' means:",
+  "options": [
+   "All correct processes decide on the same value",
+   "Every process eventually decides",
+   "The decided value was proposed by some process",
+   "Processes decide in timestamp order"
+  ],
+  "correctIndex": 0,
+  "explanation": "Agreement requires that no two correct processes decide differently. Validity requires the decided value to be one that was actually proposed, and termination requires that every correct process eventually decides.",
+  "distractorRationales": [
+   "",
+   "That is termination, a separate property.",
+   "That is validity, not agreement.",
+   "Consensus does not require decisions in timestamp order."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "Raft simplifies consensus relative to Paxos primarily by:",
+  "options": [
+   "Electing a single strong leader that fully manages the replicated log",
+   "Eliminating the need for any quorum",
+   "Tolerating Byzantine faults natively",
+   "Avoiding the use of terms or elections"
+  ],
+  "correctIndex": 0,
+  "explanation": "Raft decomposes consensus into leader election, log replication, and safety, with a single elected leader handling all client requests and log management. This leader-centric design makes Raft easier to understand than multi-proposer Paxos, while still using majority quorums.",
+  "distractorRationales": [
+   "",
+   "Raft still relies on majority quorums for elections and commits.",
+   "Raft handles crash faults, not Byzantine faults.",
+   "Raft is built around terms and leader elections — central to its design."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "hard",
+  "questionText": "In Raft, a log entry is considered committed once it is:",
+  "options": [
+   "Replicated on a majority of servers (and from the leader's current term)",
+   "Written to the leader's local log only",
+   "Acknowledged by any single follower",
+   "Replicated on all servers without exception"
+  ],
+  "correctIndex": 0,
+  "explanation": "Raft commits an entry when the leader has replicated it on a majority of servers; the leader additionally only counts entries from its current term toward commitment. Requiring a majority ensures durability across a minority of crashes, without needing every server.",
+  "distractorRationales": [
+   "",
+   "A leader-only write is not durable; a crash before replication would lose it.",
+   "A single follower's ack does not form a majority and is not enough to commit.",
+   "Requiring all servers would block on any single failure, defeating fault tolerance."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "In primary-backup (passive) replication, client write requests are handled by:",
+  "options": [
+   "The primary, which then propagates updates to the backups",
+   "Any replica, with conflicts resolved later",
+   "All replicas independently in parallel",
+   "A randomly chosen backup each time"
+  ],
+  "correctIndex": 0,
+  "explanation": "In passive (primary-backup) replication, all updates go to a single primary that applies them and forwards state/updates to the backups. This gives a simple consistent order at the cost of the primary being a bottleneck and requiring failover on primary crash.",
+  "distractorRationales": [
+   "",
+   "Allowing writes at any replica with later conflict resolution describes optimistic/multi-master replication, not primary-backup.",
+   "Independent parallel application at all replicas is active replication, a different model.",
+   "Backups do not serve writes directly; they receive updates from the primary."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "In active replication (state-machine replication), all replicas process the same client requests. For replicas to stay consistent, the requests must be:",
+  "options": [
+   "Delivered to every replica in the same total order, and operations deterministic",
+   "Delivered to only a majority of replicas",
+   "Processed in random order for load balancing",
+   "Batched and applied days apart"
+  ],
+  "correctIndex": 0,
+  "explanation": "State-machine replication requires deterministic state machines fed an identical, totally-ordered sequence of commands; given the same start state and same ordered inputs, every replica reaches the same state. Total order broadcast is the enabling primitive.",
+  "distractorRationales": [
+   "",
+   "All replicas (not just a majority) must apply the commands to stay identical in active replication.",
+   "Random order would make replicas diverge, violating consistency.",
+   "Large delays do not help; the requirement is identical ordering, not timing."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "easy",
+  "questionText": "A quorum system uses read quorum R and write quorum W over N replicas. To guarantee a read always sees the latest write, the configuration must satisfy:",
+  "options": [
+   "W + R > N",
+   "W + R < N",
+   "W = R",
+   "W + R = 1"
+  ],
+  "correctIndex": 0,
+  "explanation": "If W + R > N, every read quorum overlaps every write quorum in at least one replica, so a read is guaranteed to include a replica holding the most recent write. Additionally W > N/2 prevents two concurrent writes from both succeeding.",
+  "distractorRationales": [
+   "",
+   "W + R < N leaves a gap with no overlap, so a read can miss the latest write.",
+   "Equal R and W does not by itself guarantee overlap unless their sum exceeds N.",
+   "A sum of 1 cannot overlap across N replicas."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "hard",
+  "questionText": "With N = 5 replicas, which (W, R) quorum pair both guarantees read-your-writes overlap AND tolerates the failure of 2 replicas for reads?",
+  "options": [
+   "W = 4, R = 3",
+   "W = 2, R = 2",
+   "W = 3, R = 2",
+   "W = 5, R = 1"
+  ],
+  "correctIndex": 0,
+  "explanation": "Overlap needs W + R > 5. With W = 4, R = 3 we get 7 > 5 (overlap holds), and R = 3 means a read can still complete with 2 replicas down (3 of 5 available). W = 3, R = 2 gives only 5, which is not > 5. W = 5 cannot tolerate any write-side failure.",
+  "distractorRationales": [
+   "",
+   "W = 2, R = 2 sums to 4 < 5, so read and write quorums need not overlap.",
+   "W = 3, R = 2 sums to exactly 5, which is not strictly greater than N, so overlap is not guaranteed.",
+   "W = 5 requires all replicas for a write, tolerating zero write-side failures."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "Two-phase commit (2PC) is a consensus-like protocol for atomic commitment. Its well-known limitation is that it is a:",
+  "options": [
+   "Blocking protocol: a coordinator crash can leave participants stuck",
+   "Non-deterministic protocol that may commit different values",
+   "Protocol that tolerates Byzantine participants",
+   "Protocol requiring no coordinator"
+  ],
+  "correctIndex": 0,
+  "explanation": "2PC blocks: if the coordinator crashes after participants vote YES but before delivering the decision, participants holding locks cannot safely commit or abort and must wait. Three-phase commit (3PC) addresses this under stronger timing assumptions.",
+  "distractorRationales": [
+   "",
+   "2PC is deterministic; all participants reach the same commit/abort decision.",
+   "2PC assumes crash faults, not Byzantine behavior.",
+   "2PC explicitly relies on a coordinator to drive the two phases."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "easy",
+  "questionText": "Why is replication used in distributed systems?",
+  "options": [
+   "To increase availability and fault tolerance (and often read performance)",
+   "To reduce total storage usage",
+   "To eliminate the need for consensus",
+   "To guarantee linearizability for free"
+  ],
+  "correctIndex": 0,
+  "explanation": "Maintaining multiple copies of data lets the system survive replica failures and serve reads from nearby copies, improving availability, fault tolerance, and read latency/throughput. The cost is the difficulty of keeping replicas consistent.",
+  "distractorRationales": [
+   "",
+   "Replication increases storage use; it does not reduce it.",
+   "Keeping replicas consistent on updates often requires consensus, not removes it.",
+   "Strong consistency like linearizability requires careful protocols; replication alone does not provide it."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "hard",
+  "questionText": "In Raft, why does a candidate require votes from a majority of the cluster to become leader, rather than just a plurality?",
+  "options": [
+   "Majority quorums of any two leaders overlap, preventing two leaders in the same term",
+   "It reduces the number of messages needed",
+   "It allows Byzantine fault tolerance",
+   "It guarantees the fastest server always wins"
+  ],
+  "correctIndex": 0,
+  "explanation": "Because any two majorities of a set must intersect, at most one candidate can collect a majority of votes in a given term. This overlap is what prevents 'split brain' (two simultaneous leaders) and underlies Raft's election safety.",
+  "distractorRationales": [
+   "",
+   "Majorities increase message requirements relative to a plurality; efficiency is not the reason.",
+   "Raft is not Byzantine fault tolerant regardless of quorum choice.",
+   "Election outcome depends on votes and log up-to-dateness, not raw speed."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "The 'split brain' problem in replicated systems refers to:",
+  "options": [
+   "A network partition causing two sides to each elect a leader and diverge",
+   "A single node running out of memory",
+   "Replicas applying updates in the same order",
+   "A coordinator broadcasting to all replicas"
+  ],
+  "correctIndex": 0,
+  "explanation": "Split brain occurs when a partition lets two subsets of nodes each believe they are the authoritative group, electing separate leaders and accepting conflicting writes. Majority-quorum requirements prevent it by ensuring only the majority side can make progress.",
+  "distractorRationales": [
+   "",
+   "Running out of memory is a local resource issue, unrelated to split brain.",
+   "Identical ordering is the goal of replication, the opposite of split brain.",
+   "Normal coordinator broadcast is healthy operation, not split brain."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "medium",
+  "questionText": "In Paxos, the use of monotonically increasing, globally-unique proposal numbers serves to:",
+  "options": [
+   "Let acceptors reject stale/older proposals and order competing proposers",
+   "Encrypt the proposed values",
+   "Count the number of learners",
+   "Synchronize physical clocks"
+  ],
+  "correctIndex": 0,
+  "explanation": "Proposal numbers totally order proposals across proposers; acceptors promise not to accept anything numbered lower than the highest prepare they have seen, which lets newer proposals supersede stale ones and is essential to Paxos's safety argument.",
+  "distractorRationales": [
+   "",
+   "Proposal numbers provide ordering, not encryption.",
+   "They do not count learners; they sequence proposals.",
+   "They are logical ordering tokens, not physical clock synchronization."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "easy",
+  "questionText": "Which statement about the relationship between consensus and total-order (atomic) broadcast is correct?",
+  "options": [
+   "They are equivalent: each can be used to implement the other",
+   "Consensus is strictly easier and never needs broadcast",
+   "Atomic broadcast requires no agreement among processes",
+   "Consensus is solvable in asynchronous systems but atomic broadcast is not"
+  ],
+  "correctIndex": 0,
+  "explanation": "It is a classical result that consensus and atomic (total order) broadcast are equivalent problems: a solution to one yields a solution to the other. Both are subject to the FLP impossibility in pure asynchrony.",
+  "distractorRationales": [
+   "",
+   "They are equivalent in difficulty; neither is strictly easier.",
+   "Atomic broadcast requires processes to agree on a delivery order — that is agreement.",
+   "Both face the same FLP impossibility in asynchronous systems."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication",
+  "difficulty": "hard",
+  "questionText": "A practical way real systems 'circumvent' the FLP impossibility to achieve consensus is by:",
+  "options": [
+   "Adding partial synchrony / timeouts (failure detectors) or randomization",
+   "Assuming there are never any faults",
+   "Using larger integers for timestamps",
+   "Forbidding processes from communicating"
+  ],
+  "correctIndex": 0,
+  "explanation": "FLP rules out a deterministic, always-terminating algorithm in a fully asynchronous model. Real protocols (Paxos, Raft) assume partial synchrony — eventually-bounded message delays detected via timeouts — to ensure liveness, while keeping safety always. Randomized algorithms are another route.",
+  "distractorRationales": [
+   "",
+   "Assuming zero faults dodges the problem rather than solving consensus under faults.",
+   "Timestamp width is irrelevant to the impossibility.",
+   "Forbidding communication makes consensus impossible, not easier."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In the Raft consensus algorithm, a log entry is considered 'committed' once it is:",
+  "options": [
+   "Replicated on a majority of servers",
+   "Written to the leader's log only",
+   "Acknowledged by any one follower",
+   "Persisted to disk by the leader"
+  ],
+  "correctIndex": 0,
+  "explanation": "Raft commits an entry when the leader has replicated it to a majority (quorum) of the cluster; only then is it safe to apply to the state machine, since any future leader must also contain it.",
+  "distractorRationales": [
+   "",
+   "The leader's log alone is insufficient; a majority must store the entry.",
+   "A single follower's ack does not form a majority quorum.",
+   "Local disk persistence on the leader does not guarantee durability across crashes without majority replication."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "The FLP impossibility result states that in an asynchronous system, deterministic consensus is impossible if:",
+  "options": [
+   "Even a single process may crash (fail)",
+   "Messages are never lost",
+   "All processes are reliable",
+   "The network is synchronous"
+  ],
+  "correctIndex": 0,
+  "explanation": "FLP proves that no deterministic protocol can guarantee consensus in a fully asynchronous system with even one possible crash failure, because a faulty process cannot be distinguished from a slow one. Practical systems add timeouts/randomization to circumvent it.",
+  "distractorRationales": [
+   "",
+   "FLP's hardness arises despite reliable messaging; the issue is asynchrony plus a possible failure.",
+   "If all processes are reliable AND timing is bounded, consensus becomes solvable; FLP needs the failure possibility.",
+   "Under synchrony, consensus is achievable; FLP specifically concerns asynchronous systems."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "consensus-replication"
+ }
 ]

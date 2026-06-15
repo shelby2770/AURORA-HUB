@@ -1,0 +1,29 @@
+# Render Blueprint — Aurora Hub backend (FastAPI + Beanie + MongoDB Atlas)
+# Deploy: push this file, then in Render → New → Blueprint, point at this repo.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: aurora-hub-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    region: singapore # closest to South Asia; change if you prefer
+    buildCommand: pip install -e .
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+      # ── Secrets: set these in the Render dashboard, not here (sync:false) ──
+      - key: MONGODB_URI # mongodb+srv://USER:PASS@cluster.xxxx.mongodb.net/?retryWrites=true&w=majority
+        sync: false
+      - key: MONGODB_DB
+        value: aurora_hub
+      - key: CORS_ORIGINS # add your deployed frontend origin once it exists
+        value: http://localhost:3000,capacitor://localhost,http://localhost
+      # ── LLM keys: only needed for the authoring/ingestion plane, NOT serving ──
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false

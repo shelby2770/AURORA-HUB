@@ -1,7 +1,6 @@
 "use client";
 
 import { Check, X } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { MathText } from "./math-text";
 
 export type OptionState =
@@ -11,7 +10,7 @@ export type OptionState =
   | "incorrect"
   | "muted";
 
-const LETTERS = ["A", "B", "C", "D"];
+const LETTERS = ["A", "B", "C", "D", "E", "F"];
 
 export function computeOptionState(
   index: number,
@@ -61,25 +60,9 @@ export function OptionButton({
       disabled={disabled}
       // pointerdown-friendly via onClick; tap feedback through active: styles
       onClick={onSelect}
-      className={cn(
-        "flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-colors",
-        "min-h-14 active:scale-[0.99]",
-        "disabled:cursor-default",
-        state === "default" && "border-border bg-card hover:border-primary/40",
-        state === "selected" && "border-primary bg-primary/10",
-        state === "correct" && "border-emerald-500 bg-emerald-500/10",
-        state === "incorrect" && "border-destructive bg-destructive/10",
-        state === "muted" && "border-border bg-card opacity-60",
-      )}
+      className="opt"
     >
-      <span
-        className={cn(
-          "flex size-8 shrink-0 items-center justify-center rounded-full border text-sm font-semibold",
-          state === "selected" && "border-primary text-primary",
-          state === "correct" && "border-emerald-500 text-emerald-500",
-          state === "incorrect" && "border-destructive text-destructive",
-        )}
-      >
+      <span className="opt-letter">
         {state === "correct" ? (
           <Check className="size-4" />
         ) : state === "incorrect" ? (
@@ -88,7 +71,7 @@ export function OptionButton({
           LETTERS[index]
         )}
       </span>
-      <span className="flex-1 text-base leading-snug">
+      <span className="opt-text">
         <MathText>{text}</MathText>
       </span>
     </button>

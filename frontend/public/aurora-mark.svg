@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aurora Hub">
+  <defs>
+    <linearGradient id="aur" x1="40" y1="200" x2="472" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34d399"></stop>
+      <stop offset="0.48" stop-color="#38bdf8"></stop>
+      <stop offset="1" stop-color="#a78bfa"></stop>
+    </linearGradient>
+    <radialGradient id="hubGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#baf7df"></stop>
+      <stop offset="0.55" stop-color="#6ee7b7"></stop>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  
+  <path d="M51 348 A205 205 0 0 1 461 348" stroke="url(#aur)" stroke-width="22" stroke-linecap="round" opacity="0.5"></path>
+  
+  <path d="M116 348 A140 140 0 0 1 396 348" stroke="url(#aur)" stroke-width="48" stroke-linecap="round"></path>
+  
+  <circle cx="256" cy="348" r="46" fill="url(#hubGlow)" opacity="0.85"></circle>
+  <circle cx="256" cy="348" r="23" fill="#f4fffb"></circle>
+</svg>

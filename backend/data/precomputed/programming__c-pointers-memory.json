@@ -362,5 +362,45 @@
    "It does not contain source code, only the runtime entry address.",
    "Parameter count is part of the type signature, not the stored value."
   ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In C, after free(ptr), continuing to use ptr without reassigning it leads to:",
+  "options": [
+   "Undefined behavior (a dangling pointer)",
+   "A guaranteed compile error",
+   "Automatic reallocation",
+   "A null pointer that is safe to use"
+  ],
+  "correctIndex": 0,
+  "explanation": "After free, ptr still holds the old address but the memory is no longer valid. Dereferencing it is undefined behavior (a dangling pointer). Setting ptr = NULL after freeing is a common defensive practice.",
+  "distractorRationales": [
+   "",
+   "The compiler cannot detect use-after-free in general; it is a runtime/UB issue, not a compile error.",
+   "free does not reallocate; the memory is returned to the allocator.",
+   "free does not set ptr to NULL; the pointer still holds the stale address."
+  ],
+  "course": "programming",
+  "subtopic": "c-pointers-memory"
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "In C, the expression *(arr + 2) is equivalent to:",
+  "options": [
+   "arr[2]",
+   "arr + 2 (the address)",
+   "&arr[2]",
+   "arr[0] + 2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Pointer arithmetic and array indexing are equivalent: *(arr + i) is by definition arr[i]. So *(arr + 2) accesses the third element, arr[2].",
+  "distractorRationales": [
+   "",
+   "arr + 2 is the ADDRESS of the element; the dereference * yields the value arr[2].",
+   "&arr[2] is the address of arr[2], the un-dereferenced form.",
+   "arr[0] + 2 adds 2 to the first element's value, a different computation."
+  ],
+  "course": "programming",
+  "subtopic": "c-pointers-memory"
  }
 ]

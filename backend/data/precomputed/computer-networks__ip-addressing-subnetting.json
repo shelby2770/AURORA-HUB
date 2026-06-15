@@ -1,182 +1,402 @@
 [
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "easy",
-    "questionText": "How many bits are in an IPv4 address?",
-    "options": ["32", "64", "128", "16"],
-    "correctIndex": 0,
-    "explanation": "IPv4 addresses are 32 bits, usually written as four dotted decimal octets (e.g., 192.168.1.1). This gives about 4.3 billion addresses, whose exhaustion motivated IPv6's 128-bit addresses.",
-    "distractorRationales": ["", "64 bits is not an IP address size; it is unrelated here.", "128 bits is the IPv6 address length, not IPv4.", "16 bits is far too small for an IPv4 address."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "medium",
-    "questionText": "A /24 subnet mask (255.255.255.0) provides how many usable host addresses per subnet?",
-    "options": ["254", "256", "255", "253"],
-    "correctIndex": 0,
-    "explanation": "A /24 leaves 8 host bits → 2^8 = 256 addresses, but two are reserved (the network address and the broadcast address), leaving 256 − 2 = 254 usable host addresses.",
-    "distractorRationales": ["", "256 is the total addresses, not usable hosts (subtract network + broadcast).", "255 subtracts only one reserved address; two are reserved.", "253 subtracts one too many."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "An organization needs subnets each supporting at least 100 hosts. What is the smallest subnet (longest prefix) that works?",
-    "options": ["/25 (126 usable hosts)", "/26 (62 usable hosts)", "/24 (254 usable hosts)", "/23 (510 usable hosts)"],
-    "correctIndex": 0,
-    "explanation": "Need ≥100 usable hosts → host bits h with 2^h − 2 ≥ 100. h=7 gives 2^7 − 2 = 126 ≥ 100 (a /25); h=6 gives only 62. So /25 is the smallest subnet (longest prefix) that fits 100 hosts.",
-    "distractorRationales": ["", "/26 gives only 62 usable hosts, fewer than 100.", "/24 works (254 hosts) but is larger than necessary; the question asks for the smallest subnet.", "/23 also works but is even larger than /24, not the smallest."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "medium",
-    "questionText": "In CIDR notation, the prefix length (e.g., the /20 in 10.0.0.0/20) indicates:",
-    "options": ["The number of leading bits that form the network portion", "The number of host bits", "The number of subnets", "The number of routers"],
-    "correctIndex": 0,
-    "explanation": "The CIDR prefix length is the count of leading 1-bits in the subnet mask, i.e., how many high-order address bits identify the network. The remaining 32 − prefix bits are host bits. A /20 has 20 network bits and 12 host bits.",
-    "distractorRationales": ["", "Host bits are 32 minus the prefix length, the complement.", "It does not directly state the number of subnets.", "It is unrelated to a count of routers."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "easy",
-    "questionText": "Which IPv4 address range is reserved for private use (RFC 1918)?",
-    "options": ["192.168.0.0 – 192.168.255.255", "8.8.8.0 – 8.8.8.255", "1.0.0.0 – 1.255.255.255", "100.64.0.0 – 100.127.255.255"],
-    "correctIndex": 0,
-    "explanation": "RFC 1918 private ranges are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16. These are not routable on the public Internet and are used behind NAT. 192.168.x.x is the most familiar home-network range.",
-    "distractorRationales": ["", "8.8.8.x is public (Google DNS), not private.", "1.0.0.0/8 is public address space.", "100.64.0.0/10 is the carrier-grade NAT (RFC 6598) range, distinct from RFC 1918 private space."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "Given the IP address 172.16.45.0 with mask /20, what is the network address?",
-    "options": ["172.16.32.0", "172.16.45.0", "172.16.0.0", "172.16.48.0"],
-    "correctIndex": 0,
-    "explanation": "/20 means the third octet's high 4 bits are network bits (block size 16 in the third octet). 45 falls in the block 32–47 (32, 48, ...), so the network address is 172.16.32.0.",
-    "distractorRationales": ["", "172.16.45.0 is the host address, not the network base, which rounds down to 32.", "172.16.0.0 would be the base for /16, not /20.", "172.16.48.0 is the next block; 45 is below 48, so it belongs to the 32 block."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "medium",
-    "questionText": "Network Address Translation (NAT) is primarily used to:",
-    "options": ["Let many private hosts share one (or few) public IP addresses", "Encrypt all traffic", "Speed up DNS lookups", "Assign MAC addresses"],
-    "correctIndex": 0,
-    "explanation": "NAT rewrites private source addresses (and ports, in PAT) to a public address, allowing many internal hosts to share a limited pool of public IPs — a key tool for conserving IPv4 address space and adding a layer of isolation.",
-    "distractorRationales": ["", "NAT does not encrypt traffic; that is the role of VPN/TLS.", "NAT is unrelated to DNS lookup speed.", "MAC addresses are assigned by hardware/ARP, not NAT."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "How many /26 subnets can be created from a single /24 network?",
-    "options": ["4", "2", "8", "16"],
-    "correctIndex": 0,
-    "explanation": "Going from /24 to /26 borrows 2 host bits (26 − 24 = 2), creating 2^2 = 4 equal subnets, each with 64 addresses (62 usable).",
-    "distractorRationales": ["", "2 would be a /25 split (1 borrowed bit), not /26.", "8 corresponds to /27 (3 borrowed bits).", "16 corresponds to /28 (4 borrowed bits)."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "easy",
-    "questionText": "The IPv4 address 127.0.0.1 is known as the:",
-    "options": ["Loopback (localhost) address", "Default gateway", "Broadcast address", "Public DNS server"],
-    "correctIndex": 0,
-    "explanation": "127.0.0.1 (within 127.0.0.0/8) is the loopback address: traffic sent to it stays on the local host, used for testing the local network stack and inter-process communication. It never leaves the machine.",
-    "distractorRationales": ["", "The default gateway is the router's address, not loopback.", "A broadcast address (e.g., x.x.x.255) targets all hosts on a subnet.", "It is a local address, not a public DNS server."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "What is the broadcast address of the subnet 192.168.10.0/26?",
-    "options": ["192.168.10.63", "192.168.10.255", "192.168.10.64", "192.168.10.127"],
-    "correctIndex": 0,
-    "explanation": "/26 gives blocks of 64 addresses. The first block is 192.168.10.0–192.168.10.63, so its broadcast (last) address is 192.168.10.63 (usable hosts .1–.62).",
-    "distractorRationales": ["", "192.168.10.255 is the broadcast for the whole /24, not this /26 block.", "192.168.10.64 is the network address of the NEXT /26 block.", "192.168.10.127 is the broadcast of the second /26 block (.64–.127)."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "medium",
-    "questionText": "Classless Inter-Domain Routing (CIDR) was introduced to:",
-    "options": ["Allow flexible, variable-length prefixes and route aggregation, slowing IPv4 exhaustion", "Replace IP with MAC addressing", "Make all subnets /24", "Eliminate routing tables"],
-    "correctIndex": 0,
-    "explanation": "CIDR replaced rigid class-based addressing (A/B/C) with arbitrary prefix lengths, enabling efficient allocation matched to need and route aggregation (supernetting) to shrink routing tables — both crucial for IPv4 scalability.",
-    "distractorRationales": ["", "CIDR concerns IP prefixes, not replacing IP with MAC.", "CIDR allows variable-length prefixes, not a fixed /24.", "CIDR aggregates routes but does not eliminate routing tables."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "easy",
-    "questionText": "DHCP (Dynamic Host Configuration Protocol) is used to:",
-    "options": ["Automatically assign IP addresses and configuration to hosts", "Resolve domain names to IPs", "Route packets between networks", "Encrypt web traffic"],
-    "correctIndex": 0,
-    "explanation": "DHCP dynamically leases IP addresses (plus subnet mask, default gateway, DNS servers) to hosts when they join a network, avoiding manual configuration. The handshake is DISCOVER, OFFER, REQUEST, ACK.",
-    "distractorRationales": ["", "Resolving names to IPs is DNS, not DHCP.", "Routing between networks is the router's job.", "Encrypting web traffic is TLS/HTTPS, not DHCP."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "How many usable host addresses does a /30 subnet provide, and why is it commonly used?",
-    "options": ["2 usable hosts — ideal for point-to-point links between two routers", "4 usable hosts", "30 usable hosts", "0 usable hosts"],
-    "correctIndex": 0,
-    "explanation": "A /30 has 2 host bits → 4 addresses, minus network and broadcast = 2 usable. This exactly fits a point-to-point link with one address per router end, minimizing address waste. (RFC 3021 even allows /31 with 2 hosts for such links.)",
-    "distractorRationales": ["", "4 is the total addresses, not the usable count (subtract network + broadcast).", "/30 supports only 2 hosts, not 30.", "It provides 2 usable hosts, not 0."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "medium",
-    "questionText": "The subnet mask serves to:",
-    "options": ["Distinguish the network portion of an IP address from the host portion", "Encrypt the IP address", "Assign port numbers", "Translate names to addresses"],
-    "correctIndex": 0,
-    "explanation": "ANDing an IP address with its subnet mask yields the network address; the 1-bits of the mask mark network bits and the 0-bits mark host bits. This lets a host determine whether a destination is on its local subnet or needs a router.",
-    "distractorRationales": ["", "Subnet masks do not encrypt; they partition the address.", "Port assignment is a transport-layer concern, not the subnet mask's role.", "Name-to-address translation is DNS, not subnet masking."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "Two address blocks 192.168.4.0/24 and 192.168.5.0/24 can be aggregated (supernetted) into:",
-    "options": ["192.168.4.0/23", "192.168.4.0/22", "192.168.0.0/21", "192.168.4.0/25"],
-    "correctIndex": 0,
-    "explanation": "Aggregation combines contiguous blocks differing only in the bit that the shorter prefix ignores. 4 (00000100) and 5 (00000101) differ only in the last bit, so a /23 (192.168.4.0/23) covers both .4.0–.5.255. Route aggregation shrinks routing tables.",
-    "distractorRationales": ["", "/22 would cover .4.0–.7.255, more than just these two blocks.", "192.168.0.0/21 covers .0.0–.7.255, far broader than the two blocks.", "/25 is more specific than /24 and cannot aggregate two /24s."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "easy",
-    "questionText": "IPv6 addresses are how many bits long?",
-    "options": ["128", "32", "64", "256"],
-    "correctIndex": 0,
-    "explanation": "IPv6 uses 128-bit addresses (written as eight groups of four hex digits), providing an astronomically large address space (~3.4×10^38) that eliminates the IPv4 exhaustion problem and the heavy reliance on NAT.",
-    "distractorRationales": ["", "32 bits is IPv4, not IPv6.", "64 bits is the typical IPv6 interface-identifier portion, not the whole address.", "256 bits overstates the IPv6 length."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "medium",
-    "questionText": "Variable Length Subnet Masking (VLSM) allows an administrator to:",
-    "options": ["Use different subnet mask lengths for different subnets within the same network", "Use only one fixed mask everywhere", "Avoid using IP addresses", "Increase the IPv4 address size"],
-    "correctIndex": 0,
-    "explanation": "VLSM lets each subnet be sized to its actual host count using different prefix lengths (e.g., /30 for point-to-point links, /24 for a LAN). This conserves addresses compared with applying one uniform mask to all subnets.",
-    "distractorRationales": ["", "A single fixed mask everywhere is the opposite of VLSM (it is FLSM).", "VLSM still uses IP addresses; it just sizes subnets flexibly.", "VLSM does not change the 32-bit IPv4 address size."]
-  },
-  {
-    "course": "computer-networks",
-    "subtopic": "ip-addressing-subnetting",
-    "difficulty": "hard",
-    "questionText": "A host has IP 10.1.1.130 with mask 255.255.255.192 (/26). Which subnet does it belong to?",
-    "options": ["10.1.1.128/26", "10.1.1.0/26", "10.1.1.64/26", "10.1.1.192/26"],
-    "correctIndex": 0,
-    "explanation": "/26 gives blocks of 64: 0, 64, 128, 192. The address .130 falls in the 128–191 block, so the subnet is 10.1.1.128/26 (broadcast .191, usable .129–.190).",
-    "distractorRationales": ["", "10.1.1.0/26 covers .0–.63, which excludes .130.", "10.1.1.64/26 covers .64–.127, below .130.", "10.1.1.192/26 covers .192–.255, above .130."]
-  }
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "easy",
+  "questionText": "How many bits are in an IPv4 address?",
+  "options": [
+   "32",
+   "64",
+   "128",
+   "16"
+  ],
+  "correctIndex": 0,
+  "explanation": "IPv4 addresses are 32 bits, usually written as four dotted decimal octets (e.g., 192.168.1.1). This gives about 4.3 billion addresses, whose exhaustion motivated IPv6's 128-bit addresses.",
+  "distractorRationales": [
+   "",
+   "64 bits is not an IP address size; it is unrelated here.",
+   "128 bits is the IPv6 address length, not IPv4.",
+   "16 bits is far too small for an IPv4 address."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "medium",
+  "questionText": "A /24 subnet mask (255.255.255.0) provides how many usable host addresses per subnet?",
+  "options": [
+   "254",
+   "256",
+   "255",
+   "253"
+  ],
+  "correctIndex": 0,
+  "explanation": "A /24 leaves 8 host bits → 2^8 = 256 addresses, but two are reserved (the network address and the broadcast address), leaving 256 − 2 = 254 usable host addresses.",
+  "distractorRationales": [
+   "",
+   "256 is the total addresses, not usable hosts (subtract network + broadcast).",
+   "255 subtracts only one reserved address; two are reserved.",
+   "253 subtracts one too many."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "An organization needs subnets each supporting at least 100 hosts. What is the smallest subnet (longest prefix) that works?",
+  "options": [
+   "/25 (126 usable hosts)",
+   "/26 (62 usable hosts)",
+   "/24 (254 usable hosts)",
+   "/23 (510 usable hosts)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Need ≥100 usable hosts → host bits h with 2^h − 2 ≥ 100. h=7 gives 2^7 − 2 = 126 ≥ 100 (a /25); h=6 gives only 62. So /25 is the smallest subnet (longest prefix) that fits 100 hosts.",
+  "distractorRationales": [
+   "",
+   "/26 gives only 62 usable hosts, fewer than 100.",
+   "/24 works (254 hosts) but is larger than necessary; the question asks for the smallest subnet.",
+   "/23 also works but is even larger than /24, not the smallest."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "medium",
+  "questionText": "In CIDR notation, the prefix length (e.g., the /20 in 10.0.0.0/20) indicates:",
+  "options": [
+   "The number of leading bits that form the network portion",
+   "The number of host bits",
+   "The number of subnets",
+   "The number of routers"
+  ],
+  "correctIndex": 0,
+  "explanation": "The CIDR prefix length is the count of leading 1-bits in the subnet mask, i.e., how many high-order address bits identify the network. The remaining 32 − prefix bits are host bits. A /20 has 20 network bits and 12 host bits.",
+  "distractorRationales": [
+   "",
+   "Host bits are 32 minus the prefix length, the complement.",
+   "It does not directly state the number of subnets.",
+   "It is unrelated to a count of routers."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "easy",
+  "questionText": "Which IPv4 address range is reserved for private use (RFC 1918)?",
+  "options": [
+   "192.168.0.0 – 192.168.255.255",
+   "8.8.8.0 – 8.8.8.255",
+   "1.0.0.0 – 1.255.255.255",
+   "100.64.0.0 – 100.127.255.255"
+  ],
+  "correctIndex": 0,
+  "explanation": "RFC 1918 private ranges are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16. These are not routable on the public Internet and are used behind NAT. 192.168.x.x is the most familiar home-network range.",
+  "distractorRationales": [
+   "",
+   "8.8.8.x is public (Google DNS), not private.",
+   "1.0.0.0/8 is public address space.",
+   "100.64.0.0/10 is the carrier-grade NAT (RFC 6598) range, distinct from RFC 1918 private space."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "Given the IP address 172.16.45.0 with mask /20, what is the network address?",
+  "options": [
+   "172.16.32.0",
+   "172.16.45.0",
+   "172.16.0.0",
+   "172.16.48.0"
+  ],
+  "correctIndex": 0,
+  "explanation": "/20 means the third octet's high 4 bits are network bits (block size 16 in the third octet). 45 falls in the block 32–47 (32, 48, ...), so the network address is 172.16.32.0.",
+  "distractorRationales": [
+   "",
+   "172.16.45.0 is the host address, not the network base, which rounds down to 32.",
+   "172.16.0.0 would be the base for /16, not /20.",
+   "172.16.48.0 is the next block; 45 is below 48, so it belongs to the 32 block."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "medium",
+  "questionText": "Network Address Translation (NAT) is primarily used to:",
+  "options": [
+   "Let many private hosts share one (or few) public IP addresses",
+   "Encrypt all traffic",
+   "Speed up DNS lookups",
+   "Assign MAC addresses"
+  ],
+  "correctIndex": 0,
+  "explanation": "NAT rewrites private source addresses (and ports, in PAT) to a public address, allowing many internal hosts to share a limited pool of public IPs — a key tool for conserving IPv4 address space and adding a layer of isolation.",
+  "distractorRationales": [
+   "",
+   "NAT does not encrypt traffic; that is the role of VPN/TLS.",
+   "NAT is unrelated to DNS lookup speed.",
+   "MAC addresses are assigned by hardware/ARP, not NAT."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "How many /26 subnets can be created from a single /24 network?",
+  "options": [
+   "4",
+   "2",
+   "8",
+   "16"
+  ],
+  "correctIndex": 0,
+  "explanation": "Going from /24 to /26 borrows 2 host bits (26 − 24 = 2), creating 2^2 = 4 equal subnets, each with 64 addresses (62 usable).",
+  "distractorRationales": [
+   "",
+   "2 would be a /25 split (1 borrowed bit), not /26.",
+   "8 corresponds to /27 (3 borrowed bits).",
+   "16 corresponds to /28 (4 borrowed bits)."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "easy",
+  "questionText": "The IPv4 address 127.0.0.1 is known as the:",
+  "options": [
+   "Loopback (localhost) address",
+   "Default gateway",
+   "Broadcast address",
+   "Public DNS server"
+  ],
+  "correctIndex": 0,
+  "explanation": "127.0.0.1 (within 127.0.0.0/8) is the loopback address: traffic sent to it stays on the local host, used for testing the local network stack and inter-process communication. It never leaves the machine.",
+  "distractorRationales": [
+   "",
+   "The default gateway is the router's address, not loopback.",
+   "A broadcast address (e.g., x.x.x.255) targets all hosts on a subnet.",
+   "It is a local address, not a public DNS server."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "What is the broadcast address of the subnet 192.168.10.0/26?",
+  "options": [
+   "192.168.10.63",
+   "192.168.10.255",
+   "192.168.10.64",
+   "192.168.10.127"
+  ],
+  "correctIndex": 0,
+  "explanation": "/26 gives blocks of 64 addresses. The first block is 192.168.10.0–192.168.10.63, so its broadcast (last) address is 192.168.10.63 (usable hosts .1–.62).",
+  "distractorRationales": [
+   "",
+   "192.168.10.255 is the broadcast for the whole /24, not this /26 block.",
+   "192.168.10.64 is the network address of the NEXT /26 block.",
+   "192.168.10.127 is the broadcast of the second /26 block (.64–.127)."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "medium",
+  "questionText": "Classless Inter-Domain Routing (CIDR) was introduced to:",
+  "options": [
+   "Allow flexible, variable-length prefixes and route aggregation, slowing IPv4 exhaustion",
+   "Replace IP with MAC addressing",
+   "Make all subnets /24",
+   "Eliminate routing tables"
+  ],
+  "correctIndex": 0,
+  "explanation": "CIDR replaced rigid class-based addressing (A/B/C) with arbitrary prefix lengths, enabling efficient allocation matched to need and route aggregation (supernetting) to shrink routing tables — both crucial for IPv4 scalability.",
+  "distractorRationales": [
+   "",
+   "CIDR concerns IP prefixes, not replacing IP with MAC.",
+   "CIDR allows variable-length prefixes, not a fixed /24.",
+   "CIDR aggregates routes but does not eliminate routing tables."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "easy",
+  "questionText": "DHCP (Dynamic Host Configuration Protocol) is used to:",
+  "options": [
+   "Automatically assign IP addresses and configuration to hosts",
+   "Resolve domain names to IPs",
+   "Route packets between networks",
+   "Encrypt web traffic"
+  ],
+  "correctIndex": 0,
+  "explanation": "DHCP dynamically leases IP addresses (plus subnet mask, default gateway, DNS servers) to hosts when they join a network, avoiding manual configuration. The handshake is DISCOVER, OFFER, REQUEST, ACK.",
+  "distractorRationales": [
+   "",
+   "Resolving names to IPs is DNS, not DHCP.",
+   "Routing between networks is the router's job.",
+   "Encrypting web traffic is TLS/HTTPS, not DHCP."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "How many usable host addresses does a /30 subnet provide, and why is it commonly used?",
+  "options": [
+   "2 usable hosts — ideal for point-to-point links between two routers",
+   "4 usable hosts",
+   "30 usable hosts",
+   "0 usable hosts"
+  ],
+  "correctIndex": 0,
+  "explanation": "A /30 has 2 host bits → 4 addresses, minus network and broadcast = 2 usable. This exactly fits a point-to-point link with one address per router end, minimizing address waste. (RFC 3021 even allows /31 with 2 hosts for such links.)",
+  "distractorRationales": [
+   "",
+   "4 is the total addresses, not the usable count (subtract network + broadcast).",
+   "/30 supports only 2 hosts, not 30.",
+   "It provides 2 usable hosts, not 0."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "medium",
+  "questionText": "The subnet mask serves to:",
+  "options": [
+   "Distinguish the network portion of an IP address from the host portion",
+   "Encrypt the IP address",
+   "Assign port numbers",
+   "Translate names to addresses"
+  ],
+  "correctIndex": 0,
+  "explanation": "ANDing an IP address with its subnet mask yields the network address; the 1-bits of the mask mark network bits and the 0-bits mark host bits. This lets a host determine whether a destination is on its local subnet or needs a router.",
+  "distractorRationales": [
+   "",
+   "Subnet masks do not encrypt; they partition the address.",
+   "Port assignment is a transport-layer concern, not the subnet mask's role.",
+   "Name-to-address translation is DNS, not subnet masking."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "Two address blocks 192.168.4.0/24 and 192.168.5.0/24 can be aggregated (supernetted) into:",
+  "options": [
+   "192.168.4.0/23",
+   "192.168.4.0/22",
+   "192.168.0.0/21",
+   "192.168.4.0/25"
+  ],
+  "correctIndex": 0,
+  "explanation": "Aggregation combines contiguous blocks differing only in the bit that the shorter prefix ignores. 4 (00000100) and 5 (00000101) differ only in the last bit, so a /23 (192.168.4.0/23) covers both .4.0–.5.255. Route aggregation shrinks routing tables.",
+  "distractorRationales": [
+   "",
+   "/22 would cover .4.0–.7.255, more than just these two blocks.",
+   "192.168.0.0/21 covers .0.0–.7.255, far broader than the two blocks.",
+   "/25 is more specific than /24 and cannot aggregate two /24s."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "easy",
+  "questionText": "IPv6 addresses are how many bits long?",
+  "options": [
+   "128",
+   "32",
+   "64",
+   "256"
+  ],
+  "correctIndex": 0,
+  "explanation": "IPv6 uses 128-bit addresses (written as eight groups of four hex digits), providing an astronomically large address space (~3.4×10^38) that eliminates the IPv4 exhaustion problem and the heavy reliance on NAT.",
+  "distractorRationales": [
+   "",
+   "32 bits is IPv4, not IPv6.",
+   "64 bits is the typical IPv6 interface-identifier portion, not the whole address.",
+   "256 bits overstates the IPv6 length."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "medium",
+  "questionText": "Variable Length Subnet Masking (VLSM) allows an administrator to:",
+  "options": [
+   "Use different subnet mask lengths for different subnets within the same network",
+   "Use only one fixed mask everywhere",
+   "Avoid using IP addresses",
+   "Increase the IPv4 address size"
+  ],
+  "correctIndex": 0,
+  "explanation": "VLSM lets each subnet be sized to its actual host count using different prefix lengths (e.g., /30 for point-to-point links, /24 for a LAN). This conserves addresses compared with applying one uniform mask to all subnets.",
+  "distractorRationales": [
+   "",
+   "A single fixed mask everywhere is the opposite of VLSM (it is FLSM).",
+   "VLSM still uses IP addresses; it just sizes subnets flexibly.",
+   "VLSM does not change the 32-bit IPv4 address size."
+  ]
+ },
+ {
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting",
+  "difficulty": "hard",
+  "questionText": "A host has IP 10.1.1.130 with mask 255.255.255.192 (/26). Which subnet does it belong to?",
+  "options": [
+   "10.1.1.128/26",
+   "10.1.1.0/26",
+   "10.1.1.64/26",
+   "10.1.1.192/26"
+  ],
+  "correctIndex": 0,
+  "explanation": "/26 gives blocks of 64: 0, 64, 128, 192. The address .130 falls in the 128–191 block, so the subnet is 10.1.1.128/26 (broadcast .191, usable .129–.190).",
+  "distractorRationales": [
+   "",
+   "10.1.1.0/26 covers .0–.63, which excludes .130.",
+   "10.1.1.64/26 covers .64–.127, below .130.",
+   "10.1.1.192/26 covers .192–.255, above .130."
+  ]
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "How many usable host addresses are in a /27 IPv4 subnet?",
+  "options": [
+   "30",
+   "32",
+   "62",
+   "16"
+  ],
+  "correctIndex": 0,
+  "explanation": "A /27 leaves 32−27 = 5 host bits, giving 2^5 = 32 addresses. Subtracting the network and broadcast addresses leaves 32−2 = 30 usable hosts.",
+  "distractorRationales": [
+   "",
+   "32 is the total addresses; usable hosts exclude the network and broadcast addresses.",
+   "62 corresponds to a /26 (6 host bits → 64−2), not a /27.",
+   "16 would be a /28 minus reserved? A /28 has 14 usable; 16 is the total of a /28, not a /27."
+  ],
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "The IPv4 address 192.168.10.0/24 is being split into 4 equal subnets. Each new subnet has prefix length:",
+  "options": [
+   "/26",
+   "/25",
+   "/27",
+   "/28"
+  ],
+  "correctIndex": 0,
+  "explanation": "Splitting into 4 subnets needs 2 extra bits (2^2 = 4). Adding 2 to /24 gives /26, each with 64 addresses (62 usable).",
+  "distractorRationales": [
+   "",
+   "/25 splits into only 2 subnets (1 extra bit).",
+   "/27 splits into 8 subnets (3 extra bits), too many.",
+   "/28 splits into 16 subnets (4 extra bits), too many."
+  ],
+  "course": "computer-networks",
+  "subtopic": "ip-addressing-subnetting"
+ }
 ]

@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, X } from "lucide-react";
 import type { QuestionOut } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
@@ -35,7 +36,7 @@ export function QuestionNavigator({
     <nav
       aria-label="Question navigator"
       data-testid="question-navigator"
-      className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1"
+      className="pager-track -mx-1 px-1"
     >
       {questions.map((q, i) => {
         const status = statusFor(answers[i], q.correctIndex, isPractice);
@@ -51,24 +52,20 @@ export function QuestionNavigator({
             aria-current={isCurrent ? "true" : undefined}
             onClick={() => onJump(i)}
             className={cn(
-              "flex size-8 shrink-0 items-center justify-center rounded-md border text-xs font-semibold tabular-nums transition-colors",
-              status === "correct" &&
-                "border-emerald-500 bg-emerald-500 text-white",
-              status === "incorrect" &&
-                "border-destructive bg-destructive text-white",
-              // Exam mode: answered is a solid fill so it clearly stands apart
-              // from the hollow unanswered tabs.
-              status === "answered" &&
-                "border-primary bg-primary text-primary-foreground",
-              status === "unanswered" &&
-                "border-border bg-card text-muted-foreground hover:border-primary/40",
-              // Current tab keeps its underlying answered/unanswered fill and
-              // gains a ring so you can always see where you are.
-              isCurrent &&
-                "ring-2 ring-ring ring-offset-2 ring-offset-background",
+              "bubble",
+              status === "correct" && "is-correct",
+              status === "incorrect" && "is-incorrect",
+              status === "answered" && "is-answered",
+              isCurrent && "is-current",
             )}
           >
-            {i + 1}
+            {status === "correct" ? (
+              <Check className="size-3.5" />
+            ) : status === "incorrect" ? (
+              <X className="size-3.5" />
+            ) : (
+              i + 1
+            )}
           </button>
         );
       })}

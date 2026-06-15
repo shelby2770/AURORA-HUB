@@ -376,5 +376,47 @@
    "3 counts only one row of iterations.",
    "4 does not match the 3+2+1 triangular sum."
   ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "What does this C program print?",
+  "codeSnippet": "#include <stdio.h>\nint main(){\n  int i = 0;\n  for(i = 0; i < 3; i++);\n  printf(\"%d\", i);\n  return 0;\n}",
+  "options": [
+   "3",
+   "0",
+   "2",
+   "Nothing (infinite loop)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Note the semicolon right after the for(...) — the loop body is empty. The loop simply increments i until i < 3 is false, i.e., i becomes 3, then printf outputs 3.",
+  "distractorRationales": [
+   "",
+   "0 would print only if the loop never ran or i were reset, which it is not.",
+   "2 is the last value for which the condition was true; after the final i++ it is 3.",
+   "The loop terminates normally at i = 3; it is not infinite."
+  ],
+  "course": "programming",
+  "subtopic": "program-output-tracing"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "What does this C program print?",
+  "codeSnippet": "#include <stdio.h>\nint main(){\n  int a = 10, b = 5;\n  a = a ^ b;\n  b = a ^ b;\n  a = a ^ b;\n  printf(\"%d %d\", a, b);\n  return 0;\n}",
+  "options": [
+   "5 10",
+   "10 5",
+   "15 15",
+   "0 0"
+  ],
+  "correctIndex": 0,
+  "explanation": "This is the classic XOR swap. After the three XOR steps, a and b are exchanged: a becomes 5 and b becomes 10. So it prints '5 10'.",
+  "distractorRationales": [
+   "",
+   "'10 5' is the original order before the swap.",
+   "'15 15' misreads XOR as addition.",
+   "'0 0' would result only if a and b were equal initially."
+  ],
+  "course": "programming",
+  "subtopic": "program-output-tracing"
  }
 ]

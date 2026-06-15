@@ -1,182 +1,402 @@
 [
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "easy",
-    "questionText": "The inference rule Modus Ponens states that from P and (P → Q), one can derive:",
-    "options": ["Q", "¬P", "P ∧ Q only if Q is given", "¬Q"],
-    "correctIndex": 0,
-    "explanation": "Modus Ponens: given a fact P and the implication P → Q, we may conclude Q. It is the fundamental forward inference step for Horn-clause reasoning and rule-based systems.",
-    "distractorRationales": ["", "¬P contradicts the given fact P.", "Q follows directly; it need not be given separately.", "¬Q contradicts what Modus Ponens derives."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "A knowledge base KB entails a sentence α (written KB ⊨ α) if and only if:",
-    "options": ["α is true in every model in which KB is true", "α is true in at least one model of KB", "α can be syntactically rewritten as KB", "α and KB share no symbols"],
-    "correctIndex": 0,
-    "explanation": "Entailment is semantic: KB ⊨ α means every interpretation (model) that satisfies KB also satisfies α — α follows necessarily. Truth in at least one model is satisfiability, a weaker condition.",
-    "distractorRationales": ["", "Truth in some model is satisfiability of KB ∧ α, not entailment.", "Entailment is a semantic relation, not a syntactic rewriting.", "Sharing or not sharing symbols is irrelevant to entailment."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "An inference procedure is 'sound' if it derives only sentences that are:",
-    "options": ["Entailed by the knowledge base", "Syntactically shortest", "Expressible in CNF", "True in some model"],
-    "correctIndex": 0,
-    "explanation": "Soundness means the procedure never derives a falsehood: everything it proves is genuinely entailed by KB. Completeness is the complementary property — it can derive every sentence that is entailed.",
-    "distractorRationales": ["", "Soundness is about truth-preservation (entailment), not length of derivations.", "CNF expressibility is a syntactic form, unrelated to soundness.", "Being true in some model is too weak; soundness requires entailment (true in all models of KB)."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "hard",
-    "questionText": "Resolution is a complete inference procedure for propositional logic when used as a refutation method, meaning to prove KB ⊨ α one shows that:",
-    "options": ["KB ∧ ¬α is unsatisfiable (derives the empty clause)", "KB ∧ α is satisfiable", "α appears literally in KB", "α has the same truth table as KB"],
-    "correctIndex": 0,
-    "explanation": "Refutation resolution proves entailment by contradiction: add the negated goal ¬α to KB, convert to CNF, and apply the resolution rule until the empty clause (a contradiction) is derived, showing KB ∧ ¬α is unsatisfiable and hence KB ⊨ α.",
-    "distractorRationales": ["", "Showing KB ∧ α satisfiable does not establish entailment.", "Entailment does not require α to appear syntactically in KB.", "Matching truth tables is neither necessary nor how resolution proceeds."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "easy",
-    "questionText": "A Horn clause is a disjunction of literals with at most how many positive literals?",
-    "options": ["One", "Two", "Zero only", "Any number"],
-    "correctIndex": 0,
-    "explanation": "A Horn clause has at most one positive literal. Definite clauses (exactly one positive literal) correspond to implications like (P1 ∧ ... ∧ Pn → Q). Horn-clause KBs admit efficient (linear-time) forward/backward chaining inference.",
-    "distractorRationales": ["", "Two positive literals would make it non-Horn.", "Zero positive literals is allowed (a goal/integrity clause), but 'at most one' is the defining bound, which includes the one-positive case.", "Allowing any number of positive literals describes general clauses, not Horn clauses."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "hard",
-    "questionText": "In first-order logic, the scope of quantifiers matters. Which pair of sentences are NOT logically equivalent?",
-    "options": ["∀x ∃y Loves(x, y)  vs.  ∃y ∀x Loves(x, y)", "∀x (P(x) ∧ Q(x))  vs.  (∀x P(x)) ∧ (∀x Q(x))", "¬∀x P(x)  vs.  ∃x ¬P(x)", "∃x (P(x) ∨ Q(x))  vs.  (∃x P(x)) ∨ (∃x Q(x))"],
-    "correctIndex": 0,
-    "explanation": "∀x ∃y Loves(x,y) ('everyone loves someone, possibly different') does NOT imply ∃y ∀x Loves(x,y) ('there is someone whom everyone loves'). Swapping ∀ and ∃ changes meaning. The other pairs are standard logical equivalences (distribution of ∀ over ∧, quantifier negation, distribution of ∃ over ∨).",
-    "distractorRationales": ["", "∀ distributes over ∧, so these two are equivalent.", "Quantifier negation makes ¬∀x P(x) equivalent to ∃x ¬P(x).", "∃ distributes over ∨, so these are equivalent."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "Forward chaining on a Horn-clause KB works by:",
-    "options": ["Starting from known facts and repeatedly firing rules whose premises are satisfied until the goal is derived", "Starting from the goal and finding rules that conclude it", "Negating the goal and resolving", "Enumerating all truth assignments"],
-    "correctIndex": 0,
-    "explanation": "Forward chaining is data-driven: it begins with the known facts and applies Modus Ponens to any rule whose premises are all satisfied, adding new facts, until either the goal appears or no new facts can be derived. It is sound and complete for definite-clause KBs and runs in linear time.",
-    "distractorRationales": ["", "Starting from the goal and working back describes backward chaining.", "Negate-and-resolve is the resolution refutation method, not forward chaining.", "Enumerating all assignments is model checking, far less efficient for Horn KBs."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "Backward chaining is generally preferred over forward chaining when:",
-    "options": ["You want to prove a specific query and avoid deriving irrelevant facts", "You want to derive every consequence of the KB", "The KB has no rules", "The goal is unknown"],
-    "correctIndex": 0,
-    "explanation": "Backward chaining is goal-driven: it starts from the query and works backward through rules that could prove it, exploring only relevant subgoals. This is efficient when you care about one specific query rather than computing all entailed facts (which forward chaining does).",
-    "distractorRationales": ["", "Deriving every consequence is exactly what forward chaining is good at.", "With no rules there is nothing to chain through either way.", "Backward chaining requires a goal to start from; an unknown goal makes it inapplicable."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "easy",
-    "questionText": "Converting a first-order sentence to CNF for resolution requires removing existential quantifiers via:",
-    "options": ["Skolemization (replacing them with Skolem constants/functions)", "Universal instantiation", "Modus Ponens", "Truth tables"],
-    "correctIndex": 0,
-    "explanation": "Skolemization eliminates existential quantifiers: ∃x P(x) becomes P(c) with a fresh Skolem constant, and an existential inside a universal becomes a Skolem function of the universally quantified variables. This is a required step in converting FOL to clausal (CNF) form.",
-    "distractorRationales": ["", "Universal instantiation handles ∀, not the removal of ∃.", "Modus Ponens is an inference rule, not a CNF conversion step.", "Truth tables apply to propositional logic, not FOL Skolemization."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "hard",
-    "questionText": "In first-order resolution, unification of two atoms (e.g., P(x, a) and P(b, y)) produces:",
-    "options": ["A most general unifier (substitution) {x/b, y/a} making them identical", "A proof of unsatisfiability", "A Skolem function", "A truth value"],
-    "correctIndex": 0,
-    "explanation": "Unification finds the most general substitution that makes two expressions syntactically identical; here {x/b, y/a} turns both into P(b, a). The most general unifier (MGU) is essential for applying the resolution rule to first-order clauses.",
-    "distractorRationales": ["", "Unification itself does not prove unsatisfiability; it enables a resolution step.", "Skolem functions arise during CNF conversion, not from unification.", "Unification yields a substitution, not a single truth value."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "A sentence is 'valid' (a tautology) if it is:",
-    "options": ["True in every interpretation", "True in at least one interpretation", "False in every interpretation", "Equivalent to its own negation"],
-    "correctIndex": 0,
-    "explanation": "A valid sentence is true under all interpretations (e.g., P ∨ ¬P). Satisfiable means true in at least one; unsatisfiable means false in all. Validity of α corresponds to ¬α being unsatisfiable.",
-    "distractorRationales": ["", "True in at least one interpretation is satisfiability, weaker than validity.", "False in every interpretation is unsatisfiability, the opposite of validity.", "A sentence equivalent to its own negation is a contradiction, not valid."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "easy",
-    "questionText": "Semantic networks and frames are knowledge-representation schemes that primarily organize knowledge as:",
-    "options": ["Objects/concepts and the relationships (links/slots) between them", "Probability distributions over variables", "Differential equations", "Raw pixel arrays"],
-    "correctIndex": 0,
-    "explanation": "Semantic networks represent concepts as nodes and relationships (like is-a, part-of) as labeled links; frames group an object's attributes into named slots. Both support inheritance of properties along is-a links, a structured symbolic representation of knowledge.",
-    "distractorRationales": ["", "Probability distributions characterize Bayesian networks, not semantic networks.", "Differential equations model continuous dynamics, not symbolic knowledge.", "Raw pixels are unstructured perceptual data, not a KR scheme."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "hard",
-    "questionText": "The frame problem in logical knowledge representation concerns the difficulty of:",
-    "options": ["Concisely specifying what does NOT change when an action is performed", "Drawing pictures of frames", "Representing probabilities", "Unifying two terms"],
-    "correctIndex": 0,
-    "explanation": "The frame problem is about representing the non-effects of actions: most facts stay the same after an action, yet naively one must state every unchanged fact. Solutions like successor-state axioms or the situation calculus's frame axioms address this concisely.",
-    "distractorRationales": ["", "It is unrelated to literally drawing frames; it concerns action representation.", "Probability representation is the domain of probabilistic models, not the frame problem.", "Unification is a resolution mechanism, not the frame problem."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "Which statement about propositional vs first-order logic (FOL) is correct?",
-    "options": ["FOL adds quantifiers, variables, predicates, and functions, giving more expressive power", "Propositional logic can express everything FOL can", "FOL has no notion of objects or relations", "Propositional logic includes quantifiers"],
-    "correctIndex": 0,
-    "explanation": "First-order logic extends propositional logic with objects, predicates (relations), functions, and the quantifiers ∀ and ∃, letting it concisely express general statements over domains (e.g., 'all humans are mortal'). Propositional logic only combines whole atomic propositions.",
-    "distractorRationales": ["", "Propositional logic is strictly less expressive; it cannot quantify over objects.", "FOL is precisely the logic of objects and relations.", "Propositional logic has no quantifiers; that is what FOL adds."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "easy",
-    "questionText": "The resolution rule applied to clauses (A ∨ B) and (¬B ∨ C) yields the resolvent:",
-    "options": ["A ∨ C", "A ∨ B ∨ C", "B ∨ ¬B", "the empty clause"],
-    "correctIndex": 0,
-    "explanation": "Resolution on the complementary literals B and ¬B cancels them, combining the remaining literals into the resolvent A ∨ C. This is the single inference rule underlying resolution-based theorem proving.",
-    "distractorRationales": ["", "The complementary literals B and ¬B must be removed, so B is not retained.", "B ∨ ¬B is a tautology, not the resolvent of these clauses.", "The empty clause arises only when two unit clauses with complementary literals resolve, not here."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "hard",
-    "questionText": "Why is general first-order logic inference only 'semidecidable' (refutation-complete but not decidable)?",
-    "options": ["If KB ⊨ α, resolution will find a proof, but if KB ⊭ α it may run forever without halting", "FOL has no inference rules", "FOL is strictly less powerful than propositional logic", "All FOL sentences are valid"],
-    "correctIndex": 0,
-    "explanation": "FOL entailment is semidecidable: resolution is guaranteed to terminate with a proof when α is entailed, but when α is not entailed the procedure may never halt (it cannot always confirm non-entailment). There is no algorithm that decides FOL validity in general (Church–Turing).",
-    "distractorRationales": ["", "FOL has sound and complete inference rules (e.g., resolution); that is not the issue.", "FOL is strictly more powerful than propositional logic, not less.", "Not all FOL sentences are valid; satisfiability/validity is the very question that is undecidable."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "Default (non-monotonic) reasoning differs from classical logic because it allows:",
-    "options": ["Conclusions that may be retracted when new information arrives", "Only conclusions that are always permanent", "No use of rules", "Reasoning solely with probabilities"],
-    "correctIndex": 0,
-    "explanation": "Non-monotonic reasoning (e.g., default logic, closed-world assumption) draws plausible conclusions that can be withdrawn upon learning new facts — 'birds fly; Tweety is a bird, so Tweety flies; but Tweety is a penguin, so retract.' Classical logic is monotonic: adding facts never invalidates prior conclusions.",
-    "distractorRationales": ["", "Permanent-only conclusions describe monotonic classical logic.", "Non-monotonic systems use rules (e.g., default rules); they do not abandon them.", "It can be purely symbolic; it need not be probabilistic."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "logic-knowledge-representation",
-    "difficulty": "medium",
-    "questionText": "The Closed-World Assumption (CWA) states that:",
-    "options": ["Any ground fact not entailed by the KB is assumed false", "Every unstated fact is assumed true", "The KB is necessarily complete and consistent", "Only positive literals may be stored"],
-    "correctIndex": 0,
-    "explanation": "Under the CWA, anything the knowledge base cannot prove is taken to be false (e.g., databases assume an absent flight does not exist). This is a non-monotonic assumption that lets systems answer negative queries without explicitly storing all false facts.",
-    "distractorRationales": ["", "Assuming unstated facts true is the opposite of the closed-world assumption.", "CWA does not assert the KB is complete; it is an assumption about unprovable facts.", "CWA concerns how absent facts are interpreted, not a restriction to positive literals only."]
-  }
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "easy",
+  "questionText": "The inference rule Modus Ponens states that from P and (P → Q), one can derive:",
+  "options": [
+   "Q",
+   "¬P",
+   "P ∧ Q only if Q is given",
+   "¬Q"
+  ],
+  "correctIndex": 0,
+  "explanation": "Modus Ponens: given a fact P and the implication P → Q, we may conclude Q. It is the fundamental forward inference step for Horn-clause reasoning and rule-based systems.",
+  "distractorRationales": [
+   "",
+   "¬P contradicts the given fact P.",
+   "Q follows directly; it need not be given separately.",
+   "¬Q contradicts what Modus Ponens derives."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "A knowledge base KB entails a sentence α (written KB ⊨ α) if and only if:",
+  "options": [
+   "α is true in every model in which KB is true",
+   "α is true in at least one model of KB",
+   "α can be syntactically rewritten as KB",
+   "α and KB share no symbols"
+  ],
+  "correctIndex": 0,
+  "explanation": "Entailment is semantic: KB ⊨ α means every interpretation (model) that satisfies KB also satisfies α — α follows necessarily. Truth in at least one model is satisfiability, a weaker condition.",
+  "distractorRationales": [
+   "",
+   "Truth in some model is satisfiability of KB ∧ α, not entailment.",
+   "Entailment is a semantic relation, not a syntactic rewriting.",
+   "Sharing or not sharing symbols is irrelevant to entailment."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "An inference procedure is 'sound' if it derives only sentences that are:",
+  "options": [
+   "Entailed by the knowledge base",
+   "Syntactically shortest",
+   "Expressible in CNF",
+   "True in some model"
+  ],
+  "correctIndex": 0,
+  "explanation": "Soundness means the procedure never derives a falsehood: everything it proves is genuinely entailed by KB. Completeness is the complementary property — it can derive every sentence that is entailed.",
+  "distractorRationales": [
+   "",
+   "Soundness is about truth-preservation (entailment), not length of derivations.",
+   "CNF expressibility is a syntactic form, unrelated to soundness.",
+   "Being true in some model is too weak; soundness requires entailment (true in all models of KB)."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "hard",
+  "questionText": "Resolution is a complete inference procedure for propositional logic when used as a refutation method, meaning to prove KB ⊨ α one shows that:",
+  "options": [
+   "KB ∧ ¬α is unsatisfiable (derives the empty clause)",
+   "KB ∧ α is satisfiable",
+   "α appears literally in KB",
+   "α has the same truth table as KB"
+  ],
+  "correctIndex": 0,
+  "explanation": "Refutation resolution proves entailment by contradiction: add the negated goal ¬α to KB, convert to CNF, and apply the resolution rule until the empty clause (a contradiction) is derived, showing KB ∧ ¬α is unsatisfiable and hence KB ⊨ α.",
+  "distractorRationales": [
+   "",
+   "Showing KB ∧ α satisfiable does not establish entailment.",
+   "Entailment does not require α to appear syntactically in KB.",
+   "Matching truth tables is neither necessary nor how resolution proceeds."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "easy",
+  "questionText": "A Horn clause is a disjunction of literals with at most how many positive literals?",
+  "options": [
+   "One",
+   "Two",
+   "Zero only",
+   "Any number"
+  ],
+  "correctIndex": 0,
+  "explanation": "A Horn clause has at most one positive literal. Definite clauses (exactly one positive literal) correspond to implications like (P1 ∧ ... ∧ Pn → Q). Horn-clause KBs admit efficient (linear-time) forward/backward chaining inference.",
+  "distractorRationales": [
+   "",
+   "Two positive literals would make it non-Horn.",
+   "Zero positive literals is allowed (a goal/integrity clause), but 'at most one' is the defining bound, which includes the one-positive case.",
+   "Allowing any number of positive literals describes general clauses, not Horn clauses."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "hard",
+  "questionText": "In first-order logic, the scope of quantifiers matters. Which pair of sentences are NOT logically equivalent?",
+  "options": [
+   "∀x ∃y Loves(x, y)  vs.  ∃y ∀x Loves(x, y)",
+   "∀x (P(x) ∧ Q(x))  vs.  (∀x P(x)) ∧ (∀x Q(x))",
+   "¬∀x P(x)  vs.  ∃x ¬P(x)",
+   "∃x (P(x) ∨ Q(x))  vs.  (∃x P(x)) ∨ (∃x Q(x))"
+  ],
+  "correctIndex": 0,
+  "explanation": "∀x ∃y Loves(x,y) ('everyone loves someone, possibly different') does NOT imply ∃y ∀x Loves(x,y) ('there is someone whom everyone loves'). Swapping ∀ and ∃ changes meaning. The other pairs are standard logical equivalences (distribution of ∀ over ∧, quantifier negation, distribution of ∃ over ∨).",
+  "distractorRationales": [
+   "",
+   "∀ distributes over ∧, so these two are equivalent.",
+   "Quantifier negation makes ¬∀x P(x) equivalent to ∃x ¬P(x).",
+   "∃ distributes over ∨, so these are equivalent."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "Forward chaining on a Horn-clause KB works by:",
+  "options": [
+   "Starting from known facts and repeatedly firing rules whose premises are satisfied until the goal is derived",
+   "Starting from the goal and finding rules that conclude it",
+   "Negating the goal and resolving",
+   "Enumerating all truth assignments"
+  ],
+  "correctIndex": 0,
+  "explanation": "Forward chaining is data-driven: it begins with the known facts and applies Modus Ponens to any rule whose premises are all satisfied, adding new facts, until either the goal appears or no new facts can be derived. It is sound and complete for definite-clause KBs and runs in linear time.",
+  "distractorRationales": [
+   "",
+   "Starting from the goal and working back describes backward chaining.",
+   "Negate-and-resolve is the resolution refutation method, not forward chaining.",
+   "Enumerating all assignments is model checking, far less efficient for Horn KBs."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "Backward chaining is generally preferred over forward chaining when:",
+  "options": [
+   "You want to prove a specific query and avoid deriving irrelevant facts",
+   "You want to derive every consequence of the KB",
+   "The KB has no rules",
+   "The goal is unknown"
+  ],
+  "correctIndex": 0,
+  "explanation": "Backward chaining is goal-driven: it starts from the query and works backward through rules that could prove it, exploring only relevant subgoals. This is efficient when you care about one specific query rather than computing all entailed facts (which forward chaining does).",
+  "distractorRationales": [
+   "",
+   "Deriving every consequence is exactly what forward chaining is good at.",
+   "With no rules there is nothing to chain through either way.",
+   "Backward chaining requires a goal to start from; an unknown goal makes it inapplicable."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "easy",
+  "questionText": "Converting a first-order sentence to CNF for resolution requires removing existential quantifiers via:",
+  "options": [
+   "Skolemization (replacing them with Skolem constants/functions)",
+   "Universal instantiation",
+   "Modus Ponens",
+   "Truth tables"
+  ],
+  "correctIndex": 0,
+  "explanation": "Skolemization eliminates existential quantifiers: ∃x P(x) becomes P(c) with a fresh Skolem constant, and an existential inside a universal becomes a Skolem function of the universally quantified variables. This is a required step in converting FOL to clausal (CNF) form.",
+  "distractorRationales": [
+   "",
+   "Universal instantiation handles ∀, not the removal of ∃.",
+   "Modus Ponens is an inference rule, not a CNF conversion step.",
+   "Truth tables apply to propositional logic, not FOL Skolemization."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "hard",
+  "questionText": "In first-order resolution, unification of two atoms (e.g., P(x, a) and P(b, y)) produces:",
+  "options": [
+   "A most general unifier (substitution) {x/b, y/a} making them identical",
+   "A proof of unsatisfiability",
+   "A Skolem function",
+   "A truth value"
+  ],
+  "correctIndex": 0,
+  "explanation": "Unification finds the most general substitution that makes two expressions syntactically identical; here {x/b, y/a} turns both into P(b, a). The most general unifier (MGU) is essential for applying the resolution rule to first-order clauses.",
+  "distractorRationales": [
+   "",
+   "Unification itself does not prove unsatisfiability; it enables a resolution step.",
+   "Skolem functions arise during CNF conversion, not from unification.",
+   "Unification yields a substitution, not a single truth value."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "A sentence is 'valid' (a tautology) if it is:",
+  "options": [
+   "True in every interpretation",
+   "True in at least one interpretation",
+   "False in every interpretation",
+   "Equivalent to its own negation"
+  ],
+  "correctIndex": 0,
+  "explanation": "A valid sentence is true under all interpretations (e.g., P ∨ ¬P). Satisfiable means true in at least one; unsatisfiable means false in all. Validity of α corresponds to ¬α being unsatisfiable.",
+  "distractorRationales": [
+   "",
+   "True in at least one interpretation is satisfiability, weaker than validity.",
+   "False in every interpretation is unsatisfiability, the opposite of validity.",
+   "A sentence equivalent to its own negation is a contradiction, not valid."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "easy",
+  "questionText": "Semantic networks and frames are knowledge-representation schemes that primarily organize knowledge as:",
+  "options": [
+   "Objects/concepts and the relationships (links/slots) between them",
+   "Probability distributions over variables",
+   "Differential equations",
+   "Raw pixel arrays"
+  ],
+  "correctIndex": 0,
+  "explanation": "Semantic networks represent concepts as nodes and relationships (like is-a, part-of) as labeled links; frames group an object's attributes into named slots. Both support inheritance of properties along is-a links, a structured symbolic representation of knowledge.",
+  "distractorRationales": [
+   "",
+   "Probability distributions characterize Bayesian networks, not semantic networks.",
+   "Differential equations model continuous dynamics, not symbolic knowledge.",
+   "Raw pixels are unstructured perceptual data, not a KR scheme."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "hard",
+  "questionText": "The frame problem in logical knowledge representation concerns the difficulty of:",
+  "options": [
+   "Concisely specifying what does NOT change when an action is performed",
+   "Drawing pictures of frames",
+   "Representing probabilities",
+   "Unifying two terms"
+  ],
+  "correctIndex": 0,
+  "explanation": "The frame problem is about representing the non-effects of actions: most facts stay the same after an action, yet naively one must state every unchanged fact. Solutions like successor-state axioms or the situation calculus's frame axioms address this concisely.",
+  "distractorRationales": [
+   "",
+   "It is unrelated to literally drawing frames; it concerns action representation.",
+   "Probability representation is the domain of probabilistic models, not the frame problem.",
+   "Unification is a resolution mechanism, not the frame problem."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "Which statement about propositional vs first-order logic (FOL) is correct?",
+  "options": [
+   "FOL adds quantifiers, variables, predicates, and functions, giving more expressive power",
+   "Propositional logic can express everything FOL can",
+   "FOL has no notion of objects or relations",
+   "Propositional logic includes quantifiers"
+  ],
+  "correctIndex": 0,
+  "explanation": "First-order logic extends propositional logic with objects, predicates (relations), functions, and the quantifiers ∀ and ∃, letting it concisely express general statements over domains (e.g., 'all humans are mortal'). Propositional logic only combines whole atomic propositions.",
+  "distractorRationales": [
+   "",
+   "Propositional logic is strictly less expressive; it cannot quantify over objects.",
+   "FOL is precisely the logic of objects and relations.",
+   "Propositional logic has no quantifiers; that is what FOL adds."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "easy",
+  "questionText": "The resolution rule applied to clauses (A ∨ B) and (¬B ∨ C) yields the resolvent:",
+  "options": [
+   "A ∨ C",
+   "A ∨ B ∨ C",
+   "B ∨ ¬B",
+   "the empty clause"
+  ],
+  "correctIndex": 0,
+  "explanation": "Resolution on the complementary literals B and ¬B cancels them, combining the remaining literals into the resolvent A ∨ C. This is the single inference rule underlying resolution-based theorem proving.",
+  "distractorRationales": [
+   "",
+   "The complementary literals B and ¬B must be removed, so B is not retained.",
+   "B ∨ ¬B is a tautology, not the resolvent of these clauses.",
+   "The empty clause arises only when two unit clauses with complementary literals resolve, not here."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "hard",
+  "questionText": "Why is general first-order logic inference only 'semidecidable' (refutation-complete but not decidable)?",
+  "options": [
+   "If KB ⊨ α, resolution will find a proof, but if KB ⊭ α it may run forever without halting",
+   "FOL has no inference rules",
+   "FOL is strictly less powerful than propositional logic",
+   "All FOL sentences are valid"
+  ],
+  "correctIndex": 0,
+  "explanation": "FOL entailment is semidecidable: resolution is guaranteed to terminate with a proof when α is entailed, but when α is not entailed the procedure may never halt (it cannot always confirm non-entailment). There is no algorithm that decides FOL validity in general (Church–Turing).",
+  "distractorRationales": [
+   "",
+   "FOL has sound and complete inference rules (e.g., resolution); that is not the issue.",
+   "FOL is strictly more powerful than propositional logic, not less.",
+   "Not all FOL sentences are valid; satisfiability/validity is the very question that is undecidable."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "Default (non-monotonic) reasoning differs from classical logic because it allows:",
+  "options": [
+   "Conclusions that may be retracted when new information arrives",
+   "Only conclusions that are always permanent",
+   "No use of rules",
+   "Reasoning solely with probabilities"
+  ],
+  "correctIndex": 0,
+  "explanation": "Non-monotonic reasoning (e.g., default logic, closed-world assumption) draws plausible conclusions that can be withdrawn upon learning new facts — 'birds fly; Tweety is a bird, so Tweety flies; but Tweety is a penguin, so retract.' Classical logic is monotonic: adding facts never invalidates prior conclusions.",
+  "distractorRationales": [
+   "",
+   "Permanent-only conclusions describe monotonic classical logic.",
+   "Non-monotonic systems use rules (e.g., default rules); they do not abandon them.",
+   "It can be purely symbolic; it need not be probabilistic."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation",
+  "difficulty": "medium",
+  "questionText": "The Closed-World Assumption (CWA) states that:",
+  "options": [
+   "Any ground fact not entailed by the KB is assumed false",
+   "Every unstated fact is assumed true",
+   "The KB is necessarily complete and consistent",
+   "Only positive literals may be stored"
+  ],
+  "correctIndex": 0,
+  "explanation": "Under the CWA, anything the knowledge base cannot prove is taken to be false (e.g., databases assume an absent flight does not exist). This is a non-monotonic assumption that lets systems answer negative queries without explicitly storing all false facts.",
+  "distractorRationales": [
+   "",
+   "Assuming unstated facts true is the opposite of the closed-world assumption.",
+   "CWA does not assert the KB is complete; it is an assumption about unprovable facts.",
+   "CWA concerns how absent facts are interpreted, not a restriction to positive literals only."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Resolution, a complete inference rule for propositional logic, is typically applied to formulas in:",
+  "options": [
+   "Conjunctive Normal Form (CNF)",
+   "Disjunctive Normal Form (DNF)",
+   "Negation Normal Form only",
+   "No particular form"
+  ],
+  "correctIndex": 0,
+  "explanation": "Resolution operates on clauses (disjunctions of literals), i.e., CNF. To prove KB ⊨ α, you convert KB ∧ ¬α to CNF and derive the empty clause (a contradiction) by resolving clause pairs.",
+  "distractorRationales": [
+   "",
+   "DNF (disjunctions of conjunctions) is not the clause form resolution needs.",
+   "NNF removes implications and pushes negations inward but is not the clause (CNF) form resolution requires.",
+   "Resolution specifically requires clausal (CNF) form, not arbitrary formulas."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In first-order logic, the sentence ∀x ∃y Loves(x, y) means:",
+  "options": [
+   "Everyone loves at least one (possibly different) being",
+   "There is one being that everyone loves",
+   "Everyone loves everyone",
+   "Someone loves everyone"
+  ],
+  "correctIndex": 0,
+  "explanation": "∀x ∃y places the existential inside the universal, so for each x there exists some y (which may depend on x) that x loves — everyone loves someone, not necessarily the same one.",
+  "distractorRationales": [
+   "",
+   "'One being everyone loves' is ∃y ∀x Loves(x,y), with the quantifiers swapped.",
+   "'Everyone loves everyone' would be ∀x ∀y Loves(x,y).",
+   "'Someone loves everyone' is ∃x ∀y Loves(x,y)."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "logic-knowledge-representation"
+ }
 ]

@@ -4,179 +4,399 @@
   "subtopic": "hashing",
   "difficulty": "easy",
   "questionText": "The average-case time complexity of search, insert, and delete in a hash table (with a good hash function and low load factor) is:",
-  "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+  "options": [
+   "O(1)",
+   "O(log n)",
+   "O(n)",
+   "O(n log n)"
+  ],
   "correctIndex": 0,
   "explanation": "With uniform hashing and a bounded load factor, the expected number of probes/comparisons is constant, giving O(1) average-case for the dictionary operations.",
-  "distractorRationales": ["", "O(log n) is the complexity of balanced search trees, not hash tables.", "O(n) is the worst case (all keys collide), not the average case.", "O(n log n) is a sorting bound, unrelated to hash-table operations."]
+  "distractorRationales": [
+   "",
+   "O(log n) is the complexity of balanced search trees, not hash tables.",
+   "O(n) is the worst case (all keys collide), not the average case.",
+   "O(n log n) is a sorting bound, unrelated to hash-table operations."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "easy",
   "questionText": "The load factor α of a hash table is defined as:",
-  "options": ["The number of stored elements divided by the number of slots (n/m)", "The number of slots divided by elements (m/n)", "The number of collisions", "The size of the largest cluster"],
+  "options": [
+   "The number of stored elements divided by the number of slots (n/m)",
+   "The number of slots divided by elements (m/n)",
+   "The number of collisions",
+   "The size of the largest cluster"
+  ],
   "correctIndex": 0,
   "explanation": "Load factor α = n/m, where n is the number of elements and m the number of slots. It measures how full the table is and directly affects expected probe counts.",
-  "distractorRationales": ["", "m/n is the inverse of the load factor.", "The collision count is a consequence of the load factor and hash function, not its definition.", "Cluster size is a separate property relevant to linear probing, not the definition of load factor."]
+  "distractorRationales": [
+   "",
+   "m/n is the inverse of the load factor.",
+   "The collision count is a consequence of the load factor and hash function, not its definition.",
+   "Cluster size is a separate property relevant to linear probing, not the definition of load factor."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "easy",
   "questionText": "In separate chaining, each slot of the hash table points to:",
-  "options": ["A linked list (or similar structure) of all elements that hash to that slot", "Exactly one element, with overflow rejected", "The next free slot in the array", "A secondary hash table only"],
+  "options": [
+   "A linked list (or similar structure) of all elements that hash to that slot",
+   "Exactly one element, with overflow rejected",
+   "The next free slot in the array",
+   "A secondary hash table only"
+  ],
   "correctIndex": 0,
   "explanation": "Separate chaining stores all colliding elements in a list (or tree) hanging off the slot. Collisions are resolved by appending to that slot's chain, so the table can hold more than m elements.",
-  "distractorRationales": ["", "Rejecting overflow would lose data; chaining handles arbitrarily many collisions.", "Probing to the next free slot is open addressing, not chaining.", "Using a secondary hash table per slot is a special (e.g., perfect-hashing) scheme, not basic chaining."]
+  "distractorRationales": [
+   "",
+   "Rejecting overflow would lose data; chaining handles arbitrarily many collisions.",
+   "Probing to the next free slot is open addressing, not chaining.",
+   "Using a secondary hash table per slot is a special (e.g., perfect-hashing) scheme, not basic chaining."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "easy",
   "questionText": "Open addressing resolves collisions by:",
-  "options": ["Probing a sequence of alternative slots within the table until an empty one is found", "Storing colliding keys in external linked lists", "Doubling the key", "Using a tree per slot"],
+  "options": [
+   "Probing a sequence of alternative slots within the table until an empty one is found",
+   "Storing colliding keys in external linked lists",
+   "Doubling the key",
+   "Using a tree per slot"
+  ],
   "correctIndex": 0,
   "explanation": "In open addressing, all elements live in the table itself. On a collision, a probe sequence (linear, quadratic, or double hashing) examines other slots until an empty (or matching) one is found.",
-  "distractorRationales": ["", "External linked lists are separate chaining, the alternative to open addressing.", "Doubling the key is not a collision-resolution method.", "Trees per slot are a chaining variant, not open addressing."]
+  "distractorRationales": [
+   "",
+   "External linked lists are separate chaining, the alternative to open addressing.",
+   "Doubling the key is not a collision-resolution method.",
+   "Trees per slot are a chaining variant, not open addressing."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "The primary drawback of linear probing is:",
-  "options": ["Primary clustering — long runs of occupied slots that lengthen probe sequences", "It cannot store more than one key", "It requires a perfect hash function", "It uses more memory than chaining always"],
+  "options": [
+   "Primary clustering — long runs of occupied slots that lengthen probe sequences",
+   "It cannot store more than one key",
+   "It requires a perfect hash function",
+   "It uses more memory than chaining always"
+  ],
   "correctIndex": 0,
   "explanation": "Linear probing causes primary clustering: occupied slots tend to form contiguous runs, and any key hashing into a cluster extends it, degrading performance even at moderate load factors.",
-  "distractorRationales": ["", "Linear probing stores many keys; it just suffers from clustering.", "It works with ordinary hash functions; perfect hashing is not required.", "Open addressing generally uses LESS memory than chaining (no list pointers)."]
+  "distractorRationales": [
+   "",
+   "Linear probing stores many keys; it just suffers from clustering.",
+   "It works with ordinary hash functions; perfect hashing is not required.",
+   "Open addressing generally uses LESS memory than chaining (no list pointers)."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "Quadratic probing reduces primary clustering but can suffer from:",
-  "options": ["Secondary clustering — keys with the same initial hash follow the same probe sequence", "Primary clustering being worse than linear probing", "Inability to ever find an empty slot when the table is half full and size is prime", "Requiring chaining as a fallback"],
+  "options": [
+   "Secondary clustering — keys with the same initial hash follow the same probe sequence",
+   "Primary clustering being worse than linear probing",
+   "Inability to ever find an empty slot when the table is half full and size is prime",
+   "Requiring chaining as a fallback"
+  ],
   "correctIndex": 0,
   "explanation": "Quadratic probing spreads probes out (mitigating primary clustering) but two keys with the same home slot traverse identical probe sequences — secondary clustering. (With a prime table size and load factor < 0.5, an empty slot is guaranteed.)",
-  "distractorRationales": ["", "Quadratic probing reduces, not worsens, primary clustering compared to linear probing.", "With a prime size and α < 0.5, quadratic probing IS guaranteed to find an empty slot.", "Quadratic probing is itself a complete open-addressing scheme; it does not need chaining."]
+  "distractorRationales": [
+   "",
+   "Quadratic probing reduces, not worsens, primary clustering compared to linear probing.",
+   "With a prime size and α < 0.5, quadratic probing IS guaranteed to find an empty slot.",
+   "Quadratic probing is itself a complete open-addressing scheme; it does not need chaining."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "Why is double hashing generally superior to linear and quadratic probing?",
-  "options": ["The probe step depends on a second hash of the key, so different keys with the same home slot get different probe sequences, avoiding both clustering types", "It never needs a prime table size", "It guarantees O(1) worst-case search", "It eliminates the need for a hash function"],
+  "options": [
+   "The probe step depends on a second hash of the key, so different keys with the same home slot get different probe sequences, avoiding both clustering types",
+   "It never needs a prime table size",
+   "It guarantees O(1) worst-case search",
+   "It eliminates the need for a hash function"
+  ],
   "correctIndex": 0,
   "explanation": "In double hashing, the step size h2(k) varies by key, so two keys with the same initial slot follow distinct probe sequences. This avoids both primary and secondary clustering, approximating uniform hashing.",
-  "distractorRationales": ["", "Double hashing often DOES require a table size relatively prime to the step to cover all slots.", "Worst-case search is still O(n); double hashing improves the average, not the worst case.", "Double hashing uses two hash functions; it certainly does not eliminate hashing."]
+  "distractorRationales": [
+   "",
+   "Double hashing often DOES require a table size relatively prime to the step to cover all slots.",
+   "Worst-case search is still O(n); double hashing improves the average, not the worst case.",
+   "Double hashing uses two hash functions; it certainly does not eliminate hashing."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "For open addressing under the uniform hashing assumption, the expected number of probes for an UNSUCCESSFUL search with load factor α is approximately:",
-  "options": ["1 / (1 − α)", "1 / α", "α", "1 + α/2"],
+  "options": [
+   "1 / (1 − α)",
+   "1 / α",
+   "α",
+   "1 + α/2"
+  ],
   "correctIndex": 0,
   "explanation": "Under uniform hashing, an unsuccessful search probes on average 1/(1−α) slots. As α → 1, this grows without bound, which is why open-addressing tables must stay well below full.",
-  "distractorRationales": ["", "1/α is not the standard result; it grows as the table empties, which is backwards.", "α alone underestimates and is the load factor, not a probe count.", "1 + α/2 is the approximate cost for a SUCCESSFUL search, not an unsuccessful one."]
+  "distractorRationales": [
+   "",
+   "1/α is not the standard result; it grows as the table empties, which is backwards.",
+   "α alone underestimates and is the load factor, not a probe count.",
+   "1 + α/2 is the approximate cost for a SUCCESSFUL search, not an unsuccessful one."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "Deletion in an open-addressing hash table is tricky because simply marking a slot empty can:",
-  "options": ["Break probe sequences, causing later searches to wrongly conclude a key is absent", "Permanently corrupt the hash function", "Double the table size", "Convert it to a chained table"],
+  "options": [
+   "Break probe sequences, causing later searches to wrongly conclude a key is absent",
+   "Permanently corrupt the hash function",
+   "Double the table size",
+   "Convert it to a chained table"
+  ],
   "correctIndex": 0,
   "explanation": "If a deleted slot is marked truly empty, a search probing past it may stop early and miss keys placed later in the original probe sequence. The fix is a 'deleted' (tombstone) marker that searches skip over but insertions may reuse.",
-  "distractorRationales": ["", "The hash function is unaffected; the issue is broken probe chains.", "Deletion does not resize the table by itself.", "It does not change the resolution scheme; it just needs tombstones."]
+  "distractorRationales": [
+   "",
+   "The hash function is unaffected; the issue is broken probe chains.",
+   "Deletion does not resize the table by itself.",
+   "It does not change the resolution scheme; it just needs tombstones."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "A hash function h is drawn from a 'universal' family. The defining property of universal hashing is that for any two distinct keys x ≠ y:",
-  "options": ["The probability (over random choice of h) that h(x) = h(y) is at most 1/m, where m is the table size", "h(x) is always different from h(y)", "h always maps to slot 0", "h depends only on the table size, not the key"],
+  "options": [
+   "The probability (over random choice of h) that h(x) = h(y) is at most 1/m, where m is the table size",
+   "h(x) is always different from h(y)",
+   "h always maps to slot 0",
+   "h depends only on the table size, not the key"
+  ],
   "correctIndex": 0,
   "explanation": "A universal family guarantees Pr[h(x) = h(y)] ≤ 1/m for distinct keys when h is chosen at random from the family. This bounds expected collisions regardless of the input, defeating adversarial key choices.",
-  "distractorRationales": ["", "No fixed hash can avoid all collisions when keys exceed slots; universality is a probabilistic bound, not a guarantee of no collisions.", "Mapping everything to slot 0 would maximize collisions, the opposite of universal hashing.", "A useful hash must depend on the key; ignoring it would collide everything."]
+  "distractorRationales": [
+   "",
+   "No fixed hash can avoid all collisions when keys exceed slots; universality is a probabilistic bound, not a guarantee of no collisions.",
+   "Mapping everything to slot 0 would maximize collisions, the opposite of universal hashing.",
+   "A useful hash must depend on the key; ignoring it would collide everything."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "hard",
   "questionText": "Perfect hashing for a static set of n keys achieves O(1) worst-case lookup using a two-level scheme. The expected total space is:",
-  "options": ["O(n)", "O(n²)", "O(n log n)", "O(2^n)"],
+  "options": [
+   "O(n)",
+   "O(n²)",
+   "O(n log n)",
+   "O(2^n)"
+  ],
   "correctIndex": 0,
   "explanation": "Two-level perfect hashing uses a primary table of size O(n); each slot with k_i collisions uses a secondary table of size k_i². The expected sum of k_i² is O(n), so total space is O(n) with O(1) worst-case lookup.",
-  "distractorRationales": ["", "O(n²) would result only if all keys collided into one secondary table; the construction keeps the expected total at O(n).", "O(n log n) is not the perfect-hashing space bound.", "O(2^n) is exponential and unrelated to perfect hashing."]
+  "distractorRationales": [
+   "",
+   "O(n²) would result only if all keys collided into one secondary table; the construction keeps the expected total at O(n).",
+   "O(n log n) is not the perfect-hashing space bound.",
+   "O(2^n) is exponential and unrelated to perfect hashing."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "hard",
   "questionText": "Keys 10, 22, 31, 4, 15, 28, 17, 88, 59 are inserted into a hash table of size 11 using separate chaining with h(k) = k mod 11. How many keys land in slot 0?",
-  "options": ["2 (keys 22 and 88)", "1", "3", "0"],
+  "options": [
+   "2 (keys 22 and 88)",
+   "1",
+   "3",
+   "0"
+  ],
   "correctIndex": 0,
   "explanation": "Compute k mod 11: 22 mod 11 = 0 and 88 mod 11 = 0. The others map elsewhere (10→10, 31→9, 4→4, 15→4, 28→6, 17→6, 59→4). So slot 0 holds 2 keys: 22 and 88.",
-  "distractorRationales": ["", "Only 22 maps to 0 if you forget 88 mod 11 = 0; there are two.", "3 overcounts; only 22 and 88 give remainder 0.", "0 is wrong since 22 mod 11 = 0 places at least one key there."]
+  "distractorRationales": [
+   "",
+   "Only 22 maps to 0 if you forget 88 mod 11 = 0; there are two.",
+   "3 overcounts; only 22 and 88 give remainder 0.",
+   "0 is wrong since 22 mod 11 = 0 places at least one key there."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "hard",
   "questionText": "When a dynamic hash table is resized by doubling and rehashing whenever the load factor exceeds a threshold, the amortized cost of insertion is:",
-  "options": ["O(1) amortized, even though individual resizes cost O(n)", "O(n) amortized", "O(log n) amortized", "O(n²) amortized"],
+  "options": [
+   "O(1) amortized, even though individual resizes cost O(n)",
+   "O(n) amortized",
+   "O(log n) amortized",
+   "O(n²) amortized"
+  ],
   "correctIndex": 0,
   "explanation": "Doubling means a resize of cost O(n) happens only after Θ(n) cheap insertions. Spreading the resize cost over those insertions gives O(1) amortized per insertion (the same analysis as a dynamic array).",
-  "distractorRationales": ["", "O(n) amortized would ignore that expensive resizes are rare; the amortized cost is constant.", "O(log n) amortized does not match the doubling analysis, which yields O(1).", "O(n²) is far too high; total work for n insertions is O(n)."]
+  "distractorRationales": [
+   "",
+   "O(n) amortized would ignore that expensive resizes are rare; the amortized cost is constant.",
+   "O(log n) amortized does not match the doubling analysis, which yields O(1).",
+   "O(n²) is far too high; total work for n insertions is O(n)."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "hard",
   "questionText": "In cuckoo hashing with two tables and two hash functions, lookups take O(1) worst-case time because:",
-  "options": ["Each key can reside in only one of two possible positions, so at most two slots are checked", "Every key is stored exactly once at slot 0", "It uses chaining for overflow", "It never has collisions"],
+  "options": [
+   "Each key can reside in only one of two possible positions, so at most two slots are checked",
+   "Every key is stored exactly once at slot 0",
+   "It uses chaining for overflow",
+   "It never has collisions"
+  ],
   "correctIndex": 0,
   "explanation": "Cuckoo hashing guarantees a key is in one of exactly two candidate slots (one per hash function). A lookup checks just those two, giving O(1) worst-case. Insertions may displace ('kick out') existing keys and occasionally trigger a rehash.",
-  "distractorRationales": ["", "Keys occupy their hashed positions, not a single slot 0.", "Cuckoo hashing does not use chaining; it relocates keys among the two tables.", "Collisions do occur during insertion (handled by eviction); the guarantee is on lookup, not collision-freedom."]
+  "distractorRationales": [
+   "",
+   "Keys occupy their hashed positions, not a single slot 0.",
+   "Cuckoo hashing does not use chaining; it relocates keys among the two tables.",
+   "Collisions do occur during insertion (handled by eviction); the guarantee is on lookup, not collision-freedom."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "The division method hash function h(k) = k mod m works best when m is chosen to be:",
-  "options": ["A prime not too close to a power of 2", "An exact power of 2", "An even number", "Equal to the number of keys"],
+  "options": [
+   "A prime not too close to a power of 2",
+   "An exact power of 2",
+   "An even number",
+   "Equal to the number of keys"
+  ],
   "correctIndex": 0,
   "explanation": "A prime m far from powers of 2 spreads keys more uniformly and avoids the situation where k mod m depends only on low-order bits of k (which happens when m is a power of 2).",
-  "distractorRationales": ["", "A power of 2 makes h(k) depend only on the low-order bits of k, causing poor distribution.", "An even m sends all even keys to even slots, reducing uniformity.", "Setting m to the number of keys is unrelated to distribution quality and would force α = 1."]
+  "distractorRationales": [
+   "",
+   "A power of 2 makes h(k) depend only on the low-order bits of k, causing poor distribution.",
+   "An even m sends all even keys to even slots, reducing uniformity.",
+   "Setting m to the number of keys is unrelated to distribution quality and would force α = 1."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "hard",
   "questionText": "Inserting keys 12, 25, 38, 51 into a table of size 13 using open addressing with linear probing and h(k) = k mod 13. Where does 51 end up? (12→12, 25→12, 38→12 collide.)",
-  "options": ["Slot 1 (12 at 12, 25 at 0, 38 at 1... then 51 mod 13 = 12, probes 12,0,1,2 → slot 2)", "Slot 12", "Slot 0", "Slot 2"],
+  "options": [
+   "Slot 1 (12 at 12, 25 at 0, 38 at 1... then 51 mod 13 = 12, probes 12,0,1,2 → slot 2)",
+   "Slot 12",
+   "Slot 0",
+   "Slot 2"
+  ],
   "correctIndex": 3,
   "explanation": "All four hash to 12 mod 13 = 12. Linear probing: 12 → slot 12; 25 → 12 taken → slot 0 (wrap); 38 → 12,0 taken → slot 1; 51 → 12,0,1 taken → slot 2. So 51 lands in slot 2.",
-  "distractorRationales": ["This option's reasoning is garbled though it reaches slot 2; the clean answer is slot 2.", "Slot 12 is taken by the first key 12.", "Slot 0 is taken by 25.", ""]
+  "distractorRationales": [
+   "This option's reasoning is garbled though it reaches slot 2; the clean answer is slot 2.",
+   "Slot 12 is taken by the first key 12.",
+   "Slot 0 is taken by 25.",
+   ""
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "medium",
   "questionText": "A good general-purpose hash function should ideally satisfy which property?",
-  "options": ["Distribute keys uniformly across slots and be quick to compute", "Map all keys to the same slot for consistency", "Be slow to compute for security", "Depend only on the first character of the key"],
+  "options": [
+   "Distribute keys uniformly across slots and be quick to compute",
+   "Map all keys to the same slot for consistency",
+   "Be slow to compute for security",
+   "Depend only on the first character of the key"
+  ],
   "correctIndex": 0,
   "explanation": "A good hash function spreads keys uniformly (minimizing collisions) and is fast to evaluate. Uniformity keeps chains/probe sequences short; speed keeps operations cheap.",
-  "distractorRationales": ["", "Mapping all keys to one slot maximizes collisions — the worst possible behavior.", "Slowness is a feature only for cryptographic password hashing, not general-purpose table hashing.", "Using only the first character ignores most of the key, causing severe clustering."]
+  "distractorRationales": [
+   "",
+   "Mapping all keys to one slot maximizes collisions — the worst possible behavior.",
+   "Slowness is a feature only for cryptographic password hashing, not general-purpose table hashing.",
+   "Using only the first character ignores most of the key, causing severe clustering."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "hashing",
   "difficulty": "hard",
   "questionText": "The expected number of empty slots after inserting n keys uniformly at random into n slots (with chaining) is approximately:",
-  "options": ["n/e ≈ 0.37n", "n/2", "0", "n"],
+  "options": [
+   "n/e ≈ 0.37n",
+   "n/2",
+   "0",
+   "n"
+  ],
   "correctIndex": 0,
   "explanation": "Each slot is empty if none of the n keys lands there: probability (1 − 1/n)^n ≈ 1/e. So the expected number of empty slots is about n/e ≈ 0.37n. This is the classic balls-into-bins result.",
-  "distractorRationales": ["", "n/2 overestimates; the correct factor is 1/e ≈ 0.37, not 0.5.", "Zero empty slots would require a perfect spread with no collisions, which random hashing does not achieve.", "n empty slots would mean no key landed anywhere, which is impossible after n insertions."]
+  "distractorRationales": [
+   "",
+   "n/2 overestimates; the correct factor is 1/e ≈ 0.37, not 0.5.",
+   "Zero empty slots would require a perfect spread with no collisions, which random hashing does not achieve.",
+   "n empty slots would mean no key landed anywhere, which is impossible after n insertions."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "A collision in a hash table occurs when:",
+  "options": [
+   "Two distinct keys hash to the same slot",
+   "A key is not found",
+   "The table is empty",
+   "The hash function returns a negative number"
+  ],
+  "correctIndex": 0,
+  "explanation": "A collision happens when the hash function maps two different keys to the same table index. Collision-resolution strategies (chaining, open addressing) handle this.",
+  "distractorRationales": [
+   "",
+   "A key not being found is a normal unsuccessful search, not a collision.",
+   "An empty table has no collisions.",
+   "A negative hash value is a coding issue, not the definition of a collision."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "hashing"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "To keep average operations near O(1), a hash table using chaining should maintain a load factor that is:",
+  "options": [
+   "Bounded by a small constant (e.g., resize when it exceeds ~0.75)",
+   "Allowed to grow without limit",
+   "Exactly 1 always",
+   "Always above 2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Keeping the load factor (n/m) bounded by a constant keeps average chain length constant, preserving O(1) expected operations. Tables resize (rehash) when the load factor exceeds a threshold like 0.75.",
+  "distractorRationales": [
+   "",
+   "An unbounded load factor makes chains long, degrading operations toward O(n).",
+   "A fixed load factor of exactly 1 is not maintainable as elements are added without resizing.",
+   "A load factor always above 2 means long chains and poor performance."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "hashing"
  }
 ]

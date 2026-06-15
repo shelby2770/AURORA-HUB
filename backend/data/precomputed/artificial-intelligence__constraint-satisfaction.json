@@ -1,182 +1,402 @@
 [
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "easy",
-    "questionText": "A constraint satisfaction problem (CSP) is formally defined by which three components?",
-    "options": ["Variables, domains, and constraints", "States, actions, and goal test", "Nodes, edges, and weights", "Clauses, literals, and a resolution rule"],
-    "correctIndex": 0,
-    "explanation": "A CSP consists of a set of variables, a domain of possible values for each variable, and constraints that restrict the allowable combinations of values. A solution is a complete assignment satisfying all constraints.",
-    "distractorRationales": ["", "States/actions/goal test define a general search problem, not specifically a CSP.", "Nodes/edges/weights describe a graph, not the CSP formalism.", "Clauses/literals/resolution belong to propositional logic inference."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "Forward checking, applied when a variable is assigned, improves plain backtracking by:",
-    "options": ["Removing inconsistent values from the domains of unassigned neighbors", "Reordering the variables alphabetically", "Solving the whole CSP greedily", "Adding new constraints to the problem"],
-    "correctIndex": 0,
-    "explanation": "After assigning a variable, forward checking prunes from each connected unassigned variable's domain any value that conflicts with the new assignment. If any domain becomes empty, it backtracks immediately, detecting failure earlier than plain backtracking.",
-    "distractorRationales": ["", "It does not reorder variables alphabetically; ordering is handled by separate heuristics like MRV.", "It is a pruning step within backtracking, not a standalone greedy solver.", "It prunes domains; it does not add constraints to the problem."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "The Least-Constraining-Value (LCV) heuristic chooses, for the current variable, the value that:",
-    "options": ["Rules out the fewest values in the domains of neighboring variables", "Rules out the most values in neighbors", "Has the smallest numeric value", "Was assigned least recently"],
-    "correctIndex": 0,
-    "explanation": "LCV is a value-ordering heuristic: it prefers the value that leaves the maximum flexibility for the remaining variables, i.e., eliminates the fewest options for neighbors. This increases the chance of finding a solution without backtracking.",
-    "distractorRationales": ["", "Ruling out the most values is the opposite of what LCV wants.", "LCV considers impact on neighbors, not the raw numeric value.", "Recency of assignment is irrelevant to LCV."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "hard",
-    "questionText": "The degree heuristic is typically used to:",
-    "options": ["Break ties in variable selection by choosing the variable involved in the most constraints with unassigned variables", "Pick the value that satisfies the most constraints", "Order constraints by arity", "Choose the goal state"],
-    "correctIndex": 0,
-    "explanation": "The degree heuristic selects the variable with the largest number of constraints on remaining unassigned variables, reducing future branching. It is commonly used as a tie-breaker for the Minimum-Remaining-Values (MRV) heuristic.",
-    "distractorRationales": ["", "Choosing a value is value-ordering (LCV); the degree heuristic selects variables.", "It ranks variables by constraint involvement, not constraints by arity.", "CSPs do not have a single goal state to choose; the degree heuristic guides variable ordering."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "easy",
-    "questionText": "Map coloring (assigning colors to regions so no two adjacent regions share a color) is a classic CSP. The constraints are of which type?",
-    "options": ["Binary inequality constraints between adjacent regions", "Unary constraints on each region", "Global all-different over all regions", "No constraints at all"],
-    "correctIndex": 0,
-    "explanation": "Each adjacency imposes a binary constraint: the two neighboring regions must take different colors (region_i ≠ region_j). These pairwise inequality constraints form the constraint graph used by arc-consistency and backtracking algorithms.",
-    "distractorRationales": ["", "Unary constraints restrict a single variable, but adjacency involves pairs.", "An all-different over ALL regions is too strong — only adjacent regions must differ.", "There certainly are constraints; otherwise any coloring would trivially work."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "hard",
-    "questionText": "Arc consistency (e.g., via AC-3) makes an arc (X → Y) consistent by:",
-    "options": ["Removing from X's domain any value with no consistent value in Y's domain", "Removing from Y's domain any value not in X", "Merging X and Y into one variable", "Assigning X its smallest value"],
-    "correctIndex": 0,
-    "explanation": "An arc X → Y is consistent if every value in X's domain has at least one compatible value in Y's domain. AC-3 enforces this by deleting unsupported values from X; such deletions can cascade, re-queuing arcs pointing into X. It is a preprocessing/pruning step, not a full solver.",
-    "distractorRationales": ["", "Arc X→Y prunes X's domain (based on support in Y), not Y's based on X.", "Arc consistency prunes domains; it does not merge variables.", "It removes unsupported values, not assigns a fixed value to X."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "Achieving arc consistency on a CSP guarantees a solution exists without further search only when:",
-    "options": ["The constraint graph is a tree (then a backtrack-free ordering exists)", "There are exactly two variables", "All domains have size 1", "It never guarantees this for any CSP"],
-    "correctIndex": 0,
-    "explanation": "For tree-structured CSPs, enforcing arc consistency (directional, along a topological order) allows a backtrack-free solution to be read off. In general (cyclic) constraint graphs, arc consistency only prunes domains and does not by itself guarantee a solution.",
-    "distractorRationales": ["", "Two variables is a special small case, not the general guarantee condition.", "Domains of size 1 mean the assignment is already fixed; that is a trivial different situation.", "It does guarantee this specifically for tree-structured CSPs."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "Backtracking search for CSPs is essentially a depth-first search that, at each step, assigns one variable and:",
-    "options": ["Backtracks when a constraint is violated, trying the next value", "Restarts the whole search from scratch", "Expands all variables simultaneously", "Uses a priority queue ordered by cost"],
-    "correctIndex": 0,
-    "explanation": "Backtracking assigns values to variables one at a time, checking constraints; when no value works for a variable (a dead end), it backs up to the previous variable and tries an alternative. This DFS over partial assignments is the standard CSP search backbone, enhanced by heuristics and inference.",
-    "distractorRationales": ["", "It backs up one level, not restart the entire search.", "It assigns variables sequentially, not all at once.", "It is depth-first over assignments, not a cost-ordered priority queue search."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "easy",
-    "questionText": "An 'n-ary' constraint such as AllDifferent(X1, X2, ..., Xn) is a:",
-    "options": ["Global constraint relating more than two variables at once", "Unary constraint", "Binary constraint", "Soft (preference) constraint"],
-    "correctIndex": 0,
-    "explanation": "AllDifferent is a global constraint involving many variables simultaneously, requiring all of them to take distinct values. Specialized propagation algorithms (e.g., based on matching) enforce it more powerfully than decomposing into pairwise ≠ constraints.",
-    "distractorRationales": ["", "A unary constraint restricts one variable only.", "A binary constraint relates exactly two variables, fewer than AllDifferent's many.", "AllDifferent is a hard constraint that must hold, not a soft preference."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "hard",
-    "questionText": "The min-conflicts heuristic, used in local search for CSPs (e.g., solving large n-queens), works by:",
-    "options": ["Iteratively reassigning a conflicted variable to the value that minimizes the number of violated constraints", "Backtracking over a search tree", "Enforcing arc consistency repeatedly", "Choosing variables by MRV"],
-    "correctIndex": 0,
-    "explanation": "Min-conflicts is a local-search method starting from a complete (possibly conflicting) assignment; it repeatedly picks a variable in conflict and sets it to the value causing the fewest conflicts. It solves very large n-queens problems (e.g., millions) in near-constant time on average.",
-    "distractorRationales": ["", "It is a local search over complete assignments, not tree backtracking.", "It does not rely on arc-consistency propagation; it minimizes conflicts directly.", "MRV is a variable-ordering heuristic for backtracking, a different approach."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "Constraint propagation differs from search in that propagation:",
-    "options": ["Infers reductions in variable domains without committing to assignments", "Always finds a complete solution by itself", "Picks a single value for every variable immediately", "Is only applicable to tree-structured problems"],
-    "correctIndex": 0,
-    "explanation": "Constraint propagation (e.g., arc consistency) tightens domains by logical inference from the constraints, shrinking the search space, but it does not generally produce a full assignment on its own. It is interleaved with backtracking search to make it efficient.",
-    "distractorRationales": ["", "Propagation alone usually does not solve general CSPs; it must be combined with search.", "It prunes domains rather than committing to specific values.", "Propagation applies to any CSP, though it fully solves only special structures like trees."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "easy",
-    "questionText": "The Sudoku puzzle can be modeled as a CSP where the constraints are AllDifferent applied to:",
-    "options": ["Each row, each column, and each 3x3 box", "Only the rows", "Only the main diagonals", "The entire grid as one set"],
-    "correctIndex": 0,
-    "explanation": "Sudoku has 27 AllDifferent constraints: one per row (9), one per column (9), and one per 3x3 box (9). Each variable (cell) has domain {1..9}. This standard CSP encoding is solved efficiently by propagation plus backtracking.",
-    "distractorRationales": ["", "Constraining only rows ignores the column and box rules.", "Standard Sudoku does not constrain the diagonals.", "A single AllDifferent over all 81 cells is impossible since digits repeat across the grid."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "hard",
-    "questionText": "Combining the MRV variable-ordering heuristic with forward checking is effective because:",
-    "options": ["Forward checking shrinks domains, and MRV then targets the variable most likely to fail soon (fail-first)", "MRV makes forward checking unnecessary", "They both pick values rather than variables", "They only work on binary CSPs"],
-    "correctIndex": 0,
-    "explanation": "Forward checking continually prunes domains, and MRV (choose the variable with the fewest remaining legal values) exploits this by picking the most constrained variable next — a 'fail-first' strategy that detects dead ends early and prunes the tree dramatically. The two are complementary.",
-    "distractorRationales": ["", "MRV needs the pruned domains that forward checking provides; it does not replace it.", "MRV is a variable-ordering heuristic, not a value-ordering one.", "Both techniques apply to general CSPs, not just binary ones."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "A CSP whose constraint graph is a tree with n variables and domain size d can be solved in time:",
-    "options": ["O(n·d^2)", "O(d^n)", "O(n!)", "O(2^n)"],
-    "correctIndex": 0,
-    "explanation": "Tree-structured CSPs are solved in O(n·d^2): topologically order the tree, make it directionally arc-consistent in one backward pass (each of the n-1 arcs costs O(d^2)), then assign values forward with no backtracking. This is far better than the exponential worst case of general CSPs.",
-    "distractorRationales": ["", "O(d^n) is the brute-force/general worst case, which tree structure avoids.", "O(n!) overstates it and does not arise from this algorithm.", "O(2^n) is exponential; tree CSPs are polynomial."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "easy",
-    "questionText": "A 'unary' constraint in a CSP restricts:",
-    "options": ["The values a single variable can take", "The values of two variables jointly", "All variables at once", "The order of assignment"],
-    "correctIndex": 0,
-    "explanation": "A unary constraint involves exactly one variable (e.g., X ≠ 3), restricting its domain directly. Such constraints can be handled by simply pruning the variable's domain before search begins (node consistency).",
-    "distractorRationales": ["", "Two variables jointly is a binary constraint.", "Restricting all variables at once is a global/n-ary constraint.", "Constraints restrict values, not the order in which variables are assigned."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "hard",
-    "questionText": "The cutset conditioning technique solves a nearly-tree-structured CSP by:",
-    "options": ["Assigning values to a small set of variables (the cycle cutset) so the rest forms a tree, then solving the tree", "Ignoring all cyclic constraints", "Converting the CSP to SAT", "Enforcing path consistency only"],
-    "correctIndex": 0,
-    "explanation": "Cutset conditioning finds a small set of variables whose removal makes the constraint graph a tree (a cycle cutset). It enumerates assignments to that cutset and, for each, solves the remaining tree in polynomial time. It is efficient when the cutset is small (size c gives O(d^c · (n-c)·d^2)).",
-    "distractorRationales": ["", "It does not ignore cyclic constraints; it conditions on variables to eliminate cycles.", "It works within the CSP framework rather than translating to SAT.", "It does more than path consistency; it instantiates a cutset to expose tree structure."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "Why does the 'fail-first' principle (e.g., MRV) generally speed up CSP backtracking?",
-    "options": ["Choosing the most constrained variable prunes large parts of the tree when it fails early", "It guarantees the first assignment always succeeds", "It avoids checking any constraints", "It converts the problem to a tree"],
-    "correctIndex": 0,
-    "explanation": "By tackling the variable with the fewest legal values first, the search either succeeds with that tightly constrained variable or detects failure quickly, allowing it to prune whole subtrees that a different ordering would explore needlessly. Detecting failure early is cheaper than late.",
-    "distractorRationales": ["", "Fail-first deliberately courts early failure to prune, not guarantee success.", "It still checks constraints; it just orders variable selection.", "It does not restructure the constraint graph into a tree."]
-  },
-  {
-    "course": "artificial-intelligence",
-    "subtopic": "constraint-satisfaction",
-    "difficulty": "medium",
-    "questionText": "In a CSP, a binary constraint between variables X and Y can always be represented as:",
-    "options": ["A set of allowed (X, Y) value pairs (a relation)", "A single number", "A unary constraint on X only", "A total ordering of all variables"],
-    "correctIndex": 0,
-    "explanation": "A binary constraint is equivalent to specifying which pairs of values (x, y) are jointly permitted — a relation over the two domains. Any binary CSP can be visualized as a constraint graph whose edges carry these allowed-pair relations.",
-    "distractorRationales": ["", "A single number cannot express which value combinations are allowed.", "Reducing it to a unary constraint on X loses the dependence on Y.", "It relates two variables, not a global ordering of all variables."]
-  }
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "easy",
+  "questionText": "A constraint satisfaction problem (CSP) is formally defined by which three components?",
+  "options": [
+   "Variables, domains, and constraints",
+   "States, actions, and goal test",
+   "Nodes, edges, and weights",
+   "Clauses, literals, and a resolution rule"
+  ],
+  "correctIndex": 0,
+  "explanation": "A CSP consists of a set of variables, a domain of possible values for each variable, and constraints that restrict the allowable combinations of values. A solution is a complete assignment satisfying all constraints.",
+  "distractorRationales": [
+   "",
+   "States/actions/goal test define a general search problem, not specifically a CSP.",
+   "Nodes/edges/weights describe a graph, not the CSP formalism.",
+   "Clauses/literals/resolution belong to propositional logic inference."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "Forward checking, applied when a variable is assigned, improves plain backtracking by:",
+  "options": [
+   "Removing inconsistent values from the domains of unassigned neighbors",
+   "Reordering the variables alphabetically",
+   "Solving the whole CSP greedily",
+   "Adding new constraints to the problem"
+  ],
+  "correctIndex": 0,
+  "explanation": "After assigning a variable, forward checking prunes from each connected unassigned variable's domain any value that conflicts with the new assignment. If any domain becomes empty, it backtracks immediately, detecting failure earlier than plain backtracking.",
+  "distractorRationales": [
+   "",
+   "It does not reorder variables alphabetically; ordering is handled by separate heuristics like MRV.",
+   "It is a pruning step within backtracking, not a standalone greedy solver.",
+   "It prunes domains; it does not add constraints to the problem."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "The Least-Constraining-Value (LCV) heuristic chooses, for the current variable, the value that:",
+  "options": [
+   "Rules out the fewest values in the domains of neighboring variables",
+   "Rules out the most values in neighbors",
+   "Has the smallest numeric value",
+   "Was assigned least recently"
+  ],
+  "correctIndex": 0,
+  "explanation": "LCV is a value-ordering heuristic: it prefers the value that leaves the maximum flexibility for the remaining variables, i.e., eliminates the fewest options for neighbors. This increases the chance of finding a solution without backtracking.",
+  "distractorRationales": [
+   "",
+   "Ruling out the most values is the opposite of what LCV wants.",
+   "LCV considers impact on neighbors, not the raw numeric value.",
+   "Recency of assignment is irrelevant to LCV."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "hard",
+  "questionText": "The degree heuristic is typically used to:",
+  "options": [
+   "Break ties in variable selection by choosing the variable involved in the most constraints with unassigned variables",
+   "Pick the value that satisfies the most constraints",
+   "Order constraints by arity",
+   "Choose the goal state"
+  ],
+  "correctIndex": 0,
+  "explanation": "The degree heuristic selects the variable with the largest number of constraints on remaining unassigned variables, reducing future branching. It is commonly used as a tie-breaker for the Minimum-Remaining-Values (MRV) heuristic.",
+  "distractorRationales": [
+   "",
+   "Choosing a value is value-ordering (LCV); the degree heuristic selects variables.",
+   "It ranks variables by constraint involvement, not constraints by arity.",
+   "CSPs do not have a single goal state to choose; the degree heuristic guides variable ordering."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "easy",
+  "questionText": "Map coloring (assigning colors to regions so no two adjacent regions share a color) is a classic CSP. The constraints are of which type?",
+  "options": [
+   "Binary inequality constraints between adjacent regions",
+   "Unary constraints on each region",
+   "Global all-different over all regions",
+   "No constraints at all"
+  ],
+  "correctIndex": 0,
+  "explanation": "Each adjacency imposes a binary constraint: the two neighboring regions must take different colors (region_i ≠ region_j). These pairwise inequality constraints form the constraint graph used by arc-consistency and backtracking algorithms.",
+  "distractorRationales": [
+   "",
+   "Unary constraints restrict a single variable, but adjacency involves pairs.",
+   "An all-different over ALL regions is too strong — only adjacent regions must differ.",
+   "There certainly are constraints; otherwise any coloring would trivially work."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "hard",
+  "questionText": "Arc consistency (e.g., via AC-3) makes an arc (X → Y) consistent by:",
+  "options": [
+   "Removing from X's domain any value with no consistent value in Y's domain",
+   "Removing from Y's domain any value not in X",
+   "Merging X and Y into one variable",
+   "Assigning X its smallest value"
+  ],
+  "correctIndex": 0,
+  "explanation": "An arc X → Y is consistent if every value in X's domain has at least one compatible value in Y's domain. AC-3 enforces this by deleting unsupported values from X; such deletions can cascade, re-queuing arcs pointing into X. It is a preprocessing/pruning step, not a full solver.",
+  "distractorRationales": [
+   "",
+   "Arc X→Y prunes X's domain (based on support in Y), not Y's based on X.",
+   "Arc consistency prunes domains; it does not merge variables.",
+   "It removes unsupported values, not assigns a fixed value to X."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "Achieving arc consistency on a CSP guarantees a solution exists without further search only when:",
+  "options": [
+   "The constraint graph is a tree (then a backtrack-free ordering exists)",
+   "There are exactly two variables",
+   "All domains have size 1",
+   "It never guarantees this for any CSP"
+  ],
+  "correctIndex": 0,
+  "explanation": "For tree-structured CSPs, enforcing arc consistency (directional, along a topological order) allows a backtrack-free solution to be read off. In general (cyclic) constraint graphs, arc consistency only prunes domains and does not by itself guarantee a solution.",
+  "distractorRationales": [
+   "",
+   "Two variables is a special small case, not the general guarantee condition.",
+   "Domains of size 1 mean the assignment is already fixed; that is a trivial different situation.",
+   "It does guarantee this specifically for tree-structured CSPs."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "Backtracking search for CSPs is essentially a depth-first search that, at each step, assigns one variable and:",
+  "options": [
+   "Backtracks when a constraint is violated, trying the next value",
+   "Restarts the whole search from scratch",
+   "Expands all variables simultaneously",
+   "Uses a priority queue ordered by cost"
+  ],
+  "correctIndex": 0,
+  "explanation": "Backtracking assigns values to variables one at a time, checking constraints; when no value works for a variable (a dead end), it backs up to the previous variable and tries an alternative. This DFS over partial assignments is the standard CSP search backbone, enhanced by heuristics and inference.",
+  "distractorRationales": [
+   "",
+   "It backs up one level, not restart the entire search.",
+   "It assigns variables sequentially, not all at once.",
+   "It is depth-first over assignments, not a cost-ordered priority queue search."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "easy",
+  "questionText": "An 'n-ary' constraint such as AllDifferent(X1, X2, ..., Xn) is a:",
+  "options": [
+   "Global constraint relating more than two variables at once",
+   "Unary constraint",
+   "Binary constraint",
+   "Soft (preference) constraint"
+  ],
+  "correctIndex": 0,
+  "explanation": "AllDifferent is a global constraint involving many variables simultaneously, requiring all of them to take distinct values. Specialized propagation algorithms (e.g., based on matching) enforce it more powerfully than decomposing into pairwise ≠ constraints.",
+  "distractorRationales": [
+   "",
+   "A unary constraint restricts one variable only.",
+   "A binary constraint relates exactly two variables, fewer than AllDifferent's many.",
+   "AllDifferent is a hard constraint that must hold, not a soft preference."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "hard",
+  "questionText": "The min-conflicts heuristic, used in local search for CSPs (e.g., solving large n-queens), works by:",
+  "options": [
+   "Iteratively reassigning a conflicted variable to the value that minimizes the number of violated constraints",
+   "Backtracking over a search tree",
+   "Enforcing arc consistency repeatedly",
+   "Choosing variables by MRV"
+  ],
+  "correctIndex": 0,
+  "explanation": "Min-conflicts is a local-search method starting from a complete (possibly conflicting) assignment; it repeatedly picks a variable in conflict and sets it to the value causing the fewest conflicts. It solves very large n-queens problems (e.g., millions) in near-constant time on average.",
+  "distractorRationales": [
+   "",
+   "It is a local search over complete assignments, not tree backtracking.",
+   "It does not rely on arc-consistency propagation; it minimizes conflicts directly.",
+   "MRV is a variable-ordering heuristic for backtracking, a different approach."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "Constraint propagation differs from search in that propagation:",
+  "options": [
+   "Infers reductions in variable domains without committing to assignments",
+   "Always finds a complete solution by itself",
+   "Picks a single value for every variable immediately",
+   "Is only applicable to tree-structured problems"
+  ],
+  "correctIndex": 0,
+  "explanation": "Constraint propagation (e.g., arc consistency) tightens domains by logical inference from the constraints, shrinking the search space, but it does not generally produce a full assignment on its own. It is interleaved with backtracking search to make it efficient.",
+  "distractorRationales": [
+   "",
+   "Propagation alone usually does not solve general CSPs; it must be combined with search.",
+   "It prunes domains rather than committing to specific values.",
+   "Propagation applies to any CSP, though it fully solves only special structures like trees."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "easy",
+  "questionText": "The Sudoku puzzle can be modeled as a CSP where the constraints are AllDifferent applied to:",
+  "options": [
+   "Each row, each column, and each 3x3 box",
+   "Only the rows",
+   "Only the main diagonals",
+   "The entire grid as one set"
+  ],
+  "correctIndex": 0,
+  "explanation": "Sudoku has 27 AllDifferent constraints: one per row (9), one per column (9), and one per 3x3 box (9). Each variable (cell) has domain {1..9}. This standard CSP encoding is solved efficiently by propagation plus backtracking.",
+  "distractorRationales": [
+   "",
+   "Constraining only rows ignores the column and box rules.",
+   "Standard Sudoku does not constrain the diagonals.",
+   "A single AllDifferent over all 81 cells is impossible since digits repeat across the grid."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "hard",
+  "questionText": "Combining the MRV variable-ordering heuristic with forward checking is effective because:",
+  "options": [
+   "Forward checking shrinks domains, and MRV then targets the variable most likely to fail soon (fail-first)",
+   "MRV makes forward checking unnecessary",
+   "They both pick values rather than variables",
+   "They only work on binary CSPs"
+  ],
+  "correctIndex": 0,
+  "explanation": "Forward checking continually prunes domains, and MRV (choose the variable with the fewest remaining legal values) exploits this by picking the most constrained variable next — a 'fail-first' strategy that detects dead ends early and prunes the tree dramatically. The two are complementary.",
+  "distractorRationales": [
+   "",
+   "MRV needs the pruned domains that forward checking provides; it does not replace it.",
+   "MRV is a variable-ordering heuristic, not a value-ordering one.",
+   "Both techniques apply to general CSPs, not just binary ones."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "A CSP whose constraint graph is a tree with n variables and domain size d can be solved in time:",
+  "options": [
+   "O(n·d^2)",
+   "O(d^n)",
+   "O(n!)",
+   "O(2^n)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Tree-structured CSPs are solved in O(n·d^2): topologically order the tree, make it directionally arc-consistent in one backward pass (each of the n-1 arcs costs O(d^2)), then assign values forward with no backtracking. This is far better than the exponential worst case of general CSPs.",
+  "distractorRationales": [
+   "",
+   "O(d^n) is the brute-force/general worst case, which tree structure avoids.",
+   "O(n!) overstates it and does not arise from this algorithm.",
+   "O(2^n) is exponential; tree CSPs are polynomial."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "easy",
+  "questionText": "A 'unary' constraint in a CSP restricts:",
+  "options": [
+   "The values a single variable can take",
+   "The values of two variables jointly",
+   "All variables at once",
+   "The order of assignment"
+  ],
+  "correctIndex": 0,
+  "explanation": "A unary constraint involves exactly one variable (e.g., X ≠ 3), restricting its domain directly. Such constraints can be handled by simply pruning the variable's domain before search begins (node consistency).",
+  "distractorRationales": [
+   "",
+   "Two variables jointly is a binary constraint.",
+   "Restricting all variables at once is a global/n-ary constraint.",
+   "Constraints restrict values, not the order in which variables are assigned."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "hard",
+  "questionText": "The cutset conditioning technique solves a nearly-tree-structured CSP by:",
+  "options": [
+   "Assigning values to a small set of variables (the cycle cutset) so the rest forms a tree, then solving the tree",
+   "Ignoring all cyclic constraints",
+   "Converting the CSP to SAT",
+   "Enforcing path consistency only"
+  ],
+  "correctIndex": 0,
+  "explanation": "Cutset conditioning finds a small set of variables whose removal makes the constraint graph a tree (a cycle cutset). It enumerates assignments to that cutset and, for each, solves the remaining tree in polynomial time. It is efficient when the cutset is small (size c gives O(d^c · (n-c)·d^2)).",
+  "distractorRationales": [
+   "",
+   "It does not ignore cyclic constraints; it conditions on variables to eliminate cycles.",
+   "It works within the CSP framework rather than translating to SAT.",
+   "It does more than path consistency; it instantiates a cutset to expose tree structure."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "Why does the 'fail-first' principle (e.g., MRV) generally speed up CSP backtracking?",
+  "options": [
+   "Choosing the most constrained variable prunes large parts of the tree when it fails early",
+   "It guarantees the first assignment always succeeds",
+   "It avoids checking any constraints",
+   "It converts the problem to a tree"
+  ],
+  "correctIndex": 0,
+  "explanation": "By tackling the variable with the fewest legal values first, the search either succeeds with that tightly constrained variable or detects failure quickly, allowing it to prune whole subtrees that a different ordering would explore needlessly. Detecting failure early is cheaper than late.",
+  "distractorRationales": [
+   "",
+   "Fail-first deliberately courts early failure to prune, not guarantee success.",
+   "It still checks constraints; it just orders variable selection.",
+   "It does not restructure the constraint graph into a tree."
+  ]
+ },
+ {
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction",
+  "difficulty": "medium",
+  "questionText": "In a CSP, a binary constraint between variables X and Y can always be represented as:",
+  "options": [
+   "A set of allowed (X, Y) value pairs (a relation)",
+   "A single number",
+   "A unary constraint on X only",
+   "A total ordering of all variables"
+  ],
+  "correctIndex": 0,
+  "explanation": "A binary constraint is equivalent to specifying which pairs of values (x, y) are jointly permitted — a relation over the two domains. Any binary CSP can be visualized as a constraint graph whose edges carry these allowed-pair relations.",
+  "distractorRationales": [
+   "",
+   "A single number cannot express which value combinations are allowed.",
+   "Reducing it to a unary constraint on X loses the dependence on Y.",
+   "It relates two variables, not a global ordering of all variables."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In a CSP, the Minimum Remaining Values (MRV) heuristic selects which variable to assign next by choosing the one with:",
+  "options": [
+   "The fewest legal values remaining in its domain",
+   "The most legal values remaining",
+   "The most constraints with assigned variables",
+   "The lowest index"
+  ],
+  "correctIndex": 0,
+  "explanation": "MRV (the 'most constrained variable' heuristic) picks the variable with the fewest remaining legal values, so failures are detected early — pruning the search tree faster (fail-first principle).",
+  "distractorRationales": [
+   "",
+   "Choosing the most legal values delays pruning and is the opposite of MRV.",
+   "Counting constraints with assigned variables is the degree heuristic (a tie-breaker), not MRV.",
+   "Using the lowest index ignores domain sizes entirely."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "Arc consistency (AC-3) on a binary CSP enforces that for every value in a variable's domain, each neighboring constraint has:",
+  "options": [
+   "At least one consistent value in the other variable's domain",
+   "No consistent value",
+   "Exactly one consistent value",
+   "All values consistent"
+  ],
+  "correctIndex": 0,
+  "explanation": "An arc X→Y is consistent if every value of X has some compatible value in Y's domain. AC-3 repeatedly removes unsupported values and re-queues affected arcs until a fixpoint, pruning domains before/during search.",
+  "distractorRationales": [
+   "",
+   "Requiring no consistent value would empty domains, signaling failure, not consistency.",
+   "Exactly one is too strict; one or more supporting values suffices.",
+   "Requiring all values consistent is stronger than arc consistency demands."
+  ],
+  "course": "artificial-intelligence",
+  "subtopic": "constraint-satisfaction"
+ }
 ]

@@ -1,182 +1,402 @@
 [
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "easy",
-    "questionText": "In Lamport's logical clock scheme, when a process sends a message it timestamps it with its current clock value. What rule does the receiving process apply to its own clock C upon receiving a message with timestamp t?",
-    "options": ["C = max(C, t) + 1", "C = t + 1", "C = C + 1 only", "C = min(C, t)"],
-    "correctIndex": 0,
-    "explanation": "Lamport's rule for a receive event sets the local clock to one more than the maximum of the current clock and the message timestamp: C = max(C, t) + 1. This guarantees the receive event has a strictly greater timestamp than the corresponding send, preserving the happens-before relation.",
-    "distractorRationales": ["", "C = t + 1 ignores the receiver's own progress; if C were already greater than t this would move the clock backward.", "Incrementing only by 1 ignores the sender's timestamp and can violate happens-before across the message.", "Taking the minimum would move the clock backward and break monotonicity."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "Two events a and b have Lamport timestamps L(a) = 5 and L(b) = 7. Which statement is necessarily TRUE?",
-    "options": ["b did not happen before a (i.e., NOT b → a)", "a happened before b (a → b)", "a and b are concurrent", "a and b occurred on the same process"],
-    "correctIndex": 0,
-    "explanation": "Lamport clocks guarantee only that if a → b then L(a) < L(b). The contrapositive gives a guarantee: since L(b) = 7 > L(a) = 5 is false would be needed for b → a, we can conclude b did NOT happen before a. We cannot conclude a → b, because L(a) < L(b) can also hold for concurrent events.",
-    "distractorRationales": ["", "The implication only goes one way; L(a) < L(b) does not prove a → b, since concurrent events can also satisfy it.", "They might be concurrent, but the timestamps alone cannot establish concurrency.", "Nothing about the timestamps reveals which process generated each event."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "Vector clocks are preferred over scalar Lamport clocks primarily because they can do what Lamport clocks cannot?",
-    "options": ["Detect concurrency: determine whether two events are causally unrelated", "Use less storage per process", "Provide globally synchronized real (wall-clock) time", "Eliminate the need for message passing"],
-    "correctIndex": 0,
-    "explanation": "Vector clocks capture causality precisely: a → b iff V(a) < V(b) componentwise, and if neither V(a) ≤ V(b) nor V(b) ≤ V(a) then a and b are concurrent. Scalar Lamport clocks cannot distinguish concurrency from causal ordering, since L(a) < L(b) does not imply a → b.",
-    "distractorRationales": ["", "Vector clocks use O(n) storage per timestamp, more than a scalar Lamport clock, not less.", "Neither logical clock gives real wall-clock time; they only order events logically.", "Logical clocks are updated through message passing, not a substitute for it."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "hard",
-    "questionText": "Three processes P1, P2, P3 start with vector clocks [0,0,0]. P1 does a local event ([1,0,0]) then sends m to P2. P2, initially [0,0,0], receives m. What is P2's vector clock immediately after delivering m?",
-    "options": ["[1,1,0]", "[1,0,0]", "[0,1,0]", "[1,1,1]"],
-    "correctIndex": 0,
-    "explanation": "On receive, P2 takes the componentwise max of its own vector [0,0,0] and the message vector [1,0,0], giving [1,0,0], then increments its own component (index 2 for P2) by 1, yielding [1,1,0].",
-    "distractorRationales": ["", "[1,0,0] omits P2's own increment for the receive event.", "[0,1,0] ignores the max with the sender's [1,0,0] entry.", "[1,1,1] wrongly increments P3's component, which had no event."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "easy",
-    "questionText": "The 'happened-before' relation (→) defined by Lamport is best described as which kind of order?",
-    "options": ["A partial order", "A total order", "An equivalence relation", "A linear (chain) order"],
-    "correctIndex": 0,
-    "explanation": "Happened-before is irreflexive and transitive, defining a strict partial order on events: some pairs of events are concurrent (incomparable). It is not total because concurrent events are unordered, and it is not an equivalence relation (it is not symmetric or reflexive).",
-    "distractorRationales": ["", "It is not total: concurrent events are incomparable.", "It is antisymmetric and irreflexive, not symmetric/reflexive, so not an equivalence relation.", "A linear order would order every pair, but concurrent events have no order."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "In the Network Time Protocol (NTP), a client estimates the offset between its clock and the server's. If T1 is client send time, T2 server receive, T3 server send, T4 client receive, the round-trip delay is computed as:",
-    "options": ["(T4 - T1) - (T3 - T2)", "(T4 - T1) + (T3 - T2)", "(T2 - T1) + (T4 - T3)", "(T3 - T2) - (T4 - T1)"],
-    "correctIndex": 0,
-    "explanation": "The total elapsed time at the client is (T4 - T1); the server spent (T3 - T2) processing, which is not network travel. Subtracting gives the round-trip network delay: δ = (T4 - T1) - (T3 - T2). The offset estimate is θ = ((T2 - T1) + (T3 - T4)) / 2.",
-    "distractorRationales": ["", "Adding the server processing time overstates the network delay.", "This sums the two one-way segments but double counts and is not the standard delay formula.", "This reverses the subtraction and would generally be negative."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "A total order broadcast (atomic broadcast) guarantees that:",
-    "options": ["All correct processes deliver all messages in the same order", "Messages are delivered in the order they were physically sent in real time", "Each message is delivered to exactly one process", "Messages are delivered without any network latency"],
-    "correctIndex": 0,
-    "explanation": "Total order (atomic) broadcast guarantees that all correct processes deliver the same set of messages and in an identical order, even though the order need not match real-time sending order. This is the key primitive used to implement replicated state machines.",
-    "distractorRationales": ["", "The common order need not coincide with real-time send order; it only must be consistent across processes.", "Broadcast delivers to all processes, not exactly one (that would be unicast).", "Latency is unrelated; the guarantee concerns ordering and agreement, not timing."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "hard",
-    "questionText": "Consider events with vector clocks: a = [2,1,0], b = [1,2,1]. What is the causal relationship between a and b?",
-    "options": ["Concurrent (a || b)", "a → b", "b → a", "a and b are identical events"],
-    "correctIndex": 0,
-    "explanation": "For a → b we would need a ≤ b in every component; but a[0]=2 > b[0]=1, so a is not ≤ b. For b → a we'd need b ≤ a; but b[1]=2 > a[1]=1, so b is not ≤ a. Since neither dominates, the events are concurrent.",
-    "distractorRationales": ["", "a → b fails because a's first component (2) exceeds b's (1).", "b → a fails because b's second component (2) exceeds a's (1).", "The vectors differ, so the events are distinct."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "easy",
-    "questionText": "Why can physical clocks on different machines NOT be used directly to order events in a distributed system?",
-    "options": ["Clock drift and skew make timestamps inconsistent across machines", "Physical clocks cannot store integer values", "Distributed systems forbid reading the system clock", "Physical clocks always run at exactly the same rate"],
-    "correctIndex": 0,
-    "explanation": "Independent hardware clocks drift at slightly different rates and are never perfectly synchronized (clock skew). Two events on different machines may receive timestamps that contradict their true causal order, which is why logical clocks were introduced.",
-    "distractorRationales": ["", "Physical clocks certainly represent numeric time values.", "Reading the clock is allowed; the problem is its unreliability for ordering.", "Clocks do NOT run at identical rates — drift is precisely the issue."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "In the happened-before relation, which of the following is one of the three defining rules?",
-    "options": ["If a is the send of a message and b is its receive, then a → b", "If a and b are on different processes, then a → b", "If L(a) < L(b) then a → b", "Every two events are comparable"],
-    "correctIndex": 0,
-    "explanation": "Lamport's three rules: (1) events in the same process are ordered by program order; (2) a send happens before the matching receive; (3) transitivity. The message rule a → b for send a and receive b is a core defining rule.",
-    "distractorRationales": ["", "Events on different processes are unordered unless connected by messages.", "This reverses the guarantee; L(a) < L(b) does not imply a → b.", "Concurrent events are not comparable, so not every pair is ordered."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "hard",
-    "questionText": "A causal broadcast must deliver messages respecting the happens-before relation. If process P receives m2 before m1 over the network, but send(m1) → send(m2), what must P do?",
-    "options": ["Delay delivery of m2 until m1 has been delivered", "Deliver m2 immediately and discard m1", "Deliver both in arrival order", "Reject m2 as a duplicate"],
-    "correctIndex": 0,
-    "explanation": "Causal ordering requires that if send(m1) → send(m2), then every process delivers m1 before m2. Since m2 arrived first, P must buffer m2 and wait until m1 arrives and is delivered, preserving the causal relationship.",
-    "distractorRationales": ["", "Discarding m1 violates reliability and the causal guarantee.", "Arrival order can violate causality, which is exactly what causal broadcast prevents.", "m2 is not a duplicate; it is a legitimately later message that must wait."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "Lamport clocks provide a 'consistent' total order when ties (equal timestamps) are broken by process ID. This total order is useful because it:",
-    "options": ["Is consistent with causality: if a → b then a precedes b in the total order", "Reflects exact real-time ordering of all events", "Detects all pairs of concurrent events", "Requires no extra information beyond the scalar clock to break ties"],
-    "correctIndex": 0,
-    "explanation": "Extending Lamport timestamps with process IDs to break ties yields a total order that never contradicts the happens-before relation: a → b implies a comes before b. It does not capture real time, and a scalar clock alone cannot detect concurrency.",
-    "distractorRationales": ["", "It does not reflect real time; it only respects logical causality.", "Scalar Lamport clocks cannot detect concurrency — that needs vector clocks.", "Breaking ties needs the process ID in addition to the scalar value."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "easy",
-    "questionText": "What is the size of a vector clock timestamp in a system of n processes?",
-    "options": ["O(n) — one integer per process", "O(1) — a single integer", "O(log n)", "O(n^2)"],
-    "correctIndex": 0,
-    "explanation": "A vector clock maintains one counter per process, so each timestamp is a vector of n integers, i.e., O(n) space. This per-message overhead is the main practical drawback compared with scalar Lamport clocks.",
-    "distractorRationales": ["", "A single integer is the Lamport (scalar) clock, which cannot detect concurrency.", "Vector clocks need a full entry per process, not logarithmic space.", "O(n^2) overstates it; one vector of n entries is O(n)."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "hard",
-    "questionText": "In Cristian's algorithm for clock synchronization, a client requests time from a server. To compensate for message delay, the client sets its clock to the server time plus approximately:",
-    "options": ["Half the measured round-trip time", "The full round-trip time", "Zero (server time as-is)", "The server's processing time"],
-    "correctIndex": 0,
-    "explanation": "Cristian's algorithm assumes the request and reply latencies are symmetric, so it adds RTT/2 to the server's timestamp to account for the time the reply spent in transit back to the client. Accuracy depends on how symmetric and small the delay is.",
-    "distractorRationales": ["", "Adding the full RTT double counts the travel time and overshoots.", "Ignoring delay leaves the client behind by the one-way latency.", "Processing time is subtracted out, not added as the correction term."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "Which property does the happened-before relation NOT guarantee about two events with L(a) = L(b) (equal Lamport timestamps, different processes)?",
-    "options": ["That they are causally related", "That they are distinct events", "That neither is the message-send of the other", "Nothing about their real-time order"],
-    "correctIndex": 0,
-    "explanation": "Equal Lamport timestamps on different processes imply the events are concurrent (neither a → b nor b → a), so they are specifically NOT causally related. The other statements are consistent with concurrency.",
-    "distractorRationales": ["", "Equal timestamps on different processes does indicate distinct events.", "If one were the send of the other, the receive would have a strictly larger timestamp; equal timestamps rule this out.", "Lamport timestamps genuinely say nothing about real-time order."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "medium",
-    "questionText": "The Berkeley algorithm for clock synchronization differs from Cristian's algorithm in that it:",
-    "options": ["Has a coordinator average the clocks of all machines and send adjustments", "Relies on an external authoritative time source (e.g., atomic clock)", "Uses logical clocks instead of physical clocks", "Requires globally synchronized hardware"],
-    "correctIndex": 0,
-    "explanation": "The Berkeley algorithm is internal: a master polls all machines, computes an average (discarding outliers), and tells each machine how much to adjust. No external reference clock is needed, unlike Cristian's algorithm which queries an accurate time server.",
-    "distractorRationales": ["", "That describes Cristian's external approach; Berkeley is internal and reference-free.", "Berkeley synchronizes physical clocks, not logical ones.", "It works with ordinary drifting hardware clocks; no special hardware is required."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "hard",
-    "questionText": "Suppose a → b and we observe vector clocks V(a) and V(b). Which condition exactly characterizes a → b?",
-    "options": ["V(a) ≤ V(b) componentwise AND V(a) ≠ V(b)", "V(a) < V(b) in at least one component", "Sum of V(a) entries < sum of V(b) entries", "V(a) and V(b) share the same maximum entry"],
-    "correctIndex": 0,
-    "explanation": "Causal precedence a → b holds exactly when V(a) is componentwise ≤ V(b) and the vectors differ (strict domination). A difference in just one component (with another going the other way) indicates concurrency, not causality.",
-    "distractorRationales": ["", "Being smaller in one component is insufficient; another component could be larger, making them concurrent.", "Comparing sums loses the per-process information and can misclassify concurrent events.", "Sharing a maximum entry says nothing about componentwise domination."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "time-clocks-ordering",
-    "difficulty": "easy",
-    "questionText": "A FIFO (first-in-first-out) ordering guarantee for messages between a pair of processes ensures that:",
-    "options": ["Messages from a single sender are delivered in the order that sender sent them", "All processes agree on one global delivery order", "Messages respect the system-wide happens-before relation", "Each message is delivered at most once"],
-    "correctIndex": 0,
-    "explanation": "FIFO ordering is per-sender: if a process sends m1 before m2, every receiver delivers m1 before m2 from that sender. It is weaker than causal ordering (which spans senders) and weaker than total ordering (which is system-wide agreement).",
-    "distractorRationales": ["", "Global agreed order is total ordering, stronger than FIFO.", "Respecting happens-before across senders is causal ordering, stronger than FIFO.", "At-most-once is a duplication/reliability property, not an ordering one."]
-  }
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "easy",
+  "questionText": "In Lamport's logical clock scheme, when a process sends a message it timestamps it with its current clock value. What rule does the receiving process apply to its own clock C upon receiving a message with timestamp t?",
+  "options": [
+   "C = max(C, t) + 1",
+   "C = t + 1",
+   "C = C + 1 only",
+   "C = min(C, t)"
+  ],
+  "correctIndex": 0,
+  "explanation": "Lamport's rule for a receive event sets the local clock to one more than the maximum of the current clock and the message timestamp: C = max(C, t) + 1. This guarantees the receive event has a strictly greater timestamp than the corresponding send, preserving the happens-before relation.",
+  "distractorRationales": [
+   "",
+   "C = t + 1 ignores the receiver's own progress; if C were already greater than t this would move the clock backward.",
+   "Incrementing only by 1 ignores the sender's timestamp and can violate happens-before across the message.",
+   "Taking the minimum would move the clock backward and break monotonicity."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "Two events a and b have Lamport timestamps L(a) = 5 and L(b) = 7. Which statement is necessarily TRUE?",
+  "options": [
+   "b did not happen before a (i.e., NOT b → a)",
+   "a happened before b (a → b)",
+   "a and b are concurrent",
+   "a and b occurred on the same process"
+  ],
+  "correctIndex": 0,
+  "explanation": "Lamport clocks guarantee only that if a → b then L(a) < L(b). The contrapositive gives a guarantee: since L(b) = 7 > L(a) = 5 is false would be needed for b → a, we can conclude b did NOT happen before a. We cannot conclude a → b, because L(a) < L(b) can also hold for concurrent events.",
+  "distractorRationales": [
+   "",
+   "The implication only goes one way; L(a) < L(b) does not prove a → b, since concurrent events can also satisfy it.",
+   "They might be concurrent, but the timestamps alone cannot establish concurrency.",
+   "Nothing about the timestamps reveals which process generated each event."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "Vector clocks are preferred over scalar Lamport clocks primarily because they can do what Lamport clocks cannot?",
+  "options": [
+   "Detect concurrency: determine whether two events are causally unrelated",
+   "Use less storage per process",
+   "Provide globally synchronized real (wall-clock) time",
+   "Eliminate the need for message passing"
+  ],
+  "correctIndex": 0,
+  "explanation": "Vector clocks capture causality precisely: a → b iff V(a) < V(b) componentwise, and if neither V(a) ≤ V(b) nor V(b) ≤ V(a) then a and b are concurrent. Scalar Lamport clocks cannot distinguish concurrency from causal ordering, since L(a) < L(b) does not imply a → b.",
+  "distractorRationales": [
+   "",
+   "Vector clocks use O(n) storage per timestamp, more than a scalar Lamport clock, not less.",
+   "Neither logical clock gives real wall-clock time; they only order events logically.",
+   "Logical clocks are updated through message passing, not a substitute for it."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "hard",
+  "questionText": "Three processes P1, P2, P3 start with vector clocks [0,0,0]. P1 does a local event ([1,0,0]) then sends m to P2. P2, initially [0,0,0], receives m. What is P2's vector clock immediately after delivering m?",
+  "options": [
+   "[1,1,0]",
+   "[1,0,0]",
+   "[0,1,0]",
+   "[1,1,1]"
+  ],
+  "correctIndex": 0,
+  "explanation": "On receive, P2 takes the componentwise max of its own vector [0,0,0] and the message vector [1,0,0], giving [1,0,0], then increments its own component (index 2 for P2) by 1, yielding [1,1,0].",
+  "distractorRationales": [
+   "",
+   "[1,0,0] omits P2's own increment for the receive event.",
+   "[0,1,0] ignores the max with the sender's [1,0,0] entry.",
+   "[1,1,1] wrongly increments P3's component, which had no event."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "easy",
+  "questionText": "The 'happened-before' relation (→) defined by Lamport is best described as which kind of order?",
+  "options": [
+   "A partial order",
+   "A total order",
+   "An equivalence relation",
+   "A linear (chain) order"
+  ],
+  "correctIndex": 0,
+  "explanation": "Happened-before is irreflexive and transitive, defining a strict partial order on events: some pairs of events are concurrent (incomparable). It is not total because concurrent events are unordered, and it is not an equivalence relation (it is not symmetric or reflexive).",
+  "distractorRationales": [
+   "",
+   "It is not total: concurrent events are incomparable.",
+   "It is antisymmetric and irreflexive, not symmetric/reflexive, so not an equivalence relation.",
+   "A linear order would order every pair, but concurrent events have no order."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "In the Network Time Protocol (NTP), a client estimates the offset between its clock and the server's. If T1 is client send time, T2 server receive, T3 server send, T4 client receive, the round-trip delay is computed as:",
+  "options": [
+   "(T4 - T1) - (T3 - T2)",
+   "(T4 - T1) + (T3 - T2)",
+   "(T2 - T1) + (T4 - T3)",
+   "(T3 - T2) - (T4 - T1)"
+  ],
+  "correctIndex": 0,
+  "explanation": "The total elapsed time at the client is (T4 - T1); the server spent (T3 - T2) processing, which is not network travel. Subtracting gives the round-trip network delay: δ = (T4 - T1) - (T3 - T2). The offset estimate is θ = ((T2 - T1) + (T3 - T4)) / 2.",
+  "distractorRationales": [
+   "",
+   "Adding the server processing time overstates the network delay.",
+   "This sums the two one-way segments but double counts and is not the standard delay formula.",
+   "This reverses the subtraction and would generally be negative."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "A total order broadcast (atomic broadcast) guarantees that:",
+  "options": [
+   "All correct processes deliver all messages in the same order",
+   "Messages are delivered in the order they were physically sent in real time",
+   "Each message is delivered to exactly one process",
+   "Messages are delivered without any network latency"
+  ],
+  "correctIndex": 0,
+  "explanation": "Total order (atomic) broadcast guarantees that all correct processes deliver the same set of messages and in an identical order, even though the order need not match real-time sending order. This is the key primitive used to implement replicated state machines.",
+  "distractorRationales": [
+   "",
+   "The common order need not coincide with real-time send order; it only must be consistent across processes.",
+   "Broadcast delivers to all processes, not exactly one (that would be unicast).",
+   "Latency is unrelated; the guarantee concerns ordering and agreement, not timing."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "hard",
+  "questionText": "Consider events with vector clocks: a = [2,1,0], b = [1,2,1]. What is the causal relationship between a and b?",
+  "options": [
+   "Concurrent (a || b)",
+   "a → b",
+   "b → a",
+   "a and b are identical events"
+  ],
+  "correctIndex": 0,
+  "explanation": "For a → b we would need a ≤ b in every component; but a[0]=2 > b[0]=1, so a is not ≤ b. For b → a we'd need b ≤ a; but b[1]=2 > a[1]=1, so b is not ≤ a. Since neither dominates, the events are concurrent.",
+  "distractorRationales": [
+   "",
+   "a → b fails because a's first component (2) exceeds b's (1).",
+   "b → a fails because b's second component (2) exceeds a's (1).",
+   "The vectors differ, so the events are distinct."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "easy",
+  "questionText": "Why can physical clocks on different machines NOT be used directly to order events in a distributed system?",
+  "options": [
+   "Clock drift and skew make timestamps inconsistent across machines",
+   "Physical clocks cannot store integer values",
+   "Distributed systems forbid reading the system clock",
+   "Physical clocks always run at exactly the same rate"
+  ],
+  "correctIndex": 0,
+  "explanation": "Independent hardware clocks drift at slightly different rates and are never perfectly synchronized (clock skew). Two events on different machines may receive timestamps that contradict their true causal order, which is why logical clocks were introduced.",
+  "distractorRationales": [
+   "",
+   "Physical clocks certainly represent numeric time values.",
+   "Reading the clock is allowed; the problem is its unreliability for ordering.",
+   "Clocks do NOT run at identical rates — drift is precisely the issue."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "In the happened-before relation, which of the following is one of the three defining rules?",
+  "options": [
+   "If a is the send of a message and b is its receive, then a → b",
+   "If a and b are on different processes, then a → b",
+   "If L(a) < L(b) then a → b",
+   "Every two events are comparable"
+  ],
+  "correctIndex": 0,
+  "explanation": "Lamport's three rules: (1) events in the same process are ordered by program order; (2) a send happens before the matching receive; (3) transitivity. The message rule a → b for send a and receive b is a core defining rule.",
+  "distractorRationales": [
+   "",
+   "Events on different processes are unordered unless connected by messages.",
+   "This reverses the guarantee; L(a) < L(b) does not imply a → b.",
+   "Concurrent events are not comparable, so not every pair is ordered."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "hard",
+  "questionText": "A causal broadcast must deliver messages respecting the happens-before relation. If process P receives m2 before m1 over the network, but send(m1) → send(m2), what must P do?",
+  "options": [
+   "Delay delivery of m2 until m1 has been delivered",
+   "Deliver m2 immediately and discard m1",
+   "Deliver both in arrival order",
+   "Reject m2 as a duplicate"
+  ],
+  "correctIndex": 0,
+  "explanation": "Causal ordering requires that if send(m1) → send(m2), then every process delivers m1 before m2. Since m2 arrived first, P must buffer m2 and wait until m1 arrives and is delivered, preserving the causal relationship.",
+  "distractorRationales": [
+   "",
+   "Discarding m1 violates reliability and the causal guarantee.",
+   "Arrival order can violate causality, which is exactly what causal broadcast prevents.",
+   "m2 is not a duplicate; it is a legitimately later message that must wait."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "Lamport clocks provide a 'consistent' total order when ties (equal timestamps) are broken by process ID. This total order is useful because it:",
+  "options": [
+   "Is consistent with causality: if a → b then a precedes b in the total order",
+   "Reflects exact real-time ordering of all events",
+   "Detects all pairs of concurrent events",
+   "Requires no extra information beyond the scalar clock to break ties"
+  ],
+  "correctIndex": 0,
+  "explanation": "Extending Lamport timestamps with process IDs to break ties yields a total order that never contradicts the happens-before relation: a → b implies a comes before b. It does not capture real time, and a scalar clock alone cannot detect concurrency.",
+  "distractorRationales": [
+   "",
+   "It does not reflect real time; it only respects logical causality.",
+   "Scalar Lamport clocks cannot detect concurrency — that needs vector clocks.",
+   "Breaking ties needs the process ID in addition to the scalar value."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "easy",
+  "questionText": "What is the size of a vector clock timestamp in a system of n processes?",
+  "options": [
+   "O(n) — one integer per process",
+   "O(1) — a single integer",
+   "O(log n)",
+   "O(n^2)"
+  ],
+  "correctIndex": 0,
+  "explanation": "A vector clock maintains one counter per process, so each timestamp is a vector of n integers, i.e., O(n) space. This per-message overhead is the main practical drawback compared with scalar Lamport clocks.",
+  "distractorRationales": [
+   "",
+   "A single integer is the Lamport (scalar) clock, which cannot detect concurrency.",
+   "Vector clocks need a full entry per process, not logarithmic space.",
+   "O(n^2) overstates it; one vector of n entries is O(n)."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "hard",
+  "questionText": "In Cristian's algorithm for clock synchronization, a client requests time from a server. To compensate for message delay, the client sets its clock to the server time plus approximately:",
+  "options": [
+   "Half the measured round-trip time",
+   "The full round-trip time",
+   "Zero (server time as-is)",
+   "The server's processing time"
+  ],
+  "correctIndex": 0,
+  "explanation": "Cristian's algorithm assumes the request and reply latencies are symmetric, so it adds RTT/2 to the server's timestamp to account for the time the reply spent in transit back to the client. Accuracy depends on how symmetric and small the delay is.",
+  "distractorRationales": [
+   "",
+   "Adding the full RTT double counts the travel time and overshoots.",
+   "Ignoring delay leaves the client behind by the one-way latency.",
+   "Processing time is subtracted out, not added as the correction term."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "Which property does the happened-before relation NOT guarantee about two events with L(a) = L(b) (equal Lamport timestamps, different processes)?",
+  "options": [
+   "That they are causally related",
+   "That they are distinct events",
+   "That neither is the message-send of the other",
+   "Nothing about their real-time order"
+  ],
+  "correctIndex": 0,
+  "explanation": "Equal Lamport timestamps on different processes imply the events are concurrent (neither a → b nor b → a), so they are specifically NOT causally related. The other statements are consistent with concurrency.",
+  "distractorRationales": [
+   "",
+   "Equal timestamps on different processes does indicate distinct events.",
+   "If one were the send of the other, the receive would have a strictly larger timestamp; equal timestamps rule this out.",
+   "Lamport timestamps genuinely say nothing about real-time order."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "medium",
+  "questionText": "The Berkeley algorithm for clock synchronization differs from Cristian's algorithm in that it:",
+  "options": [
+   "Has a coordinator average the clocks of all machines and send adjustments",
+   "Relies on an external authoritative time source (e.g., atomic clock)",
+   "Uses logical clocks instead of physical clocks",
+   "Requires globally synchronized hardware"
+  ],
+  "correctIndex": 0,
+  "explanation": "The Berkeley algorithm is internal: a master polls all machines, computes an average (discarding outliers), and tells each machine how much to adjust. No external reference clock is needed, unlike Cristian's algorithm which queries an accurate time server.",
+  "distractorRationales": [
+   "",
+   "That describes Cristian's external approach; Berkeley is internal and reference-free.",
+   "Berkeley synchronizes physical clocks, not logical ones.",
+   "It works with ordinary drifting hardware clocks; no special hardware is required."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "hard",
+  "questionText": "Suppose a → b and we observe vector clocks V(a) and V(b). Which condition exactly characterizes a → b?",
+  "options": [
+   "V(a) ≤ V(b) componentwise AND V(a) ≠ V(b)",
+   "V(a) < V(b) in at least one component",
+   "Sum of V(a) entries < sum of V(b) entries",
+   "V(a) and V(b) share the same maximum entry"
+  ],
+  "correctIndex": 0,
+  "explanation": "Causal precedence a → b holds exactly when V(a) is componentwise ≤ V(b) and the vectors differ (strict domination). A difference in just one component (with another going the other way) indicates concurrency, not causality.",
+  "distractorRationales": [
+   "",
+   "Being smaller in one component is insufficient; another component could be larger, making them concurrent.",
+   "Comparing sums loses the per-process information and can misclassify concurrent events.",
+   "Sharing a maximum entry says nothing about componentwise domination."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering",
+  "difficulty": "easy",
+  "questionText": "A FIFO (first-in-first-out) ordering guarantee for messages between a pair of processes ensures that:",
+  "options": [
+   "Messages from a single sender are delivered in the order that sender sent them",
+   "All processes agree on one global delivery order",
+   "Messages respect the system-wide happens-before relation",
+   "Each message is delivered at most once"
+  ],
+  "correctIndex": 0,
+  "explanation": "FIFO ordering is per-sender: if a process sends m1 before m2, every receiver delivers m1 before m2 from that sender. It is weaker than causal ordering (which spans senders) and weaker than total ordering (which is system-wide agreement).",
+  "distractorRationales": [
+   "",
+   "Global agreed order is total ordering, stronger than FIFO.",
+   "Respecting happens-before across senders is causal ordering, stronger than FIFO.",
+   "At-most-once is a duplication/reliability property, not an ordering one."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Vector clocks improve on Lamport timestamps because they can:",
+  "options": [
+   "Determine whether two events are concurrent or causally related",
+   "Only provide a total order",
+   "Synchronize physical clocks",
+   "Reduce message size to a single integer"
+  ],
+  "correctIndex": 0,
+  "explanation": "A vector clock keeps one counter per process, so comparing two vectors reveals causality: if neither dominates the other, the events are concurrent. Lamport scalar clocks give a consistent total order but cannot detect concurrency.",
+  "distractorRationales": [
+   "",
+   "Total ordering is what Lamport clocks give; vector clocks add concurrency detection.",
+   "Vector clocks are logical, not physical-clock synchronizers (that is NTP/Berkeley).",
+   "Vector clocks use an array of counters (size O(N)), not a single integer."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering"
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Lamport's 'happens-before' relation (→) guarantees that if event a → event b, then:",
+  "options": [
+   "The logical timestamp of a is less than that of b",
+   "a and b are concurrent",
+   "b causes a",
+   "a and b occurred at the same physical time"
+  ],
+  "correctIndex": 0,
+  "explanation": "The clock condition requires a → b ⇒ C(a) < C(b). Logical timestamps respect causality, though the converse (C(a) < C(b) ⇒ a → b) does not hold.",
+  "distractorRationales": [
+   "",
+   "If a → b they are causally ordered, the opposite of concurrent.",
+   "Happens-before means a may causally affect b, not that b causes a.",
+   "Logical clocks say nothing about equal physical time; they capture causal order."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "time-clocks-ordering"
+ }
 ]

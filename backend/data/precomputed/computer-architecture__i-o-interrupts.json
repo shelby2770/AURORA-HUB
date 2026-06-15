@@ -1,182 +1,402 @@
 [
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "easy",
-    "questionText": "The main disadvantage of programmed I/O (busy-waiting/polling) is that:",
-    "options": ["The CPU wastes cycles continuously checking the device status", "It cannot transfer data", "It requires an interrupt controller", "It always uses DMA"],
-    "correctIndex": 0,
-    "explanation": "In programmed I/O the CPU repeatedly polls a status register until the device is ready, consuming CPU cycles that could do useful work. Interrupt-driven I/O frees the CPU to do other work until the device signals readiness.",
-    "distractorRationales": ["", "Programmed I/O does transfer data; it is just CPU-inefficient.", "Polling needs no interrupt controller — that is the interrupt-driven approach.", "Programmed I/O does not use DMA; the CPU moves each datum itself."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "Interrupt-driven I/O improves on polling by:",
-    "options": ["Letting the CPU do other work until the device raises an interrupt when ready", "Eliminating all I/O latency", "Transferring data without the CPU at all", "Removing the need for device drivers"],
-    "correctIndex": 0,
-    "explanation": "With interrupts, the device asserts an interrupt line when it needs service, so the CPU need not poll; it runs other tasks and responds only when interrupted. (Fully removing the CPU from per-byte transfer is DMA's job.)",
-    "distractorRationales": ["", "Interrupts reduce wasted polling but do not eliminate device latency.", "The CPU still executes the interrupt handler to move data; that is DMA's distinction.", "Device drivers are still required to handle the interrupts."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "Direct Memory Access (DMA) improves I/O performance by:",
-    "options": ["Letting a DMA controller transfer data between device and memory without per-word CPU involvement", "Making the CPU poll faster", "Storing data only in registers", "Disabling interrupts permanently"],
-    "correctIndex": 0,
-    "explanation": "A DMA controller moves blocks of data directly between an I/O device and main memory, interrupting the CPU only once when the whole transfer completes. This offloads the CPU from copying each word, which is essential for high-throughput devices like disks.",
-    "distractorRationales": ["", "DMA removes CPU involvement; it does not speed up CPU polling.", "DMA transfers go to/from main memory, not just registers.", "DMA typically raises an interrupt on completion; it does not disable interrupts."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "hard",
-    "questionText": "'Cycle stealing' by a DMA controller refers to:",
-    "options": ["The DMA briefly taking the memory bus for a word transfer, stalling the CPU for that cycle", "The CPU stealing cycles from the DMA", "Overclocking the CPU", "Stealing data from another process"],
-    "correctIndex": 0,
-    "explanation": "In cycle-stealing DMA, the controller transfers one word at a time by 'stealing' a memory bus cycle from the CPU whenever needed, momentarily pausing the CPU. This interleaves DMA with CPU execution, unlike burst mode which holds the bus for a whole block.",
-    "distractorRationales": ["", "It is the DMA, not the CPU, that steals cycles for memory access.", "It concerns bus arbitration, not overclocking.", "It is about bus access timing, not stealing another process's data."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "easy",
-    "questionText": "An interrupt service routine (ISR) is:",
-    "options": ["The handler code executed in response to an interrupt", "A polling loop", "A DMA controller", "The boot loader"],
-    "correctIndex": 0,
-    "explanation": "When an interrupt occurs, the CPU saves its state and jumps (via the interrupt vector) to the corresponding ISR, which services the device, then restores state and resumes the interrupted program. ISRs should be short to minimize latency for other interrupts.",
-    "distractorRationales": ["", "A polling loop is the opposite approach (busy-waiting), not an ISR.", "A DMA controller is hardware; an ISR is software.", "The boot loader runs at startup, not as an interrupt handler."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "hard",
-    "questionText": "In vectored interrupts, the interrupting device provides:",
-    "options": ["An identifier (vector) that directly indexes the interrupt vector table to the correct ISR", "Nothing; the CPU polls all devices", "The data to be processed", "A new clock frequency"],
-    "correctIndex": 0,
-    "explanation": "With vectored interrupts, the device supplies a vector number that the CPU uses to index a table of ISR addresses, jumping straight to the right handler — fast and scalable. Non-vectored (polled) interrupts instead require the CPU to query devices to find the source.",
-    "distractorRationales": ["", "Providing nothing and polling is the non-vectored approach.", "The vector identifies the handler, not the data itself.", "Interrupts do not change the clock frequency."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "Daisy chaining is a hardware technique used to:",
-    "options": ["Establish interrupt priority among devices sharing a single interrupt line", "Increase memory size", "Connect caches", "Speed up the ALU"],
-    "correctIndex": 0,
-    "explanation": "In daisy chaining, devices are connected in series on a shared interrupt line; the acknowledge signal propagates through them in order, so a device closer to the CPU has higher priority. It resolves which device is serviced first cheaply, without per-device priority lines.",
-    "distractorRationales": ["", "It does not affect memory size.", "It is for interrupt prioritization, not connecting caches.", "It has nothing to do with ALU speed."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "hard",
-    "questionText": "A maskable interrupt differs from a non-maskable interrupt (NMI) in that a maskable interrupt:",
-    "options": ["Can be temporarily disabled (ignored) by the CPU via an interrupt-enable flag", "Can never be disabled", "Is always for power failures", "Has no ISR"],
-    "correctIndex": 0,
-    "explanation": "Maskable interrupts can be selectively disabled (masked) by software, e.g., to protect critical sections, using an interrupt-enable flag. Non-maskable interrupts (used for urgent events like power failure or hardware errors) cannot be masked and are always serviced.",
-    "distractorRationales": ["", "Being undisableable describes a non-maskable interrupt, not a maskable one.", "Power-failure handling is a typical NMI use, not the definition of maskable.", "Maskable interrupts do have ISRs; they are just disableable."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "easy",
-    "questionText": "Memory-mapped I/O means that:",
-    "options": ["Device registers are accessed using ordinary memory load/store instructions at reserved addresses", "I/O uses a completely separate instruction set", "All I/O goes through DMA", "Devices share the CPU's registers"],
-    "correctIndex": 0,
-    "explanation": "In memory-mapped I/O, device control/data registers occupy reserved addresses in the regular memory address space, so the CPU reads/writes them with the same load/store instructions used for memory — no special I/O instructions needed. The alternative is isolated (port-mapped) I/O with dedicated IN/OUT instructions.",
-    "distractorRationales": ["", "Memory-mapped I/O reuses memory instructions, not a separate instruction set (that is port-mapped I/O).", "Memory-mapped I/O is independent of whether DMA is used.", "Devices have their own registers mapped into memory addresses, not the CPU's registers."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "When an interrupt is accepted, the CPU first:",
-    "options": ["Saves the current program counter (and status) so it can resume later", "Erases all registers", "Reboots", "Disables the memory"],
-    "correctIndex": 0,
-    "explanation": "On accepting an interrupt, the CPU completes the current instruction, saves the program counter and processor status (so the interrupted program can resume), then transfers control to the ISR via the interrupt vector. State is restored on return.",
-    "distractorRationales": ["", "Registers are saved/restored, not erased.", "Servicing an interrupt does not reboot the machine.", "Memory remains accessible during interrupt handling."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "hard",
-    "questionText": "A device interrupts at 1000 interrupts/second, and each interrupt costs 5 microseconds of CPU overhead (save/restore + handler). What fraction of CPU time is spent on this interrupt overhead?",
-    "options": ["0.5%", "5%", "0.05%", "50%"],
-    "correctIndex": 0,
-    "explanation": "Per second: 1000 × 5 µs = 5000 µs = 5 ms of overhead out of 1,000,000 µs (1 s). Fraction = 5 ms / 1000 ms = 0.005 = 0.5%.",
-    "distractorRationales": ["", "5% would be 10× too high (50 ms of overhead).", "0.05% is 10× too low.", "50% is wildly off; the overhead is only 5 ms per second."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "Isolated (port-mapped) I/O differs from memory-mapped I/O in that it:",
-    "options": ["Uses a separate I/O address space with dedicated instructions (e.g., IN/OUT)", "Cannot use interrupts", "Requires DMA", "Has no device addresses"],
-    "correctIndex": 0,
-    "explanation": "Port-mapped (isolated) I/O places device ports in a distinct address space accessed by special I/O instructions (like x86 IN/OUT), keeping memory and I/O addresses separate. Memory-mapped I/O instead shares the memory address space and uses normal load/store.",
-    "distractorRationales": ["", "Port-mapped I/O can still use interrupts.", "It does not require DMA.", "It does use device (port) addresses, just in a separate space."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "easy",
-    "questionText": "An interrupt is best described as:",
-    "options": ["An asynchronous signal that diverts the CPU to handle an event", "A normal sequential instruction", "A type of cache", "A register"],
-    "correctIndex": 0,
-    "explanation": "An interrupt is a signal (from hardware or software) that asynchronously interrupts the normal instruction flow, causing the CPU to suspend the current task and run a handler. It enables responsive I/O and exception handling without constant polling.",
-    "distractorRationales": ["", "An interrupt diverts control flow; it is not an ordinary sequential instruction.", "It is an event-handling mechanism, not a cache.", "It is a signal/event, not a CPU register."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "hard",
-    "questionText": "Compared to cycle-stealing DMA, 'burst mode' DMA:",
-    "options": ["Holds the bus to transfer an entire block at once, freezing the CPU for the duration but maximizing transfer rate", "Transfers one word per CPU cycle interleaved with the CPU", "Does not use the bus", "Requires no DMA controller"],
-    "correctIndex": 0,
-    "explanation": "In burst (block) mode, the DMA controller seizes the bus and transfers the whole block without releasing it, giving the highest transfer rate but stalling the CPU for the entire burst. Cycle stealing instead transfers one word at a time, interleaving with CPU activity.",
-    "distractorRationales": ["", "Interleaving one word at a time describes cycle stealing, not burst mode.", "Burst mode very much uses the bus — it monopolizes it.", "A DMA controller is required for any DMA mode."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "Interrupt latency is:",
-    "options": ["The time from interrupt assertion to the start of its service routine", "The total program runtime", "The cache miss penalty", "The DMA block size"],
-    "correctIndex": 0,
-    "explanation": "Interrupt latency is the delay between a device asserting an interrupt and the CPU beginning to execute the corresponding ISR. It includes finishing the current instruction, saving state, and dispatching. Low latency is critical for real-time systems.",
-    "distractorRationales": ["", "Total program runtime is a different, much larger measure.", "The cache miss penalty is a memory-system metric, not interrupt latency.", "DMA block size is a transfer parameter, unrelated to interrupt timing."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "easy",
-    "questionText": "Why must device priorities be assigned when multiple devices can interrupt simultaneously?",
-    "options": ["To decide which interrupt the CPU services first", "To increase clock speed", "To save memory", "To disable DMA"],
-    "correctIndex": 0,
-    "explanation": "When several interrupts are pending at once, a priority scheme (via priority levels, daisy chaining, or an interrupt controller) determines the order of service, ensuring urgent devices are handled before less critical ones.",
-    "distractorRationales": ["", "Priority arbitration does not change the clock speed.", "It concerns servicing order, not memory savings.", "Priorities are unrelated to disabling DMA."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "hard",
-    "questionText": "A 'trap' (or software interrupt / exception) differs from a hardware interrupt in that a trap is:",
-    "options": ["Synchronous — caused by the executing instruction (e.g., divide-by-zero, system call)", "Always caused by an external device", "Never serviced by an ISR", "Impossible to handle"],
-    "correctIndex": 0,
-    "explanation": "Traps/exceptions are synchronous: they are triggered by the current instruction's execution (e.g., arithmetic fault, page fault, or a deliberate system-call instruction), so they recur deterministically. Hardware interrupts are asynchronous, arising from external devices independent of the instruction stream.",
-    "distractorRationales": ["", "External-device causation describes hardware interrupts, not traps.", "Traps are serviced by handlers (a kind of ISR/exception handler).", "Traps are routinely handled (e.g., system calls, page faults)."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "i-o-interrupts",
-    "difficulty": "medium",
-    "questionText": "After an ISR finishes, control returns to the interrupted program by:",
-    "options": ["Restoring the saved program counter and status and resuming execution", "Restarting the program from main()", "Jumping to the next device's ISR", "Halting the CPU"],
-    "correctIndex": 0,
-    "explanation": "A 'return from interrupt' instruction restores the previously saved program counter and processor status word, so the interrupted program resumes exactly where it left off, as if uninterrupted. This transparent resumption is essential to interrupt correctness.",
-    "distractorRationales": ["", "It resumes the interrupted point, not restarts from main().", "It does not automatically chain to another ISR unless one is pending and prioritized.", "It resumes execution rather than halting the CPU."]
-  }
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "easy",
+  "questionText": "The main disadvantage of programmed I/O (busy-waiting/polling) is that:",
+  "options": [
+   "The CPU wastes cycles continuously checking the device status",
+   "It cannot transfer data",
+   "It requires an interrupt controller",
+   "It always uses DMA"
+  ],
+  "correctIndex": 0,
+  "explanation": "In programmed I/O the CPU repeatedly polls a status register until the device is ready, consuming CPU cycles that could do useful work. Interrupt-driven I/O frees the CPU to do other work until the device signals readiness.",
+  "distractorRationales": [
+   "",
+   "Programmed I/O does transfer data; it is just CPU-inefficient.",
+   "Polling needs no interrupt controller — that is the interrupt-driven approach.",
+   "Programmed I/O does not use DMA; the CPU moves each datum itself."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "Interrupt-driven I/O improves on polling by:",
+  "options": [
+   "Letting the CPU do other work until the device raises an interrupt when ready",
+   "Eliminating all I/O latency",
+   "Transferring data without the CPU at all",
+   "Removing the need for device drivers"
+  ],
+  "correctIndex": 0,
+  "explanation": "With interrupts, the device asserts an interrupt line when it needs service, so the CPU need not poll; it runs other tasks and responds only when interrupted. (Fully removing the CPU from per-byte transfer is DMA's job.)",
+  "distractorRationales": [
+   "",
+   "Interrupts reduce wasted polling but do not eliminate device latency.",
+   "The CPU still executes the interrupt handler to move data; that is DMA's distinction.",
+   "Device drivers are still required to handle the interrupts."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "Direct Memory Access (DMA) improves I/O performance by:",
+  "options": [
+   "Letting a DMA controller transfer data between device and memory without per-word CPU involvement",
+   "Making the CPU poll faster",
+   "Storing data only in registers",
+   "Disabling interrupts permanently"
+  ],
+  "correctIndex": 0,
+  "explanation": "A DMA controller moves blocks of data directly between an I/O device and main memory, interrupting the CPU only once when the whole transfer completes. This offloads the CPU from copying each word, which is essential for high-throughput devices like disks.",
+  "distractorRationales": [
+   "",
+   "DMA removes CPU involvement; it does not speed up CPU polling.",
+   "DMA transfers go to/from main memory, not just registers.",
+   "DMA typically raises an interrupt on completion; it does not disable interrupts."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "hard",
+  "questionText": "'Cycle stealing' by a DMA controller refers to:",
+  "options": [
+   "The DMA briefly taking the memory bus for a word transfer, stalling the CPU for that cycle",
+   "The CPU stealing cycles from the DMA",
+   "Overclocking the CPU",
+   "Stealing data from another process"
+  ],
+  "correctIndex": 0,
+  "explanation": "In cycle-stealing DMA, the controller transfers one word at a time by 'stealing' a memory bus cycle from the CPU whenever needed, momentarily pausing the CPU. This interleaves DMA with CPU execution, unlike burst mode which holds the bus for a whole block.",
+  "distractorRationales": [
+   "",
+   "It is the DMA, not the CPU, that steals cycles for memory access.",
+   "It concerns bus arbitration, not overclocking.",
+   "It is about bus access timing, not stealing another process's data."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "easy",
+  "questionText": "An interrupt service routine (ISR) is:",
+  "options": [
+   "The handler code executed in response to an interrupt",
+   "A polling loop",
+   "A DMA controller",
+   "The boot loader"
+  ],
+  "correctIndex": 0,
+  "explanation": "When an interrupt occurs, the CPU saves its state and jumps (via the interrupt vector) to the corresponding ISR, which services the device, then restores state and resumes the interrupted program. ISRs should be short to minimize latency for other interrupts.",
+  "distractorRationales": [
+   "",
+   "A polling loop is the opposite approach (busy-waiting), not an ISR.",
+   "A DMA controller is hardware; an ISR is software.",
+   "The boot loader runs at startup, not as an interrupt handler."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "hard",
+  "questionText": "In vectored interrupts, the interrupting device provides:",
+  "options": [
+   "An identifier (vector) that directly indexes the interrupt vector table to the correct ISR",
+   "Nothing; the CPU polls all devices",
+   "The data to be processed",
+   "A new clock frequency"
+  ],
+  "correctIndex": 0,
+  "explanation": "With vectored interrupts, the device supplies a vector number that the CPU uses to index a table of ISR addresses, jumping straight to the right handler — fast and scalable. Non-vectored (polled) interrupts instead require the CPU to query devices to find the source.",
+  "distractorRationales": [
+   "",
+   "Providing nothing and polling is the non-vectored approach.",
+   "The vector identifies the handler, not the data itself.",
+   "Interrupts do not change the clock frequency."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "Daisy chaining is a hardware technique used to:",
+  "options": [
+   "Establish interrupt priority among devices sharing a single interrupt line",
+   "Increase memory size",
+   "Connect caches",
+   "Speed up the ALU"
+  ],
+  "correctIndex": 0,
+  "explanation": "In daisy chaining, devices are connected in series on a shared interrupt line; the acknowledge signal propagates through them in order, so a device closer to the CPU has higher priority. It resolves which device is serviced first cheaply, without per-device priority lines.",
+  "distractorRationales": [
+   "",
+   "It does not affect memory size.",
+   "It is for interrupt prioritization, not connecting caches.",
+   "It has nothing to do with ALU speed."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "hard",
+  "questionText": "A maskable interrupt differs from a non-maskable interrupt (NMI) in that a maskable interrupt:",
+  "options": [
+   "Can be temporarily disabled (ignored) by the CPU via an interrupt-enable flag",
+   "Can never be disabled",
+   "Is always for power failures",
+   "Has no ISR"
+  ],
+  "correctIndex": 0,
+  "explanation": "Maskable interrupts can be selectively disabled (masked) by software, e.g., to protect critical sections, using an interrupt-enable flag. Non-maskable interrupts (used for urgent events like power failure or hardware errors) cannot be masked and are always serviced.",
+  "distractorRationales": [
+   "",
+   "Being undisableable describes a non-maskable interrupt, not a maskable one.",
+   "Power-failure handling is a typical NMI use, not the definition of maskable.",
+   "Maskable interrupts do have ISRs; they are just disableable."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "easy",
+  "questionText": "Memory-mapped I/O means that:",
+  "options": [
+   "Device registers are accessed using ordinary memory load/store instructions at reserved addresses",
+   "I/O uses a completely separate instruction set",
+   "All I/O goes through DMA",
+   "Devices share the CPU's registers"
+  ],
+  "correctIndex": 0,
+  "explanation": "In memory-mapped I/O, device control/data registers occupy reserved addresses in the regular memory address space, so the CPU reads/writes them with the same load/store instructions used for memory — no special I/O instructions needed. The alternative is isolated (port-mapped) I/O with dedicated IN/OUT instructions.",
+  "distractorRationales": [
+   "",
+   "Memory-mapped I/O reuses memory instructions, not a separate instruction set (that is port-mapped I/O).",
+   "Memory-mapped I/O is independent of whether DMA is used.",
+   "Devices have their own registers mapped into memory addresses, not the CPU's registers."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "When an interrupt is accepted, the CPU first:",
+  "options": [
+   "Saves the current program counter (and status) so it can resume later",
+   "Erases all registers",
+   "Reboots",
+   "Disables the memory"
+  ],
+  "correctIndex": 0,
+  "explanation": "On accepting an interrupt, the CPU completes the current instruction, saves the program counter and processor status (so the interrupted program can resume), then transfers control to the ISR via the interrupt vector. State is restored on return.",
+  "distractorRationales": [
+   "",
+   "Registers are saved/restored, not erased.",
+   "Servicing an interrupt does not reboot the machine.",
+   "Memory remains accessible during interrupt handling."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "hard",
+  "questionText": "A device interrupts at 1000 interrupts/second, and each interrupt costs 5 microseconds of CPU overhead (save/restore + handler). What fraction of CPU time is spent on this interrupt overhead?",
+  "options": [
+   "0.5%",
+   "5%",
+   "0.05%",
+   "50%"
+  ],
+  "correctIndex": 0,
+  "explanation": "Per second: 1000 × 5 µs = 5000 µs = 5 ms of overhead out of 1,000,000 µs (1 s). Fraction = 5 ms / 1000 ms = 0.005 = 0.5%.",
+  "distractorRationales": [
+   "",
+   "5% would be 10× too high (50 ms of overhead).",
+   "0.05% is 10× too low.",
+   "50% is wildly off; the overhead is only 5 ms per second."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "Isolated (port-mapped) I/O differs from memory-mapped I/O in that it:",
+  "options": [
+   "Uses a separate I/O address space with dedicated instructions (e.g., IN/OUT)",
+   "Cannot use interrupts",
+   "Requires DMA",
+   "Has no device addresses"
+  ],
+  "correctIndex": 0,
+  "explanation": "Port-mapped (isolated) I/O places device ports in a distinct address space accessed by special I/O instructions (like x86 IN/OUT), keeping memory and I/O addresses separate. Memory-mapped I/O instead shares the memory address space and uses normal load/store.",
+  "distractorRationales": [
+   "",
+   "Port-mapped I/O can still use interrupts.",
+   "It does not require DMA.",
+   "It does use device (port) addresses, just in a separate space."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "easy",
+  "questionText": "An interrupt is best described as:",
+  "options": [
+   "An asynchronous signal that diverts the CPU to handle an event",
+   "A normal sequential instruction",
+   "A type of cache",
+   "A register"
+  ],
+  "correctIndex": 0,
+  "explanation": "An interrupt is a signal (from hardware or software) that asynchronously interrupts the normal instruction flow, causing the CPU to suspend the current task and run a handler. It enables responsive I/O and exception handling without constant polling.",
+  "distractorRationales": [
+   "",
+   "An interrupt diverts control flow; it is not an ordinary sequential instruction.",
+   "It is an event-handling mechanism, not a cache.",
+   "It is a signal/event, not a CPU register."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "hard",
+  "questionText": "Compared to cycle-stealing DMA, 'burst mode' DMA:",
+  "options": [
+   "Holds the bus to transfer an entire block at once, freezing the CPU for the duration but maximizing transfer rate",
+   "Transfers one word per CPU cycle interleaved with the CPU",
+   "Does not use the bus",
+   "Requires no DMA controller"
+  ],
+  "correctIndex": 0,
+  "explanation": "In burst (block) mode, the DMA controller seizes the bus and transfers the whole block without releasing it, giving the highest transfer rate but stalling the CPU for the entire burst. Cycle stealing instead transfers one word at a time, interleaving with CPU activity.",
+  "distractorRationales": [
+   "",
+   "Interleaving one word at a time describes cycle stealing, not burst mode.",
+   "Burst mode very much uses the bus — it monopolizes it.",
+   "A DMA controller is required for any DMA mode."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "Interrupt latency is:",
+  "options": [
+   "The time from interrupt assertion to the start of its service routine",
+   "The total program runtime",
+   "The cache miss penalty",
+   "The DMA block size"
+  ],
+  "correctIndex": 0,
+  "explanation": "Interrupt latency is the delay between a device asserting an interrupt and the CPU beginning to execute the corresponding ISR. It includes finishing the current instruction, saving state, and dispatching. Low latency is critical for real-time systems.",
+  "distractorRationales": [
+   "",
+   "Total program runtime is a different, much larger measure.",
+   "The cache miss penalty is a memory-system metric, not interrupt latency.",
+   "DMA block size is a transfer parameter, unrelated to interrupt timing."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "easy",
+  "questionText": "Why must device priorities be assigned when multiple devices can interrupt simultaneously?",
+  "options": [
+   "To decide which interrupt the CPU services first",
+   "To increase clock speed",
+   "To save memory",
+   "To disable DMA"
+  ],
+  "correctIndex": 0,
+  "explanation": "When several interrupts are pending at once, a priority scheme (via priority levels, daisy chaining, or an interrupt controller) determines the order of service, ensuring urgent devices are handled before less critical ones.",
+  "distractorRationales": [
+   "",
+   "Priority arbitration does not change the clock speed.",
+   "It concerns servicing order, not memory savings.",
+   "Priorities are unrelated to disabling DMA."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "hard",
+  "questionText": "A 'trap' (or software interrupt / exception) differs from a hardware interrupt in that a trap is:",
+  "options": [
+   "Synchronous — caused by the executing instruction (e.g., divide-by-zero, system call)",
+   "Always caused by an external device",
+   "Never serviced by an ISR",
+   "Impossible to handle"
+  ],
+  "correctIndex": 0,
+  "explanation": "Traps/exceptions are synchronous: they are triggered by the current instruction's execution (e.g., arithmetic fault, page fault, or a deliberate system-call instruction), so they recur deterministically. Hardware interrupts are asynchronous, arising from external devices independent of the instruction stream.",
+  "distractorRationales": [
+   "",
+   "External-device causation describes hardware interrupts, not traps.",
+   "Traps are serviced by handlers (a kind of ISR/exception handler).",
+   "Traps are routinely handled (e.g., system calls, page faults)."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "After an ISR finishes, control returns to the interrupted program by:",
+  "options": [
+   "Restoring the saved program counter and status and resuming execution",
+   "Restarting the program from main()",
+   "Jumping to the next device's ISR",
+   "Halting the CPU"
+  ],
+  "correctIndex": 0,
+  "explanation": "A 'return from interrupt' instruction restores the previously saved program counter and processor status word, so the interrupted program resumes exactly where it left off, as if uninterrupted. This transparent resumption is essential to interrupt correctness.",
+  "distractorRationales": [
+   "",
+   "It resumes the interrupted point, not restarts from main().",
+   "It does not automatically chain to another ISR unless one is pending and prioritized.",
+   "It resumes execution rather than halting the CPU."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts",
+  "difficulty": "medium",
+  "questionText": "After a DMA controller finishes transferring a block of data between a device and memory, how does the CPU normally learn that the transfer is complete?",
+  "options": [
+   "The DMA controller raises an interrupt to the CPU",
+   "The CPU must continuously poll the memory bus during the entire transfer",
+   "The transferred data is automatically loaded into the CPU's registers",
+   "The operating system reboots the I/O subsystem"
+  ],
+  "correctIndex": 0,
+  "explanation": "DMA lets the controller move the whole block without CPU involvement; when the byte count reaches zero, the DMA controller issues a completion interrupt so the CPU can process the now-available data.",
+  "distractorRationales": [
+   "",
+   "Continuous polling during the transfer would defeat DMA's purpose, which is to free the CPU while the transfer proceeds.",
+   "DMA moves data to/from main memory, not directly into CPU registers.",
+   "Rebooting the I/O subsystem is not how completion is signaled; a normal completion uses an interrupt."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Interrupt-driven I/O is generally preferable to polling because it:",
+  "options": [
+   "Lets the CPU do other work and respond only when the device needs attention",
+   "Always transfers data faster per byte",
+   "Uses no CPU at all",
+   "Requires no interrupt handler"
+  ],
+  "correctIndex": 0,
+  "explanation": "With interrupts, the CPU is notified asynchronously when an I/O event occurs, so it need not waste cycles repeatedly checking device status (polling). It can run other tasks meanwhile.",
+  "distractorRationales": [
+   "",
+   "Per-byte transfer speed depends on the bus/DMA, not on interrupt vs. poll signaling.",
+   "Servicing the interrupt still uses some CPU; it just avoids busy-waiting.",
+   "Interrupt-driven I/O specifically requires an interrupt service routine."
+  ],
+  "course": "computer-architecture",
+  "subtopic": "i-o-interrupts"
+ }
 ]

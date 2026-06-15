@@ -4,139 +4,399 @@
   "subtopic": "shortest-paths-mst",
   "difficulty": "easy",
   "questionText": "Dijkstra's algorithm requires that the graph have:",
-  "options": ["Non-negative edge weights", "Only integer weights", "No more than V edges", "A complete topology"],
+  "options": [
+   "Non-negative edge weights",
+   "Only integer weights",
+   "No more than V edges",
+   "A complete topology"
+  ],
   "correctIndex": 0,
   "explanation": "Dijkstra's greedy correctness depends on non-negative edge weights; a negative edge could provide a cheaper path to an already-finalized vertex, breaking the algorithm. Use Bellman-Ford for negative edges.",
-  "distractorRationales": ["", "Weights may be real-valued, not just integers.", "There is no V-edge limit; Dijkstra handles dense graphs.", "Completeness is not required; Dijkstra works on any graph with non-negative weights."]
+  "distractorRationales": [
+   "",
+   "Weights may be real-valued, not just integers.",
+   "There is no V-edge limit; Dijkstra handles dense graphs.",
+   "Completeness is not required; Dijkstra works on any graph with non-negative weights."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "easy",
   "questionText": "A minimum spanning tree (MST) of a connected graph with V vertices has exactly:",
-  "options": ["V − 1 edges", "V edges", "E − 1 edges", "2V edges"],
+  "options": [
+   "V − 1 edges",
+   "V edges",
+   "E − 1 edges",
+   "2V edges"
+  ],
   "correctIndex": 0,
   "explanation": "A spanning tree of V vertices is a connected acyclic subgraph, which by definition has exactly V − 1 edges. The MST is the spanning tree of minimum total weight.",
-  "distractorRationales": ["", "V edges would create exactly one cycle, so it would not be a tree.", "E − 1 relates to the edge count of the original graph, not the spanning tree's edges.", "2V edges far exceeds the V − 1 needed for a tree."]
+  "distractorRationales": [
+   "",
+   "V edges would create exactly one cycle, so it would not be a tree.",
+   "E − 1 relates to the edge count of the original graph, not the spanning tree's edges.",
+   "2V edges far exceeds the V − 1 needed for a tree."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "easy",
   "questionText": "Which algorithm handles graphs with negative edge weights (but no negative cycles) for single-source shortest paths?",
-  "options": ["Bellman-Ford", "Dijkstra", "Prim's", "Kruskal's"],
+  "options": [
+   "Bellman-Ford",
+   "Dijkstra",
+   "Prim's",
+   "Kruskal's"
+  ],
   "correctIndex": 0,
   "explanation": "Bellman-Ford relaxes all edges V−1 times and works with negative edge weights, also detecting negative cycles. Dijkstra fails with negative edges; Prim's and Kruskal's are MST algorithms.",
-  "distractorRationales": ["", "Dijkstra's greedy approach is incorrect with negative edges.", "Prim's builds an MST; it does not compute shortest paths.", "Kruskal's builds an MST, not single-source shortest paths."]
+  "distractorRationales": [
+   "",
+   "Dijkstra's greedy approach is incorrect with negative edges.",
+   "Prim's builds an MST; it does not compute shortest paths.",
+   "Kruskal's builds an MST, not single-source shortest paths."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "medium",
   "questionText": "Dijkstra's algorithm using a binary min-heap (priority queue) on a graph with V vertices and E edges runs in:",
-  "options": ["O((V + E) log V)", "O(V²)", "O(VE)", "O(E + V)"],
+  "options": [
+   "O((V + E) log V)",
+   "O(V²)",
+   "O(VE)",
+   "O(E + V)"
+  ],
   "correctIndex": 0,
   "explanation": "Each vertex is extracted once (O(log V) each) and each edge can trigger a decrease-key (O(log V) each), giving O((V + E) log V) with a binary heap. A Fibonacci heap improves this to O(E + V log V).",
-  "distractorRationales": ["", "O(V²) is Dijkstra with a simple array, efficient only for dense graphs.", "O(VE) is Bellman-Ford, not heap-based Dijkstra.", "O(E + V) is plain BFS/DFS, which does not handle weighted shortest paths."]
+  "distractorRationales": [
+   "",
+   "O(V²) is Dijkstra with a simple array, efficient only for dense graphs.",
+   "O(VE) is Bellman-Ford, not heap-based Dijkstra.",
+   "O(E + V) is plain BFS/DFS, which does not handle weighted shortest paths."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "medium",
   "questionText": "The 'cut property' used to prove MST correctness states that:",
-  "options": ["For any cut of the graph, the minimum-weight edge crossing the cut is in some MST", "Every edge is in the MST", "The maximum-weight edge is always in the MST", "Removing any edge keeps the graph connected"],
+  "options": [
+   "For any cut of the graph, the minimum-weight edge crossing the cut is in some MST",
+   "Every edge is in the MST",
+   "The maximum-weight edge is always in the MST",
+   "Removing any edge keeps the graph connected"
+  ],
   "correctIndex": 0,
   "explanation": "The cut property: for any partition (cut) of the vertices, the lightest edge crossing it belongs to some MST. This justifies both Prim's and Kruskal's greedy choices.",
-  "distractorRationales": ["", "Not every edge is in an MST; only V−1 carefully chosen edges are.", "The cycle property says the MAXIMUM-weight edge of any cycle is excluded, not included.", "Removing a tree edge disconnects the graph, so connectivity is not preserved arbitrarily."]
+  "distractorRationales": [
+   "",
+   "Not every edge is in an MST; only V−1 carefully chosen edges are.",
+   "The cycle property says the MAXIMUM-weight edge of any cycle is excluded, not included.",
+   "Removing a tree edge disconnects the graph, so connectivity is not preserved arbitrarily."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "medium",
   "questionText": "The 'cycle property' for MSTs states that for any cycle in the graph:",
-  "options": ["The maximum-weight edge of the cycle is not in any MST (if it is unique)", "The minimum-weight edge of the cycle is excluded", "All edges of the cycle are in the MST", "The cycle must be removed entirely"],
+  "options": [
+   "The maximum-weight edge of the cycle is not in any MST (if it is unique)",
+   "The minimum-weight edge of the cycle is excluded",
+   "All edges of the cycle are in the MST",
+   "The cycle must be removed entirely"
+  ],
   "correctIndex": 0,
   "explanation": "The cycle property: the unique heaviest edge of any cycle cannot belong to any MST, because removing it and using the cycle's other edges yields a lighter spanning tree.",
-  "distractorRationales": ["", "It is the maximum, not the minimum, edge of a cycle that is excluded.", "An MST is acyclic, so it cannot contain all edges of a cycle.", "Only the heaviest cycle edge is excluded, not the entire cycle."]
+  "distractorRationales": [
+   "",
+   "It is the maximum, not the minimum, edge of a cycle that is excluded.",
+   "An MST is acyclic, so it cannot contain all edges of a cycle.",
+   "Only the heaviest cycle edge is excluded, not the entire cycle."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "medium",
   "questionText": "Kruskal's algorithm's running time is dominated by:",
-  "options": ["Sorting the edges, O(E log E)", "Running BFS, O(V + E)", "Matrix multiplication, O(V³)", "Heap extraction of vertices, O(V log V)"],
+  "options": [
+   "Sorting the edges, O(E log E)",
+   "Running BFS, O(V + E)",
+   "Matrix multiplication, O(V³)",
+   "Heap extraction of vertices, O(V log V)"
+  ],
   "correctIndex": 0,
   "explanation": "Kruskal's sorts all edges by weight (O(E log E) = O(E log V)) and then processes them with near-constant union-find operations. The sort dominates the runtime.",
-  "distractorRationales": ["", "Kruskal's does not run BFS as its main step; it sorts edges.", "No matrix multiplication is involved in Kruskal's.", "Kruskal's processes edges, not a vertex heap; that describes Prim's structure, not its dominant cost."]
+  "distractorRationales": [
+   "",
+   "Kruskal's does not run BFS as its main step; it sorts edges.",
+   "No matrix multiplication is involved in Kruskal's.",
+   "Kruskal's processes edges, not a vertex heap; that describes Prim's structure, not its dominant cost."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "medium",
   "questionText": "If all edge weights in a connected graph are distinct, then the graph has:",
-  "options": ["A unique minimum spanning tree", "Multiple MSTs", "No MST", "Exactly two MSTs"],
+  "options": [
+   "A unique minimum spanning tree",
+   "Multiple MSTs",
+   "No MST",
+   "Exactly two MSTs"
+  ],
   "correctIndex": 0,
   "explanation": "When all edge weights are distinct, the greedy choices in Prim's/Kruskal's are never tied, so the MST is uniquely determined.",
-  "distractorRationales": ["", "Multiple MSTs require tied edge weights, which distinctness rules out.", "A connected graph always has at least one spanning tree, hence an MST.", "Distinct weights yield exactly one MST, not two."]
+  "distractorRationales": [
+   "",
+   "Multiple MSTs require tied edge weights, which distinctness rules out.",
+   "A connected graph always has at least one spanning tree, hence an MST.",
+   "Distinct weights yield exactly one MST, not two."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "hard",
   "questionText": "In a graph with V vertices, Dijkstra's algorithm with a simple array (no heap) for extract-min runs in:",
-  "options": ["O(V²)", "O(E log V)", "O(V log V)", "O(VE)"],
+  "options": [
+   "O(V²)",
+   "O(E log V)",
+   "O(V log V)",
+   "O(VE)"
+  ],
   "correctIndex": 0,
   "explanation": "With an array, each of the V extract-min operations scans all vertices (O(V)), giving O(V²) for extractions; edge relaxations are O(E) total. So the runtime is O(V² + E) = O(V²), best for dense graphs.",
-  "distractorRationales": ["", "O(E log V) is the binary-heap implementation, not the simple array.", "O(V log V) omits the cost of scanning for the minimum without a heap.", "O(VE) is Bellman-Ford, not Dijkstra."]
+  "distractorRationales": [
+   "",
+   "O(E log V) is the binary-heap implementation, not the simple array.",
+   "O(V log V) omits the cost of scanning for the minimum without a heap.",
+   "O(VE) is Bellman-Ford, not Dijkstra."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "hard",
   "questionText": "Adding a constant c > 0 to every edge weight of a graph can change which result?",
-  "options": ["Shortest paths can change (paths with more edges are penalized more), but the MST is unchanged", "Both shortest paths and MST change", "Neither changes", "Only the MST changes"],
+  "options": [
+   "Shortest paths can change (paths with more edges are penalized more), but the MST is unchanged",
+   "Both shortest paths and MST change",
+   "Neither changes",
+   "Only the MST changes"
+  ],
   "correctIndex": 0,
   "explanation": "Adding c to all edges adds c × (number of edges in the path) to each path's cost, so paths with more edges are penalized differently and shortest paths can change. The MST always uses exactly V−1 edges, so all spanning trees increase by the same (V−1)·c — the MST is unchanged.",
-  "distractorRationales": ["", "The MST does not change because every spanning tree gains the same constant offset.", "Shortest paths can change, so 'neither' is incorrect.", "The MST is the one that stays the same; shortest paths are what can change."]
+  "distractorRationales": [
+   "",
+   "The MST does not change because every spanning tree gains the same constant offset.",
+   "Shortest paths can change, so 'neither' is incorrect.",
+   "The MST is the one that stays the same; shortest paths are what can change."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "hard",
   "questionText": "Why does Dijkstra's algorithm fail on graphs with negative edge weights?",
-  "options": ["Once a vertex is finalized as having the minimum distance, a later negative edge could create a shorter path to it, but it is never reconsidered", "It enters an infinite loop on all graphs", "It cannot represent negative numbers", "It always returns zero distances"],
+  "options": [
+   "Once a vertex is finalized as having the minimum distance, a later negative edge could create a shorter path to it, but it is never reconsidered",
+   "It enters an infinite loop on all graphs",
+   "It cannot represent negative numbers",
+   "It always returns zero distances"
+  ],
   "correctIndex": 0,
   "explanation": "Dijkstra greedily finalizes the closest unvisited vertex, assuming no future path can be shorter. A negative edge violates this: a path discovered later could undercut a finalized distance, but Dijkstra never revisits finalized vertices, producing incorrect results.",
-  "distractorRationales": ["", "It does not loop infinitely; it terminates but with wrong distances.", "Representation of negatives is not the issue; the greedy assumption is.", "It does not return all zeros; it returns plausible but incorrect distances."]
+  "distractorRationales": [
+   "",
+   "It does not loop infinitely; it terminates but with wrong distances.",
+   "Representation of negatives is not the issue; the greedy assumption is.",
+   "It does not return all zeros; it returns plausible but incorrect distances."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "hard",
   "questionText": "Bellman-Ford detects a negative-weight cycle by:",
-  "options": ["Performing one extra relaxation pass after V−1 passes; if any distance still decreases, a negative cycle exists", "Checking if any edge has negative weight", "Running DFS for back edges", "Counting the number of edges"],
+  "options": [
+   "Performing one extra relaxation pass after V−1 passes; if any distance still decreases, a negative cycle exists",
+   "Checking if any edge has negative weight",
+   "Running DFS for back edges",
+   "Counting the number of edges"
+  ],
   "correctIndex": 0,
   "explanation": "After V−1 passes, all shortest paths are finalized if no negative cycle exists. If a V-th relaxation pass still reduces some distance, a negative-weight cycle is reachable.",
-  "distractorRationales": ["", "A single negative edge is not a negative cycle; the issue is a cycle with negative total weight.", "DFS back edges detect cycles in general but not specifically negative-weight cycles.", "Edge count alone says nothing about negative cycles."]
+  "distractorRationales": [
+   "",
+   "A single negative edge is not a negative cycle; the issue is a cycle with negative total weight.",
+   "DFS back edges detect cycles in general but not specifically negative-weight cycles.",
+   "Edge count alone says nothing about negative cycles."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "medium",
   "questionText": "Prim's algorithm with a binary heap runs in:",
-  "options": ["O((V + E) log V)", "O(V³)", "O(E²)", "O(V + E)"],
+  "options": [
+   "O((V + E) log V)",
+   "O(V³)",
+   "O(E²)",
+   "O(V + E)"
+  ],
   "correctIndex": 0,
   "explanation": "Like Dijkstra, Prim's with a binary heap does V extract-mins and up to E decrease-keys, each O(log V), giving O((V + E) log V) = O(E log V) for connected graphs.",
-  "distractorRationales": ["", "O(V³) is far worse than the heap-based bound.", "O(E²) overstates; edges are not processed quadratically.", "O(V + E) is unweighted traversal cost; Prim's needs the log factor for the priority queue."]
+  "distractorRationales": [
+   "",
+   "O(V³) is far worse than the heap-based bound.",
+   "O(E²) overstates; edges are not processed quadratically.",
+   "O(V + E) is unweighted traversal cost; Prim's needs the log factor for the priority queue."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "shortest-paths-mst",
   "difficulty": "hard",
   "questionText": "Floyd-Warshall computes all-pairs shortest paths. Its key DP recurrence updates dist[i][j] using intermediate vertex k as:",
-  "options": ["dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])", "dist[i][j] = dist[i][k] * dist[k][j]", "dist[i][j] = max(dist[i][j], dist[i][k] + dist[k][j])", "dist[i][j] = dist[i][k] + dist[k][j] always"],
+  "options": [
+   "dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])",
+   "dist[i][j] = dist[i][k] * dist[k][j]",
+   "dist[i][j] = max(dist[i][j], dist[i][k] + dist[k][j])",
+   "dist[i][j] = dist[i][k] + dist[k][j] always"
+  ],
   "correctIndex": 0,
   "explanation": "Floyd-Warshall considers whether routing i→j through intermediate vertex k is shorter: dist[i][j] = min(current, dist[i][k] + dist[k][j]). Iterating k over all vertices yields all-pairs shortest paths in O(V³).",
-  "distractorRationales": ["", "Path costs add, not multiply.", "Taking the max would compute longest, not shortest, paths.", "Unconditionally replacing the distance ignores whether the current value is already smaller."]
+  "distractorRationales": [
+   "",
+   "Path costs add, not multiply.",
+   "Taking the max would compute longest, not shortest, paths.",
+   "Unconditionally replacing the distance ignores whether the current value is already smaller."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "A spanning tree of a connected undirected graph is a subgraph that:",
+  "options": [
+   "Includes all vertices, is connected, and has no cycles",
+   "Includes all edges",
+   "Has the maximum total weight",
+   "May be disconnected"
+  ],
+  "correctIndex": 0,
+  "explanation": "A spanning tree connects all V vertices using exactly V−1 edges with no cycles. The minimum spanning tree is the spanning tree of least total weight.",
+  "distractorRationales": [
+   "",
+   "Including all edges would create cycles, not a tree.",
+   "An MST minimizes (not maximizes) total weight; a spanning tree itself has no weight requirement.",
+   "A spanning tree is connected by definition; it cannot be disconnected."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "shortest-paths-mst"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Dijkstra's algorithm, after extracting a vertex u from the priority queue, performs 'relaxation' on each edge (u, v), which means:",
+  "options": [
+   "If dist[u] + weight(u,v) < dist[v], update dist[v] to the smaller value",
+   "Always set dist[v] = dist[u]",
+   "Remove edge (u, v)",
+   "Mark v as the source"
+  ],
+  "correctIndex": 0,
+  "explanation": "Relaxing edge (u,v) checks whether going through u offers a shorter path to v; if so, dist[v] is updated (and v's priority decreased). This propagates shortest-path estimates.",
+  "distractorRationales": [
+   "",
+   "Unconditionally setting dist[v] = dist[u] ignores the edge weight and the existing estimate.",
+   "Relaxation updates distances; it does not remove edges.",
+   "The source is fixed at the start; relaxation does not reassign it."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "shortest-paths-mst"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Which algorithm computes shortest paths from a single source in a Directed Acyclic Graph (DAG) most efficiently, even with negative edges?",
+  "options": [
+   "Relax edges in topological order — O(V + E)",
+   "Floyd-Warshall — O(V³)",
+   "Repeated Dijkstra",
+   "Prim's algorithm"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a DAG, processing vertices in topological order and relaxing outgoing edges gives single-source shortest paths in O(V + E), handling negative weights since a DAG has no cycles.",
+  "distractorRationales": [
+   "",
+   "Floyd-Warshall is all-pairs O(V³), far more than needed for a single source on a DAG.",
+   "Dijkstra cannot handle negative edges and is slower than the linear DAG method.",
+   "Prim's builds an MST, not shortest paths."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "shortest-paths-mst"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "In a graph with V vertices and E edges, Kruskal's algorithm runs in:",
+  "options": [
+   "O(E log E) (dominated by sorting edges), with near-constant union-find operations",
+   "O(V³)",
+   "O(V²) regardless of edges",
+   "O(E + V) without sorting"
+  ],
+  "correctIndex": 0,
+  "explanation": "Kruskal's sorts the edges (O(E log E) = O(E log V)) and then processes them using union-find with nearly constant amortized cost per operation, so sorting dominates.",
+  "distractorRationales": [
+   "",
+   "O(V³) is all-pairs shortest paths, not Kruskal's.",
+   "O(V²) is array-based Dijkstra/Prim, not Kruskal's edge-sorting cost.",
+   "Kruskal's requires sorting edges; it is not O(E + V)."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "shortest-paths-mst"
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Bellman-Ford can detect a negative-weight cycle by checking whether:",
+  "options": [
+   "Any distance still improves after V−1 relaxation passes (in a V-th pass)",
+   "All distances are positive",
+   "The graph is connected",
+   "The source has no outgoing edges"
+  ],
+  "correctIndex": 0,
+  "explanation": "After V−1 passes, shortest paths are final unless a negative cycle exists. An additional pass that still relaxes some edge reveals a reachable negative-weight cycle.",
+  "distractorRationales": [
+   "",
+   "Distances being positive says nothing about cycles; negative cycles concern continued improvement.",
+   "Connectivity is unrelated to negative-cycle detection.",
+   "The source's out-degree does not detect negative cycles."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "shortest-paths-mst"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "If a graph has a unique minimum-weight edge, that edge is:",
+  "options": [
+   "Always part of every minimum spanning tree",
+   "Never part of any MST",
+   "Part of some but not all MSTs",
+   "Irrelevant to the MST"
+  ],
+  "correctIndex": 0,
+  "explanation": "By the cut property, the globally lightest edge crosses some cut as its minimum crossing edge, so it belongs to every MST. (If it were unique-lightest it cannot be the heaviest edge of any cycle, so the cycle property never excludes it.)",
+  "distractorRationales": [
+   "",
+   "The lightest edge is included, not excluded, by the cut property.",
+   "Because it must be in every MST, 'some but not all' is incorrect.",
+   "The minimum edge is highly relevant: it is guaranteed to be in the MST."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "shortest-paths-mst"
  }
 ]

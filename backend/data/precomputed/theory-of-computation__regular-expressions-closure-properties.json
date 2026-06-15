@@ -4,159 +4,399 @@
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "easy",
   "questionText": "The regular expression operator '*' (Kleene star) applied to a language L denotes:",
-  "options": ["Zero or more concatenations of strings from L (including the empty string)", "Exactly one string from L", "One or more concatenations of strings from L", "The complement of L"],
+  "options": [
+   "Zero or more concatenations of strings from L (including the empty string)",
+   "Exactly one string from L",
+   "One or more concatenations of strings from L",
+   "The complement of L"
+  ],
   "correctIndex": 0,
   "explanation": "L* = { ε } ∪ L ∪ LL ∪ LLL ∪ ... — all finite concatenations of zero or more strings from L, including the empty string ε.",
-  "distractorRationales": ["", "Exactly one string corresponds to L itself, not L*.", "One or more concatenations is L⁺ (positive closure), which excludes ε unless ε ∈ L.", "Complement is not expressed by the star operator."]
+  "distractorRationales": [
+   "",
+   "Exactly one string corresponds to L itself, not L*.",
+   "One or more concatenations is L⁺ (positive closure), which excludes ε unless ε ∈ L.",
+   "Complement is not expressed by the star operator."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "easy",
   "questionText": "The regular expression (0 + 1)* over the alphabet {0, 1} describes:",
-  "options": ["All strings over {0, 1}, including the empty string", "Only strings of even length", "Only non-empty strings", "Only strings starting with 0"],
+  "options": [
+   "All strings over {0, 1}, including the empty string",
+   "Only strings of even length",
+   "Only non-empty strings",
+   "Only strings starting with 0"
+  ],
   "correctIndex": 0,
   "explanation": "(0 + 1) matches any single symbol, and the star allows zero or more of them, so (0+1)* generates every possible string over {0,1}, including ε.",
-  "distractorRationales": ["", "There is no parity restriction; strings of any length are matched.", "The empty string ε is included due to the star.", "Strings may start with either 0 or 1; there is no leading-symbol restriction."]
+  "distractorRationales": [
+   "",
+   "There is no parity restriction; strings of any length are matched.",
+   "The empty string ε is included due to the star.",
+   "Strings may start with either 0 or 1; there is no leading-symbol restriction."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "easy",
   "questionText": "Which regular expression describes strings over {a, b} that end in 'b'?",
-  "options": ["(a + b)*b", "b(a + b)*", "a*b*", "(a + b)*a"],
+  "options": [
+   "(a + b)*b",
+   "b(a + b)*",
+   "a*b*",
+   "(a + b)*a"
+  ],
   "correctIndex": 0,
   "explanation": "(a + b)* matches any prefix, and the final b forces the string to end in 'b'. So (a+b)*b is exactly the set of strings ending in b.",
-  "distractorRationales": ["", "b(a+b)* describes strings STARTING with b, not ending with b.", "a*b* describes strings of a's followed by b's; it includes strings ending in 'a' (e.g., 'a') and excludes 'ab a b'-type strings.", "(a+b)*a describes strings ending in 'a', the opposite."]
+  "distractorRationales": [
+   "",
+   "b(a+b)* describes strings STARTING with b, not ending with b.",
+   "a*b* describes strings of a's followed by b's; it includes strings ending in 'a' (e.g., 'a') and excludes 'ab a b'-type strings.",
+   "(a+b)*a describes strings ending in 'a', the opposite."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "Regular languages are closed under set difference (L1 − L2). This follows because:",
-  "options": ["L1 − L2 = L1 ∩ complement(L2), and regular languages are closed under intersection and complement", "Set difference is a primitive regex operator", "Regular languages are closed under union only", "Difference always yields a finite language"],
+  "options": [
+   "L1 − L2 = L1 ∩ complement(L2), and regular languages are closed under intersection and complement",
+   "Set difference is a primitive regex operator",
+   "Regular languages are closed under union only",
+   "Difference always yields a finite language"
+  ],
   "correctIndex": 0,
   "explanation": "L1 − L2 = L1 ∩ L2̄. Since regular languages are closed under complement and intersection, their difference is also regular.",
-  "distractorRationales": ["", "Set difference is not a basic regex operator, but closure still holds via complement and intersection.", "Closure under union alone would not establish difference; complement is essential.", "Difference of regular languages can be infinite (e.g., (a+b)* − {ε})."]
+  "distractorRationales": [
+   "",
+   "Set difference is not a basic regex operator, but closure still holds via complement and intersection.",
+   "Closure under union alone would not establish difference; complement is essential.",
+   "Difference of regular languages can be infinite (e.g., (a+b)* − {ε})."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "Which identity for regular expressions is TRUE?",
-  "options": ["(r*)* = r*", "r* = r⁺", "r + r = r* ", "(rs)* = r*s*"],
+  "options": [
+   "(r*)* = r*",
+   "r* = r⁺",
+   "r + r = r* ",
+   "(rs)* = r*s*"
+  ],
   "correctIndex": 0,
   "explanation": "Applying the star twice adds nothing: (r*)* = r*, since r* already includes all finite concatenations (idempotence of star).",
-  "distractorRationales": ["", "r* includes ε; r⁺ excludes ε (unless ε ∈ L(r)), so they differ in general.", "r + r = r (union idempotence), not r*; adding a language to itself does not add the star closure.", "(rs)* ≠ r*s* in general; e.g., (ab)* ≠ a*b* since (ab)* excludes 'aabb'."]
+  "distractorRationales": [
+   "",
+   "r* includes ε; r⁺ excludes ε (unless ε ∈ L(r)), so they differ in general.",
+   "r + r = r (union idempotence), not r*; adding a language to itself does not add the star closure.",
+   "(rs)* ≠ r*s* in general; e.g., (ab)* ≠ a*b* since (ab)* excludes 'aabb'."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "The regular expression a*b* over {a, b} describes:",
-  "options": ["Strings of zero or more a's followed by zero or more b's", "Strings with equal numbers of a's and b's", "All strings over {a, b}", "Strings where every a is immediately followed by a b"],
+  "options": [
+   "Strings of zero or more a's followed by zero or more b's",
+   "Strings with equal numbers of a's and b's",
+   "All strings over {a, b}",
+   "Strings where every a is immediately followed by a b"
+  ],
   "correctIndex": 0,
   "explanation": "a*b* matches some a's (possibly none) then some b's (possibly none). It does NOT require equal counts and excludes strings like 'ba' or 'aba'.",
-  "distractorRationales": ["", "It does not require equal a-and-b counts; 'aab' and 'abb' both match.", "It excludes strings like 'ba' (b before a), so it is not all strings.", "It does not enforce an a-then-b adjacency rule; 'aab' matches with two consecutive a's."]
+  "distractorRationales": [
+   "",
+   "It does not require equal a-and-b counts; 'aab' and 'abb' both match.",
+   "It excludes strings like 'ba' (b before a), so it is not all strings.",
+   "It does not enforce an a-then-b adjacency rule; 'aab' matches with two consecutive a's."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "Regular languages are closed under homomorphism h (a symbol-to-string map). This means:",
-  "options": ["If L is regular, then h(L) = { h(w) | w ∈ L } is also regular", "Homomorphism makes a language non-regular", "h(L) is always finite", "Only the identity homomorphism preserves regularity"],
+  "options": [
+   "If L is regular, then h(L) = { h(w) | w ∈ L } is also regular",
+   "Homomorphism makes a language non-regular",
+   "h(L) is always finite",
+   "Only the identity homomorphism preserves regularity"
+  ],
   "correctIndex": 0,
   "explanation": "Applying a homomorphism (replacing each symbol with a fixed string) to a regular language yields a regular language. You can transform the DFA/regex accordingly. Inverse homomorphism also preserves regularity.",
-  "distractorRationales": ["", "Homomorphism preserves regularity rather than destroying it.", "h(L) can be infinite if L is infinite; finiteness is not guaranteed.", "All homomorphisms preserve regularity, not just the identity."]
+  "distractorRationales": [
+   "",
+   "Homomorphism preserves regularity rather than destroying it.",
+   "h(L) can be infinite if L is infinite; finiteness is not guaranteed.",
+   "All homomorphisms preserve regularity, not just the identity."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "hard",
   "questionText": "Which language over {a, b} is described by the regular expression (a + b)*aa(a + b)*?",
-  "options": ["All strings containing at least one occurrence of 'aa'", "Strings ending in 'aa'", "Strings with exactly two a's", "Strings starting with 'aa'"],
+  "options": [
+   "All strings containing at least one occurrence of 'aa'",
+   "Strings ending in 'aa'",
+   "Strings with exactly two a's",
+   "Strings starting with 'aa'"
+  ],
   "correctIndex": 0,
   "explanation": "The middle 'aa' must appear somewhere, with arbitrary strings before and after. So the expression matches exactly the strings that contain 'aa' as a substring.",
-  "distractorRationales": ["", "Ending in 'aa' would require the trailing (a+b)* to be empty; here it can be anything.", "It does not limit the total number of a's to two; many a's are allowed.", "Starting with 'aa' would require the leading (a+b)* to be empty, which is not enforced."]
+  "distractorRationales": [
+   "",
+   "Ending in 'aa' would require the trailing (a+b)* to be empty; here it can be anything.",
+   "It does not limit the total number of a's to two; many a's are allowed.",
+   "Starting with 'aa' would require the leading (a+b)* to be empty, which is not enforced."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "hard",
   "questionText": "Is the class of regular languages closed under the operation of taking the SUBSET of a regular language?",
-  "options": ["No — a subset of a regular language need not be regular (e.g., { aⁿbⁿ } ⊆ a*b*)", "Yes, always", "Only for finite subsets", "Only if the superset is finite"],
+  "options": [
+   "No — a subset of a regular language need not be regular (e.g., { aⁿbⁿ } ⊆ a*b*)",
+   "Yes, always",
+   "Only for finite subsets",
+   "Only if the superset is finite"
+  ],
   "correctIndex": 0,
   "explanation": "Regular languages are NOT closed under taking arbitrary subsets. For example, { aⁿbⁿ } is a non-regular subset of the regular language a*b*. Closure properties apply to specific operations, not arbitrary subset selection.",
-  "distractorRationales": ["", "Arbitrary subsets can be non-regular, so 'always' is false.", "While finite subsets are regular, the general claim about all subsets fails — the closure question is about arbitrary subsets.", "Even subsets of infinite regular languages can be non-regular; the superset's finiteness is not the point of the general property."]
+  "distractorRationales": [
+   "",
+   "Arbitrary subsets can be non-regular, so 'always' is false.",
+   "While finite subsets are regular, the general claim about all subsets fails — the closure question is about arbitrary subsets.",
+   "Even subsets of infinite regular languages can be non-regular; the superset's finiteness is not the point of the general property."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "hard",
   "questionText": "The reversal of a regular language (reversing every string) is:",
-  "options": ["Always regular — reverse the DFA's transitions, swap start/accept roles to get an NFA", "Sometimes non-regular", "Always context-free but not regular", "Undecidable to compute"],
+  "options": [
+   "Always regular — reverse the DFA's transitions, swap start/accept roles to get an NFA",
+   "Sometimes non-regular",
+   "Always context-free but not regular",
+   "Undecidable to compute"
+  ],
   "correctIndex": 0,
   "explanation": "Regular languages are closed under reversal. Given a DFA, reverse all transition arrows, make the old start state accepting, and add a new start state with ε-moves to the old accepting states, yielding an NFA for the reversed language.",
-  "distractorRationales": ["", "Reversal always preserves regularity; it is never non-regular for regular inputs.", "The reversed language is regular, not merely context-free.", "Reversal is a straightforward constructive operation, not undecidable."]
+  "distractorRationales": [
+   "",
+   "Reversal always preserves regularity; it is never non-regular for regular inputs.",
+   "The reversed language is regular, not merely context-free.",
+   "Reversal is a straightforward constructive operation, not undecidable."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "Which regular expression over {0,1} describes all strings with an even number of 0's?",
-  "options": ["1*(01*01*)*", "(00)*", "(0 + 1)*0(0 + 1)*", "0*1*"],
+  "options": [
+   "1*(01*01*)*",
+   "(00)*",
+   "(0 + 1)*0(0 + 1)*",
+   "0*1*"
+  ],
   "correctIndex": 0,
   "explanation": "1*(01*01*)* allows any number of 1's interspersed, but 0's come in pairs (each (01*01*) contributes exactly two 0's). This matches strings with an even count of 0's.",
-  "distractorRationales": ["", "(00)* only matches strings of 0's in pairs with no 1's at all — too restrictive.", "(0+1)*0(0+1)* matches strings containing at least one 0, with no parity control.", "0*1* fixes the order and does not control the parity of 0's."]
+  "distractorRationales": [
+   "",
+   "(00)* only matches strings of 0's in pairs with no 1's at all — too restrictive.",
+   "(0+1)*0(0+1)* matches strings containing at least one 0, with no parity control.",
+   "0*1* fixes the order and does not control the parity of 0's."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "easy",
   "questionText": "In a regular expression, the '+' (or '|') operator denotes:",
-  "options": ["Union (alternation) — either the left or the right expression", "Concatenation", "Kleene star", "Intersection"],
+  "options": [
+   "Union (alternation) — either the left or the right expression",
+   "Concatenation",
+   "Kleene star",
+   "Intersection"
+  ],
   "correctIndex": 0,
   "explanation": "The '+' (often written '|') is alternation/union: r + s matches any string matched by r OR by s. Concatenation is implicit juxtaposition, and '*' is the star.",
-  "distractorRationales": ["", "Concatenation is denoted by writing expressions next to each other (rs), not with '+'.", "Kleene star is '*', not '+'.", "Intersection is not a basic regex operator (though regular languages are closed under it)."]
+  "distractorRationales": [
+   "",
+   "Concatenation is denoted by writing expressions next to each other (rs), not with '+'.",
+   "Kleene star is '*', not '+'.",
+   "Intersection is not a basic regex operator (though regular languages are closed under it)."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "hard",
   "questionText": "Regular languages are closed under the 'prefix' operation (the set of all prefixes of strings in L). Why?",
-  "options": ["Given a DFA for L, mark every state that can reach an accepting state as accepting; the result recognizes all prefixes", "Prefixes always form a finite set", "Prefix is a basic regex operator", "It follows from the pumping lemma"],
+  "options": [
+   "Given a DFA for L, mark every state that can reach an accepting state as accepting; the result recognizes all prefixes",
+   "Prefixes always form a finite set",
+   "Prefix is a basic regex operator",
+   "It follows from the pumping lemma"
+  ],
   "correctIndex": 0,
   "explanation": "To recognize prefixes of L, take L's DFA and make accepting any state from which an accepting state is still reachable. A string is a prefix of some L-string iff it can still be extended to acceptance.",
-  "distractorRationales": ["", "The set of prefixes can be infinite if L is infinite.", "Prefix is not a primitive regex operator; closure is shown by the DFA construction.", "The pumping lemma proves non-regularity; it does not establish prefix closure."]
+  "distractorRationales": [
+   "",
+   "The set of prefixes can be infinite if L is infinite.",
+   "Prefix is not a primitive regex operator; closure is shown by the DFA construction.",
+   "The pumping lemma proves non-regularity; it does not establish prefix closure."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "Which statement about converting a regular expression to a finite automaton is TRUE?",
-  "options": ["Thompson's construction builds an ε-NFA directly from a regular expression in linear size", "Regular expressions cannot be converted to automata", "Only DFAs can be built from regular expressions, never NFAs", "The conversion always produces a minimal DFA"],
+  "options": [
+   "Thompson's construction builds an ε-NFA directly from a regular expression in linear size",
+   "Regular expressions cannot be converted to automata",
+   "Only DFAs can be built from regular expressions, never NFAs",
+   "The conversion always produces a minimal DFA"
+  ],
   "correctIndex": 0,
   "explanation": "Thompson's construction recursively builds an ε-NFA from a regular expression, with size linear in the expression length. The ε-NFA can then be converted to a DFA and minimized if desired.",
-  "distractorRationales": ["", "Kleene's theorem guarantees regular expressions convert to finite automata.", "The natural construction produces an ε-NFA; a DFA can follow via subset construction.", "Thompson's construction yields an ε-NFA, not a minimal DFA; minimization is a separate step."]
+  "distractorRationales": [
+   "",
+   "Kleene's theorem guarantees regular expressions convert to finite automata.",
+   "The natural construction produces an ε-NFA; a DFA can follow via subset construction.",
+   "Thompson's construction yields an ε-NFA, not a minimal DFA; minimization is a separate step."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "hard",
   "questionText": "The intersection of a regular language and a context-free language is:",
-  "options": ["Always context-free", "Always regular", "Always non-context-free", "Undecidable to determine"],
+  "options": [
+   "Always context-free",
+   "Always regular",
+   "Always non-context-free",
+   "Undecidable to determine"
+  ],
   "correctIndex": 0,
   "explanation": "Context-free languages are closed under intersection WITH a regular language (run the PDA and DFA as a product). The result is context-free. (CFLs are not closed under intersection with each other, however.)",
-  "distractorRationales": ["", "The result need not be regular; e.g., { aⁿbⁿ } ∩ a*b* = { aⁿbⁿ } is context-free but not regular.", "It is always context-free, so 'always non-context-free' is wrong.", "The closure property is a known theorem, not an undecidable question."]
+  "distractorRationales": [
+   "",
+   "The result need not be regular; e.g., { aⁿbⁿ } ∩ a*b* = { aⁿbⁿ } is context-free but not regular.",
+   "It is always context-free, so 'always non-context-free' is wrong.",
+   "The closure property is a known theorem, not an undecidable question."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "regular-expressions-closure-properties",
   "difficulty": "medium",
   "questionText": "Which of the following is NOT a closure property that regular languages possess?",
-  "options": ["Closure under arbitrary infinite union", "Closure under finite union", "Closure under concatenation", "Closure under Kleene star"],
+  "options": [
+   "Closure under arbitrary infinite union",
+   "Closure under finite union",
+   "Closure under concatenation",
+   "Closure under Kleene star"
+  ],
   "correctIndex": 0,
   "explanation": "Regular languages are closed under FINITE union but not arbitrary infinite union. For instance, each { aⁿbⁿ } for a fixed n is finite (regular), but the infinite union over all n gives the non-regular { aⁿbⁿ }.",
-  "distractorRationales": ["", "Finite union of regular languages is regular.", "Concatenation of regular languages is regular.", "Kleene star of a regular language is regular."]
+  "distractorRationales": [
+   "",
+   "Finite union of regular languages is regular.",
+   "Concatenation of regular languages is regular.",
+   "Kleene star of a regular language is regular."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "The regular expression a(a + b)* over {a, b} describes:",
+  "options": [
+   "All strings that start with 'a'",
+   "All strings that end with 'a'",
+   "Only the string 'a'",
+   "All strings over {a, b}"
+  ],
+  "correctIndex": 0,
+  "explanation": "The leading 'a' forces the first symbol, and (a+b)* allows any continuation. So it matches exactly the strings beginning with 'a'.",
+  "distractorRationales": [
+   "",
+   "Ending with 'a' would be (a+b)*a, with the fixed symbol at the end.",
+   "It matches many strings beyond just 'a' due to the trailing star.",
+   "Strings starting with 'b' are excluded, so it is not all strings."
+  ],
+  "course": "theory-of-computation",
+  "subtopic": "regular-expressions-closure-properties"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Regular languages are closed under the operation of taking a homomorphic image. An (inverse) homomorphism h⁻¹ applied to a regular language gives:",
+  "options": [
+   "A regular language",
+   "A possibly non-regular language",
+   "A context-free language only",
+   "An undecidable result"
+  ],
+  "correctIndex": 0,
+  "explanation": "Regular languages are closed under both homomorphism and inverse homomorphism. Given a DFA for L and a homomorphism h, one constructs a DFA for h⁻¹(L) by simulating the DFA on h applied to each input symbol.",
+  "distractorRationales": [
+   "",
+   "Inverse homomorphism preserves regularity, so it cannot yield a non-regular language.",
+   "The result is regular, not merely context-free.",
+   "The construction is effective and decidable, not undecidable."
+  ],
+  "course": "theory-of-computation",
+  "subtopic": "regular-expressions-closure-properties"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Which regular expression denotes the empty language ∅ (no strings at all)?",
+  "options": [
+   "∅",
+   "ε",
+   "∅*",
+   "a*"
+  ],
+  "correctIndex": 0,
+  "explanation": "The symbol ∅ is the regular expression for the empty language (containing no strings). Note ε denotes the language { ε } containing just the empty string, and ∅* = { ε }.",
+  "distractorRationales": [
+   "",
+   "ε denotes the language { ε }, which contains one string (the empty string), not zero.",
+   "∅* equals { ε } (star of nothing yields the empty string), not the empty language.",
+   "a* denotes infinitely many strings of a's, not the empty language."
+  ],
+  "course": "theory-of-computation",
+  "subtopic": "regular-expressions-closure-properties"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "Regular languages are closed under 'quotient' L1/L2 = { x | ∃y ∈ L2, xy ∈ L1 }. When L1 is regular, L1/L2 is regular:",
+  "options": [
+   "For ANY language L2 (even non-regular)",
+   "Only when L2 is regular",
+   "Only when L2 is finite",
+   "Never"
+  ],
+  "correctIndex": 0,
+  "explanation": "The right quotient of a regular language L1 by ANY language L2 is regular. Take L1's DFA and make a state accepting if, from it, some string of L2 reaches an original accepting state — L2 need not even be regular.",
+  "distractorRationales": [
+   "",
+   "The surprising result is that L2 can be arbitrary; it need not be regular.",
+   "Finiteness of L2 is not required for the quotient to be regular.",
+   "The quotient is regular, contradicting 'never'."
+  ],
+  "course": "theory-of-computation",
+  "subtopic": "regular-expressions-closure-properties"
  }
 ]

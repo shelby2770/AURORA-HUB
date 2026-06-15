@@ -4,179 +4,399 @@
   "subtopic": "undecidability-reductions",
   "difficulty": "easy",
   "questionText": "A decision problem is 'undecidable' if:",
-  "options": ["No Turing machine (algorithm) can decide it for all inputs (always halting with the correct yes/no)", "It has no solution for any input", "It runs slowly", "Its answer is always 'yes'"],
+  "options": [
+   "No Turing machine (algorithm) can decide it for all inputs (always halting with the correct yes/no)",
+   "It has no solution for any input",
+   "It runs slowly",
+   "Its answer is always 'yes'"
+  ],
   "correctIndex": 0,
   "explanation": "An undecidable problem is one for which no algorithm exists that halts on every input and correctly answers yes or no. The halting problem is the canonical example.",
-  "distractorRationales": ["", "Undecidability is about the lack of a general deciding algorithm, not the lack of answers (each instance still has a true answer).", "Slowness relates to complexity (e.g., intractability), not decidability.", "The answer varies by instance; undecidability is about computing it, not its value."]
+  "distractorRationales": [
+   "",
+   "Undecidability is about the lack of a general deciding algorithm, not the lack of answers (each instance still has a true answer).",
+   "Slowness relates to complexity (e.g., intractability), not decidability.",
+   "The answer varies by instance; undecidability is about computing it, not its value."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "easy",
   "questionText": "The halting problem asks:",
-  "options": ["Given a Turing machine M and input w, does M halt on w?", "Does M accept the empty string?", "Is M's language finite?", "Does M use polynomial time?"],
+  "options": [
+   "Given a Turing machine M and input w, does M halt on w?",
+   "Does M accept the empty string?",
+   "Is M's language finite?",
+   "Does M use polynomial time?"
+  ],
   "correctIndex": 0,
   "explanation": "The halting problem is: given an encoding of a Turing machine M and an input w, determine whether M halts (stops) when run on w. Turing proved it undecidable.",
-  "distractorRationales": ["", "Acceptance of the empty string is a different (also undecidable) problem, not the halting problem.", "Finiteness of L(M) is yet another undecidable property, but not the halting problem itself.", "Resource usage is a complexity question, not the halting problem."]
+  "distractorRationales": [
+   "",
+   "Acceptance of the empty string is a different (also undecidable) problem, not the halting problem.",
+   "Finiteness of L(M) is yet another undecidable property, but not the halting problem itself.",
+   "Resource usage is a complexity question, not the halting problem."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "easy",
   "questionText": "A reduction from problem A to problem B used in undecidability proofs typically shows:",
-  "options": ["If B were decidable, then A would be decidable; so A undecidable implies B undecidable", "A and B are both decidable", "B is harder than the halting problem always", "A is in P"],
+  "options": [
+   "If B were decidable, then A would be decidable; so A undecidable implies B undecidable",
+   "A and B are both decidable",
+   "B is harder than the halting problem always",
+   "A is in P"
+  ],
   "correctIndex": 0,
   "explanation": "To prove B undecidable, reduce a known undecidable problem A to B: a decider for B would yield a decider for A. Since A is undecidable, B must be too.",
-  "distractorRationales": ["", "The whole point is to show B is undecidable, not that both are decidable.", "The reduction shows B is at least as hard as A, not necessarily harder than the halting problem.", "Undecidability reductions concern computability, not membership in P."]
+  "distractorRationales": [
+   "",
+   "The whole point is to show B is undecidable, not that both are decidable.",
+   "The reduction shows B is at least as hard as A, not necessarily harder than the halting problem.",
+   "Undecidability reductions concern computability, not membership in P."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "Rice's theorem states that:",
-  "options": ["Any non-trivial semantic property of the language recognized by a Turing machine is undecidable", "All syntactic properties of TMs are undecidable", "Every property of TMs is decidable", "Only the halting problem is undecidable"],
+  "options": [
+   "Any non-trivial semantic property of the language recognized by a Turing machine is undecidable",
+   "All syntactic properties of TMs are undecidable",
+   "Every property of TMs is decidable",
+   "Only the halting problem is undecidable"
+  ],
   "correctIndex": 0,
   "explanation": "Rice's theorem: any non-trivial property of the LANGUAGE (the recognized set) of a Turing machine is undecidable. 'Non-trivial' means it holds for some but not all recognizable languages.",
-  "distractorRationales": ["", "Rice's theorem is about SEMANTIC (language) properties, not syntactic ones (e.g., 'has 5 states' is decidable).", "Many such properties are undecidable, so not everything is decidable.", "Far more than the halting problem is undecidable; Rice's theorem covers a whole class."]
+  "distractorRationales": [
+   "",
+   "Rice's theorem is about SEMANTIC (language) properties, not syntactic ones (e.g., 'has 5 states' is decidable).",
+   "Many such properties are undecidable, so not everything is decidable.",
+   "Far more than the halting problem is undecidable; Rice's theorem covers a whole class."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "By Rice's theorem, which of the following is UNDECIDABLE?",
-  "options": ["Whether the language of a given Turing machine is empty (L(M) = ∅)", "Whether a Turing machine has exactly 10 states", "Whether a Turing machine's transition function is total (as written)", "Whether a TM's tape alphabet has 3 symbols"],
+  "options": [
+   "Whether the language of a given Turing machine is empty (L(M) = ∅)",
+   "Whether a Turing machine has exactly 10 states",
+   "Whether a Turing machine's transition function is total (as written)",
+   "Whether a TM's tape alphabet has 3 symbols"
+  ],
   "correctIndex": 0,
   "explanation": "Emptiness of L(M) is a non-trivial semantic property of the recognized language, hence undecidable by Rice's theorem. The other options are syntactic properties of the machine's description and are decidable.",
-  "distractorRationales": ["", "Counting states is a syntactic check on the encoding — decidable.", "Inspecting the transition function as written is a syntactic property — decidable.", "Counting tape-alphabet symbols is syntactic and decidable."]
+  "distractorRationales": [
+   "",
+   "Counting states is a syntactic check on the encoding — decidable.",
+   "Inspecting the transition function as written is a syntactic property — decidable.",
+   "Counting tape-alphabet symbols is syntactic and decidable."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "The difference between a decidable (recursive) and a recognizable (recursively enumerable) language is:",
-  "options": ["A decider always halts; a recognizer may run forever on strings not in the language", "There is no difference", "Recognizable languages are a strict subset of decidable ones", "Decidable languages cannot be infinite"],
+  "options": [
+   "A decider always halts; a recognizer may run forever on strings not in the language",
+   "There is no difference",
+   "Recognizable languages are a strict subset of decidable ones",
+   "Decidable languages cannot be infinite"
+  ],
   "correctIndex": 0,
   "explanation": "A decidable language has a TM that halts on every input (yes or no). A recognizable (r.e.) language has a TM that halts and accepts strings in the language but may loop forever on strings not in it. Decidable ⊊ recognizable.",
-  "distractorRationales": ["", "They differ: every decidable language is recognizable, but not vice versa.", "It is the reverse — decidable languages are a strict subset of recognizable ones.", "Decidable languages can certainly be infinite (e.g., all even-length strings)."]
+  "distractorRationales": [
+   "",
+   "They differ: every decidable language is recognizable, but not vice versa.",
+   "It is the reverse — decidable languages are a strict subset of recognizable ones.",
+   "Decidable languages can certainly be infinite (e.g., all even-length strings)."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "A language L is decidable if and only if:",
-  "options": ["Both L and its complement L̄ are recognizable (recursively enumerable)", "L is finite", "L is recognizable", "L̄ is undecidable"],
+  "options": [
+   "Both L and its complement L̄ are recognizable (recursively enumerable)",
+   "L is finite",
+   "L is recognizable",
+   "L̄ is undecidable"
+  ],
   "correctIndex": 0,
   "explanation": "L is decidable iff both L and its complement are recursively enumerable. Running the two recognizers in parallel, one must eventually accept, deciding membership.",
-  "distractorRationales": ["", "Finiteness is sufficient for decidability but not necessary; infinite decidable languages exist.", "Recognizability of L alone is insufficient; the complement must also be recognizable.", "If L is decidable, its complement is also decidable, not undecidable."]
+  "distractorRationales": [
+   "",
+   "Finiteness is sufficient for decidability but not necessary; infinite decidable languages exist.",
+   "Recognizability of L alone is insufficient; the complement must also be recognizable.",
+   "If L is decidable, its complement is also decidable, not undecidable."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "A mapping reduction (many-one reduction) A ≤ₘ B is a computable function f such that:",
-  "options": ["w ∈ A if and only if f(w) ∈ B", "f maps every string of A to the same element of B", "f is not required to be computable", "A and B must be over different alphabets"],
+  "options": [
+   "w ∈ A if and only if f(w) ∈ B",
+   "f maps every string of A to the same element of B",
+   "f is not required to be computable",
+   "A and B must be over different alphabets"
+  ],
   "correctIndex": 0,
   "explanation": "A mapping reduction is a total computable function f where w ∈ A ⟺ f(w) ∈ B. It transfers membership questions from A to B, so a decider for B would decide A.",
-  "distractorRationales": ["", "f need not be constant; it must preserve the membership equivalence per string.", "f MUST be computable; that is essential to the reduction.", "The alphabets are irrelevant to the definition; reductions can be within the same alphabet."]
+  "distractorRationales": [
+   "",
+   "f need not be constant; it must preserve the membership equivalence per string.",
+   "f MUST be computable; that is essential to the reduction.",
+   "The alphabets are irrelevant to the definition; reductions can be within the same alphabet."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "The Post Correspondence Problem (PCP) is:",
-  "options": ["Undecidable — there is no algorithm to determine whether a matching sequence of dominoes exists", "Decidable in polynomial time", "Decidable but only in exponential time", "Equivalent to a context-free language"],
+  "options": [
+   "Undecidable — there is no algorithm to determine whether a matching sequence of dominoes exists",
+   "Decidable in polynomial time",
+   "Decidable but only in exponential time",
+   "Equivalent to a context-free language"
+  ],
   "correctIndex": 0,
   "explanation": "PCP asks whether a sequence of indices exists so that concatenating the top strings equals concatenating the bottom strings of chosen dominoes. Post proved it undecidable; it is a common tool for proving other undecidability results.",
-  "distractorRationales": ["", "PCP is undecidable, so no algorithm (polynomial or otherwise) decides it.", "There is no deciding algorithm at all, exponential or not.", "PCP is not a language-class membership question; it is an undecidable combinatorial problem."]
+  "distractorRationales": [
+   "",
+   "PCP is undecidable, so no algorithm (polynomial or otherwise) decides it.",
+   "There is no deciding algorithm at all, exponential or not.",
+   "PCP is not a language-class membership question; it is an undecidable combinatorial problem."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "Which problem about context-free grammars is UNDECIDABLE?",
-  "options": ["Whether two CFGs generate the same language (equivalence)", "Whether a given string is generated by a CFG (membership)", "Whether the language of a CFG is empty", "Whether a CFG generates a finite language"],
+  "options": [
+   "Whether two CFGs generate the same language (equivalence)",
+   "Whether a given string is generated by a CFG (membership)",
+   "Whether the language of a CFG is empty",
+   "Whether a CFG generates a finite language"
+  ],
   "correctIndex": 0,
   "explanation": "CFG equivalence (do G1 and G2 generate the same language?) is undecidable. Membership (CYK algorithm), emptiness, and finiteness for CFLs are all decidable.",
-  "distractorRationales": ["", "Membership in a CFL is decidable via the CYK algorithm.", "Emptiness of a CFG's language is decidable (check if the start symbol derives any terminal string).", "Finiteness of a CFL is decidable by checking for cycles among useful variables."]
+  "distractorRationales": [
+   "",
+   "Membership in a CFL is decidable via the CYK algorithm.",
+   "Emptiness of a CFG's language is decidable (check if the start symbol derives any terminal string).",
+   "Finiteness of a CFL is decidable by checking for cycles among useful variables."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "The language A_TM = { ⟨M, w⟩ | M accepts w } is:",
-  "options": ["Recognizable (r.e.) but undecidable", "Decidable", "Not even recognizable", "Finite"],
+  "options": [
+   "Recognizable (r.e.) but undecidable",
+   "Decidable",
+   "Not even recognizable",
+   "Finite"
+  ],
   "correctIndex": 0,
   "explanation": "A_TM is recognizable — simulate M on w and accept if M accepts. But it is undecidable: a decider would solve the acceptance/halting problem. So it is r.e. but not recursive.",
-  "distractorRationales": ["", "A_TM is undecidable; Turing's diagonalization proof shows no decider exists.", "It IS recognizable (by simulation), so this is incorrect.", "A_TM is an infinite language of machine-input encodings, not finite."]
+  "distractorRationales": [
+   "",
+   "A_TM is undecidable; Turing's diagonalization proof shows no decider exists.",
+   "It IS recognizable (by simulation), so this is incorrect.",
+   "A_TM is an infinite language of machine-input encodings, not finite."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "The complement of the halting problem (HALT̄) is:",
-  "options": ["Not recognizable (not recursively enumerable)", "Decidable", "Recognizable but undecidable", "Finite"],
+  "options": [
+   "Not recognizable (not recursively enumerable)",
+   "Decidable",
+   "Recognizable but undecidable",
+   "Finite"
+  ],
   "correctIndex": 0,
   "explanation": "HALT is recognizable but undecidable. If its complement were also recognizable, HALT would be decidable (both r.e. ⟹ recursive) — a contradiction. So HALT̄ is not recognizable.",
-  "distractorRationales": ["", "If HALT̄ were decidable, HALT would be decidable too, which is false.", "If HALT̄ were recognizable, HALT would be decidable (contradiction), so it is not recognizable.", "HALT̄ is an infinite language, not finite."]
+  "distractorRationales": [
+   "",
+   "If HALT̄ were decidable, HALT would be decidable too, which is false.",
+   "If HALT̄ were recognizable, HALT would be decidable (contradiction), so it is not recognizable.",
+   "HALT̄ is an infinite language, not finite."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "Diagonalization, as used by Turing to prove the halting problem undecidable, works by:",
-  "options": ["Assuming a decider exists, then constructing a machine that contradicts it on its own description", "Enumerating all polynomial-time algorithms", "Building a DFA for the halting problem", "Reducing SAT to the halting problem"],
+  "options": [
+   "Assuming a decider exists, then constructing a machine that contradicts it on its own description",
+   "Enumerating all polynomial-time algorithms",
+   "Building a DFA for the halting problem",
+   "Reducing SAT to the halting problem"
+  ],
   "correctIndex": 0,
   "explanation": "Diagonalization assumes a halting decider H exists, then builds a machine D that, using H on its own encoding, does the opposite of what H predicts — yielding a self-contradiction. Hence no such H can exist.",
-  "distractorRationales": ["", "Diagonalization here is not about enumerating polynomial algorithms.", "No DFA can recognize the halting problem; the proof is by contradiction, not construction.", "The classic proof uses self-reference/diagonalization, not a reduction from SAT."]
+  "distractorRationales": [
+   "",
+   "Diagonalization here is not about enumerating polynomial algorithms.",
+   "No DFA can recognize the halting problem; the proof is by contradiction, not construction.",
+   "The classic proof uses self-reference/diagonalization, not a reduction from SAT."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "If A ≤ₘ B and B is decidable, then:",
-  "options": ["A is decidable", "A is undecidable", "B is undecidable", "Nothing can be concluded"],
+  "options": [
+   "A is decidable",
+   "A is undecidable",
+   "B is undecidable",
+   "Nothing can be concluded"
+  ],
   "correctIndex": 0,
   "explanation": "A mapping reduction A ≤ₘ B means a decider for B plus the reduction f decides A: compute f(w), then run B's decider. So B decidable implies A decidable.",
-  "distractorRationales": ["", "The reduction shows A inherits B's decidability, not undecidability.", "B is given decidable, so it is not undecidable.", "A definite conclusion follows: A is decidable."]
+  "distractorRationales": [
+   "",
+   "The reduction shows A inherits B's decidability, not undecidability.",
+   "B is given decidable, so it is not undecidable.",
+   "A definite conclusion follows: A is decidable."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "The emptiness problem for Turing machines, E_TM = { ⟨M⟩ | L(M) = ∅ }, is:",
-  "options": ["Undecidable (and not even recognizable)", "Decidable", "Recognizable but undecidable", "Equivalent to the membership problem for DFAs"],
+  "options": [
+   "Undecidable (and not even recognizable)",
+   "Decidable",
+   "Recognizable but undecidable",
+   "Equivalent to the membership problem for DFAs"
+  ],
   "correctIndex": 0,
   "explanation": "E_TM is undecidable by reduction from A_TM. Moreover, it is not recognizable: its complement (L(M) ≠ ∅) is recognizable, and if E_TM were too, it would be decidable — a contradiction.",
-  "distractorRationales": ["", "E_TM is undecidable, proven by reduction from A_TM.", "E_TM is not recognizable; only its complement is, so it is co-r.e. but not r.e.", "DFA emptiness is decidable; the TM version is fundamentally harder."]
+  "distractorRationales": [
+   "",
+   "E_TM is undecidable, proven by reduction from A_TM.",
+   "E_TM is not recognizable; only its complement is, so it is co-r.e. but not r.e.",
+   "DFA emptiness is decidable; the TM version is fundamentally harder."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "medium",
   "questionText": "Which of the following is DECIDABLE?",
-  "options": ["Whether a given DFA accepts a given string", "Whether a given Turing machine halts on a given input", "Whether two Turing machines recognize the same language", "Whether L(M) is regular for a Turing machine M"],
+  "options": [
+   "Whether a given DFA accepts a given string",
+   "Whether a given Turing machine halts on a given input",
+   "Whether two Turing machines recognize the same language",
+   "Whether L(M) is regular for a Turing machine M"
+  ],
   "correctIndex": 0,
   "explanation": "Simulating a DFA on a string for |string| steps decides acceptance — clearly decidable. The TM halting, TM equivalence, and 'is L(M) regular' problems are all undecidable.",
-  "distractorRationales": ["", "TM halting is the canonical undecidable problem.", "TM equivalence is undecidable.", "Whether L(M) is regular is a non-trivial semantic property, undecidable by Rice's theorem."]
+  "distractorRationales": [
+   "",
+   "TM halting is the canonical undecidable problem.",
+   "TM equivalence is undecidable.",
+   "Whether L(M) is regular is a non-trivial semantic property, undecidable by Rice's theorem."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "hard",
   "questionText": "Turing reducibility (A ≤_T B) differs from mapping reducibility in that it allows:",
-  "options": ["Using a decider for B as an oracle multiple times (and even negating its answer) to decide A", "Only a single call to B with no post-processing", "Only computable functions with no oracle", "Reductions only between decidable languages"],
+  "options": [
+   "Using a decider for B as an oracle multiple times (and even negating its answer) to decide A",
+   "Only a single call to B with no post-processing",
+   "Only computable functions with no oracle",
+   "Reductions only between decidable languages"
+  ],
   "correctIndex": 0,
   "explanation": "Turing reduction lets A's algorithm query an oracle for B any number of times and combine the results arbitrarily (including complementing). It is more general than mapping reduction, which permits only a single transformation with no answer-flipping.",
-  "distractorRationales": ["", "A single transformed query with no post-processing is mapping reduction, the more restrictive notion.", "Turing reduction specifically adds an oracle; without one it would just be ordinary computation.", "Reductions are used precisely between (un)decidable languages; the definition is not limited to decidable ones."]
+  "distractorRationales": [
+   "",
+   "A single transformed query with no post-processing is mapping reduction, the more restrictive notion.",
+   "Turing reduction specifically adds an oracle; without one it would just be ordinary computation.",
+   "Reductions are used precisely between (un)decidable languages; the definition is not limited to decidable ones."
+  ]
  },
  {
   "course": "theory-of-computation",
   "subtopic": "undecidability-reductions",
   "difficulty": "easy",
   "questionText": "The set of all recursively enumerable (recognizable) languages over an alphabet is:",
-  "options": ["Countably infinite (each corresponds to some Turing machine)", "Uncountable", "Finite", "Equal to the set of all languages"],
+  "options": [
+   "Countably infinite (each corresponds to some Turing machine)",
+   "Uncountable",
+   "Finite",
+   "Equal to the set of all languages"
+  ],
   "correctIndex": 0,
   "explanation": "Each r.e. language is recognized by some Turing machine, and TMs can be encoded as finite strings, so there are countably many. Since the set of ALL languages is uncountable, most languages are not even recognizable.",
-  "distractorRationales": ["", "The set of ALL languages is uncountable, but the r.e. ones (one per TM) are countable.", "There are infinitely many r.e. languages, not finitely many.", "The r.e. languages are a strict (countable) subset of all (uncountably many) languages."]
+  "distractorRationales": [
+   "",
+   "The set of ALL languages is uncountable, but the r.e. ones (one per TM) are countable.",
+   "There are infinitely many r.e. languages, not finitely many.",
+   "The r.e. languages are a strict (countable) subset of all (uncountably many) languages."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "To prove a language B is undecidable by reduction, you reduce:",
+  "options": [
+   "A known undecidable language A to B (A ≤ₘ B)",
+   "B to a decidable language",
+   "B to itself",
+   "A decidable language to B"
+  ],
+  "correctIndex": 0,
+  "explanation": "Showing A ≤ₘ B for a known undecidable A means a decider for B would decide A; since A is undecidable, B must be too. The reduction goes FROM the known-hard problem TO the target.",
+  "distractorRationales": [
+   "",
+   "Reducing B to a decidable language would (if anything) suggest B is decidable, the wrong direction.",
+   "Reducing B to itself proves nothing about undecidability.",
+   "Reducing a decidable language to B says nothing about B's undecidability."
+  ],
+  "course": "theory-of-computation",
+  "subtopic": "undecidability-reductions"
+ },
+ {
+  "course": "theory-of-computation",
+  "subtopic": "undecidability-reductions",
+  "difficulty": "hard",
+  "questionText": "Consider EQ_TM = { ⟨M1, M2⟩ | L(M1) = L(M2) }, the equivalence problem for Turing machines. Which statement is true?",
+  "options": [
+   "EQ_TM is neither Turing-recognizable nor co-Turing-recognizable",
+   "EQ_TM is decidable",
+   "EQ_TM is Turing-recognizable but not decidable",
+   "EQ_TM is co-Turing-recognizable but not Turing-recognizable"
+  ],
+  "correctIndex": 0,
+  "explanation": "EQ_TM is strictly harder than A_TM: one can show both E_TM ≤ₘ EQ_TM and its complement reduce into EQ_TM, so EQ_TM is neither recognizable nor co-recognizable (it lies above both in the arithmetical hierarchy).",
+  "distractorRationales": [
+   "",
+   "EQ_TM is undecidable (it is not even recognizable), so 'decidable' is false.",
+   "EQ_TM is not Turing-recognizable, so 'recognizable but not decidable' is incorrect.",
+   "EQ_TM is not co-Turing-recognizable either; it is neither, not merely co-recognizable."
+  ]
  }
 ]

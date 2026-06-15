@@ -20,6 +20,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Aurora Hub",
   description: "CS MCQ practice for Dhaka University MSc admission prep",
+  applicationName: "Aurora Hub",
+  appleWebApp: {
+    capable: true,
+    title: "Aurora Hub",
+    statusBarStyle: "black-translucent",
+  },
+  // favicon.ico, icon.svg and apple-icon.png in this directory are auto-detected
+  // by Next's file conventions; manifest.ts supplies the PWA icons.
 };
 
 // viewportFit:"cover" is required for Capacitor safe-area insets (see MOBILE.md).

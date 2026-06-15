@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
+  ArrowRight,
   GraduationCap,
   Loader2,
   RotateCcw,
-  Sparkles,
   Timer,
   Zap,
 } from "lucide-react";
@@ -18,15 +18,11 @@ import {
   getSubtopics,
   startQuiz,
   fillQuiz,
-  getJob,
   type RequestDifficulty,
   type QuizMode,
-  type JobProgress,
-  type JobStatus,
   ApiError,
   API_BASE_URL,
 } from "@/lib/api";
-import { Progress } from "@/components/ui/progress";
 import { useQuizStore } from "@/store/quiz";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -38,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Segmented } from "@/components/quiz/segmented";
+import { LogoLockup } from "@/components/brand/logo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
@@ -70,23 +67,61 @@ export default function ConfigPage() {
   };
 
   const [starting, setStarting] = useState(false);
-  const [gen, setGen] = useState<JobProgress | null>(null);
-  // Seconds since generation started — a heartbeat so the wait never looks
-  // frozen during a (~40s) batch where the percent can't move.
-  const [elapsed, setElapsed] = useState(0);
-  // Set when the user cancels generation; stops polling and aborts the start.
-  const cancelled = useRef(false);
 
-  useEffect(() => {
-    if (!gen) return;
-    setElapsed(0);
-    const id = window.setInterval(() => setElapsed((s) => s + 1), 1000);
-    return () => window.clearInterval(id);
-  }, [gen !== null]); // restart the ticker only when generation starts/stops
+  // ── DISABLED: on-demand fill generation ──────────────────────────────────
+  // We currently serve only precomputed questions; if a subtopic is short we
+  // block and ask the user to pick a smaller amount (see handleStart). The
+  // generate-the-remainder flow below is kept (commented out) FOR FURTHER
+  // IMPROVEMENT — re-enable it to fill gaps live via the LLM pipeline. To turn
+  // it back on, restore the `gen`/`elapsed`/`cancelled` state, the imports it
+  // needs (`useEffect`, `useRef`, `getJob`, `JobProgress`, `JobStatus`,
+  // `Sparkles`, `Progress`), and the generating screen further down, and have
+  // handleStart poll instead of toasting when `!fill.ready`.
+  //
+  // const [gen, setGen] = useState<JobProgress | null>(null);
+  // // Seconds since generation started — a heartbeat so the wait never looks
+  // // frozen during a (~40s) batch where the percent can't move.
+  // const [elapsed, setElapsed] = useState(0);
+  // // Set when the user cancels generation; stops polling and aborts the start.
+  // const cancelled = useRef(false);
+  //
+  // useEffect(() => {
+  //   if (!gen) return;
+  //   setElapsed(0);
+  //   const id = window.setInterval(() => setElapsed((s) => s + 1), 1000);
+  //   return () => window.clearInterval(id);
+  // }, [gen !== null]); // restart the ticker only when generation starts/stops
+  //
+  // // Poll a generation job until done/error (or the user cancels → null).
+  // function pollJob(jobId: string): Promise<JobStatus | null> {
+  //   return new Promise((resolve) => {
+  //     const tick = async () => {
+  //       if (cancelled.current) return resolve(null);
+  //       try {
+  //         const s = await getJob(jobId);
+  //         if (cancelled.current) return resolve(null);
+  //         if (s.progress) setGen(s.progress);
+  //         if (s.status === "done" || s.status === "error") return resolve(s);
+  //       } catch {
+  //         /* transient network blip — keep polling */
+  //       }
+  //       window.setTimeout(tick, 1500);
+  //     };
+  //     void tick();
+  //   });
+  // }
+  //
+  // // Abandon an in-flight generation and return to the config form. The
+  // // backend job keeps running, so the questions it makes are cached for later.
+  // function cancelGeneration() {
+  //   cancelled.current = true;
+  //   setGen(null);
+  //   setStarting(false);
+  // }
+  // ─────────────────────────────────────────────────────────────────────────
 
-  // Start a session and navigate. `target` (when set) reports how many were
-  // requested, so we can toast if generation came up short. Never throws.
-  async function beginQuiz(subId: string | null, target?: number) {
+  // Start a session and navigate. Never throws.
+  async function beginQuiz(subId: string | null) {
     try {
       const res = await startQuiz({
         courseId: course!.id,
@@ -95,9 +130,6 @@ export default function ConfigPage() {
         difficulty,
         mode,
       });
-      if (target !== undefined && res.count < target) {
-        toast.message(`Starting with ${res.count} of ${target} questions.`);
-      }
       initSession(res);
       router.push("/quiz/");
     } catch (err) {
@@ -114,82 +146,44 @@ export default function ConfigPage() {
     }
   }
 
-  // Poll a generation job until done/error (or the user cancels → null).
-  function pollJob(jobId: string): Promise<JobStatus | null> {
-    return new Promise((resolve) => {
-      const tick = async () => {
-        if (cancelled.current) return resolve(null);
-        try {
-          const s = await getJob(jobId);
-          if (cancelled.current) return resolve(null);
-          if (s.progress) setGen(s.progress);
-          if (s.status === "done" || s.status === "error") return resolve(s);
-        } catch {
-          /* transient network blip — keep polling */
-        }
-        window.setTimeout(tick, 1500);
-      };
-      void tick();
-    });
-  }
-
-  // Abandon an in-flight generation and return to the config form. The
-  // backend job keeps running, so the questions it makes are cached for later.
-  function cancelGeneration() {
-    cancelled.current = true;
-    setGen(null);
-    setStarting(false);
-  }
-
   async function handleStart() {
     if (!course || starting) return;
-    cancelled.current = false;
     setStarting(true);
     const subId = wholeCourse ? null : subtopicId;
     try {
-      // Whole-course: serve whatever exists, instantly (never generates).
-      if (!subId) {
-        await beginQuiz(subId);
-        return;
+      // For a subtopic, check the verified pool first. If it can't satisfy the
+      // requested count, block and ask the user to pick a smaller amount rather
+      // than silently starting short. Whole-course serves whatever exists.
+      if (subId) {
+        const fill = await fillQuiz({
+          courseId: course.id,
+          subtopicId: subId,
+          count,
+          difficulty,
+        }).catch(() => null);
+        if (!fill) {
+          toast.error("Could not start the quiz. Server error.", {
+            id: "start-error",
+          });
+          return;
+        }
+        if (!fill.ready) {
+          // FOR FURTHER IMPROVEMENT: instead of blocking here we could kick off
+          // on-demand generation (poll fill.jobId via the disabled pollJob/gen
+          // flow above) to fill the remainder. For now we keep it precomputed-
+          // only and ask the user to pick a smaller amount.
+          toast.error(
+            fill.available > 0
+              ? `Only ${fill.available} question${fill.available === 1 ? "" : "s"} available for this subtopic right now — please select a smaller amount.`
+              : "No questions available yet for this subtopic.",
+            { id: "start-error" },
+          );
+          return;
+        }
       }
-      const fill = await fillQuiz({
-        courseId: course.id,
-        subtopicId: subId,
-        count,
-        difficulty,
-      }).catch(() => null);
-      if (!fill) {
-        toast.error("Could not start the quiz. Server error.", {
-          id: "start-error",
-        });
-        return;
-      }
-      if (fill.ready) {
-        await beginQuiz(subId);
-        return;
-      }
-      // Short on questions → generate the remainder with a progress bar.
-      setGen({
-        done: fill.available,
-        target: fill.target,
-        percent: Math.round((fill.available * 100) / fill.target),
-      });
-      const job = await pollJob(fill.jobId!);
-      if (job === null) return; // user cancelled
-      if (job.status === "error" && fill.available === 0) {
-        toast.error(
-          "Sorry — couldn't generate questions right now. Please try again in a bit.",
-          { id: "start-error" },
-        );
-        return;
-      }
-      // Start with whatever exists now (available + freshly generated).
-      await beginQuiz(subId, fill.target);
+      await beginQuiz(subId);
     } finally {
-      if (!cancelled.current) {
-        setStarting(false);
-        setGen(null);
-      }
+      setStarting(false);
     }
   }
 
@@ -249,51 +243,56 @@ export default function ConfigPage() {
     );
   }
 
-  // Generating fill questions → dedicated waiting screen with a progress bar.
-  if (gen) {
-    return (
-      <Shell>
-        <div
-          data-testid="generating"
-          className="mt-10 flex flex-col items-center gap-4 rounded-2xl border bg-card p-8 text-center"
-        >
-          <Sparkles className="size-9 animate-pulse text-primary" />
-          <div className="flex flex-col gap-1">
-            <p className="font-semibold">Generating questions…</p>
-            <p className="text-sm text-muted-foreground">
-              Writing fresh questions in small batches and checking each answer.
-              This can take a minute on the free tier.
-            </p>
-          </div>
-          <Progress value={gen.percent} className="w-full" />
-          <p className="text-sm tabular-nums text-muted-foreground">
-            {gen.done} / {gen.target} ({gen.percent}%)
-          </p>
-          <p className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" />
-            Working on the next batch… {elapsed}s
-          </p>
-          <Button
-            variant="outline"
-            data-testid="cancel-generation"
-            className="mt-2 w-full"
-            onClick={cancelGeneration}
-          >
-            Cancel
-          </Button>
-        </div>
-      </Shell>
-    );
-  }
+  // ── DISABLED: generating-fill waiting screen ─────────────────────────────
+  // Shown while on-demand generation runs (progress bar + heartbeat + cancel).
+  // Kept FOR FURTHER IMPROVEMENT — re-enable together with the generation
+  // helpers/state above and the `Sparkles`/`Progress` imports.
+  //
+  // if (gen) {
+  //   return (
+  //     <Shell>
+  //       <div
+  //         data-testid="generating"
+  //         className="mt-10 flex flex-col items-center gap-4 rounded-2xl border bg-card p-8 text-center"
+  //       >
+  //         <Sparkles className="size-9 animate-pulse text-primary" />
+  //         <div className="flex flex-col gap-1">
+  //           <p className="font-semibold">Generating questions…</p>
+  //           <p className="text-sm text-muted-foreground">
+  //             Writing fresh questions in small batches and checking each answer.
+  //             This can take a minute on the free tier.
+  //           </p>
+  //         </div>
+  //         <Progress value={gen.percent} className="w-full" />
+  //         <p className="text-sm tabular-nums text-muted-foreground">
+  //           {gen.done} / {gen.target} ({gen.percent}%)
+  //         </p>
+  //         <p className="flex items-center gap-2 text-sm text-muted-foreground">
+  //           <Loader2 className="size-4 animate-spin" />
+  //           Working on the next batch… {elapsed}s
+  //         </p>
+  //         <Button
+  //           variant="outline"
+  //           data-testid="cancel-generation"
+  //           className="mt-2 w-full"
+  //           onClick={cancelGeneration}
+  //         >
+  //           Cancel
+  //         </Button>
+  //       </div>
+  //     </Shell>
+  //   );
+  // }
+  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <Shell>
-      <div className="flex flex-col gap-5 rounded-2xl border bg-card p-5 shadow-sm">
+      <div className="stagger flex flex-col gap-5">
       {/* Course */}
-      <section className="flex flex-col gap-2">
-        <Label htmlFor="course-select">Course</Label>
+      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 0 }}>
+        <Label htmlFor="course-select" className="field-label">Course</Label>
         {courses.isLoading ? (
-          <Skeleton data-testid="course-skeleton" className="h-12 w-full rounded-md" />
+          <Skeleton data-testid="course-skeleton" className="h-13 w-full rounded-[14px]" />
         ) : (
           <Select
             items={courses.data?.map((c) => ({ value: c.slug, label: c.name }))}
@@ -303,7 +302,7 @@ export default function ConfigPage() {
               setSubtopicId(WHOLE_COURSE);
             }}
           >
-            <SelectTrigger id="course-select" data-testid="course-select" className="h-12 w-full">
+            <SelectTrigger id="course-select" data-testid="course-select">
               <SelectValue placeholder="Choose a course" />
             </SelectTrigger>
             <SelectContent>
@@ -318,8 +317,8 @@ export default function ConfigPage() {
       </section>
 
       {/* Subtopic */}
-      <section className="flex flex-col gap-2">
-        <Label htmlFor="subtopic-select">Subtopic</Label>
+      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 1 }}>
+        <Label htmlFor="subtopic-select" className="field-label">Subtopic</Label>
         <Select
           items={[
             { value: WHOLE_COURSE, label: "Whole course" },
@@ -330,7 +329,7 @@ export default function ConfigPage() {
           onValueChange={changeSubtopic}
           disabled={!courseSlug || subtopics.isLoading}
         >
-          <SelectTrigger id="subtopic-select" data-testid="subtopic-select" className="h-12 w-full">
+          <SelectTrigger id="subtopic-select" data-testid="subtopic-select">
             <SelectValue
               placeholder={subtopics.isLoading ? "Loading…" : "Whole course"}
             />
@@ -347,8 +346,8 @@ export default function ConfigPage() {
       </section>
 
       {/* Count */}
-      <section className="flex flex-col gap-2">
-        <Label>Questions</Label>
+      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 2 }}>
+        <Label className="field-label">Questions</Label>
         <Segmented
           testid="count"
           options={COUNTS}
@@ -358,8 +357,8 @@ export default function ConfigPage() {
       </section>
 
       {/* Difficulty */}
-      <section className="flex flex-col gap-2">
-        <Label>Difficulty</Label>
+      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 3 }}>
+        <Label className="field-label">Difficulty</Label>
         <Segmented
           testid="difficulty"
           options={DIFFICULTIES}
@@ -369,8 +368,8 @@ export default function ConfigPage() {
       </section>
 
       {/* Mode */}
-      <section className="flex flex-col gap-2">
-        <Label>Mode</Label>
+      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 4 }}>
+        <Label className="field-label">Mode</Label>
         <div className="grid grid-cols-2 gap-3">
           <ModeCard
             active={mode === "exam"}
@@ -392,20 +391,23 @@ export default function ConfigPage() {
       </section>
       </div>
 
-      <div className="hide-on-keyboard safe-bottom [--safe-pad-bottom:1.25rem] fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md border-t border-border/60 bg-background/80 p-5 backdrop-blur-md">
-        <Button
+      <div className="hide-on-keyboard safe-bottom [--safe-pad-bottom:1.875rem] dock fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md px-5 pt-3.5">
+        <button
+          type="button"
           data-testid="start-quiz"
-          size="lg"
-          className="h-14 w-full text-base"
+          className="btn-cta"
           disabled={!course || starting}
           onClick={handleStart}
         >
           {starting ? (
             <Loader2 className="size-5 animate-spin" />
           ) : (
-            "Start quiz"
+            <>
+              <span>{course ? "Start quiz" : "Choose a course to start"}</span>
+              {course ? <ArrowRight className="btn-cta-arrow size-5" /> : null}
+            </>
           )}
-        </Button>
+        </button>
       </div>
     </Shell>
   );
@@ -413,17 +415,16 @@ export default function ConfigPage() {
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col">
-      <header className="safe-top [--safe-pad-top:0.5rem] sticky top-0 z-30 flex items-center gap-3 border-b border-border/60 bg-background/75 px-5 py-3 backdrop-blur-md">
-        <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-          <GraduationCap className="size-6" />
+    <main className="app flex min-h-dvh flex-col">
+      <div className="aurora-bg" />
+      <div className="app-inner mx-auto flex w-full max-w-md flex-1 flex-col">
+        <header className="brand safe-top [--safe-pad-top:0.5rem] flex items-center px-5 pt-2 pb-4">
+          <LogoLockup />
+        </header>
+        <div className="flex flex-1 flex-col gap-6 px-5 pt-1 pb-32">
+          {children}
         </div>
-        <div>
-          <h1 className="text-xl font-bold leading-tight">Aurora Hub</h1>
-          <p className="text-xs text-muted-foreground">Build your quiz</p>
-        </div>
-      </header>
-      <div className="flex flex-1 flex-col gap-6 p-5 pb-28">{children}</div>
+      </div>
     </main>
   );
 }
@@ -450,18 +451,14 @@ function ModeCard({
       data-testid={testid}
       data-active={active}
       onClick={onClick}
-      className={cn(
-        "flex flex-col items-start gap-1 rounded-xl border-2 p-4 text-left transition-colors active:scale-[0.99]",
-        active
-          ? "border-primary bg-primary/10"
-          : "border-border bg-card hover:border-primary/40",
-      )}
+      className={cn("mode-card", active && "is-active")}
     >
-      <span className={cn(active ? "text-primary" : "text-muted-foreground")}>
-        {icon}
-      </span>
-      <span className="font-semibold">{title}</span>
-      <span className="text-xs text-muted-foreground">{desc}</span>
+      <div className="mode-top">
+        <span className="mode-icon">{icon}</span>
+        {active ? <span className="mode-dot" /> : null}
+      </div>
+      <div className="mode-title">{title}</div>
+      <div className="mode-desc">{desc}</div>
     </button>
   );
 }

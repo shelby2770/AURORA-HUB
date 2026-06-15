@@ -1,182 +1,402 @@
 [
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "easy",
-    "questionText": "In the two-phase commit (2PC) protocol, what happens in the first phase?",
-    "options": ["The coordinator asks all participants to prepare and vote (commit/abort)", "The coordinator tells everyone to commit immediately", "Participants release all locks", "The transaction is rolled back unconditionally"],
-    "correctIndex": 0,
-    "explanation": "Phase 1 (voting/prepare): the coordinator sends PREPARE; each participant durably records its readiness and replies YES (ready to commit) or NO. Only in Phase 2 does the coordinator send the global COMMIT or ABORT based on the votes.",
-    "distractorRationales": ["", "Immediate commit skips the essential voting phase that ensures atomicity.", "Locks are held until the decision in Phase 2, not released in Phase 1.", "An unconditional rollback would ignore the participants' votes."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "In 2PC, once a participant has voted YES (prepared), it must:",
-    "options": ["Hold its locks and be able to commit or abort per the coordinator's final decision", "Immediately commit on its own", "Be free to abort independently at any time", "Forget the transaction"],
-    "correctIndex": 0,
-    "explanation": "After voting YES, a participant is in the 'prepared' (uncertain) state: it has promised it can commit, so it must retain locks and durable state and obey whatever the coordinator decides. It cannot unilaterally commit or abort, which is the source of 2PC's blocking behavior.",
-    "distractorRationales": ["", "Committing on its own could violate atomicity if the coordinator decides to abort.", "It gave up the right to abort independently when it voted YES.", "It must remember the transaction to honor the eventual decision."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "hard",
-    "questionText": "The fundamental reason 2PC is a 'blocking' protocol is that if the coordinator crashes after participants are prepared:",
-    "options": ["Prepared participants cannot safely decide and must wait for the coordinator to recover", "Participants always abort, losing data", "The network automatically reroutes the decision", "Participants commit by majority vote"],
-    "correctIndex": 0,
-    "explanation": "A participant that voted YES is uncertain: the coordinator may have decided either way before crashing. To preserve atomicity it must block — holding locks — until the coordinator (or its log) returns to reveal the decision. Three-phase commit reduces this blocking under synchrony assumptions.",
-    "distractorRationales": ["", "Prepared participants cannot simply abort; the coordinator may have already decided commit.", "The network cannot synthesize the lost decision on its own.", "Plain 2PC has no participant majority-vote fallback; that is a property of quorum/consensus-based commit."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "Three-phase commit (3PC) adds a 'pre-commit' phase to 2PC primarily to:",
-    "options": ["Make the protocol non-blocking under bounded delays by ensuring participants agree before committing", "Reduce the number of messages", "Add Byzantine fault tolerance", "Eliminate the coordinator entirely"],
-    "correctIndex": 0,
-    "explanation": "3PC inserts a pre-commit phase so that no participant commits until all are known to be ready; this lets a recovery coordinator infer the correct decision from participants' states, making 3PC non-blocking in a synchronous model. It costs an extra round and still assumes crash (not Byzantine) faults.",
-    "distractorRationales": ["", "3PC adds messages and a phase; it does not reduce them.", "3PC still assumes crash faults, not Byzantine behavior.", "3PC still uses a coordinator; it does not remove the role."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "easy",
-    "questionText": "A distributed transaction spanning multiple database nodes requires atomicity, meaning:",
-    "options": ["Either all participating nodes commit, or none do", "Each node decides independently", "Only the coordinator's changes are durable", "Reads are isolated but writes are not"],
-    "correctIndex": 0,
-    "explanation": "Atomicity across nodes is all-or-nothing: the global transaction must commit on every participant or abort on every participant, never leaving some nodes committed and others not. Atomic commit protocols like 2PC exist precisely to enforce this.",
-    "distractorRationales": ["", "Independent per-node decisions would break global atomicity.", "All participants' changes (not just the coordinator's) must be made durable on commit.", "Atomicity concerns all-or-nothing commit, distinct from isolation of reads/writes."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "The 'Saga' pattern handles long-lived distributed transactions by:",
-    "options": ["Breaking them into local transactions, each with a compensating action to undo on failure", "Holding global locks for the entire duration", "Using 2PC across all microservices", "Requiring strict serializability over the whole saga"],
-    "correctIndex": 0,
-    "explanation": "A saga is a sequence of local transactions; if a later step fails, previously committed steps are undone by executing their compensating transactions. This avoids holding locks/resources across services for a long time, trading strict isolation for availability and scalability.",
-    "distractorRationales": ["", "Sagas explicitly avoid long-held global locks, which is their motivation.", "Sagas avoid the blocking and coupling of 2PC across services.", "Sagas relax strict serializability; they offer eventual atomicity via compensation."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "hard",
-    "questionText": "In distributed concurrency control, why can two-phase locking (2PL) across nodes lead to distributed deadlock that is harder to handle than single-node deadlock?",
-    "options": ["Wait-for cycles span multiple nodes, so no single node sees the whole cycle", "Locks cannot be acquired remotely", "2PL is impossible in distributed systems", "Distributed deadlock never involves cycles"],
-    "correctIndex": 0,
-    "explanation": "A distributed deadlock's wait-for graph spans nodes: each node sees only part of the cycle, so detection requires constructing a global wait-for graph (e.g., edge chasing) or using timeouts. This global visibility problem makes distributed deadlock detection more complex than local detection.",
-    "distractorRationales": ["", "Remote lock acquisition is possible; the challenge is detecting cross-node cycles.", "2PL is widely used in distributed databases; it is not impossible.", "Distributed deadlock still involves cycles — spread across nodes."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "A timestamp-ordering concurrency control protocol assigns each transaction a unique timestamp and ensures the schedule is equivalent to executing transactions in:",
-    "options": ["Timestamp order", "Random order", "Arrival order at each node", "Reverse timestamp order"],
-    "correctIndex": 0,
-    "explanation": "Timestamp ordering produces conflict-serializable schedules equivalent to running transactions in their timestamp order; a transaction is aborted (and restarted with a new timestamp) if it would violate that order. Distributed systems use globally unique timestamps (e.g., Lamport-based) to achieve a consistent order across nodes.",
-    "distractorRationales": ["", "Random order would not be a deterministic serialization guarantee.", "Per-node arrival order can differ across nodes, breaking global serializability.", "It enforces forward timestamp order, not reverse."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "easy",
-    "questionText": "In 2PC, the coordinator and participants write log records before sending key messages. The purpose of this write-ahead logging is to:",
-    "options": ["Enable recovery of the commit/abort decision after a crash", "Speed up the network", "Reduce the number of participants", "Encrypt the transaction data"],
-    "correctIndex": 0,
-    "explanation": "Durable logging (e.g., the coordinator logs 'commit' before sending COMMIT; participants log their vote) lets a crashed node recover its place in the protocol and honor the atomic decision, which is essential to 2PC's correctness across failures.",
-    "distractorRationales": ["", "Logging does not speed the network; it adds durable writes.", "Logging does not change how many participants there are.", "Logging is for durability/recovery, not encryption."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "hard",
-    "questionText": "How does Google Spanner provide externally-consistent distributed transactions while using 2PC?",
-    "options": ["It layers 2PC over Paxos-replicated participants and uses TrueTime timestamps + commit-wait", "It abandons 2PC for eventual consistency", "It uses a single global lock for all transactions", "It tolerates Byzantine participants natively"],
-    "correctIndex": 0,
-    "explanation": "Spanner runs 2PC where each participant is itself a Paxos group (so participants don't block on single-node crashes), and assigns commit timestamps from TrueTime with commit-wait to guarantee external consistency (linearizability) of transactions across the globe.",
-    "distractorRationales": ["", "Spanner provides strong consistency, not eventual consistency.", "Spanner shards across many Paxos groups rather than one global lock.", "Spanner assumes crash faults; it is not Byzantine fault tolerant."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "If any single participant in a 2PC votes NO (abort) during the voting phase, the coordinator must:",
-    "options": ["Send a global ABORT to all participants", "Commit on the nodes that voted YES only", "Ignore the NO vote if a majority voted YES", "Restart the entire system"],
-    "correctIndex": 0,
-    "explanation": "2PC requires unanimous YES to commit. A single NO forces a global ABORT so that atomicity holds: no participant commits if even one cannot. Partial commit or majority override would violate the all-or-nothing guarantee.",
-    "distractorRationales": ["", "Committing only the YES voters breaks atomicity.", "2PC is not a majority protocol; one NO aborts the whole transaction.", "A system restart is unnecessary; a clean abort suffices."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "easy",
-    "questionText": "Which ACID property is the primary concern of an atomic commit protocol like 2PC in a distributed setting?",
-    "options": ["Atomicity", "Isolation", "Consistency", "Durability"],
-    "correctIndex": 0,
-    "explanation": "2PC's job is to guarantee atomicity across multiple nodes — all commit or all abort. Isolation is handled by concurrency control (locking/timestamps), durability by logging, and consistency by application/integrity constraints; 2PC specifically coordinates the atomic commit.",
-    "distractorRationales": ["", "Isolation is provided by concurrency control, not the commit protocol.", "Consistency (integrity constraints) is an application-level/ACID concern, not 2PC's core role.", "Durability is achieved via logging; 2PC relies on it but its core purpose is atomicity."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "hard",
-    "questionText": "A distributed deadlock detection scheme using 'edge chasing' (Chandy–Misra–Haas) works by:",
-    "options": ["Propagating probe messages along wait-for edges; a probe returning to its initiator indicates a cycle", "Building a synchronized global clock", "Aborting every blocked transaction immediately", "Requiring all transactions to lock resources in the same order"],
-    "correctIndex": 0,
-    "explanation": "In edge-chasing, a blocked process sends a probe along its outgoing wait-for edges; intermediate blocked processes forward it. If a probe comes back to the process that initiated it, a cycle (deadlock) exists. It detects deadlock without constructing the full global graph at one site.",
-    "distractorRationales": ["", "Edge chasing needs no synchronized clock.", "Aborting all blocked transactions is wasteful and is prevention/timeout, not detection.", "Ordered lock acquisition is deadlock prevention, a different strategy than detection."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "Compared with 2PC, a key drawback of the Saga pattern is that it:",
-    "options": ["Sacrifices isolation: intermediate states can be visible to other transactions", "Cannot ever recover from failures", "Requires synchronized clocks", "Always holds global locks longer"],
-    "correctIndex": 0,
-    "explanation": "Because each step of a saga commits locally and immediately, partial results are visible before the whole saga completes, so isolation (the I in ACID) is weakened; developers must handle anomalies (e.g., via semantic locks). The benefit is avoiding long-held locks and 2PC blocking.",
-    "distractorRationales": ["", "Sagas recover via compensating transactions; they are explicitly failure-aware.", "Sagas do not require synchronized clocks.", "Sagas hold locks for shorter durations than 2PC, not longer."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "easy",
-    "questionText": "In 2PC terminology, the node that coordinates the protocol and makes the final commit/abort decision is called the:",
-    "options": ["Coordinator (transaction manager)", "Participant (resource manager)", "Learner", "Acceptor"],
-    "correctIndex": 0,
-    "explanation": "The coordinator (often the transaction manager that initiated the global transaction) sends PREPARE, collects votes, and broadcasts the global decision. The participants (resource managers) execute the local work and vote. 'Learner' and 'acceptor' are Paxos roles, not 2PC roles.",
-    "distractorRationales": ["", "Participants vote and execute local work but do not make the global decision.", "Learner is a Paxos role, not part of 2PC.", "Acceptor is a Paxos role, not part of 2PC."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "Optimistic concurrency control (OCC) is often favored over locking in distributed systems with low contention because it:",
-    "options": ["Avoids lock overhead by validating for conflicts only at commit time", "Guarantees no transaction is ever aborted", "Requires holding locks for the whole transaction", "Eliminates the need for timestamps"],
-    "correctIndex": 0,
-    "explanation": "OCC executes transactions without locking, then validates at commit whether any conflicting writes occurred; if not, it commits, otherwise it aborts and retries. Under low contention, conflicts are rare, so OCC avoids locking overhead and the deadlocks that locking can cause.",
-    "distractorRationales": ["", "OCC can and does abort on validation failure; it does not guarantee zero aborts.", "OCC specifically avoids holding locks during execution.", "OCC typically uses timestamps/versions for validation; it does not remove them."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "hard",
-    "questionText": "Why does 2PC alone NOT make a distributed system fault tolerant against the coordinator's failure, whereas pairing each role with a consensus group (e.g., Paxos) does?",
-    "options": ["A consensus-replicated coordinator survives crashes and recovers the decision, removing the single point of blocking", "2PC uses more messages than Paxos", "Paxos eliminates the need for any commit decision", "2PC cannot run over a network"],
-    "correctIndex": 0,
-    "explanation": "Vanilla 2PC has a single coordinator whose crash blocks prepared participants. Replicating the coordinator (and participants) via a consensus protocol like Paxos means the decision is stored on a fault-tolerant quorum, so a replacement can recover and deliver it — eliminating the single point of blocking. This is the Spanner/Percolator approach.",
-    "distractorRationales": ["", "Message count is not the reason; fault tolerance of the coordinator is.", "Paxos provides the durable decision; it does not remove the need to decide commit/abort.", "2PC obviously runs over networks; that is its setting."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "distributed-transactions",
-    "difficulty": "medium",
-    "questionText": "A 'heuristic decision' in 2PC occurs when a prepared participant, unable to reach the coordinator for a long time, unilaterally commits or aborts. The danger is that:",
-    "options": ["It may decide opposite to the coordinator, breaking global atomicity (heuristic hazard)", "It always decides correctly with no risk", "It speeds up the protocol with no downside", "It forces the coordinator to abort"],
-    "correctIndex": 0,
-    "explanation": "Heuristic decisions trade blocking for the risk of inconsistency: a participant guessing 'commit' while the coordinator chose 'abort' (or vice versa) violates atomicity, leaving the system in a state needing manual reconciliation. Such 'heuristic hazards' are logged for administrators.",
-    "distractorRationales": ["", "There is no guarantee the guess matches the coordinator's decision.", "The downside is precisely the risk of a wrong, atomicity-breaking decision.", "A participant's heuristic decision does not control the coordinator's choice."]
-  }
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "easy",
+  "questionText": "In the two-phase commit (2PC) protocol, what happens in the first phase?",
+  "options": [
+   "The coordinator asks all participants to prepare and vote (commit/abort)",
+   "The coordinator tells everyone to commit immediately",
+   "Participants release all locks",
+   "The transaction is rolled back unconditionally"
+  ],
+  "correctIndex": 0,
+  "explanation": "Phase 1 (voting/prepare): the coordinator sends PREPARE; each participant durably records its readiness and replies YES (ready to commit) or NO. Only in Phase 2 does the coordinator send the global COMMIT or ABORT based on the votes.",
+  "distractorRationales": [
+   "",
+   "Immediate commit skips the essential voting phase that ensures atomicity.",
+   "Locks are held until the decision in Phase 2, not released in Phase 1.",
+   "An unconditional rollback would ignore the participants' votes."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "In 2PC, once a participant has voted YES (prepared), it must:",
+  "options": [
+   "Hold its locks and be able to commit or abort per the coordinator's final decision",
+   "Immediately commit on its own",
+   "Be free to abort independently at any time",
+   "Forget the transaction"
+  ],
+  "correctIndex": 0,
+  "explanation": "After voting YES, a participant is in the 'prepared' (uncertain) state: it has promised it can commit, so it must retain locks and durable state and obey whatever the coordinator decides. It cannot unilaterally commit or abort, which is the source of 2PC's blocking behavior.",
+  "distractorRationales": [
+   "",
+   "Committing on its own could violate atomicity if the coordinator decides to abort.",
+   "It gave up the right to abort independently when it voted YES.",
+   "It must remember the transaction to honor the eventual decision."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "hard",
+  "questionText": "The fundamental reason 2PC is a 'blocking' protocol is that if the coordinator crashes after participants are prepared:",
+  "options": [
+   "Prepared participants cannot safely decide and must wait for the coordinator to recover",
+   "Participants always abort, losing data",
+   "The network automatically reroutes the decision",
+   "Participants commit by majority vote"
+  ],
+  "correctIndex": 0,
+  "explanation": "A participant that voted YES is uncertain: the coordinator may have decided either way before crashing. To preserve atomicity it must block — holding locks — until the coordinator (or its log) returns to reveal the decision. Three-phase commit reduces this blocking under synchrony assumptions.",
+  "distractorRationales": [
+   "",
+   "Prepared participants cannot simply abort; the coordinator may have already decided commit.",
+   "The network cannot synthesize the lost decision on its own.",
+   "Plain 2PC has no participant majority-vote fallback; that is a property of quorum/consensus-based commit."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "Three-phase commit (3PC) adds a 'pre-commit' phase to 2PC primarily to:",
+  "options": [
+   "Make the protocol non-blocking under bounded delays by ensuring participants agree before committing",
+   "Reduce the number of messages",
+   "Add Byzantine fault tolerance",
+   "Eliminate the coordinator entirely"
+  ],
+  "correctIndex": 0,
+  "explanation": "3PC inserts a pre-commit phase so that no participant commits until all are known to be ready; this lets a recovery coordinator infer the correct decision from participants' states, making 3PC non-blocking in a synchronous model. It costs an extra round and still assumes crash (not Byzantine) faults.",
+  "distractorRationales": [
+   "",
+   "3PC adds messages and a phase; it does not reduce them.",
+   "3PC still assumes crash faults, not Byzantine behavior.",
+   "3PC still uses a coordinator; it does not remove the role."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "easy",
+  "questionText": "A distributed transaction spanning multiple database nodes requires atomicity, meaning:",
+  "options": [
+   "Either all participating nodes commit, or none do",
+   "Each node decides independently",
+   "Only the coordinator's changes are durable",
+   "Reads are isolated but writes are not"
+  ],
+  "correctIndex": 0,
+  "explanation": "Atomicity across nodes is all-or-nothing: the global transaction must commit on every participant or abort on every participant, never leaving some nodes committed and others not. Atomic commit protocols like 2PC exist precisely to enforce this.",
+  "distractorRationales": [
+   "",
+   "Independent per-node decisions would break global atomicity.",
+   "All participants' changes (not just the coordinator's) must be made durable on commit.",
+   "Atomicity concerns all-or-nothing commit, distinct from isolation of reads/writes."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "The 'Saga' pattern handles long-lived distributed transactions by:",
+  "options": [
+   "Breaking them into local transactions, each with a compensating action to undo on failure",
+   "Holding global locks for the entire duration",
+   "Using 2PC across all microservices",
+   "Requiring strict serializability over the whole saga"
+  ],
+  "correctIndex": 0,
+  "explanation": "A saga is a sequence of local transactions; if a later step fails, previously committed steps are undone by executing their compensating transactions. This avoids holding locks/resources across services for a long time, trading strict isolation for availability and scalability.",
+  "distractorRationales": [
+   "",
+   "Sagas explicitly avoid long-held global locks, which is their motivation.",
+   "Sagas avoid the blocking and coupling of 2PC across services.",
+   "Sagas relax strict serializability; they offer eventual atomicity via compensation."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "hard",
+  "questionText": "In distributed concurrency control, why can two-phase locking (2PL) across nodes lead to distributed deadlock that is harder to handle than single-node deadlock?",
+  "options": [
+   "Wait-for cycles span multiple nodes, so no single node sees the whole cycle",
+   "Locks cannot be acquired remotely",
+   "2PL is impossible in distributed systems",
+   "Distributed deadlock never involves cycles"
+  ],
+  "correctIndex": 0,
+  "explanation": "A distributed deadlock's wait-for graph spans nodes: each node sees only part of the cycle, so detection requires constructing a global wait-for graph (e.g., edge chasing) or using timeouts. This global visibility problem makes distributed deadlock detection more complex than local detection.",
+  "distractorRationales": [
+   "",
+   "Remote lock acquisition is possible; the challenge is detecting cross-node cycles.",
+   "2PL is widely used in distributed databases; it is not impossible.",
+   "Distributed deadlock still involves cycles — spread across nodes."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "A timestamp-ordering concurrency control protocol assigns each transaction a unique timestamp and ensures the schedule is equivalent to executing transactions in:",
+  "options": [
+   "Timestamp order",
+   "Random order",
+   "Arrival order at each node",
+   "Reverse timestamp order"
+  ],
+  "correctIndex": 0,
+  "explanation": "Timestamp ordering produces conflict-serializable schedules equivalent to running transactions in their timestamp order; a transaction is aborted (and restarted with a new timestamp) if it would violate that order. Distributed systems use globally unique timestamps (e.g., Lamport-based) to achieve a consistent order across nodes.",
+  "distractorRationales": [
+   "",
+   "Random order would not be a deterministic serialization guarantee.",
+   "Per-node arrival order can differ across nodes, breaking global serializability.",
+   "It enforces forward timestamp order, not reverse."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "easy",
+  "questionText": "In 2PC, the coordinator and participants write log records before sending key messages. The purpose of this write-ahead logging is to:",
+  "options": [
+   "Enable recovery of the commit/abort decision after a crash",
+   "Speed up the network",
+   "Reduce the number of participants",
+   "Encrypt the transaction data"
+  ],
+  "correctIndex": 0,
+  "explanation": "Durable logging (e.g., the coordinator logs 'commit' before sending COMMIT; participants log their vote) lets a crashed node recover its place in the protocol and honor the atomic decision, which is essential to 2PC's correctness across failures.",
+  "distractorRationales": [
+   "",
+   "Logging does not speed the network; it adds durable writes.",
+   "Logging does not change how many participants there are.",
+   "Logging is for durability/recovery, not encryption."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "hard",
+  "questionText": "How does Google Spanner provide externally-consistent distributed transactions while using 2PC?",
+  "options": [
+   "It layers 2PC over Paxos-replicated participants and uses TrueTime timestamps + commit-wait",
+   "It abandons 2PC for eventual consistency",
+   "It uses a single global lock for all transactions",
+   "It tolerates Byzantine participants natively"
+  ],
+  "correctIndex": 0,
+  "explanation": "Spanner runs 2PC where each participant is itself a Paxos group (so participants don't block on single-node crashes), and assigns commit timestamps from TrueTime with commit-wait to guarantee external consistency (linearizability) of transactions across the globe.",
+  "distractorRationales": [
+   "",
+   "Spanner provides strong consistency, not eventual consistency.",
+   "Spanner shards across many Paxos groups rather than one global lock.",
+   "Spanner assumes crash faults; it is not Byzantine fault tolerant."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "If any single participant in a 2PC votes NO (abort) during the voting phase, the coordinator must:",
+  "options": [
+   "Send a global ABORT to all participants",
+   "Commit on the nodes that voted YES only",
+   "Ignore the NO vote if a majority voted YES",
+   "Restart the entire system"
+  ],
+  "correctIndex": 0,
+  "explanation": "2PC requires unanimous YES to commit. A single NO forces a global ABORT so that atomicity holds: no participant commits if even one cannot. Partial commit or majority override would violate the all-or-nothing guarantee.",
+  "distractorRationales": [
+   "",
+   "Committing only the YES voters breaks atomicity.",
+   "2PC is not a majority protocol; one NO aborts the whole transaction.",
+   "A system restart is unnecessary; a clean abort suffices."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "easy",
+  "questionText": "Which ACID property is the primary concern of an atomic commit protocol like 2PC in a distributed setting?",
+  "options": [
+   "Atomicity",
+   "Isolation",
+   "Consistency",
+   "Durability"
+  ],
+  "correctIndex": 0,
+  "explanation": "2PC's job is to guarantee atomicity across multiple nodes — all commit or all abort. Isolation is handled by concurrency control (locking/timestamps), durability by logging, and consistency by application/integrity constraints; 2PC specifically coordinates the atomic commit.",
+  "distractorRationales": [
+   "",
+   "Isolation is provided by concurrency control, not the commit protocol.",
+   "Consistency (integrity constraints) is an application-level/ACID concern, not 2PC's core role.",
+   "Durability is achieved via logging; 2PC relies on it but its core purpose is atomicity."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "hard",
+  "questionText": "A distributed deadlock detection scheme using 'edge chasing' (Chandy–Misra–Haas) works by:",
+  "options": [
+   "Propagating probe messages along wait-for edges; a probe returning to its initiator indicates a cycle",
+   "Building a synchronized global clock",
+   "Aborting every blocked transaction immediately",
+   "Requiring all transactions to lock resources in the same order"
+  ],
+  "correctIndex": 0,
+  "explanation": "In edge-chasing, a blocked process sends a probe along its outgoing wait-for edges; intermediate blocked processes forward it. If a probe comes back to the process that initiated it, a cycle (deadlock) exists. It detects deadlock without constructing the full global graph at one site.",
+  "distractorRationales": [
+   "",
+   "Edge chasing needs no synchronized clock.",
+   "Aborting all blocked transactions is wasteful and is prevention/timeout, not detection.",
+   "Ordered lock acquisition is deadlock prevention, a different strategy than detection."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "Compared with 2PC, a key drawback of the Saga pattern is that it:",
+  "options": [
+   "Sacrifices isolation: intermediate states can be visible to other transactions",
+   "Cannot ever recover from failures",
+   "Requires synchronized clocks",
+   "Always holds global locks longer"
+  ],
+  "correctIndex": 0,
+  "explanation": "Because each step of a saga commits locally and immediately, partial results are visible before the whole saga completes, so isolation (the I in ACID) is weakened; developers must handle anomalies (e.g., via semantic locks). The benefit is avoiding long-held locks and 2PC blocking.",
+  "distractorRationales": [
+   "",
+   "Sagas recover via compensating transactions; they are explicitly failure-aware.",
+   "Sagas do not require synchronized clocks.",
+   "Sagas hold locks for shorter durations than 2PC, not longer."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "easy",
+  "questionText": "In 2PC terminology, the node that coordinates the protocol and makes the final commit/abort decision is called the:",
+  "options": [
+   "Coordinator (transaction manager)",
+   "Participant (resource manager)",
+   "Learner",
+   "Acceptor"
+  ],
+  "correctIndex": 0,
+  "explanation": "The coordinator (often the transaction manager that initiated the global transaction) sends PREPARE, collects votes, and broadcasts the global decision. The participants (resource managers) execute the local work and vote. 'Learner' and 'acceptor' are Paxos roles, not 2PC roles.",
+  "distractorRationales": [
+   "",
+   "Participants vote and execute local work but do not make the global decision.",
+   "Learner is a Paxos role, not part of 2PC.",
+   "Acceptor is a Paxos role, not part of 2PC."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "Optimistic concurrency control (OCC) is often favored over locking in distributed systems with low contention because it:",
+  "options": [
+   "Avoids lock overhead by validating for conflicts only at commit time",
+   "Guarantees no transaction is ever aborted",
+   "Requires holding locks for the whole transaction",
+   "Eliminates the need for timestamps"
+  ],
+  "correctIndex": 0,
+  "explanation": "OCC executes transactions without locking, then validates at commit whether any conflicting writes occurred; if not, it commits, otherwise it aborts and retries. Under low contention, conflicts are rare, so OCC avoids locking overhead and the deadlocks that locking can cause.",
+  "distractorRationales": [
+   "",
+   "OCC can and does abort on validation failure; it does not guarantee zero aborts.",
+   "OCC specifically avoids holding locks during execution.",
+   "OCC typically uses timestamps/versions for validation; it does not remove them."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "hard",
+  "questionText": "Why does 2PC alone NOT make a distributed system fault tolerant against the coordinator's failure, whereas pairing each role with a consensus group (e.g., Paxos) does?",
+  "options": [
+   "A consensus-replicated coordinator survives crashes and recovers the decision, removing the single point of blocking",
+   "2PC uses more messages than Paxos",
+   "Paxos eliminates the need for any commit decision",
+   "2PC cannot run over a network"
+  ],
+  "correctIndex": 0,
+  "explanation": "Vanilla 2PC has a single coordinator whose crash blocks prepared participants. Replicating the coordinator (and participants) via a consensus protocol like Paxos means the decision is stored on a fault-tolerant quorum, so a replacement can recover and deliver it — eliminating the single point of blocking. This is the Spanner/Percolator approach.",
+  "distractorRationales": [
+   "",
+   "Message count is not the reason; fault tolerance of the coordinator is.",
+   "Paxos provides the durable decision; it does not remove the need to decide commit/abort.",
+   "2PC obviously runs over networks; that is its setting."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "medium",
+  "questionText": "A 'heuristic decision' in 2PC occurs when a prepared participant, unable to reach the coordinator for a long time, unilaterally commits or aborts. The danger is that:",
+  "options": [
+   "It may decide opposite to the coordinator, breaking global atomicity (heuristic hazard)",
+   "It always decides correctly with no risk",
+   "It speeds up the protocol with no downside",
+   "It forces the coordinator to abort"
+  ],
+  "correctIndex": 0,
+  "explanation": "Heuristic decisions trade blocking for the risk of inconsistency: a participant guessing 'commit' while the coordinator chose 'abort' (or vice versa) violates atomicity, leaving the system in a state needing manual reconciliation. Such 'heuristic hazards' are logged for administrators.",
+  "distractorRationales": [
+   "",
+   "There is no guarantee the guess matches the coordinator's decision.",
+   "The downside is precisely the risk of a wrong, atomicity-breaking decision.",
+   "A participant's heuristic decision does not control the coordinator's choice."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "In two-phase commit (2PC), the coordinator's failure after participants vote 'yes' but before the global decision arrives causes participants to:",
+  "options": [
+   "Block, holding locks until the coordinator recovers (the blocking problem)",
+   "Immediately abort",
+   "Immediately commit",
+   "Elect a new coordinator automatically"
+  ],
+  "correctIndex": 0,
+  "explanation": "2PC is a blocking protocol: a participant that voted yes but has not heard the decision is uncertain and must wait (holding locks) for the coordinator to recover, since it cannot unilaterally decide. Three-phase commit reduces this blocking.",
+  "distractorRationales": [
+   "",
+   "Aborting unilaterally could violate atomicity if the coordinator had decided commit.",
+   "Committing unilaterally could violate atomicity if the decision was abort.",
+   "Plain 2PC has no built-in coordinator re-election; that is an extension."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions"
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "distributed-transactions",
+  "difficulty": "hard",
+  "questionText": "The 'presumed abort' optimization of 2PC reduces logging and message overhead by:",
+  "options": [
+   "Treating the absence of a commit log record as an abort, so the coordinator need not force-write or acknowledge abort decisions",
+   "Skipping the prepare phase entirely whenever all participants are read-only",
+   "Allowing each participant to unilaterally commit if it does not hear back from the coordinator",
+   "Replacing the coordinator with a Paxos group so aborts never happen"
+  ],
+  "correctIndex": 0,
+  "explanation": "Under presumed abort, if a recovering coordinator or participant finds no commit record for a transaction, it presumes the transaction aborted. This means abort decisions need not be force-written or explicitly acknowledged, cutting log forces and messages for the common abort/read-only cases.",
+  "distractorRationales": [
+   "",
+   "Read-only participants are optimized separately (a read-only vote lets them drop out early); that is not what 'presumed abort' itself means.",
+   "Unilateral commit on timeout violates atomicity and is exactly what 2PC forbids; presumed abort does the opposite (presumes abort, not commit).",
+   "Presumed abort is a logging/messaging optimization within 2PC, not a replacement of the coordinator with a consensus group."
+  ]
+ }
 ]

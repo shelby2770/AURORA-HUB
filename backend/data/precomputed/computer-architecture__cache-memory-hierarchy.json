@@ -1,182 +1,402 @@
 [
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "easy",
-    "questionText": "Caches work because of the principle of locality of reference, which has two main forms:",
-    "options": ["Temporal locality (reuse soon) and spatial locality (nearby addresses used soon)", "Vertical and horizontal locality", "Read and write locality", "Static and dynamic locality"],
-    "correctIndex": 0,
-    "explanation": "Temporal locality: a recently accessed item is likely to be accessed again soon (so keep it cached). Spatial locality: items near a recently accessed address are likely to be accessed soon (so fetch a whole block). Caches exploit both.",
-    "distractorRationales": ["", "'Vertical/horizontal' locality is not standard terminology.", "Read/write are access types, not the two locality forms.", "'Static/dynamic locality' is not the standard classification."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "In a direct-mapped cache, a given memory block can be placed in:",
-    "options": ["Exactly one cache line (determined by its index bits)", "Any cache line", "Any line within one set", "Two specific lines"],
-    "correctIndex": 0,
-    "explanation": "Direct-mapped caches map each memory block to one specific line via (block address mod number of lines). This is simple and fast but causes conflict misses when multiple active blocks map to the same line.",
-    "distractorRationales": ["", "Placement in any line is fully associative, not direct-mapped.", "Any line within a set describes set-associative caches.", "Two specific lines would be 2-way associativity, not direct-mapped."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "The three classic categories of cache misses are compulsory, capacity, and:",
-    "options": ["Conflict", "Coherence", "Compulsive", "Coordination"],
-    "correctIndex": 0,
-    "explanation": "The '3 Cs': compulsory (first access to a block, cold miss), capacity (cache too small to hold the working set), and conflict (multiple blocks map to the same set in a non-fully-associative cache). (Coherence misses are sometimes added as a 4th C for multiprocessors.)",
-    "distractorRationales": ["", "Coherence is a 4th C specific to multiprocessor caches, not one of the classic three.", "'Compulsive' is not a miss category.", "'Coordination' is not a cache-miss category."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "hard",
-    "questionText": "A cache has access time 2 ns and the main memory access time is 100 ns. With a hit ratio of 0.95, the average memory access time (cache checked first, then memory on miss) is:",
-    "options": ["7 ns", "2 ns", "100 ns", "51 ns"],
-    "correctIndex": 0,
-    "explanation": "AMAT = hit_time + miss_rate × miss_penalty = 2 + 0.05 × 100 = 2 + 5 = 7 ns. (Equivalently 0.95×2 + 0.05×102 ≈ 7 ns.) The few misses dominate the average penalty.",
-    "distractorRationales": ["", "2 ns is only the hit time, ignoring the 5% miss penalty.", "100 ns is the full memory time, which applies only on a miss.", "51 ns roughly assumes a 50% hit ratio, not 95%."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "easy",
-    "questionText": "In the memory hierarchy, which is correct in order of increasing access time (fastest first)?",
-    "options": ["Registers → L1 cache → L2 cache → main memory → disk", "Disk → main memory → cache → registers", "Main memory → registers → disk", "L2 cache → registers → disk → L1"],
-    "correctIndex": 0,
-    "explanation": "Access time grows (and cost-per-byte falls) down the hierarchy: registers are fastest, then L1, L2 (L3) caches, then DRAM main memory, then disk/SSD. Capacity grows in the same direction.",
-    "distractorRationales": ["", "This reverses the hierarchy (disk is slowest, not fastest).", "Registers are faster than main memory, so this order is wrong.", "Registers are faster than L2 cache; this ordering is jumbled."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "hard",
-    "questionText": "A 32-bit address accesses a direct-mapped cache with 64-byte blocks and 256 lines. How many bits are used for the block offset and the index, respectively?",
-    "options": ["6 and 8", "8 and 6", "6 and 6", "5 and 8"],
-    "correctIndex": 0,
-    "explanation": "64-byte block → log2(64) = 6 offset bits. 256 lines → log2(256) = 8 index bits. The remaining 32 − 6 − 8 = 18 bits are the tag.",
-    "distractorRationales": ["", "This swaps the offset and index sizes.", "The index for 256 lines is 8 bits, not 6.", "A 64-byte block needs 6 offset bits, not 5."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "In a write-back cache, a modified block is written to main memory:",
-    "options": ["Only when it is evicted (using a dirty bit to track modifications)", "On every write immediately", "Never", "Only during cache flush at startup"],
-    "correctIndex": 0,
-    "explanation": "Write-back caches update only the cache on a write and mark the line dirty; the data is written to memory only when the dirty line is evicted. This reduces memory traffic versus write-through (which writes memory on every store).",
-    "distractorRationales": ["", "Writing memory on every store is write-through, not write-back.", "Write-back does eventually write modified data on eviction, not never.", "It writes on eviction, not only at startup."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "hard",
-    "questionText": "Increasing cache block size (with fixed total cache size) tends to:",
-    "options": ["Reduce compulsory misses via spatial locality but can increase conflict/capacity misses and miss penalty", "Always reduce all miss types", "Eliminate the need for tags", "Have no effect on miss rate"],
-    "correctIndex": 0,
-    "explanation": "Larger blocks fetch more neighboring data per miss, exploiting spatial locality to cut compulsory misses. But with fixed capacity there are fewer blocks, raising conflict/capacity misses, and each miss transfers more data, raising the miss penalty — so an optimal block size exists.",
-    "distractorRationales": ["", "It does not reduce all miss types; conflict/capacity misses can rise.", "Tags are still required to identify blocks.", "Block size clearly affects miss rate (the spatial-locality trade-off)."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "easy",
-    "questionText": "An n-way set-associative cache means each set contains:",
-    "options": ["n lines, and a block may go into any of the n lines of its set", "n sets total", "exactly 1 line", "n caches"],
-    "correctIndex": 0,
-    "explanation": "In n-way set associativity, the cache is divided into sets, each holding n lines; a memory block maps to one set (by index) but may occupy any of that set's n lines. This reduces conflict misses relative to direct-mapped (1-way).",
-    "distractorRationales": ["", "n is the associativity (lines per set), not the number of sets.", "Exactly 1 line per set is direct-mapped (1-way).", "It is one cache with n-way sets, not n separate caches."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "The LRU replacement policy in a cache evicts:",
-    "options": ["The line that has not been used for the longest time", "A randomly chosen line", "The most recently used line", "The line with the highest tag"],
-    "correctIndex": 0,
-    "explanation": "Least-Recently-Used eviction removes the line whose last access is oldest, exploiting temporal locality (recently used lines are likely to be reused). Exact LRU is costly for high associativity, so approximations (e.g., pseudo-LRU) are common.",
-    "distractorRationales": ["", "Random replacement is a simpler alternative, not LRU.", "Evicting the most recently used line (MRU) is the opposite of LRU.", "The tag value is unrelated to recency of use."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "hard",
-    "questionText": "A fully associative cache eliminates conflict misses but its main drawback is:",
-    "options": ["Expensive hardware: every line's tag must be searched in parallel on each access", "It cannot hold modified data", "It has only one line", "It requires no tags"],
-    "correctIndex": 0,
-    "explanation": "In a fully associative cache a block can go anywhere, so a lookup must compare the address tag against every line simultaneously, requiring many comparators (costly, power-hungry). This is why full associativity is used only for small caches (e.g., TLBs).",
-    "distractorRationales": ["", "It can hold modified data like any cache.", "It has many lines; full associativity refers to placement freedom, not one line.", "It still needs tags (the full block address minus offset) for each line."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "On a write miss, a 'write-allocate' (fetch-on-write) policy:",
-    "options": ["Loads the block into the cache, then performs the write", "Writes only to memory and skips the cache", "Discards the write", "Flushes the entire cache"],
-    "correctIndex": 0,
-    "explanation": "Write-allocate brings the missing block into the cache before applying the write, anticipating future accesses; it pairs naturally with write-back. The alternative, no-write-allocate, writes straight to memory without caching the block and pairs with write-through.",
-    "distractorRationales": ["", "Writing only to memory and skipping the cache is no-write-allocate.", "Write-allocate does not discard the write; it performs it after fetching.", "It does not flush the whole cache; it loads one block."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "easy",
-    "questionText": "Why are SRAM cells used for caches and DRAM for main memory?",
-    "options": ["SRAM is faster (no refresh needed) but costlier/less dense; DRAM is denser/cheaper but slower", "DRAM is faster than SRAM", "SRAM is non-volatile", "They are identical technologies"],
-    "correctIndex": 0,
-    "explanation": "SRAM (static RAM) holds data in flip-flops, giving fast access with no refresh, but uses ~6 transistors per bit (low density, high cost) — ideal for small fast caches. DRAM (dynamic RAM) uses one transistor+capacitor per bit (dense, cheap) but needs periodic refresh and is slower — ideal for large main memory.",
-    "distractorRationales": ["", "SRAM is faster than DRAM, not the reverse.", "SRAM is volatile; it loses data without power.", "They are different technologies with distinct speed/density trade-offs."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "hard",
-    "questionText": "In a two-level cache, the global miss rate of L2 is defined as:",
-    "options": ["L2 misses divided by total CPU memory accesses (= L1 miss rate × L2 local miss rate)", "L2 misses divided by accesses that reach L2", "L1 hits divided by total accesses", "Always equal to the L1 miss rate"],
-    "correctIndex": 0,
-    "explanation": "The L2 local miss rate is L2 misses / accesses that reach L2 (i.e., L1 misses). The L2 global miss rate is L2 misses / total CPU accesses = L1 miss rate × L2 local miss rate, reflecting how many of all accesses miss both levels.",
-    "distractorRationales": ["", "L2 misses / accesses reaching L2 is the LOCAL miss rate, not global.", "L1 hits / total accesses is the L1 hit rate, unrelated.", "It equals the L1 miss rate only if L2 always misses, which is not generally true."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "A 'compulsory' (cold) miss occurs:",
-    "options": ["On the first-ever reference to a block, which cannot be in the cache yet", "When the cache is full", "When two blocks map to one set", "Only in write-back caches"],
-    "correctIndex": 0,
-    "explanation": "Compulsory misses happen the first time a block is accessed — it has never been loaded, so a miss is unavoidable regardless of cache size or associativity. Larger blocks (prefetching) can reduce them by bringing in neighbors.",
-    "distractorRationales": ["", "A full cache causing eviction-based misses is a capacity miss.", "Two blocks mapping to one set causes conflict misses.", "Compulsory misses occur in any cache, not only write-back."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "hard",
-    "questionText": "The 'inclusion property' in a multilevel cache hierarchy (L2 inclusive of L1) means:",
-    "options": ["Every block in L1 is also present in L2", "L1 and L2 hold disjoint blocks", "L2 is smaller than L1", "L1 never holds data"],
-    "correctIndex": 0,
-    "explanation": "An inclusive hierarchy guarantees that all data in the smaller L1 is duplicated in the larger L2. This simplifies cache-coherence snooping (only L2 needs to be checked) at the cost of some wasted capacity. Exclusive caches keep the levels disjoint instead.",
-    "distractorRationales": ["", "Disjoint holdings describe an exclusive hierarchy, not inclusive.", "For inclusion, L2 must be larger (or equal), to contain L1's contents.", "L1 does hold (a subset of) the data in an inclusive hierarchy."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "easy",
-    "questionText": "The 'hit ratio' of a cache is:",
-    "options": ["The fraction of memory accesses found in the cache", "The fraction of accesses that miss", "The cache size divided by memory size", "The number of cache lines"],
-    "correctIndex": 0,
-    "explanation": "Hit ratio = (number of cache hits) / (total memory accesses). The miss ratio is 1 − hit ratio. A high hit ratio is essential for the cache to deliver near-cache-speed average access time.",
-    "distractorRationales": ["", "The fraction that miss is the miss ratio, the complement.", "Cache size over memory size is a capacity ratio, not the hit ratio.", "The line count is a structural parameter, not the hit ratio."]
-  },
-  {
-    "course": "computer-architecture",
-    "subtopic": "cache-memory-hierarchy",
-    "difficulty": "medium",
-    "questionText": "Increasing cache associativity (e.g., from direct-mapped to 4-way) generally:",
-    "options": ["Reduces conflict misses but increases hit time and hardware complexity", "Increases conflict misses", "Eliminates compulsory misses", "Reduces the tag size"],
-    "correctIndex": 0,
-    "explanation": "Higher associativity gives a block more candidate lines within its set, reducing conflict misses. The cost is more tag comparators and multiplexing, which can lengthen hit time, and diminishing returns beyond a point (often ~8-way).",
-    "distractorRationales": ["", "Associativity reduces, not increases, conflict misses.", "Compulsory misses are independent of associativity (first access still misses).", "Higher associativity generally increases the tag size (fewer index bits)."]
-  }
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "easy",
+  "questionText": "Caches work because of the principle of locality of reference, which has two main forms:",
+  "options": [
+   "Temporal locality (reuse soon) and spatial locality (nearby addresses used soon)",
+   "Vertical and horizontal locality",
+   "Read and write locality",
+   "Static and dynamic locality"
+  ],
+  "correctIndex": 0,
+  "explanation": "Temporal locality: a recently accessed item is likely to be accessed again soon (so keep it cached). Spatial locality: items near a recently accessed address are likely to be accessed soon (so fetch a whole block). Caches exploit both.",
+  "distractorRationales": [
+   "",
+   "'Vertical/horizontal' locality is not standard terminology.",
+   "Read/write are access types, not the two locality forms.",
+   "'Static/dynamic locality' is not the standard classification."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "In a direct-mapped cache, a given memory block can be placed in:",
+  "options": [
+   "Exactly one cache line (determined by its index bits)",
+   "Any cache line",
+   "Any line within one set",
+   "Two specific lines"
+  ],
+  "correctIndex": 0,
+  "explanation": "Direct-mapped caches map each memory block to one specific line via (block address mod number of lines). This is simple and fast but causes conflict misses when multiple active blocks map to the same line.",
+  "distractorRationales": [
+   "",
+   "Placement in any line is fully associative, not direct-mapped.",
+   "Any line within a set describes set-associative caches.",
+   "Two specific lines would be 2-way associativity, not direct-mapped."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "The three classic categories of cache misses are compulsory, capacity, and:",
+  "options": [
+   "Conflict",
+   "Coherence",
+   "Compulsive",
+   "Coordination"
+  ],
+  "correctIndex": 0,
+  "explanation": "The '3 Cs': compulsory (first access to a block, cold miss), capacity (cache too small to hold the working set), and conflict (multiple blocks map to the same set in a non-fully-associative cache). (Coherence misses are sometimes added as a 4th C for multiprocessors.)",
+  "distractorRationales": [
+   "",
+   "Coherence is a 4th C specific to multiprocessor caches, not one of the classic three.",
+   "'Compulsive' is not a miss category.",
+   "'Coordination' is not a cache-miss category."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "hard",
+  "questionText": "A cache has access time 2 ns and the main memory access time is 100 ns. With a hit ratio of 0.95, the average memory access time (cache checked first, then memory on miss) is:",
+  "options": [
+   "7 ns",
+   "2 ns",
+   "100 ns",
+   "51 ns"
+  ],
+  "correctIndex": 0,
+  "explanation": "AMAT = hit_time + miss_rate × miss_penalty = 2 + 0.05 × 100 = 2 + 5 = 7 ns. (Equivalently 0.95×2 + 0.05×102 ≈ 7 ns.) The few misses dominate the average penalty.",
+  "distractorRationales": [
+   "",
+   "2 ns is only the hit time, ignoring the 5% miss penalty.",
+   "100 ns is the full memory time, which applies only on a miss.",
+   "51 ns roughly assumes a 50% hit ratio, not 95%."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "easy",
+  "questionText": "In the memory hierarchy, which is correct in order of increasing access time (fastest first)?",
+  "options": [
+   "Registers → L1 cache → L2 cache → main memory → disk",
+   "Disk → main memory → cache → registers",
+   "Main memory → registers → disk",
+   "L2 cache → registers → disk → L1"
+  ],
+  "correctIndex": 0,
+  "explanation": "Access time grows (and cost-per-byte falls) down the hierarchy: registers are fastest, then L1, L2 (L3) caches, then DRAM main memory, then disk/SSD. Capacity grows in the same direction.",
+  "distractorRationales": [
+   "",
+   "This reverses the hierarchy (disk is slowest, not fastest).",
+   "Registers are faster than main memory, so this order is wrong.",
+   "Registers are faster than L2 cache; this ordering is jumbled."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "hard",
+  "questionText": "A 32-bit address accesses a direct-mapped cache with 64-byte blocks and 256 lines. How many bits are used for the block offset and the index, respectively?",
+  "options": [
+   "6 and 8",
+   "8 and 6",
+   "6 and 6",
+   "5 and 8"
+  ],
+  "correctIndex": 0,
+  "explanation": "64-byte block → log2(64) = 6 offset bits. 256 lines → log2(256) = 8 index bits. The remaining 32 − 6 − 8 = 18 bits are the tag.",
+  "distractorRationales": [
+   "",
+   "This swaps the offset and index sizes.",
+   "The index for 256 lines is 8 bits, not 6.",
+   "A 64-byte block needs 6 offset bits, not 5."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "In a write-back cache, a modified block is written to main memory:",
+  "options": [
+   "Only when it is evicted (using a dirty bit to track modifications)",
+   "On every write immediately",
+   "Never",
+   "Only during cache flush at startup"
+  ],
+  "correctIndex": 0,
+  "explanation": "Write-back caches update only the cache on a write and mark the line dirty; the data is written to memory only when the dirty line is evicted. This reduces memory traffic versus write-through (which writes memory on every store).",
+  "distractorRationales": [
+   "",
+   "Writing memory on every store is write-through, not write-back.",
+   "Write-back does eventually write modified data on eviction, not never.",
+   "It writes on eviction, not only at startup."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "hard",
+  "questionText": "Increasing cache block size (with fixed total cache size) tends to:",
+  "options": [
+   "Reduce compulsory misses via spatial locality but can increase conflict/capacity misses and miss penalty",
+   "Always reduce all miss types",
+   "Eliminate the need for tags",
+   "Have no effect on miss rate"
+  ],
+  "correctIndex": 0,
+  "explanation": "Larger blocks fetch more neighboring data per miss, exploiting spatial locality to cut compulsory misses. But with fixed capacity there are fewer blocks, raising conflict/capacity misses, and each miss transfers more data, raising the miss penalty — so an optimal block size exists.",
+  "distractorRationales": [
+   "",
+   "It does not reduce all miss types; conflict/capacity misses can rise.",
+   "Tags are still required to identify blocks.",
+   "Block size clearly affects miss rate (the spatial-locality trade-off)."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "easy",
+  "questionText": "An n-way set-associative cache means each set contains:",
+  "options": [
+   "n lines, and a block may go into any of the n lines of its set",
+   "n sets total",
+   "exactly 1 line",
+   "n caches"
+  ],
+  "correctIndex": 0,
+  "explanation": "In n-way set associativity, the cache is divided into sets, each holding n lines; a memory block maps to one set (by index) but may occupy any of that set's n lines. This reduces conflict misses relative to direct-mapped (1-way).",
+  "distractorRationales": [
+   "",
+   "n is the associativity (lines per set), not the number of sets.",
+   "Exactly 1 line per set is direct-mapped (1-way).",
+   "It is one cache with n-way sets, not n separate caches."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "The LRU replacement policy in a cache evicts:",
+  "options": [
+   "The line that has not been used for the longest time",
+   "A randomly chosen line",
+   "The most recently used line",
+   "The line with the highest tag"
+  ],
+  "correctIndex": 0,
+  "explanation": "Least-Recently-Used eviction removes the line whose last access is oldest, exploiting temporal locality (recently used lines are likely to be reused). Exact LRU is costly for high associativity, so approximations (e.g., pseudo-LRU) are common.",
+  "distractorRationales": [
+   "",
+   "Random replacement is a simpler alternative, not LRU.",
+   "Evicting the most recently used line (MRU) is the opposite of LRU.",
+   "The tag value is unrelated to recency of use."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "hard",
+  "questionText": "A fully associative cache eliminates conflict misses but its main drawback is:",
+  "options": [
+   "Expensive hardware: every line's tag must be searched in parallel on each access",
+   "It cannot hold modified data",
+   "It has only one line",
+   "It requires no tags"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a fully associative cache a block can go anywhere, so a lookup must compare the address tag against every line simultaneously, requiring many comparators (costly, power-hungry). This is why full associativity is used only for small caches (e.g., TLBs).",
+  "distractorRationales": [
+   "",
+   "It can hold modified data like any cache.",
+   "It has many lines; full associativity refers to placement freedom, not one line.",
+   "It still needs tags (the full block address minus offset) for each line."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "On a write miss, a 'write-allocate' (fetch-on-write) policy:",
+  "options": [
+   "Loads the block into the cache, then performs the write",
+   "Writes only to memory and skips the cache",
+   "Discards the write",
+   "Flushes the entire cache"
+  ],
+  "correctIndex": 0,
+  "explanation": "Write-allocate brings the missing block into the cache before applying the write, anticipating future accesses; it pairs naturally with write-back. The alternative, no-write-allocate, writes straight to memory without caching the block and pairs with write-through.",
+  "distractorRationales": [
+   "",
+   "Writing only to memory and skipping the cache is no-write-allocate.",
+   "Write-allocate does not discard the write; it performs it after fetching.",
+   "It does not flush the whole cache; it loads one block."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "easy",
+  "questionText": "Why are SRAM cells used for caches and DRAM for main memory?",
+  "options": [
+   "SRAM is faster (no refresh needed) but costlier/less dense; DRAM is denser/cheaper but slower",
+   "DRAM is faster than SRAM",
+   "SRAM is non-volatile",
+   "They are identical technologies"
+  ],
+  "correctIndex": 0,
+  "explanation": "SRAM (static RAM) holds data in flip-flops, giving fast access with no refresh, but uses ~6 transistors per bit (low density, high cost) — ideal for small fast caches. DRAM (dynamic RAM) uses one transistor+capacitor per bit (dense, cheap) but needs periodic refresh and is slower — ideal for large main memory.",
+  "distractorRationales": [
+   "",
+   "SRAM is faster than DRAM, not the reverse.",
+   "SRAM is volatile; it loses data without power.",
+   "They are different technologies with distinct speed/density trade-offs."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "hard",
+  "questionText": "In a two-level cache, the global miss rate of L2 is defined as:",
+  "options": [
+   "L2 misses divided by total CPU memory accesses (= L1 miss rate × L2 local miss rate)",
+   "L2 misses divided by accesses that reach L2",
+   "L1 hits divided by total accesses",
+   "Always equal to the L1 miss rate"
+  ],
+  "correctIndex": 0,
+  "explanation": "The L2 local miss rate is L2 misses / accesses that reach L2 (i.e., L1 misses). The L2 global miss rate is L2 misses / total CPU accesses = L1 miss rate × L2 local miss rate, reflecting how many of all accesses miss both levels.",
+  "distractorRationales": [
+   "",
+   "L2 misses / accesses reaching L2 is the LOCAL miss rate, not global.",
+   "L1 hits / total accesses is the L1 hit rate, unrelated.",
+   "It equals the L1 miss rate only if L2 always misses, which is not generally true."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "A 'compulsory' (cold) miss occurs:",
+  "options": [
+   "On the first-ever reference to a block, which cannot be in the cache yet",
+   "When the cache is full",
+   "When two blocks map to one set",
+   "Only in write-back caches"
+  ],
+  "correctIndex": 0,
+  "explanation": "Compulsory misses happen the first time a block is accessed — it has never been loaded, so a miss is unavoidable regardless of cache size or associativity. Larger blocks (prefetching) can reduce them by bringing in neighbors.",
+  "distractorRationales": [
+   "",
+   "A full cache causing eviction-based misses is a capacity miss.",
+   "Two blocks mapping to one set causes conflict misses.",
+   "Compulsory misses occur in any cache, not only write-back."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "hard",
+  "questionText": "The 'inclusion property' in a multilevel cache hierarchy (L2 inclusive of L1) means:",
+  "options": [
+   "Every block in L1 is also present in L2",
+   "L1 and L2 hold disjoint blocks",
+   "L2 is smaller than L1",
+   "L1 never holds data"
+  ],
+  "correctIndex": 0,
+  "explanation": "An inclusive hierarchy guarantees that all data in the smaller L1 is duplicated in the larger L2. This simplifies cache-coherence snooping (only L2 needs to be checked) at the cost of some wasted capacity. Exclusive caches keep the levels disjoint instead.",
+  "distractorRationales": [
+   "",
+   "Disjoint holdings describe an exclusive hierarchy, not inclusive.",
+   "For inclusion, L2 must be larger (or equal), to contain L1's contents.",
+   "L1 does hold (a subset of) the data in an inclusive hierarchy."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "easy",
+  "questionText": "The 'hit ratio' of a cache is:",
+  "options": [
+   "The fraction of memory accesses found in the cache",
+   "The fraction of accesses that miss",
+   "The cache size divided by memory size",
+   "The number of cache lines"
+  ],
+  "correctIndex": 0,
+  "explanation": "Hit ratio = (number of cache hits) / (total memory accesses). The miss ratio is 1 − hit ratio. A high hit ratio is essential for the cache to deliver near-cache-speed average access time.",
+  "distractorRationales": [
+   "",
+   "The fraction that miss is the miss ratio, the complement.",
+   "Cache size over memory size is a capacity ratio, not the hit ratio.",
+   "The line count is a structural parameter, not the hit ratio."
+  ]
+ },
+ {
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy",
+  "difficulty": "medium",
+  "questionText": "Increasing cache associativity (e.g., from direct-mapped to 4-way) generally:",
+  "options": [
+   "Reduces conflict misses but increases hit time and hardware complexity",
+   "Increases conflict misses",
+   "Eliminates compulsory misses",
+   "Reduces the tag size"
+  ],
+  "correctIndex": 0,
+  "explanation": "Higher associativity gives a block more candidate lines within its set, reducing conflict misses. The cost is more tag comparators and multiplexing, which can lengthen hit time, and diminishing returns beyond a point (often ~8-way).",
+  "distractorRationales": [
+   "",
+   "Associativity reduces, not increases, conflict misses.",
+   "Compulsory misses are independent of associativity (first access still misses).",
+   "Higher associativity generally increases the tag size (fewer index bits)."
+  ]
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "A cache has a hit time of 2 ns, a miss penalty of 100 ns, and a miss rate of 5%. The average memory access time (AMAT) is:",
+  "options": [
+   "7 ns",
+   "5 ns",
+   "102 ns",
+   "12 ns"
+  ],
+  "correctIndex": 0,
+  "explanation": "AMAT = hit time + miss rate × miss penalty = 2 + 0.05 × 100 = 2 + 5 = 7 ns.",
+  "distractorRationales": [
+   "",
+   "5 ns is just the miss contribution (0.05×100), omitting the 2 ns hit time.",
+   "102 ns adds the full miss penalty as if every access missed.",
+   "12 ns would require a 10% miss rate, not 5%."
+  ],
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "Which cache write policy writes data to both the cache and main memory simultaneously?",
+  "options": [
+   "Write-through",
+   "Write-back",
+   "Write-allocate",
+   "No-write-allocate"
+  ],
+  "correctIndex": 0,
+  "explanation": "Write-through updates both the cache and memory on every write, keeping them consistent but generating more memory traffic. Write-back updates only the cache and writes to memory later when the line is evicted (using a dirty bit).",
+  "distractorRationales": [
+   "",
+   "Write-back defers the memory update until eviction, not simultaneously.",
+   "Write-allocate is a miss policy (load the line on a write miss), not when memory is updated.",
+   "No-write-allocate concerns handling write misses, not the through/back update timing."
+  ],
+  "course": "computer-architecture",
+  "subtopic": "cache-memory-hierarchy"
+ }
 ]

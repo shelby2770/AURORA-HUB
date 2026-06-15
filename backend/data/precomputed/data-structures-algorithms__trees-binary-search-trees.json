@@ -4,119 +4,399 @@
   "subtopic": "trees-binary-search-trees",
   "difficulty": "easy",
   "questionText": "In a binary search tree (BST), for any node, all keys in its left subtree are:",
-  "options": ["Less than the node's key, and all keys in the right subtree are greater", "Greater than the node's key", "Equal to the node's key", "Unordered relative to the node's key"],
+  "options": [
+   "Less than the node's key, and all keys in the right subtree are greater",
+   "Greater than the node's key",
+   "Equal to the node's key",
+   "Unordered relative to the node's key"
+  ],
   "correctIndex": 0,
   "explanation": "The BST property requires that every key in the left subtree is less than the node's key and every key in the right subtree is greater. This enables O(h) search.",
-  "distractorRationales": ["", "Greater-than keys belong in the right subtree, not the left.", "BSTs typically store distinct keys; equal keys are not how the structure is defined.", "BSTs are strictly ordered, not unordered."]
+  "distractorRationales": [
+   "",
+   "Greater-than keys belong in the right subtree, not the left.",
+   "BSTs typically store distinct keys; equal keys are not how the structure is defined.",
+   "BSTs are strictly ordered, not unordered."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "easy",
   "questionText": "An in-order traversal of a binary search tree visits the keys in:",
-  "options": ["Sorted (ascending) order", "Reverse sorted order", "Level-by-level order", "Random order"],
+  "options": [
+   "Sorted (ascending) order",
+   "Reverse sorted order",
+   "Level-by-level order",
+   "Random order"
+  ],
   "correctIndex": 0,
   "explanation": "In-order traversal (left, root, right) of a BST yields the keys in ascending sorted order, a direct consequence of the BST ordering property.",
-  "distractorRationales": ["", "Reverse order results from a right-root-left traversal, not standard in-order.", "Level-by-level is BFS/level-order traversal, not in-order.", "In-order traversal is deterministic and sorted, not random."]
+  "distractorRationales": [
+   "",
+   "Reverse order results from a right-root-left traversal, not standard in-order.",
+   "Level-by-level is BFS/level-order traversal, not in-order.",
+   "In-order traversal is deterministic and sorted, not random."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "easy",
   "questionText": "The worst-case time for search in a binary search tree of n nodes is:",
-  "options": ["O(n), when the tree is degenerate (like a linked list)", "O(1)", "O(log n) always", "O(n log n)"],
+  "options": [
+   "O(n), when the tree is degenerate (like a linked list)",
+   "O(1)",
+   "O(log n) always",
+   "O(n log n)"
+  ],
   "correctIndex": 0,
   "explanation": "If keys are inserted in sorted order, an unbalanced BST degenerates into a path of height n−1, making search O(n). Balanced BSTs (AVL, red-black) guarantee O(log n).",
-  "distractorRationales": ["", "O(1) would require direct indexing, which BSTs do not provide.", "O(log n) holds only for balanced BSTs, not the worst case of a plain BST.", "O(n log n) is a sorting cost, not a single search."]
+  "distractorRationales": [
+   "",
+   "O(1) would require direct indexing, which BSTs do not provide.",
+   "O(log n) holds only for balanced BSTs, not the worst case of a plain BST.",
+   "O(n log n) is a sorting cost, not a single search."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "medium",
   "questionText": "An AVL tree maintains balance by ensuring that for every node, the heights of its two subtrees differ by at most:",
-  "options": ["1", "0", "2", "log n"],
+  "options": [
+   "1",
+   "0",
+   "2",
+   "log n"
+  ],
   "correctIndex": 0,
   "explanation": "The AVL balance factor (height of left minus height of right) must be in {−1, 0, +1} for every node. Violations trigger rotations, keeping the height O(log n).",
-  "distractorRationales": ["", "Requiring a difference of exactly 0 (perfect balance) is too strict and not always achievable after insertions.", "A difference of 2 is exactly the imbalance that triggers a rotation; it is not allowed to persist.", "log n is the tree's height, not the allowed per-node height difference."]
+  "distractorRationales": [
+   "",
+   "Requiring a difference of exactly 0 (perfect balance) is too strict and not always achievable after insertions.",
+   "A difference of 2 is exactly the imbalance that triggers a rotation; it is not allowed to persist.",
+   "log n is the tree's height, not the allowed per-node height difference."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "medium",
   "questionText": "A red-black tree guarantees a height of at most:",
-  "options": ["2 log₂(n + 1)", "log₂ n exactly", "n / 2", "√n"],
+  "options": [
+   "2 log₂(n + 1)",
+   "log₂ n exactly",
+   "n / 2",
+   "√n"
+  ],
   "correctIndex": 0,
   "explanation": "Red-black tree invariants (no two consecutive red nodes; equal black-height on all root-to-leaf paths) bound the height by 2 log₂(n+1), guaranteeing O(log n) operations.",
-  "distractorRationales": ["", "log₂ n is the height of a perfectly balanced tree; red-black trees allow up to about twice that.", "n/2 would be a nearly degenerate tree, which red-black invariants prevent.", "√n is not the height bound of a red-black tree."]
+  "distractorRationales": [
+   "",
+   "log₂ n is the height of a perfectly balanced tree; red-black trees allow up to about twice that.",
+   "n/2 would be a nearly degenerate tree, which red-black invariants prevent.",
+   "√n is not the height bound of a red-black tree."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "medium",
   "questionText": "To delete a node with two children from a BST, the standard method replaces it with its:",
-  "options": ["In-order successor (smallest in the right subtree) or in-order predecessor", "Root of the tree", "Leftmost leaf of the whole tree", "Parent node"],
+  "options": [
+   "In-order successor (smallest in the right subtree) or in-order predecessor",
+   "Root of the tree",
+   "Leftmost leaf of the whole tree",
+   "Parent node"
+  ],
   "correctIndex": 0,
   "explanation": "When a node has two children, you copy its in-order successor (minimum of the right subtree) or predecessor (maximum of the left subtree) into it, then delete that successor/predecessor, preserving the BST property.",
-  "distractorRationales": ["", "Using the tree root would violate ordering and is unrelated to the deleted node's position.", "The global leftmost leaf is not necessarily a valid replacement that preserves ordering.", "The parent node does not preserve the BST property when substituted in."]
+  "distractorRationales": [
+   "",
+   "Using the tree root would violate ordering and is unrelated to the deleted node's position.",
+   "The global leftmost leaf is not necessarily a valid replacement that preserves ordering.",
+   "The parent node does not preserve the BST property when substituted in."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "medium",
   "questionText": "The number of distinct binary search trees that can be formed with n distinct keys is given by:",
-  "options": ["The n-th Catalan number, C(2n, n)/(n + 1)", "n!", "2^n", "n²"],
+  "options": [
+   "The n-th Catalan number, C(2n, n)/(n + 1)",
+   "n!",
+   "2^n",
+   "n²"
+  ],
   "correctIndex": 0,
   "explanation": "The count of structurally distinct BSTs on n keys is the n-th Catalan number, Cₙ = (2n)! / ((n+1)! n!) = C(2n,n)/(n+1).",
-  "distractorRationales": ["", "n! counts permutations/orderings, which overcounts because many insertion orders yield the same BST shape.", "2^n is not the Catalan count.", "n² grows far too slowly to count BST structures."]
+  "distractorRationales": [
+   "",
+   "n! counts permutations/orderings, which overcounts because many insertion orders yield the same BST shape.",
+   "2^n is not the Catalan count.",
+   "n² grows far too slowly to count BST structures."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "hard",
   "questionText": "Inserting keys 50, 30, 70, 20, 40, 60, 80 into an empty BST and then searching for 60 requires how many key comparisons (counting the comparison at each node visited)?",
-  "options": ["3 (50 → 70 → 60)", "2", "4", "1"],
+  "options": [
+   "3 (50 → 70 → 60)",
+   "2",
+   "4",
+   "1"
+  ],
   "correctIndex": 0,
   "explanation": "The BST has 50 at the root, 70 as its right child, and 60 as 70's left child. Searching 60: compare with 50 (go right), 70 (go left), 60 (found) — 3 comparisons.",
-  "distractorRationales": ["", "2 comparisons would reach only 70, not 60.", "4 overcounts; 60 is found at depth 3 (3 comparisons).", "1 comparison only checks the root 50."]
+  "distractorRationales": [
+   "",
+   "2 comparisons would reach only 70, not 60.",
+   "4 overcounts; 60 is found at depth 3 (3 comparisons).",
+   "1 comparison only checks the root 50."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "hard",
   "questionText": "A single right rotation in an AVL tree is used to fix which imbalance case?",
-  "options": ["Left-Left (LL): an insertion in the left subtree of the left child", "Right-Right (RR)", "Left-Right (LR)", "Right-Left (RL)"],
+  "options": [
+   "Left-Left (LL): an insertion in the left subtree of the left child",
+   "Right-Right (RR)",
+   "Left-Right (LR)",
+   "Right-Left (RL)"
+  ],
   "correctIndex": 0,
   "explanation": "An LL imbalance (heavy on the left child's left subtree) is corrected by a single right rotation about the unbalanced node. RR uses a single left rotation; LR and RL need double rotations.",
-  "distractorRationales": ["", "RR imbalance is fixed by a single LEFT rotation, not a right one.", "LR imbalance requires a double rotation (left then right), not a single right rotation.", "RL imbalance requires a double rotation (right then left)."]
+  "distractorRationales": [
+   "",
+   "RR imbalance is fixed by a single LEFT rotation, not a right one.",
+   "LR imbalance requires a double rotation (left then right), not a single right rotation.",
+   "RL imbalance requires a double rotation (right then left)."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "hard",
   "questionText": "Why are balanced BSTs (e.g., AVL, red-black) preferred over plain BSTs for guaranteed performance?",
-  "options": ["They keep the height O(log n) via rotations, guaranteeing O(log n) search/insert/delete even in the worst case", "They use less memory per node", "They allow O(1) search", "They never require rebalancing"],
+  "options": [
+   "They keep the height O(log n) via rotations, guaranteeing O(log n) search/insert/delete even in the worst case",
+   "They use less memory per node",
+   "They allow O(1) search",
+   "They never require rebalancing"
+  ],
   "correctIndex": 0,
   "explanation": "Plain BSTs can degenerate to O(n) height with adversarial insertion order. Self-balancing trees perform rotations to keep height logarithmic, guaranteeing O(log n) operations regardless of insertion order.",
-  "distractorRationales": ["", "Balanced BSTs typically store extra balance/color info, using slightly MORE memory per node.", "Search is O(log n), not O(1); only hashing offers expected O(1).", "They specifically DO require rebalancing (rotations) to maintain their guarantees."]
+  "distractorRationales": [
+   "",
+   "Balanced BSTs typically store extra balance/color info, using slightly MORE memory per node.",
+   "Search is O(log n), not O(1); only hashing offers expected O(1).",
+   "They specifically DO require rebalancing (rotations) to maintain their guarantees."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "medium",
   "questionText": "Given the in-order traversal [4, 2, 5, 1, 6, 3, 7] and pre-order [1, 2, 4, 5, 3, 6, 7] of a binary tree, the root of the tree is:",
-  "options": ["1", "4", "7", "2"],
+  "options": [
+   "1",
+   "4",
+   "7",
+   "2"
+  ],
   "correctIndex": 0,
   "explanation": "The first element of a pre-order traversal is always the root. Here pre-order starts with 1, so the root is 1. (In-order then splits into left subtree [4,2,5] and right subtree [6,3,7].)",
-  "distractorRationales": ["", "4 is the leftmost in-order node (a leaf), not the root.", "7 is the rightmost node, a leaf, not the root.", "2 is the root of the left subtree, identified later in pre-order, not the overall root."]
+  "distractorRationales": [
+   "",
+   "4 is the leftmost in-order node (a leaf), not the root.",
+   "7 is the rightmost node, a leaf, not the root.",
+   "2 is the root of the left subtree, identified later in pre-order, not the overall root."
+  ]
  },
  {
   "course": "data-structures-algorithms",
   "subtopic": "trees-binary-search-trees",
   "difficulty": "hard",
   "questionText": "A B-tree of order m (each node has at most m children) is preferred over a balanced BST for disk-based storage because:",
-  "options": ["Its high fan-out keeps the tree shallow, minimizing the number of disk accesses per operation", "It uses less CPU per comparison", "It never needs to split nodes", "It stores data only in the root"],
+  "options": [
+   "Its high fan-out keeps the tree shallow, minimizing the number of disk accesses per operation",
+   "It uses less CPU per comparison",
+   "It never needs to split nodes",
+   "It stores data only in the root"
+  ],
   "correctIndex": 0,
   "explanation": "B-trees pack many keys per node (matching a disk block), giving a large fan-out and very low height (log_m n). Since each node is one disk read, fewer levels mean fewer expensive disk accesses than a binary tree.",
-  "distractorRationales": ["", "Per-comparison CPU cost is not the advantage; minimizing disk I/O is.", "B-trees do split (and merge) nodes to maintain balance during insertions/deletions.", "B-trees store keys throughout their nodes, not only in the root."]
+  "distractorRationales": [
+   "",
+   "Per-comparison CPU cost is not the advantage; minimizing disk I/O is.",
+   "B-trees do split (and merge) nodes to maintain balance during insertions/deletions.",
+   "B-trees store keys throughout their nodes, not only in the root."
+  ]
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "The in-order successor of a node in a BST (when the node has a right subtree) is:",
+  "options": [
+   "The minimum (leftmost) node of its right subtree",
+   "The maximum of its left subtree",
+   "Its parent always",
+   "The root"
+  ],
+  "correctIndex": 0,
+  "explanation": "If a node has a right subtree, its in-order successor is the smallest key in that right subtree (the leftmost node), the next larger value.",
+  "distractorRationales": [
+   "",
+   "The maximum of the left subtree is the in-order PREDECESSOR, not successor.",
+   "The parent is the successor only in the case when the node has no right subtree.",
+   "The root has no special relation to an arbitrary node's successor."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "A pre-order traversal of a binary tree visits nodes in the order:",
+  "options": [
+   "Root, left subtree, right subtree",
+   "Left, root, right",
+   "Left, right, root",
+   "Right, root, left"
+  ],
+  "correctIndex": 0,
+  "explanation": "Pre-order visits the root first, then recursively the left subtree, then the right subtree. (In-order is left-root-right; post-order is left-right-root.)",
+  "distractorRationales": [
+   "",
+   "Left-root-right is in-order traversal.",
+   "Left-right-root is post-order traversal.",
+   "Right-root-left is reverse in-order, not pre-order."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "A complete binary tree with n nodes, stored in an array, has its leaves located at array indices:",
+  "options": [
+   "From ⌊n/2⌋ + 1 to n",
+   "From 1 to ⌊n/2⌋",
+   "Only at index n",
+   "Only at index 1"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a 1-indexed array representation, nodes at indices ⌊n/2⌋+1 through n have no children — they are the leaves. The first ⌊n/2⌋ indices are internal nodes.",
+  "distractorRationales": [
+   "",
+   "Indices 1 to ⌊n/2⌋ are the INTERNAL nodes, not leaves.",
+   "Leaves occupy roughly the second half, not just the last index.",
+   "Index 1 is the root, an internal node for any tree with more than one node."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "What is the minimum possible height of a binary search tree with n nodes?",
+  "options": [
+   "⌊log₂ n⌋",
+   "n − 1",
+   "n/2",
+   "√n"
+  ],
+  "correctIndex": 0,
+  "explanation": "A perfectly balanced BST minimizes height at ⌊log₂ n⌋. The maximum height is n−1 for a degenerate (skewed) tree.",
+  "distractorRationales": [
+   "",
+   "n−1 is the MAXIMUM (worst-case) height of a degenerate BST, not the minimum.",
+   "n/2 is not the height of a balanced binary tree.",
+   "√n is not a binary-tree height bound."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "Searching, inserting, and deleting in an AVL tree of n nodes all run in:",
+  "options": [
+   "O(log n) worst case",
+   "O(n) worst case",
+   "O(1)",
+   "O(n log n)"
+  ],
+  "correctIndex": 0,
+  "explanation": "AVL trees stay balanced (height O(log n)) via rotations after insert/delete, guaranteeing O(log n) worst-case for search, insert, and delete.",
+  "distractorRationales": [
+   "",
+   "O(n) is the unbalanced plain-BST worst case, which AVL trees prevent.",
+   "O(1) is impossible for tree operations that must traverse the height.",
+   "O(n log n) is a sorting cost, not a single tree operation."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "A binary tree where every node has either 0 or 2 children (a 'full' binary tree) with n internal nodes has how many leaf nodes?",
+  "options": [
+   "n + 1",
+   "n",
+   "n − 1",
+   "2n"
+  ],
+  "correctIndex": 0,
+  "explanation": "In a full binary tree, the number of leaves equals the number of internal nodes plus one: leaves = n + 1. This follows by induction (each new internal node adds one net leaf).",
+  "distractorRationales": [
+   "",
+   "n equates leaves with internal nodes, off by one.",
+   "n − 1 undercounts the leaves.",
+   "2n overcounts; a full binary tree has n+1 leaves, not 2n."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "A B-tree of order m differs from a binary search tree in that each B-tree node can have:",
+  "options": [
+   "Up to m children and up to m−1 keys, keeping the tree shallow",
+   "Exactly two children always",
+   "Only one key",
+   "No keys in internal nodes"
+  ],
+  "correctIndex": 0,
+  "explanation": "A B-tree node holds up to m−1 keys and up to m children, giving high fan-out and low height (log_m n) — ideal for disk-based storage where each node is a block.",
+  "distractorRationales": [
+   "",
+   "Exactly two children describes a binary tree, not a B-tree.",
+   "B-tree nodes hold many keys, not just one.",
+   "B-tree internal nodes do store keys (used as separators)."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
+ },
+ {
+  "difficulty": "hard",
+  "questionText": "The number of distinct binary search trees that can be built from the keys {1, 2, 3} is:",
+  "options": [
+   "5",
+   "6",
+   "3",
+   "4"
+  ],
+  "correctIndex": 0,
+  "explanation": "This is the 3rd Catalan number, C₃ = 5. The five BST shapes correspond to choosing each key as the root and recursively arranging the rest.",
+  "distractorRationales": [
+   "",
+   "6 = 3! counts orderings; many give the same BST shape, so it overcounts.",
+   "3 undercounts; there are five distinct shapes.",
+   "4 is not the Catalan number for n = 3."
+  ],
+  "course": "data-structures-algorithms",
+  "subtopic": "trees-binary-search-trees"
  }
 ]

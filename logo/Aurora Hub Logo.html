@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aurora Hub — Logo</title>
+<link rel="icon" type="image/svg+xml" href="aurora-hub-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --tx:#fafafa; --tx2:#a1a1aa; --tx3:#71717a;
+    --line:rgba(255,255,255,0.08); --line2:rgba(255,255,255,0.14);
+    --surface:rgba(255,255,255,0.032);
+    --mono:'Geist Mono',ui-monospace,monospace;
+    --emerald:#34d399; --sky:#38bdf8; --violet:#a78bfa;
+  }
+  html,body{height:100%;}
+  body{
+    background:radial-gradient(125% 100% at 50% -10%, #16161c 0%, #08080b 55%, #050507 100%);
+    color:var(--tx); font-family:'Geist',-apple-system,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh; padding:64px 32px 96px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;}
+
+  /* header */
+  .pagehead{display:flex;align-items:center;gap:16px;margin-bottom:8px;}
+  .pagehead img{width:54px;height:54px;border-radius:16px;}
+  .pagehead h1{font-size:26px;font-weight:600;letter-spacing:-0.03em;}
+  .pagehead p{font-size:14px;color:var(--tx3);margin-top:3px;letter-spacing:-0.01em;}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--tx3);margin-bottom:56px;}
+
+  .grid{display:grid;gap:22px;}
+  .row2{grid-template-columns:1.15fr 0.85fr;}
+  .row3{grid-template-columns:repeat(3,1fr);}
+  @media(max-width:760px){.row2,.row3{grid-template-columns:1fr;}}
+
+  .card{
+    position:relative;border-radius:22px;border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.012));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.05), 0 24px 60px -34px rgba(0,0,0,0.9);
+    overflow:hidden;
+  }
+  .card-label{
+    position:absolute;top:16px;left:18px;z-index:2;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:0.16em;text-transform:uppercase;color:var(--tx3);
+  }
+  .stage{display:flex;align-items:center;justify-content:center;min-height:300px;padding:48px;}
+
+  /* hero mark */
+  .hero .stage{min-height:380px;}
+  .hero-mark{width:248px;height:248px;filter:drop-shadow(0 18px 50px rgba(56,189,248,0.22));}
+
+  /* lockup */
+  .lockup{display:flex;align-items:center;gap:24px;}
+  .lockup img{width:104px;height:104px;}
+  .lockup .word{line-height:0.96;}
+  .lockup .word .a{font-size:46px;font-weight:600;letter-spacing:-0.035em;
+    background:linear-gradient(96deg,var(--emerald),var(--sky) 52%,var(--violet));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .lockup .word .h{font-size:46px;font-weight:600;letter-spacing:-0.035em;color:#fafafa;}
+  .lockup .word .tag{font-size:13px;color:var(--tx3);letter-spacing:0.02em;margin-top:8px;}
+
+  /* app tiles */
+  .tiles{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap;justify-content:center;}
+  .tileblock{text-align:center;}
+  .tileblock img{display:block;border-radius:24px;box-shadow:0 18px 44px -20px rgba(0,0,0,0.8);}
+  .tileblock .t180{border-radius:40px;}
+  .tileblock span{display:block;margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--tx3);}
+
+  /* browser tab mock */
+  .browser{width:100%;max-width:420px;}
+  .tabbar{display:flex;align-items:flex-end;gap:6px;padding:10px 12px 0;background:rgba(255,255,255,0.03);
+    border:1px solid var(--line);border-bottom:0;border-radius:14px 14px 0 0;}
+  .tab{display:flex;align-items:center;gap:8px;padding:9px 14px;background:#101015;border:1px solid var(--line);
+    border-bottom:0;border-radius:9px 9px 0 0;font-size:12.5px;color:var(--tx2);max-width:185px;}
+  .tab img{width:16px;height:16px;border-radius:4px;flex-shrink:0;}
+  .tab.dim{background:transparent;color:var(--tx3);border-color:transparent;}
+  .tab .x{margin-left:4px;color:var(--tx3);font-size:13px;}
+  .urlbar{display:flex;align-items:center;gap:9px;padding:11px 14px;background:#101015;border:1px solid var(--line);
+    border-radius:0 0 14px 14px;font-size:12.5px;color:var(--tx3);font-family:var(--mono);}
+  .urlbar img{width:15px;height:15px;border-radius:4px;}
+
+  /* size ladder */
+  .ladder{display:flex;align-items:flex-end;gap:30px;flex-wrap:wrap;justify-content:center;}
+  .ladder .li{text-align:center;}
+  .ladder img{display:block;image-rendering:auto;border-radius:6px;}
+  .ladder img.r{border-radius:9px;}
+  .ladder span{display:block;margin-top:11px;font-family:var(--mono);font-size:10.5px;color:var(--tx3);}
+
+  /* mono + light */
+  .swatchstage{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;}
+  .chip{width:118px;height:118px;border-radius:22px;display:grid;place-items:center;}
+  .chip.light{background:#f5f5f4;}
+  .chip.mono-d{background:#0b0b10;border:1px solid var(--line);}
+  .chip svg, .chip img{width:78px;height:78px;}
+
+  /* palette */
+  .pal{display:flex;gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);}
+  .pal .sw{flex:1;height:96px;display:flex;flex-direction:column;justify-content:flex-end;padding:11px;}
+  .pal .sw b{font-family:var(--mono);font-size:11px;font-weight:600;color:#08120e;}
+  .pal .sw small{font-family:var(--mono);font-size:9.5px;color:rgba(8,18,14,0.6);}
+
+  .foot{margin-top:54px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+  .foot a{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--line);color:var(--tx2);font-size:13px;
+    text-decoration:none;letter-spacing:-0.01em;transition:all .16s;}
+  .foot a:hover{background:rgba(255,255,255,0.06);border-color:var(--line2);color:var(--tx);transform:translateY(-1px);}
+  .foot a .dot{width:7px;height:7px;border-radius:50%;background:var(--sky);}
+  .secline{font-family:var(--mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--tx3);
+    margin:46px 0 20px;display:flex;align-items:center;gap:14px;}
+  .secline::after{content:'';flex:1;height:1px;background:var(--line);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="pagehead">
+      <img src="aurora-hub-icon.svg" alt="Aurora Hub icon" />
+      <div>
+        <h1>Aurora Hub — Logo</h1>
+        <p>Aurora arc rising from a hub node · emerald → sky → violet</p>
+      </div>
+    </header>
+    <div class="kicker">Identity system · favicon &amp; app icon</div>
+
+    <div class="grid row2">
+      <div class="card hero">
+        <span class="card-label">Logomark</span>
+        <div class="stage">
+          <img class="hero-mark" src="aurora-hub-mark.svg" alt="Aurora Hub mark" />
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-label">App icon</span>
+        <div class="stage">
+          <img src="icon-512.png" alt="Aurora Hub app icon" style="width:188px;height:188px;border-radius:42px;box-shadow:0 22px 50px -22px rgba(0,0,0,0.85);" />
+        </div>
+      </div>
+    </div>
+
+    <div class="secline">Lockup</div>
+    <div class="card">
+      <div class="stage">
+        <div class="lockup">
+          <img src="aurora-hub-mark.svg" alt="" />
+          <div class="word">
+            <span class="a">Aurora</span> <span class="h">Hub</span>
+            <div class="tag">Make your DU dream come true</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="secline">In context</div>
+    <div class="grid row2">
+      <div class="card">
+        <span class="card-label">Browser tab</span>
+        <div class="stage">
+          <div class="browser">
+            <div class="tabbar">
+              <div class="tab"><img src="favicon-32.png" alt="" /> Aurora Hub — Quiz <span class="x">×</span></div>
+              <div class="tab dim">New tab</div>
+            </div>
+            <div class="urlbar"><img src="favicon-32.png" alt="" /> aurorahub.app/quiz</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-label">Home screen</span>
+        <div class="stage">
+          <div class="tiles">
+            <div class="tileblock">
+              <img class="t180" src="apple-touch-icon-180.png" width="120" height="120" alt="180px app icon" />
+              <span>180 · iOS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="secline">Size ladder</div>
+    <div class="card">
+      <div class="stage">
+        <div class="ladder">
+          <div class="li"><img class="r" src="favicon-16.png" width="16" height="16" alt="" /><span>16</span></div>
+          <div class="li"><img class="r" src="favicon-32.png" width="32" height="32" alt="" /><span>32</span></div>
+          <div class="li"><img class="r" src="favicon-48.png" width="48" height="48" alt="" /><span>48</span></div>
+          <div class="li"><img class="r" src="apple-touch-icon-180.png" width="96" height="96" alt="" /><span>180</span></div>
+          <div class="li"><img class="r" src="icon-512.png" width="132" height="132" alt="" /><span>512</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="secline">Treatments</div>
+    <div class="grid row2">
+      <div class="card">
+        <span class="card-label">Surfaces</span>
+        <div class="stage">
+          <div class="swatchstage">
+            <div class="chip light">
+              <svg viewBox="0 0 512 512" fill="none"><path d="M116 348 A140 140 0 0 1 396 348" stroke="#18181b" stroke-width="48" stroke-linecap="round"/><circle cx="256" cy="348" r="23" fill="#18181b"/></svg>
+            </div>
+            <div class="chip mono-d">
+              <svg viewBox="0 0 512 512" fill="none"><path d="M116 348 A140 140 0 0 1 396 348" stroke="#fafafa" stroke-width="48" stroke-linecap="round"/><circle cx="256" cy="348" r="23" fill="#fafafa"/></svg>
+            </div>
+            <div class="chip" style="background:#0b0b10;border:1px solid var(--line);">
+              <img src="mark-512.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="card-label">Aurora gradient</span>
+        <div class="stage" style="padding:36px;">
+          <div class="pal" style="width:100%;">
+            <div class="sw" style="background:#34d399;"><b>Emerald</b><small>#34D399</small></div>
+            <div class="sw" style="background:#38bdf8;"><b>Sky</b><small>#38BDF8</small></div>
+            <div class="sw" style="background:#a78bfa;"><b>Violet</b><small>#A78BFA</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <a href="aurora-hub-mark.svg" download><span class="dot"></span> mark.svg</a>
+      <a href="aurora-hub-icon.svg" download><span class="dot"></span> icon.svg</a>
+      <a href="favicon-16.png" download><span class="dot"></span> favicon-16.png</a>
+      <a href="favicon-32.png" download><span class="dot"></span> favicon-32.png</a>
+      <a href="favicon-48.png" download><span class="dot"></span> favicon-48.png</a>
+      <a href="apple-touch-icon-180.png" download><span class="dot"></span> apple-touch-icon-180.png</a>
+      <a href="icon-512.png" download><span class="dot"></span> icon-512.png</a>
+      <a href="mark-512.png" download><span class="dot"></span> mark-512.png</a>
+    </div>
+  </div>
+</body>
+</html>

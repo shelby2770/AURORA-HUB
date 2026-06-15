@@ -1,182 +1,402 @@
 [
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "easy",
-    "questionText": "A 'fail-stop' fault model assumes a faulty process:",
-    "options": ["Halts and its halting can be detected by others", "Sends arbitrary, possibly malicious messages", "Continues running but produces wrong results silently", "Always recovers within a fixed time"],
-    "correctIndex": 0,
-    "explanation": "Fail-stop is the most benign model: a process either works correctly or stops entirely, and other processes can reliably detect the stop. This is stronger (easier) than crash faults (where detection may be uncertain) and far easier than Byzantine faults.",
-    "distractorRationales": ["", "Arbitrary/malicious behavior is the Byzantine model, not fail-stop.", "Silently producing wrong results is a Byzantine/commission fault, not fail-stop.", "Fail-stop says nothing about guaranteed recovery time."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "Which fault type is the hardest to tolerate and requires the most replicas?",
-    "options": ["Byzantine (arbitrary) faults", "Crash faults", "Omission faults", "Fail-stop faults"],
-    "correctIndex": 0,
-    "explanation": "Byzantine faults — where nodes may behave arbitrarily, including lying or colluding — are the hardest. Tolerating f Byzantine faults needs n ≥ 3f + 1 nodes, versus 2f + 1 for crash faults, because honest nodes must overcome both silence and active deception.",
-    "distractorRationales": ["", "Crash faults need only 2f + 1 replicas, easier than Byzantine.", "Omission faults (dropped messages) are a subset of the milder fault spectrum.", "Fail-stop is the easiest model to tolerate, not the hardest."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "hard",
-    "questionText": "The Byzantine Generals problem with oral (unauthenticated) messages is solvable only if the number of generals n and traitors m satisfy:",
-    "options": ["n > 3m", "n > 2m", "n > m", "n > m^2"],
-    "correctIndex": 0,
-    "explanation": "Lamport, Shostak, and Pease proved that with oral messages, Byzantine agreement is achievable iff n > 3m (equivalently n ≥ 3m + 1). With signed (authenticated) messages, the bound relaxes and any number of traitors can be tolerated for the basic problem.",
-    "distractorRationales": ["", "n > 2m is sufficient only for crash/authenticated cases, not oral Byzantine messages.", "n > m is far too weak against arbitrary lying nodes.", "There is no quadratic bound; the requirement is linear, n > 3m."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "A failure detector that never suspects a correct process (no false positives) but may be slow to detect crashes is characterized as:",
-    "options": ["Strongly accurate (but possibly not complete in a timely way)", "Complete but inaccurate", "Both accurate and instantaneous", "Neither accurate nor complete"],
-    "correctIndex": 0,
-    "explanation": "Accuracy concerns false suspicions (never wrongly suspecting a live process), while completeness concerns eventually suspecting crashed processes. A detector with no false positives is accurate; if it can be slow, it may lag on completeness/timeliness. The two properties are independent dimensions.",
-    "distractorRationales": ["", "No false suspicion is accuracy, not the description of 'complete but inaccurate'.", "Real failure detectors in asynchronous systems cannot be both perfectly accurate and instantaneous.", "Having no false positives means it is at least accurate, so 'neither' is wrong."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "easy",
-    "questionText": "Replicating a service across multiple machines so it survives individual failures is an example of which fault-tolerance technique?",
-    "options": ["Redundancy", "Compression", "Sharding", "Load shedding"],
-    "correctIndex": 0,
-    "explanation": "Fault tolerance is fundamentally achieved through redundancy — duplicating components (data, processes, hardware) so the system continues despite individual failures. Sharding partitions data for scale, compression saves space, and load shedding drops excess load; none provide fault tolerance directly.",
-    "distractorRationales": ["", "Compression reduces data size, not failure exposure.", "Sharding splits data for scalability; a shard's loss can still cause unavailability without replication.", "Load shedding manages overload, not component failure."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "A heartbeat mechanism is commonly used to detect node failures. A major tuning challenge is that setting the timeout too short causes:",
-    "options": ["False positives — healthy but slow/overloaded nodes are wrongly declared dead", "Undetectable crashes", "Byzantine behavior", "Loss of message ordering"],
-    "correctIndex": 0,
-    "explanation": "Short heartbeat timeouts make the detector quick but prone to false positives: a temporarily slow or congested node misses a heartbeat and is wrongly marked failed, possibly triggering needless failover. Long timeouts reduce false positives but slow detection — the classic accuracy/completeness trade-off.",
-    "distractorRationales": ["", "Short timeouts make crashes more, not less, detectable; the issue is false alarms.", "Heartbeat timing does not induce Byzantine behavior.", "Heartbeats are about liveness detection, not message ordering."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "hard",
-    "questionText": "Checkpoint-based recovery in distributed systems can suffer the 'domino effect', which means:",
-    "options": ["A cascade of rollbacks across processes due to inconsistent (uncoordinated) checkpoints", "Checkpoints growing exponentially in size", "All processes crashing simultaneously", "Heartbeats triggering one another endlessly"],
-    "correctIndex": 0,
-    "explanation": "With independent (uncoordinated) checkpointing, rolling back one process can force rolling back another (to undo received-but-now-unsent messages), which forces yet another rollback, and so on — potentially back to the start. Coordinated checkpointing creates a consistent global snapshot to avoid this.",
-    "distractorRationales": ["", "The domino effect is about rollback cascades, not checkpoint size growth.", "It does not require simultaneous crashes; it is a recovery-time cascade.", "It is unrelated to heartbeat loops."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "The Chandy–Lamport algorithm captures a consistent global snapshot using:",
-    "options": ["Marker messages that processes send/record on channels to delimit pre- and post-snapshot state", "A globally synchronized clock to freeze all processes", "A central coordinator that pauses every process", "Vector clocks attached to every data item"],
-    "correctIndex": 0,
-    "explanation": "Chandy–Lamport records process states and channel (in-flight message) states by injecting special marker messages: a process records its state when it first sees a marker, then records messages arriving on other channels until their markers arrive. No global clock or global pause is needed.",
-    "distractorRationales": ["", "It deliberately avoids needing a synchronized global clock.", "It does not pause all processes via a central coordinator; recording is local and message-driven.", "It uses markers, not per-item vector clocks."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "easy",
-    "questionText": "What is the difference between 'availability' and 'reliability' of a system?",
-    "options": ["Availability = fraction of time the system is operational; reliability = ability to run correctly without failure over an interval", "They are identical", "Availability concerns security; reliability concerns speed", "Reliability is measured in requests per second"],
-    "correctIndex": 0,
-    "explanation": "Availability is the probability the system is up at a given moment (often expressed as 'nines'); reliability is the probability it operates correctly over a time interval (related to MTTF). A system can be highly available yet have frequent brief failures, or reliable but with long repair times.",
-    "distractorRationales": ["", "They are distinct metrics with different definitions.", "Neither term is about security or raw speed.", "Reliability is a probability over time, not a throughput measure."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "hard",
-    "questionText": "For a system to achieve '5 nines' (99.999%) availability, the maximum tolerated downtime per year is approximately:",
-    "options": ["About 5 minutes", "About 8 hours", "About 1 day", "About 50 minutes"],
-    "correctIndex": 0,
-    "explanation": "99.999% uptime allows only 0.001% downtime. Over a year (~525,600 minutes), that is about 5.26 minutes of downtime per year. Each additional nine reduces tolerated downtime by roughly a factor of ten.",
-    "distractorRationales": ["", "About 8.7 hours corresponds to 99.9% (three nines), not five nines.", "About a day (~99.7%) is far below five nines.", "About 50 minutes corresponds to roughly four nines (99.99%), not five."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "In active replication, even if some replicas crash, the service continues correctly because:",
-    "options": ["The surviving replicas all hold equivalent state and can answer requests", "A single primary handles everything", "The crashed replica is the only one with the data", "Requests are queued until all replicas recover"],
-    "correctIndex": 0,
-    "explanation": "Active (state-machine) replication keeps every replica in the same state by feeding them identically-ordered commands. If some crash, the survivors already hold the same state and continue serving — providing masking fault tolerance with no failover delay (unlike primary-backup, which must promote a backup).",
-    "distractorRationales": ["", "Active replication has no single primary; all replicas process requests.", "Data is replicated across all nodes, so a crashed replica is not uniquely holding it.", "The service does not wait for full recovery; survivors continue immediately."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "'Failover' in a primary-backup system refers to:",
-    "options": ["Promoting a backup to primary after the primary fails", "Splitting load across all replicas", "Rolling all replicas back to a checkpoint", "Encrypting data at rest"],
-    "correctIndex": 0,
-    "explanation": "Failover is the process of detecting a primary's failure and promoting a backup (standby) to become the new primary so service can resume. The time taken (detection + promotion) is the failover latency, during which the service may be briefly unavailable.",
-    "distractorRationales": ["", "Splitting load across replicas is load balancing, not failover.", "Rolling back to a checkpoint is recovery, a different mechanism.", "Encryption at rest is a security feature unrelated to failover."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "hard",
-    "questionText": "Why does authenticated (signed-message) Byzantine agreement tolerate more faulty nodes than the oral-message version?",
-    "options": ["Signatures prevent traitors from forging or altering others' messages, removing ambiguity", "Signatures make messages travel faster", "Signatures synchronize the nodes' clocks", "Signatures reduce the number of required rounds to one"],
-    "correctIndex": 0,
-    "explanation": "Unforgeable signatures stop a traitor from lying about what others said (it cannot fabricate or tamper with a signed value). This eliminates the core difficulty of oral messages, so the n > 3m bound no longer applies and agreement is possible with any number of traitors for the basic problem.",
-    "distractorRationales": ["", "Signatures add verification overhead; they do not speed transmission.", "Signatures provide authenticity, not clock synchronization.", "Signatures relax the fault bound, not collapse the protocol to a single round."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "easy",
-    "questionText": "Which technique masks a failure so that clients never observe it (the system continues to give correct service)?",
-    "options": ["Fault masking via redundancy (e.g., majority voting among replicas)", "Logging the error and crashing", "Retrying once and then giving up", "Alerting an operator"],
-    "correctIndex": 0,
-    "explanation": "Fault masking hides failures from clients, typically by using redundant components and voting (e.g., triple modular redundancy) or quorums so a faulty unit's effect is outvoted. Logging, single retries, or alerting do not by themselves keep service correct and uninterrupted.",
-    "distractorRationales": ["", "Logging then crashing exposes the failure rather than masking it.", "A single retry that gives up still surfaces the failure to the client.", "Alerting an operator is detection/notification, not masking."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "Triple Modular Redundancy (TMR) tolerates the failure of how many of its three modules while still producing a correct (voted) output?",
-    "options": ["1", "2", "3", "0"],
-    "correctIndex": 0,
-    "explanation": "TMR runs three identical modules and takes a majority vote. With three modules a majority is two, so it can mask exactly one failed (or wrong) module. If two fail, the majority vote can be wrong, so TMR tolerates 1 fault.",
-    "distractorRationales": ["", "If two modules fail, the majority of three can be incorrect, so 2 is not tolerated.", "Tolerating all three failing is impossible — there would be no correct output to vote.", "TMR's whole point is to tolerate at least one fault, so 0 is wrong."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "medium",
-    "questionText": "An 'omission failure' in the fault taxonomy refers to a process or channel that:",
-    "options": ["Fails to perform an expected action, e.g., dropping a message it should send/deliver", "Performs an action incorrectly with a wrong value", "Responds too early", "Behaves maliciously and lies"],
-    "correctIndex": 0,
-    "explanation": "Omission failures are failures to act: a send-omission drops an outgoing message, a receive-omission fails to take in an arriving one, and channel omission loses messages in transit. They are distinct from value (commission) faults and from arbitrary/Byzantine faults.",
-    "distractorRationales": ["", "Producing a wrong value is a value/commission fault, not omission.", "Responding too early is a timing fault, not omission.", "Malicious lying is a Byzantine (arbitrary) fault, the most severe class."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "hard",
-    "questionText": "A 'consistent global state' (cut) recorded by a snapshot algorithm must be such that:",
-    "options": ["For every recorded receive event, the matching send event is also recorded", "Every process is recorded at the exact same physical instant", "No messages are ever in transit", "All processes have identical local state"],
-    "correctIndex": 0,
-    "explanation": "A cut is consistent if it does not include the receipt of a message whose send is not also in the cut (no 'effect without cause'). The reverse — a send recorded but its receive in transit — is fine and represents channel state. A consistent snapshot need not be simultaneous in real time.",
-    "distractorRationales": ["", "Snapshots do not require a single real-time instant; that is impossible without synchronized clocks.", "Messages in transit are allowed and are captured as channel state.", "Processes need not have identical state in a consistent cut."]
-  },
-  {
-    "course": "distributed-systems",
-    "subtopic": "fault-tolerance",
-    "difficulty": "easy",
-    "questionText": "Message logging combined with checkpointing helps recovery by allowing a recovered process to:",
-    "options": ["Replay logged messages from the last checkpoint to reconstruct its pre-crash state", "Skip ahead past the failure point instantly", "Avoid ever needing checkpoints", "Ignore all messages received before the crash"],
-    "correctIndex": 0,
-    "explanation": "After restoring the latest checkpoint, a process replays the messages it logged after that checkpoint to deterministically rebuild the state it had just before the crash. This reduces the rollback distance compared with checkpointing alone.",
-    "distractorRationales": ["", "Recovery reconstructs lost work by replay; it cannot magically skip the failure point.", "Logging complements checkpoints; it does not eliminate the need for them.", "It replays (not ignores) the relevant pre-crash messages."]
-  }
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "easy",
+  "questionText": "A 'fail-stop' fault model assumes a faulty process:",
+  "options": [
+   "Halts and its halting can be detected by others",
+   "Sends arbitrary, possibly malicious messages",
+   "Continues running but produces wrong results silently",
+   "Always recovers within a fixed time"
+  ],
+  "correctIndex": 0,
+  "explanation": "Fail-stop is the most benign model: a process either works correctly or stops entirely, and other processes can reliably detect the stop. This is stronger (easier) than crash faults (where detection may be uncertain) and far easier than Byzantine faults.",
+  "distractorRationales": [
+   "",
+   "Arbitrary/malicious behavior is the Byzantine model, not fail-stop.",
+   "Silently producing wrong results is a Byzantine/commission fault, not fail-stop.",
+   "Fail-stop says nothing about guaranteed recovery time."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "Which fault type is the hardest to tolerate and requires the most replicas?",
+  "options": [
+   "Byzantine (arbitrary) faults",
+   "Crash faults",
+   "Omission faults",
+   "Fail-stop faults"
+  ],
+  "correctIndex": 0,
+  "explanation": "Byzantine faults — where nodes may behave arbitrarily, including lying or colluding — are the hardest. Tolerating f Byzantine faults needs n ≥ 3f + 1 nodes, versus 2f + 1 for crash faults, because honest nodes must overcome both silence and active deception.",
+  "distractorRationales": [
+   "",
+   "Crash faults need only 2f + 1 replicas, easier than Byzantine.",
+   "Omission faults (dropped messages) are a subset of the milder fault spectrum.",
+   "Fail-stop is the easiest model to tolerate, not the hardest."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "hard",
+  "questionText": "The Byzantine Generals problem with oral (unauthenticated) messages is solvable only if the number of generals n and traitors m satisfy:",
+  "options": [
+   "n > 3m",
+   "n > 2m",
+   "n > m",
+   "n > m^2"
+  ],
+  "correctIndex": 0,
+  "explanation": "Lamport, Shostak, and Pease proved that with oral messages, Byzantine agreement is achievable iff n > 3m (equivalently n ≥ 3m + 1). With signed (authenticated) messages, the bound relaxes and any number of traitors can be tolerated for the basic problem.",
+  "distractorRationales": [
+   "",
+   "n > 2m is sufficient only for crash/authenticated cases, not oral Byzantine messages.",
+   "n > m is far too weak against arbitrary lying nodes.",
+   "There is no quadratic bound; the requirement is linear, n > 3m."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "A failure detector that never suspects a correct process (no false positives) but may be slow to detect crashes is characterized as:",
+  "options": [
+   "Strongly accurate (but possibly not complete in a timely way)",
+   "Complete but inaccurate",
+   "Both accurate and instantaneous",
+   "Neither accurate nor complete"
+  ],
+  "correctIndex": 0,
+  "explanation": "Accuracy concerns false suspicions (never wrongly suspecting a live process), while completeness concerns eventually suspecting crashed processes. A detector with no false positives is accurate; if it can be slow, it may lag on completeness/timeliness. The two properties are independent dimensions.",
+  "distractorRationales": [
+   "",
+   "No false suspicion is accuracy, not the description of 'complete but inaccurate'.",
+   "Real failure detectors in asynchronous systems cannot be both perfectly accurate and instantaneous.",
+   "Having no false positives means it is at least accurate, so 'neither' is wrong."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "easy",
+  "questionText": "Replicating a service across multiple machines so it survives individual failures is an example of which fault-tolerance technique?",
+  "options": [
+   "Redundancy",
+   "Compression",
+   "Sharding",
+   "Load shedding"
+  ],
+  "correctIndex": 0,
+  "explanation": "Fault tolerance is fundamentally achieved through redundancy — duplicating components (data, processes, hardware) so the system continues despite individual failures. Sharding partitions data for scale, compression saves space, and load shedding drops excess load; none provide fault tolerance directly.",
+  "distractorRationales": [
+   "",
+   "Compression reduces data size, not failure exposure.",
+   "Sharding splits data for scalability; a shard's loss can still cause unavailability without replication.",
+   "Load shedding manages overload, not component failure."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "A heartbeat mechanism is commonly used to detect node failures. A major tuning challenge is that setting the timeout too short causes:",
+  "options": [
+   "False positives — healthy but slow/overloaded nodes are wrongly declared dead",
+   "Undetectable crashes",
+   "Byzantine behavior",
+   "Loss of message ordering"
+  ],
+  "correctIndex": 0,
+  "explanation": "Short heartbeat timeouts make the detector quick but prone to false positives: a temporarily slow or congested node misses a heartbeat and is wrongly marked failed, possibly triggering needless failover. Long timeouts reduce false positives but slow detection — the classic accuracy/completeness trade-off.",
+  "distractorRationales": [
+   "",
+   "Short timeouts make crashes more, not less, detectable; the issue is false alarms.",
+   "Heartbeat timing does not induce Byzantine behavior.",
+   "Heartbeats are about liveness detection, not message ordering."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "hard",
+  "questionText": "Checkpoint-based recovery in distributed systems can suffer the 'domino effect', which means:",
+  "options": [
+   "A cascade of rollbacks across processes due to inconsistent (uncoordinated) checkpoints",
+   "Checkpoints growing exponentially in size",
+   "All processes crashing simultaneously",
+   "Heartbeats triggering one another endlessly"
+  ],
+  "correctIndex": 0,
+  "explanation": "With independent (uncoordinated) checkpointing, rolling back one process can force rolling back another (to undo received-but-now-unsent messages), which forces yet another rollback, and so on — potentially back to the start. Coordinated checkpointing creates a consistent global snapshot to avoid this.",
+  "distractorRationales": [
+   "",
+   "The domino effect is about rollback cascades, not checkpoint size growth.",
+   "It does not require simultaneous crashes; it is a recovery-time cascade.",
+   "It is unrelated to heartbeat loops."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "The Chandy–Lamport algorithm captures a consistent global snapshot using:",
+  "options": [
+   "Marker messages that processes send/record on channels to delimit pre- and post-snapshot state",
+   "A globally synchronized clock to freeze all processes",
+   "A central coordinator that pauses every process",
+   "Vector clocks attached to every data item"
+  ],
+  "correctIndex": 0,
+  "explanation": "Chandy–Lamport records process states and channel (in-flight message) states by injecting special marker messages: a process records its state when it first sees a marker, then records messages arriving on other channels until their markers arrive. No global clock or global pause is needed.",
+  "distractorRationales": [
+   "",
+   "It deliberately avoids needing a synchronized global clock.",
+   "It does not pause all processes via a central coordinator; recording is local and message-driven.",
+   "It uses markers, not per-item vector clocks."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "easy",
+  "questionText": "What is the difference between 'availability' and 'reliability' of a system?",
+  "options": [
+   "Availability = fraction of time the system is operational; reliability = ability to run correctly without failure over an interval",
+   "They are identical",
+   "Availability concerns security; reliability concerns speed",
+   "Reliability is measured in requests per second"
+  ],
+  "correctIndex": 0,
+  "explanation": "Availability is the probability the system is up at a given moment (often expressed as 'nines'); reliability is the probability it operates correctly over a time interval (related to MTTF). A system can be highly available yet have frequent brief failures, or reliable but with long repair times.",
+  "distractorRationales": [
+   "",
+   "They are distinct metrics with different definitions.",
+   "Neither term is about security or raw speed.",
+   "Reliability is a probability over time, not a throughput measure."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "hard",
+  "questionText": "For a system to achieve '5 nines' (99.999%) availability, the maximum tolerated downtime per year is approximately:",
+  "options": [
+   "About 5 minutes",
+   "About 8 hours",
+   "About 1 day",
+   "About 50 minutes"
+  ],
+  "correctIndex": 0,
+  "explanation": "99.999% uptime allows only 0.001% downtime. Over a year (~525,600 minutes), that is about 5.26 minutes of downtime per year. Each additional nine reduces tolerated downtime by roughly a factor of ten.",
+  "distractorRationales": [
+   "",
+   "About 8.7 hours corresponds to 99.9% (three nines), not five nines.",
+   "About a day (~99.7%) is far below five nines.",
+   "About 50 minutes corresponds to roughly four nines (99.99%), not five."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "In active replication, even if some replicas crash, the service continues correctly because:",
+  "options": [
+   "The surviving replicas all hold equivalent state and can answer requests",
+   "A single primary handles everything",
+   "The crashed replica is the only one with the data",
+   "Requests are queued until all replicas recover"
+  ],
+  "correctIndex": 0,
+  "explanation": "Active (state-machine) replication keeps every replica in the same state by feeding them identically-ordered commands. If some crash, the survivors already hold the same state and continue serving — providing masking fault tolerance with no failover delay (unlike primary-backup, which must promote a backup).",
+  "distractorRationales": [
+   "",
+   "Active replication has no single primary; all replicas process requests.",
+   "Data is replicated across all nodes, so a crashed replica is not uniquely holding it.",
+   "The service does not wait for full recovery; survivors continue immediately."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "'Failover' in a primary-backup system refers to:",
+  "options": [
+   "Promoting a backup to primary after the primary fails",
+   "Splitting load across all replicas",
+   "Rolling all replicas back to a checkpoint",
+   "Encrypting data at rest"
+  ],
+  "correctIndex": 0,
+  "explanation": "Failover is the process of detecting a primary's failure and promoting a backup (standby) to become the new primary so service can resume. The time taken (detection + promotion) is the failover latency, during which the service may be briefly unavailable.",
+  "distractorRationales": [
+   "",
+   "Splitting load across replicas is load balancing, not failover.",
+   "Rolling back to a checkpoint is recovery, a different mechanism.",
+   "Encryption at rest is a security feature unrelated to failover."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "hard",
+  "questionText": "Why does authenticated (signed-message) Byzantine agreement tolerate more faulty nodes than the oral-message version?",
+  "options": [
+   "Signatures prevent traitors from forging or altering others' messages, removing ambiguity",
+   "Signatures make messages travel faster",
+   "Signatures synchronize the nodes' clocks",
+   "Signatures reduce the number of required rounds to one"
+  ],
+  "correctIndex": 0,
+  "explanation": "Unforgeable signatures stop a traitor from lying about what others said (it cannot fabricate or tamper with a signed value). This eliminates the core difficulty of oral messages, so the n > 3m bound no longer applies and agreement is possible with any number of traitors for the basic problem.",
+  "distractorRationales": [
+   "",
+   "Signatures add verification overhead; they do not speed transmission.",
+   "Signatures provide authenticity, not clock synchronization.",
+   "Signatures relax the fault bound, not collapse the protocol to a single round."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "easy",
+  "questionText": "Which technique masks a failure so that clients never observe it (the system continues to give correct service)?",
+  "options": [
+   "Fault masking via redundancy (e.g., majority voting among replicas)",
+   "Logging the error and crashing",
+   "Retrying once and then giving up",
+   "Alerting an operator"
+  ],
+  "correctIndex": 0,
+  "explanation": "Fault masking hides failures from clients, typically by using redundant components and voting (e.g., triple modular redundancy) or quorums so a faulty unit's effect is outvoted. Logging, single retries, or alerting do not by themselves keep service correct and uninterrupted.",
+  "distractorRationales": [
+   "",
+   "Logging then crashing exposes the failure rather than masking it.",
+   "A single retry that gives up still surfaces the failure to the client.",
+   "Alerting an operator is detection/notification, not masking."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "Triple Modular Redundancy (TMR) tolerates the failure of how many of its three modules while still producing a correct (voted) output?",
+  "options": [
+   "1",
+   "2",
+   "3",
+   "0"
+  ],
+  "correctIndex": 0,
+  "explanation": "TMR runs three identical modules and takes a majority vote. With three modules a majority is two, so it can mask exactly one failed (or wrong) module. If two fail, the majority vote can be wrong, so TMR tolerates 1 fault.",
+  "distractorRationales": [
+   "",
+   "If two modules fail, the majority of three can be incorrect, so 2 is not tolerated.",
+   "Tolerating all three failing is impossible — there would be no correct output to vote.",
+   "TMR's whole point is to tolerate at least one fault, so 0 is wrong."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "medium",
+  "questionText": "An 'omission failure' in the fault taxonomy refers to a process or channel that:",
+  "options": [
+   "Fails to perform an expected action, e.g., dropping a message it should send/deliver",
+   "Performs an action incorrectly with a wrong value",
+   "Responds too early",
+   "Behaves maliciously and lies"
+  ],
+  "correctIndex": 0,
+  "explanation": "Omission failures are failures to act: a send-omission drops an outgoing message, a receive-omission fails to take in an arriving one, and channel omission loses messages in transit. They are distinct from value (commission) faults and from arbitrary/Byzantine faults.",
+  "distractorRationales": [
+   "",
+   "Producing a wrong value is a value/commission fault, not omission.",
+   "Responding too early is a timing fault, not omission.",
+   "Malicious lying is a Byzantine (arbitrary) fault, the most severe class."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "hard",
+  "questionText": "A 'consistent global state' (cut) recorded by a snapshot algorithm must be such that:",
+  "options": [
+   "For every recorded receive event, the matching send event is also recorded",
+   "Every process is recorded at the exact same physical instant",
+   "No messages are ever in transit",
+   "All processes have identical local state"
+  ],
+  "correctIndex": 0,
+  "explanation": "A cut is consistent if it does not include the receipt of a message whose send is not also in the cut (no 'effect without cause'). The reverse — a send recorded but its receive in transit — is fine and represents channel state. A consistent snapshot need not be simultaneous in real time.",
+  "distractorRationales": [
+   "",
+   "Snapshots do not require a single real-time instant; that is impossible without synchronized clocks.",
+   "Messages in transit are allowed and are captured as channel state.",
+   "Processes need not have identical state in a consistent cut."
+  ]
+ },
+ {
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance",
+  "difficulty": "easy",
+  "questionText": "Message logging combined with checkpointing helps recovery by allowing a recovered process to:",
+  "options": [
+   "Replay logged messages from the last checkpoint to reconstruct its pre-crash state",
+   "Skip ahead past the failure point instantly",
+   "Avoid ever needing checkpoints",
+   "Ignore all messages received before the crash"
+  ],
+  "correctIndex": 0,
+  "explanation": "After restoring the latest checkpoint, a process replays the messages it logged after that checkpoint to deterministically rebuild the state it had just before the crash. This reduces the rollback distance compared with checkpointing alone.",
+  "distractorRationales": [
+   "",
+   "Recovery reconstructs lost work by replay; it cannot magically skip the failure point.",
+   "Logging complements checkpoints; it does not eliminate the need for them.",
+   "It replays (not ignores) the relevant pre-crash messages."
+  ]
+ },
+ {
+  "difficulty": "medium",
+  "questionText": "To tolerate f Byzantine (arbitrary/malicious) faulty nodes, a system using BFT consensus generally needs at least:",
+  "options": [
+   "3f + 1 total nodes",
+   "2f + 1 total nodes",
+   "f + 1 total nodes",
+   "2f total nodes"
+  ],
+  "correctIndex": 0,
+  "explanation": "Byzantine fault tolerance requires 3f+1 nodes to tolerate f arbitrary faults, so that a quorum of 2f+1 honest responses always outvotes the f faulty ones. Crash-only (non-Byzantine) tolerance needs just 2f+1.",
+  "distractorRationales": [
+   "",
+   "2f+1 suffices only for crash (fail-stop) faults, not Byzantine ones.",
+   "f+1 only ensures one correct node remains; it cannot mask malicious behavior.",
+   "2f is insufficient and does not even guarantee a correct majority."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance"
+ },
+ {
+  "difficulty": "easy",
+  "questionText": "Checkpointing in a fault-tolerant system is used to:",
+  "options": [
+   "Periodically save state so computation can resume from a recent point after a failure",
+   "Encrypt messages between nodes",
+   "Elect a new leader",
+   "Balance load across servers"
+  ],
+  "correctIndex": 0,
+  "explanation": "Checkpointing saves a consistent snapshot of process state to stable storage; after a crash, the system rolls back to the last checkpoint instead of restarting from scratch, bounding lost work.",
+  "distractorRationales": [
+   "",
+   "Encryption is a security mechanism, unrelated to checkpoint/restart.",
+   "Leader election is a separate coordination problem.",
+   "Load balancing distributes work; it is not what checkpointing does."
+  ],
+  "course": "distributed-systems",
+  "subtopic": "fault-tolerance"
+ }
 ]
