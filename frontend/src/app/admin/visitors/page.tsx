@@ -38,6 +38,26 @@ function place(geo: Visit["geo"]): string {
   return [geo.city, geo.region, geo.country].filter(Boolean).join(", ") || "—";
 }
 
+/** Always render in Bangladesh time (GMT+6), regardless of the viewer's device. */
+function bdt(iso: string): string {
+  return (
+    new Date(iso).toLocaleString("en-GB", {
+      timeZone: "Asia/Dhaka",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }) + " BDT"
+  );
+}
+
+function mapsUrl(lat: number, lon: number): string {
+  return `https://www.google.com/maps?q=${lat},${lon}`;
+}
+
 function isUnauthorized(err: unknown): boolean {
   return err instanceof ApiError && err.status === 401;
 }
@@ -237,8 +257,9 @@ function Dashboard({
               <table className="w-full text-left text-sm">
                 <thead className="text-xs text-muted-foreground">
                   <tr className="border-b border-foreground/10">
-                    <th className="py-2 pr-3 font-medium">When</th>
-                    <th className="py-2 pr-3 font-medium">Location</th>
+                    <th className="py-2 pr-3 font-medium">When (BDT)</th>
+                    <th className="py-2 pr-3 font-medium">Location (approx.)</th>
+                    <th className="py-2 pr-3 font-medium">Coordinates</th>
                     <th className="py-2 pr-3 font-medium">IP</th>
                     <th className="py-2 font-medium">Path</th>
                   </tr>
@@ -247,7 +268,7 @@ function Dashboard({
                   {(visits.data ?? []).map((v: Visit) => (
                     <tr key={v.id}>
                       <td className="py-2 pr-3 whitespace-nowrap text-muted-foreground">
-                        {new Date(v.createdAt).toLocaleString()}
+                        {bdt(v.createdAt)}
                       </td>
                       <td className="py-2 pr-3">
                         <span className="flex items-center gap-1.5">
@@ -255,6 +276,20 @@ function Dashboard({
                           <MapPin className="size-3 text-muted-foreground" />
                           {place(v.geo)}
                         </span>
+                      </td>
+                      <td className="py-2 pr-3 whitespace-nowrap font-mono text-xs">
+                        {v.geo?.lat != null && v.geo?.lon != null ? (
+                          <a
+                            href={mapsUrl(v.geo.lat, v.geo.lon)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary underline-offset-2 hover:underline"
+                          >
+                            {v.geo.lat.toFixed(4)}, {v.geo.lon.toFixed(4)}
+                          </a>
+                        ) : (
+                          "—"
+                        )}
                       </td>
                       <td className="py-2 pr-3 font-mono text-xs">{v.ip}</td>
                       <td className="py-2 text-muted-foreground">
