@@ -13,8 +13,9 @@ class Settings(BaseSettings):
     mongodb_uri: str = "mongodb://localhost:27017"
     mongodb_db: str = "aurora_hub"
 
-    # CORS
-    cors_origins: str = "http://localhost:3000,capacitor://localhost,http://localhost"
+    # CORS. `https://localhost` is the Capacitor Android WebView origin (default
+    # androidScheme: https); `capacitor://localhost` is the iOS origin.
+    cors_origins: str = "http://localhost:3000,capacitor://localhost,http://localhost,https://localhost"
 
     # Admin password gating the visitor-analytics read endpoints. Set via the
     # ADMIN_PASSWORD env var (e.g. in the Render dashboard). Empty == open (dev).

@@ -39,7 +39,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 const WHOLE_COURSE = "__whole__";
-const COUNTS = [5, 10, 20, 30, 40];
+// 0 is the "All" sentinel: serve every available question in the scope. The
+// backend resolves it to the current verified pool size (see /quiz/start).
+const ALL_COUNT = 0;
+const COUNTS = [5, 10, 20, 30, 40, ALL_COUNT];
+const countLabel = (c: number) => (c === ALL_COUNT ? "All" : String(c));
 const DIFFICULTIES: RequestDifficulty[] = ["easy", "medium", "hard", "random"];
 
 export default function ConfigPage() {
@@ -151,10 +155,11 @@ export default function ConfigPage() {
     setStarting(true);
     const subId = wholeCourse ? null : subtopicId;
     try {
-      // For a subtopic, check the verified pool first. If it can't satisfy the
-      // requested count, block and ask the user to pick a smaller amount rather
-      // than silently starting short. Whole-course serves whatever exists.
-      if (subId) {
+      // For a subtopic with a fixed count, check the verified pool first. If it
+      // can't satisfy the requested count, block and ask the user to pick a
+      // smaller amount rather than silently starting short. "All" (and whole-
+      // course) skips this check — it serves whatever exists by design.
+      if (subId && count !== ALL_COUNT) {
         const fill = await fillQuiz({
           courseId: course.id,
           subtopicId: subId,
@@ -353,6 +358,7 @@ export default function ConfigPage() {
           options={COUNTS}
           value={count}
           onChange={setCount}
+          getLabel={countLabel}
         />
       </section>
 

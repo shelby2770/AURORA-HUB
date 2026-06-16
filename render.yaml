@@ -20,8 +20,10 @@ services:
         sync: false
       - key: MONGODB_DB
         value: aurora_hub
-      - key: CORS_ORIGINS # add your deployed frontend origin once it exists
-        value: http://localhost:3000,capacitor://localhost,http://localhost
+      - key: CORS_ORIGINS
+        # capacitor://localhost = iOS WebView; https://localhost = Android WebView;
+        # aurora-hub-one.vercel.app = deployed web frontend.
+        value: http://localhost:3000,capacitor://localhost,http://localhost,https://aurora-hub-one.vercel.app,https://localhost
       # ── LLM keys: only needed for the authoring/ingestion plane, NOT serving ──
       - key: GEMINI_API_KEY
         sync: false

@@ -11,6 +11,7 @@ from app.models.enums import QuizMode
 from app.models.question import Question
 from app.models.quiz_session import QuizScope, QuizSession
 from app.schemas.quiz import (
+    ALL_COUNT,
     SECONDS_PER_QUESTION,
     QuestionOut,
     QuestionReview,
@@ -87,11 +88,16 @@ async def start_quiz(req: QuizStartRequest) -> QuizStartResponse:
             )
 
     model_difficulty = req.difficulty.as_model_difficulty()
+    # count == ALL_COUNT means "give me everything in this scope": resolve it to
+    # the current verified pool size so selection pulls all available questions.
+    count = req.count
+    if count == ALL_COUNT:
+        count = await count_available(req.courseId, req.subtopicId, model_difficulty)
     selected = await select_questions(
         course_id=req.courseId,
         subtopic_id=req.subtopicId,
         difficulty=model_difficulty,
-        count=req.count,
+        count=count,
     )
     if not selected:
         raise HTTPException(

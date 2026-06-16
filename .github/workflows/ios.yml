@@ -1,0 +1,70 @@
+name: iOS build
+
+# iOS cannot be built on Linux (needs macOS + Xcode + CocoaPods), so this runs
+# on a GitHub-hosted macOS runner. Without Apple signing secrets it only proves
+# the app COMPILES for the simulator. Add the secrets listed below to also
+# archive a signed .ipa and push it to TestFlight.
+#
+# Required repo secrets for the signed/TestFlight path (all optional until then):
+#   IOS_DIST_CERT_P12_BASE64   - base64 of your Apple distribution cert (.p12)
+#   IOS_DIST_CERT_PASSWORD     - password for that .p12
+#   IOS_PROVISIONING_PROFILE_BASE64 - base64 of the App Store provisioning profile
+#   APPSTORE_CONNECT_API_KEY_ID, APPSTORE_CONNECT_API_ISSUER_ID,
+#   APPSTORE_CONNECT_API_KEY_BASE64 - App Store Connect API key for upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/ios.yml"
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build web export
+        run: npm run build
+
+      - name: Add iOS platform (first run) / sync
+        run: |
+          if [ ! -d ios ]; then npx cap add ios; fi
+          npx cap sync ios
+
+      - name: CocoaPods install
+        run: |
+          cd ios/App
+          pod install
+
+      # ---- Unsigned compile check (no secrets needed) ----
+      - name: Build for simulator (compile check)
+        run: |
+          cd ios/App
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            build CODE_SIGNING_ALLOWED=NO | xcpretty || true
+
+      # ---- Signed archive + TestFlight (runs only when secrets are present) ----
+      # Fill in the signing/upload steps once you have an Apple Developer account.
+      # Recommended: use `apple-actions/import-codesign-certs` and
+      # `apple-actions/upload-testflight-build`, gated on the secrets above.

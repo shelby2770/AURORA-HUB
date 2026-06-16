@@ -17,7 +17,13 @@ from app.models.question import Question
 
 # Selectable question counts (same for every scope).
 ALLOWED_COUNTS = {5, 10, 20, 30, 40}
+# Sentinel count meaning "serve every available question in the scope".
+ALL_COUNT = 0
 SECONDS_PER_QUESTION = 90
+
+
+def _is_valid_count(count: int) -> bool:
+    return count == ALL_COUNT or count in ALLOWED_COUNTS
 
 
 class RequestDifficulty(str, Enum):
@@ -75,9 +81,10 @@ class QuizStartRequest(BaseModel):
 
     @model_validator(mode="after")
     def _validate_count(self) -> "QuizStartRequest":
-        if self.count not in ALLOWED_COUNTS:
+        if not _is_valid_count(self.count):
             raise ValueError(
-                f"count {self.count} not allowed; allowed: {sorted(ALLOWED_COUNTS)}"
+                f"count {self.count} not allowed; allowed: "
+                f"{sorted(ALLOWED_COUNTS)} or {ALL_COUNT} (all)"
             )
         return self
 
@@ -102,9 +109,10 @@ class QuizFillRequest(BaseModel):
 
     @model_validator(mode="after")
     def _validate_count(self) -> "QuizFillRequest":
-        if self.count not in ALLOWED_COUNTS:
+        if not _is_valid_count(self.count):
             raise ValueError(
-                f"count {self.count} not allowed; allowed: {sorted(ALLOWED_COUNTS)}"
+                f"count {self.count} not allowed; allowed: "
+                f"{sorted(ALLOWED_COUNTS)} or {ALL_COUNT} (all)"
             )
         return self
 

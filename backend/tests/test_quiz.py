@@ -155,6 +155,36 @@ async def test_non_standard_count_rejected(client):
     assert resp.status_code == 422
 
 
+# ── "All" sentinel (count=0) ─────────────────────────────────────────────────
+async def test_count_all_serves_entire_pool(client):
+    course, sub = await _course_and_subtopic()
+    await make_many(course_id=course.id, subtopic_id=sub.id, n=7,
+                    source=QuestionSource.exemplar)
+    await make_many(course_id=course.id, subtopic_id=sub.id, n=4,
+                    source=QuestionSource.generated)
+    resp = await _start(client, course, sub, count=0)  # "All"
+    assert resp.status_code == 200
+    assert resp.json()["count"] == 11  # every verified question in the subtopic
+
+
+async def test_count_all_respects_difficulty_filter(client):
+    course, sub = await _course_and_subtopic()
+    await make_many(course_id=course.id, subtopic_id=sub.id, n=5,
+                    source=QuestionSource.exemplar, difficulty=Difficulty.hard)
+    await make_many(course_id=course.id, subtopic_id=sub.id, n=3,
+                    source=QuestionSource.exemplar, difficulty=Difficulty.easy)
+    resp = await _start(client, course, sub, count=0, difficulty="hard")
+    data = resp.json()
+    assert data["count"] == 5
+    assert all(q["difficulty"] == "hard" for q in data["questions"])
+
+
+async def test_count_all_empty_404(client):
+    course, sub = await _course_and_subtopic()
+    resp = await _start(client, course, sub, count=0)
+    assert resp.status_code == 404
+
+
 # ── empties / not-found ─────────────────────────────────────────────────────
 async def test_no_questions_404(client):
     course, sub = await _course_and_subtopic()

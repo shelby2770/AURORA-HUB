@@ -1,0 +1,26 @@
+name: Keep Render backend awake
+
+# Render's free tier spins a service down after ~15 min of inactivity, causing a
+# slow cold start on the next request. This pings /health every 10 min so it stays up.
+on:
+  schedule:
+    # Every 13 minutes. GitHub may delay scheduled runs by a few minutes under load,
+    # but 13 min stays under Render's 15 min idle window.
+    - cron: "*/13 * * * *"
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /health
+        env:
+          # Override by creating a repo variable named BACKEND_URL
+          # (Settings → Secrets and variables → Actions → Variables).
+          BACKEND_URL: ${{ vars.BACKEND_URL || 'https://aurora-hub-backend.onrender.com' }}
+        run: |
+          echo "Pinging ${BACKEND_URL}/health"
+          code=$(curl -sS -o /tmp/body -w '%{http_code}' --max-time 90 --retry 3 --retry-all-errors "${BACKEND_URL}/health")
+          echo "HTTP ${code}"
+          cat /tmp/body || true
+          test "${code}" = "200"
