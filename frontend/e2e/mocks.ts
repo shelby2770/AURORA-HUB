@@ -120,3 +120,100 @@ export async function setupApiMocks(page: Page) {
     });
   });
 }
+
+// Three-question stand-in for a model test (real tests have 50). Mirrors the
+// model-test API shape: an option object isn't used — the backend already
+// returns options as an array — and answers are withheld on start.
+export const MOCK_MODEL_TEST_QUESTIONS = [
+  {
+    number: 1,
+    subject: "Mathematics",
+    marks: 3,
+    questionText: "What is $2+2$?",
+    options: ["3", "4", "5", "6"],
+    correctIndex: 1,
+    explanation: "Because $2+2=4$.",
+  },
+  {
+    number: 2,
+    subject: "Programming",
+    marks: 3,
+    questionText: "What does the loop print?",
+    codeSnippet: 'for (int i = 0; i < 3; i++) printf("%d", i);',
+    codeLang: "c",
+    options: ["012", "123", "000", "111"],
+    correctIndex: 0,
+    explanation: "i takes 0, 1, 2.",
+  },
+  {
+    number: 3,
+    subject: "Data Structures & Algorithms (DSA)",
+    marks: 3,
+    questionText: "Master theorem complexity?",
+    latex: "T(n) = 2T(n/2) + n",
+    options: ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+    correctIndex: 1,
+    explanation: "Master theorem case 2.",
+  },
+];
+
+export async function setupModelTestMocks(page: Page) {
+  await page.route("**/model-tests", (route) =>
+    json(route, [
+      {
+        slug: "model-test-1",
+        title: "Model Test 1",
+        totalQuestions: 3,
+        fullMarks: 9,
+        timeMinutes: 90,
+        marksPerQuestion: 3,
+        passMarks: 4,
+      },
+    ]),
+  );
+
+  await page.route("**/model-tests/*/start", (route) =>
+    json(route, {
+      sessionId: "mtsess1",
+      slug: "model-test-1",
+      title: "Model Test 1",
+      durationSeconds: 5400,
+      totalQuestions: 3,
+      fullMarks: 9,
+      passMarks: 4,
+      marksPerQuestion: 3,
+      instructions: ["Answer all questions."],
+      questions: MOCK_MODEL_TEST_QUESTIONS.map(stripAnswers),
+    }),
+  );
+
+  await page.route("**/model-tests/sessions/*/submit", (route) => {
+    const { answers } = JSON.parse(route.request().postData() || "{}");
+    let score = 0;
+    const breakdown: Record<string, { correct: number; total: number }> = {};
+    const questions = MOCK_MODEL_TEST_QUESTIONS.map((q, i) => {
+      const selectedIndex = answers[i] ?? null;
+      const isCorrect = selectedIndex === q.correctIndex;
+      if (isCorrect) score += 1;
+      const b = (breakdown[q.subject] ??= { correct: 0, total: 0 });
+      b.total += 1;
+      if (isCorrect) b.correct += 1;
+      return { ...q, selectedIndex, isCorrect };
+    });
+    const marks = score * 3;
+    return json(route, {
+      sessionId: "mtsess1",
+      score,
+      total: MOCK_MODEL_TEST_QUESTIONS.length,
+      marks,
+      fullMarks: 9,
+      passMarks: 4,
+      passed: marks >= 4,
+      subjectBreakdown: Object.entries(breakdown).map(([subject, v]) => ({
+        subject,
+        ...v,
+      })),
+      questions,
+    });
+  });
+}

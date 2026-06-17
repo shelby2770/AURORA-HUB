@@ -1,0 +1,475 @@
+{
+  "exam": {
+    "title": "MSc Admission Test Preparation",
+    "model_test": "Model Test 1",
+    "full_marks": 150,
+    "time": "90 minutes",
+    "total_questions": 50,
+    "marks_per_question": 3,
+    "negative_marking": false,
+    "instructions": [
+      "Answer all fifty questions. Each question carries 3 marks.",
+      "There is no negative marking. The qualifying mark is 60 (40%)."
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What are the eigenvalues of the matrix [[4, 1], [2, 3]]?",
+      "options": { "a": "5 and 2", "b": "4 and 3", "c": "7 and 10", "d": "1 and 6" },
+      "answer": "a",
+      "explanation": "The characteristic equation is (4-λ)(3-λ) - 2 = λ² - 7λ + 10 = (λ-5)(λ-2) = 0, giving eigenvalues 5 and 2."
+    },
+    {
+      "number": 2,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "If A is a 3×3 matrix with det(A) = 5, what is det(2A)?",
+      "options": { "a": "10", "b": "40", "c": "20", "d": "80" },
+      "answer": "b",
+      "explanation": "For an n×n matrix, det(kA) = kⁿ·det(A). Here det(2A) = 2³ × 5 = 40."
+    },
+    {
+      "number": 3,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "Evaluate the definite integral $\\int_0^1 x^2\\,dx$.",
+      "options": { "a": "1/2", "b": "1/3", "c": "1", "d": "1/4" },
+      "answer": "b",
+      "explanation": "∫x² dx = x³/3, evaluated from 0 to 1 gives 1/3."
+    },
+    {
+      "number": 4,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "A linear system in 3 unknowns has coefficient-matrix rank 2 and augmented-matrix rank 3. How many solutions does it have?",
+      "options": { "a": "A unique solution", "b": "Infinitely many", "c": "No solution", "d": "Exactly two" },
+      "answer": "c",
+      "explanation": "When rank(A) < rank([A|b]) the system is inconsistent, so it has no solution."
+    },
+    {
+      "number": 5,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is the value of $\\lim_{x \\to 0} \\frac{\\sin x}{x}$?",
+      "options": { "a": "0", "b": "1", "c": "∞", "d": "Undefined" },
+      "answer": "b",
+      "explanation": "This is a standard limit; sin(x)/x → 1 as x → 0 (also seen from the Taylor series sin x = x - x³/6 + …)."
+    },
+    {
+      "number": 6,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "A fair coin is tossed 3 times. What is the probability of getting exactly 2 heads?",
+      "options": { "a": "1/8", "b": "3/8", "c": "1/2", "d": "1/4" },
+      "answer": "b",
+      "explanation": "Favourable outcomes = C(3,2) = 3 out of 2³ = 8 total, so probability = 3/8."
+    },
+    {
+      "number": 7,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "What is the arithmetic mean of the data set 2, 4, 6, 8, 10?",
+      "options": { "a": "5", "b": "6", "c": "30", "d": "6.5" },
+      "answer": "b",
+      "explanation": "Mean = (2+4+6+8+10)/5 = 30/5 = 6."
+    },
+    {
+      "number": 8,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "If the standard deviation of a data set is 4, what is its variance?",
+      "options": { "a": "2", "b": "8", "c": "16", "d": "4" },
+      "answer": "c",
+      "explanation": "Variance is the square of the standard deviation: 4² = 16."
+    },
+    {
+      "number": 9,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The language L = { aⁿbⁿ | n ≥ 0 } is best classified as:",
+      "options": { "a": "Regular", "b": "Context-free but not regular", "c": "Recursively enumerable but not context-free", "d": "Not a language" },
+      "answer": "b",
+      "explanation": "Matching counts of a's and b's needs a stack, so L is context-free; a finite automaton cannot count, so it is not regular."
+    },
+    {
+      "number": 10,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "Which computational model is the most powerful (recognizes the largest class of languages)?",
+      "options": { "a": "Finite automaton", "b": "Pushdown automaton", "c": "Turing machine", "d": "Regular expression" },
+      "answer": "c",
+      "explanation": "Turing machines recognize the recursively enumerable languages, a strict superset of the context-free (PDA) and regular (FA/regex) classes."
+    },
+    {
+      "number": 11,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "How many states does the minimal DFA accepting binary strings whose value is divisible by 3 have?",
+      "options": { "a": "2", "b": "3", "c": "4", "d": "6" },
+      "answer": "b",
+      "explanation": "One state per remainder mod 3 (0, 1, 2) suffices and is minimal, so 3 states."
+    },
+    {
+      "number": 12,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The pumping lemma for regular languages is most commonly used to prove that a language:",
+      "options": { "a": "is regular", "b": "is not regular", "c": "is context-free", "d": "is decidable" },
+      "answer": "b",
+      "explanation": "The pumping lemma states a property all regular languages satisfy; finding a string that violates it proves a language is NOT regular."
+    },
+    {
+      "number": 13,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the output of the following C code?",
+      "language": "c",
+      "code": "int a = 5, b = 2;\nprintf(\"%d\", a / b);",
+      "options": { "a": "2.5", "b": "2", "c": "3", "d": "2.0" },
+      "answer": "b",
+      "explanation": "Integer division truncates toward zero, so 5 / 2 evaluates to 2."
+    },
+    {
+      "number": 14,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Predict the output of this C program:",
+      "language": "c",
+      "code": "int x = 3, y = 4;\nint z = x++ * y;\nprintf(\"%d %d\", z, x);",
+      "options": { "a": "12 4", "b": "16 4", "c": "12 3", "d": "16 3" },
+      "answer": "a",
+      "explanation": "Post-increment uses the old x (3) in 3 * 4 = 12, then x becomes 4, so it prints \"12 4\"."
+    },
+    {
+      "number": 15,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is printed by the following Java code?",
+      "language": "java",
+      "code": "String s = \"hello\";\nSystem.out.println(s.length());",
+      "options": { "a": "4", "b": "5", "c": "6", "d": "Compilation error" },
+      "answer": "b",
+      "explanation": "\"hello\" contains five characters, so length() returns 5."
+    },
+    {
+      "number": 16,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which object-oriented concept allows a single function or operator to behave differently based on its operands or context?",
+      "options": { "a": "Encapsulation", "b": "Inheritance", "c": "Polymorphism", "d": "Abstraction" },
+      "answer": "c",
+      "explanation": "Polymorphism (\"many forms\") lets the same interface invoke different behaviour, e.g. via overloading or overriding."
+    },
+    {
+      "number": 17,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the output of this C code?",
+      "language": "c",
+      "code": "int i;\nfor (i = 0; i < 5; i++);\nprintf(\"%d\", i);",
+      "options": { "a": "4", "b": "5", "c": "0", "d": "Infinite loop" },
+      "answer": "b",
+      "explanation": "The semicolon makes the loop body empty; the loop still runs until i reaches 5, which is then printed."
+    },
+    {
+      "number": 18,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the worst-case time complexity of searching in a balanced binary search tree with n nodes?",
+      "options": { "a": "O(n)", "b": "O(log n)", "c": "O(1)", "d": "O(n log n)" },
+      "answer": "b",
+      "explanation": "A balanced BST has height O(log n), so search visits at most O(log n) nodes."
+    },
+    {
+      "number": 19,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which of the following sorting algorithms is stable in its standard implementation?",
+      "options": { "a": "Quick sort", "b": "Heap sort", "c": "Merge sort", "d": "Selection sort" },
+      "answer": "c",
+      "explanation": "Merge sort preserves the relative order of equal keys, making it stable; standard quick/heap/selection sort are not."
+    },
+    {
+      "number": 20,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "The height of a complete binary tree with n nodes is:",
+      "options": { "a": "O(n)", "b": "⌊log₂ n⌋", "c": "n/2", "d": "√n" },
+      "answer": "b",
+      "explanation": "A complete binary tree packs nodes level by level, giving height ⌊log₂ n⌋ = O(log n)."
+    },
+    {
+      "number": 21,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Values 1, 2, 3 are pushed onto an empty stack in that order, then two pop operations are performed. What value is now on top of the stack?",
+      "options": { "a": "3", "b": "2", "c": "1", "d": "The stack is empty" },
+      "answer": "c",
+      "explanation": "A stack is LIFO; popping removes 3 then 2, leaving 1 on top."
+    },
+    {
+      "number": 22,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Assuming a good hash function and separate chaining, the average-case time to search a hash table is:",
+      "options": { "a": "O(1)", "b": "O(n)", "c": "O(log n)", "d": "O(n²)" },
+      "answer": "a",
+      "explanation": "With a low, bounded load factor the expected chain length is constant, so average search is O(1)."
+    },
+    {
+      "number": 23,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the time complexity of building a binary heap from an unsorted array of n elements (bottom-up heapify)?",
+      "options": { "a": "O(n log n)", "b": "O(n)", "c": "O(log n)", "d": "O(n²)" },
+      "answer": "b",
+      "explanation": "Bottom-up heap construction is O(n); the tighter analysis sums the work over levels to a linear bound."
+    },
+    {
+      "number": 24,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "Which storage element has the fastest access time in the memory hierarchy?",
+      "options": { "a": "Main memory (RAM)", "b": "Cache", "c": "CPU register", "d": "Hard disk" },
+      "answer": "c",
+      "explanation": "Registers sit inside the CPU and are the fastest (and smallest, costliest) level of the hierarchy."
+    },
+    {
+      "number": 25,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "A processor runs at a 2 GHz clock. How long is one clock cycle?",
+      "options": { "a": "2 ns", "b": "0.5 ns", "c": "1 ns", "d": "2 s" },
+      "answer": "b",
+      "explanation": "Cycle time = 1/frequency = 1/(2×10⁹) s = 0.5 ns."
+    },
+    {
+      "number": 26,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "What is the 8-bit two's-complement representation of −5?",
+      "options": { "a": "11111011", "b": "11111010", "c": "00000101", "d": "11111100" },
+      "answer": "a",
+      "explanation": "+5 is 00000101; invert to 11111010 and add 1 to get 11111011."
+    },
+    {
+      "number": 27,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "How many address lines are required to address 1 KB of byte-addressable memory?",
+      "options": { "a": "8", "b": "10", "c": "1024", "d": "16" },
+      "answer": "b",
+      "explanation": "1 KB = 2¹⁰ bytes, so 10 address lines are needed."
+    },
+    {
+      "number": 28,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which CPU scheduling policy can cause starvation of low-priority processes if no aging is applied?",
+      "options": { "a": "Round Robin", "b": "First-Come-First-Served", "c": "Priority scheduling", "d": "None of these" },
+      "answer": "c",
+      "explanation": "Under priority scheduling a stream of higher-priority jobs can indefinitely postpone a low-priority one; aging fixes this."
+    },
+    {
+      "number": 29,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which of the following is NOT one of the four necessary conditions for deadlock?",
+      "options": { "a": "Mutual exclusion", "b": "Hold and wait", "c": "Preemption", "d": "Circular wait" },
+      "answer": "c",
+      "explanation": "The conditions are mutual exclusion, hold-and-wait, NO preemption, and circular wait; allowing preemption breaks deadlock."
+    },
+    {
+      "number": 30,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "A page fault occurs when:",
+      "options": { "a": "a referenced page is already in memory", "b": "a referenced page is not present in physical memory", "c": "a page is corrupted", "d": "the CPU is idle" },
+      "answer": "b",
+      "explanation": "A page fault is the trap raised when a process references a page that is not currently in physical memory."
+    },
+    {
+      "number": 31,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Thrashing in a virtual-memory system refers to:",
+      "options": { "a": "high CPU utilization", "b": "excessive paging activity that collapses performance", "c": "a deadlock among processes", "d": "a cache miss" },
+      "answer": "b",
+      "explanation": "Thrashing is when processes spend more time paging in/out than executing, so CPU utilization drops sharply."
+    },
+    {
+      "number": 32,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "The Banker's algorithm is used for:",
+      "options": { "a": "deadlock prevention", "b": "deadlock avoidance", "c": "deadlock detection", "d": "process scheduling" },
+      "answer": "b",
+      "explanation": "The Banker's algorithm grants resources only if the resulting state is safe, making it a deadlock-avoidance technique."
+    },
+    {
+      "number": 33,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which OSI layer is responsible for logical addressing and routing of packets?",
+      "options": { "a": "Data Link layer", "b": "Network layer", "c": "Transport layer", "d": "Physical layer" },
+      "answer": "b",
+      "explanation": "The Network layer (layer 3) handles logical (IP) addressing and routes packets between networks."
+    },
+    {
+      "number": 34,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "What is the default subnet mask for a class C IPv4 network?",
+      "options": { "a": "255.0.0.0", "b": "255.255.0.0", "c": "255.255.255.0", "d": "255.255.255.255" },
+      "answer": "c",
+      "explanation": "Class C uses the first 24 bits for the network, i.e. mask 255.255.255.0 (/24)."
+    },
+    {
+      "number": 35,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "TCP is best described as a:",
+      "options": { "a": "connectionless protocol", "b": "connection-oriented, reliable protocol", "c": "unreliable datagram protocol", "d": "broadcast-only protocol" },
+      "answer": "b",
+      "explanation": "TCP establishes a connection (three-way handshake) and provides reliable, ordered, error-checked delivery."
+    },
+    {
+      "number": 36,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which IPv4 address is reserved for the loopback interface?",
+      "options": { "a": "127.0.0.1", "b": "192.168.0.1", "c": "10.0.0.1", "d": "255.255.255.255" },
+      "answer": "a",
+      "explanation": "The 127.0.0.0/8 block is reserved for loopback; 127.0.0.1 always refers to the local host."
+    },
+    {
+      "number": 37,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which constraint guarantees that a column's values are unique and never NULL, uniquely identifying each row?",
+      "options": { "a": "Foreign key", "b": "Primary key", "c": "Check", "d": "Default" },
+      "answer": "b",
+      "explanation": "A primary key enforces uniqueness and disallows NULLs, identifying each tuple in a relation."
+    },
+    {
+      "number": 38,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "A candidate key that is not selected as the primary key is called:",
+      "options": { "a": "Foreign key", "b": "Super key", "c": "Alternate key", "d": "Composite key" },
+      "answer": "c",
+      "explanation": "Remaining candidate keys after choosing the primary key are called alternate (or secondary) keys."
+    },
+    {
+      "number": 39,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which normal form removes transitive functional dependencies on the primary key?",
+      "options": { "a": "1NF", "b": "2NF", "c": "3NF", "d": "BCNF" },
+      "answer": "c",
+      "explanation": "Third normal form (3NF) eliminates transitive dependencies of non-prime attributes on the key."
+    },
+    {
+      "number": 40,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which SQL command completely removes a table's structure and all of its data?",
+      "options": { "a": "DELETE", "b": "TRUNCATE", "c": "DROP", "d": "REMOVE" },
+      "answer": "c",
+      "explanation": "DROP TABLE removes the table definition and data; DELETE/TRUNCATE only remove rows."
+    },
+    {
+      "number": 41,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "Lamport's logical clocks are primarily used to:",
+      "options": { "a": "balance load across servers", "b": "establish a consistent ordering of events", "c": "encrypt messages between nodes", "d": "route packets efficiently" },
+      "answer": "b",
+      "explanation": "Lamport timestamps impose a partial 'happened-before' ordering of events without synchronized physical clocks."
+    },
+    {
+      "number": 42,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "The CAP theorem states that a distributed data store cannot simultaneously guarantee all three of:",
+      "options": { "a": "Concurrency, Availability, Performance", "b": "Consistency, Availability, Partition tolerance", "c": "Caching, Atomicity, Persistence", "d": "Consistency, Atomicity, Partitioning" },
+      "answer": "b",
+      "explanation": "CAP says that under a network partition a system must trade off Consistency against Availability; only two of C, A, P hold at once."
+    },
+    {
+      "number": 43,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "The two-phase commit (2PC) protocol is used to achieve:",
+      "options": { "a": "leader election", "b": "atomic commitment of a transaction across multiple nodes", "c": "clock synchronization", "d": "distributed mutual exclusion" },
+      "answer": "b",
+      "explanation": "2PC coordinates a prepare phase and a commit/abort phase so a distributed transaction commits atomically everywhere or nowhere."
+    },
+    {
+      "number": 44,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "In the A* search algorithm, the evaluation function f(n) is defined as:",
+      "options": { "a": "g(n)", "b": "h(n)", "c": "g(n) + h(n)", "d": "g(n) − h(n)" },
+      "answer": "c",
+      "explanation": "A* combines the cost so far g(n) with the heuristic estimate to the goal h(n): f(n) = g(n) + h(n)."
+    },
+    {
+      "number": 45,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "An admissible heuristic in A* search is one that:",
+      "options": { "a": "never overestimates the true cost to the goal", "b": "always overestimates the cost", "c": "is always zero", "d": "is chosen at random" },
+      "answer": "a",
+      "explanation": "Admissibility means h(n) ≤ true cost to the goal; this guarantees A* returns an optimal solution."
+    },
+    {
+      "number": 46,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Which of the following is a supervised learning technique?",
+      "options": { "a": "K-means clustering", "b": "Linear regression", "c": "Principal Component Analysis", "d": "Apriori algorithm" },
+      "answer": "b",
+      "explanation": "Linear regression learns from labelled (input, output) pairs, making it supervised; the others are unsupervised."
+    },
+    {
+      "number": 47,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "In the ID3 decision-tree algorithm, the attribute chosen to split a node is the one with the highest:",
+      "options": { "a": "entropy", "b": "information gain", "c": "variance", "d": "tree depth" },
+      "answer": "b",
+      "explanation": "ID3 greedily picks the attribute that maximizes information gain (the largest reduction in entropy)."
+    },
+    {
+      "number": 48,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Given 'All roses are flowers', which statement must be true?",
+      "options": { "a": "All flowers are roses", "b": "Some flowers are roses", "c": "No rose is a flower", "d": "All roses fade quickly" },
+      "answer": "b",
+      "explanation": "If every rose is a flower, then roses form a subset of flowers, so at least some flowers are roses."
+    },
+    {
+      "number": 49,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Find the next number in the series: 2, 6, 12, 20, 30, ?",
+      "options": { "a": "40", "b": "42", "c": "36", "d": "44" },
+      "answer": "b",
+      "explanation": "The terms are n(n+1): 1·2, 2·3, 3·4, 4·5, 5·6, so the next is 6·7 = 42 (differences 4, 6, 8, 10, 12)."
+    },
+    {
+      "number": 50,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Which number is the odd one out: 3, 5, 9, 11, 13?",
+      "options": { "a": "3", "b": "5", "c": "9", "d": "13" },
+      "answer": "c",
+      "explanation": "All are prime except 9, which is composite (3 × 3)."
+    }
+  ]
+}

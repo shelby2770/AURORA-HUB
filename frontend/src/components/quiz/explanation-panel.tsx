@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, XCircle, Lightbulb } from "lucide-react";
-import type { QuestionOut } from "@/lib/api";
+import type { DisplayQuestion } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { MathText } from "./math-text";
 
@@ -11,7 +11,7 @@ export function ExplanationPanel({
   question,
   selectedIndex,
 }: {
-  question: QuestionOut;
+  question: DisplayQuestion;
   selectedIndex: number | null;
 }) {
   const correct =

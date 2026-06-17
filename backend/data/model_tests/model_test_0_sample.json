@@ -1,0 +1,481 @@
+{
+  "exam": {
+    "title": "MSc Admission Test Preparation",
+    "model_test": "Sample Model Test",
+    "full_marks": 150,
+    "time": "90 minutes",
+    "total_questions": 50,
+    "marks_per_question": 3,
+    "negative_marking": false,
+    "instructions": [
+      "Answer all questions of the following fifty questions.",
+      "The figures shown in the right margin indicate full marks. There are no negative markings."
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What will be the value of z?",
+      "language": "c",
+      "code": "x=10, z, y=3;\nz=(x=18)?y=48:15;",
+      "options": { "a": "10", "b": "18", "c": "48", "d": "3" },
+      "answer": "c",
+      "explanation": "(x=18) assigns 18, a nonzero (true) value, so the conditional takes the first branch and evaluates y=48, making z = 48."
+    },
+    {
+      "number": 2,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Find output:",
+      "language": "c",
+      "code": "int myNum = 30;\nint *ptr = &myNum;\nint **pptr = &ptr;\nprintf(\"myNum = %d\\n\", pptr);",
+      "options": { "a": "30", "b": "address of myNum", "c": "address of pptr", "d": "address of ptr" },
+      "answer": "d",
+      "explanation": "pptr holds the address of ptr (it is a pointer-to-pointer), so printing pptr shows the address of ptr."
+    },
+    {
+      "number": 3,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the output of the following C code?",
+      "language": "c",
+      "code": "y= 9+3*2/5(6+2/3);\nprint(\"%d\",y);",
+      "options": { "a": "15", "b": "8", "c": "9", "d": "12" },
+      "answer": "c",
+      "explanation": "With integer arithmetic and implicit multiplication, 2/3 = 0 so (6+0)=6, 5*6 = 30, then 3*2/30 = 6/30 = 0, leaving 9 + 0 = 9."
+    },
+    {
+      "number": 4,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "How many times recursive function calls for the following code?",
+      "language": "c",
+      "code": "void fun(int n) {\n    if (n == 0)\n        return;\n    printf(\"%d \", n);\n    fun(n - 1);\n    fun(n - 3);\n}\nfun(5)",
+      "options": { "a": "15", "b": "17", "c": "19", "d": "20" },
+      "answer": "b",
+      "explanation": "With T(n)=1+T(n-1)+T(n-3) and base case 1 for n≤0: T(1)=3, T(2)=5, T(3)=7, T(4)=11, T(5)=17 total calls."
+    },
+    {
+      "number": 5,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which of the following OOP mechanisms explicitly ensures data security by preventing direct outside access to data members, allowing manipulation only through a well-defined public interface?",
+      "options": { "a": "Inheritance", "b": "Polymorphism", "c": "Encapsulation", "d": "Function Overriding" },
+      "answer": "c",
+      "explanation": "Encapsulation hides internal data behind a public interface, restricting direct external access."
+    },
+    {
+      "number": 6,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Consider the following declaration block in a standard C++ application. If no access modifier is explicitly mentioned, what is the default accessibility profile of the member variable roll and the function setRoll()?",
+      "language": "cpp",
+      "code": "class Student {\n    int roll;\n    void setRoll(int r) { roll = r; }\n};",
+      "options": { "a": "Both are private", "b": "Both are public", "c": "roll is private and setRoll() is public", "d": "Both are protected" },
+      "answer": "a",
+      "explanation": "Members of a C++ class default to private access when no specifier is given, so both roll and setRoll() are private."
+    },
+    {
+      "number": 7,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which component of the Java Development Kit (JDK) is explicitly responsible for translating human-readable .java source files into platform-independent .class bytecode files?",
+      "options": { "a": "JVM (Java Virtual Machine)", "b": "JRE (Java Runtime Environment)", "c": "javac (Java Compiler)", "d": "JIT (Just-In-Time Compiler)" },
+      "answer": "c",
+      "explanation": "javac compiles .java source files into .class bytecode; the JVM later executes that bytecode."
+    },
+    {
+      "number": 8,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Consider the following Java code snippet. What will be the exact console output?",
+      "language": "java",
+      "code": "String s1 = \"Java\";\nString s2 = new String(\"Java\");\nSystem.out.print((s1 == s2) + \" \" + s1.equals(s2));",
+      "options": { "a": "true true", "b": "false true", "c": "true false", "d": "false false" },
+      "answer": "b",
+      "explanation": "s1 == s2 compares references (different objects → false); equals() compares contents (same text → true), so 'false true'."
+    },
+    {
+      "number": 9,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which of the following conditions must be met for a Java interface to be targeted and safely instantiated using a standard Lambda expression?",
+      "options": { "a": "It must contain only private helper methods.", "b": "It must contain exactly one abstract method.", "c": "It must extend the Runnable interface.", "d": "It must be marked explicitly with the final keyword modifier." },
+      "answer": "b",
+      "explanation": "A lambda targets a functional interface, which by definition has exactly one abstract method."
+    },
+    {
+      "number": 10,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "A graph has 24 edges and degree of each vertex is k, then which of the following is possible number of vertices?",
+      "options": { "a": "20", "b": "15", "c": "10", "d": "8" },
+      "answer": "d",
+      "explanation": "By the handshaking lemma, k·V = 2·24 = 48. Only V = 8 (with k = 6) divides 48 to an integer degree among the options."
+    },
+    {
+      "number": 11,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is the minimum number of people required in a room to guarantee that at least two of them share the exact same birth month?",
+      "options": { "a": "12", "b": "13", "c": "24", "d": "365" },
+      "answer": "b",
+      "explanation": "By the pigeonhole principle, with 12 months you need 12 + 1 = 13 people to force a shared month."
+    },
+    {
+      "number": 12,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "Consider the compound proposition (p ∧ q) → p. Which of the following best describes this logical statement?",
+      "options": { "a": "It is a contradiction.", "b": "It is a contingency.", "c": "It is a tautology.", "d": "It is valid only when p is false." },
+      "answer": "c",
+      "explanation": "Whenever (p ∧ q) is true, p is true, so the implication is true in every case — a tautology."
+    },
+    {
+      "number": 13,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which data structure is primarily used to implement Breadth-First Search (BFS) traversal of a graph?",
+      "options": { "a": "Linked List", "b": "Priority Queue", "c": "Stack", "d": "Queue" },
+      "answer": "d",
+      "explanation": "BFS visits nodes level by level using a FIFO queue to track the frontier."
+    },
+    {
+      "number": 14,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "If the inorder traversal of a binary tree is B, A, C and its preorder traversal is A, B, C, what is the postorder traversal of the tree?",
+      "options": { "a": "B, C, A", "b": "C, A, B", "c": "A, C, B", "d": "C, B, A" },
+      "answer": "a",
+      "explanation": "Preorder makes A the root; inorder splits B (left) and C (right). Postorder (left, right, root) is B, C, A."
+    },
+    {
+      "number": 15,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which data structure is ideal for checking balanced parentheses in an expression (e.g., matching opening and closing brackets)?",
+      "options": { "a": "Linear Array", "b": "Queue", "c": "Stack", "d": "Binary Tree" },
+      "answer": "c",
+      "explanation": "A stack matches each closing bracket with the most recent unmatched opening bracket (LIFO)."
+    },
+    {
+      "number": 16,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the tightest upper bound (O) of the following loop block?",
+      "language": "cpp",
+      "code": "for (int i = 1; i <= n; i *= 2) {\n    for (int j = 1; j <= n; j++) {\n        // Constant time operation\n    }\n}",
+      "options": { "a": "O(n)", "b": "O(n log n)", "c": "O(n^2)", "d": "O(log n)" },
+      "answer": "b",
+      "explanation": "The outer loop runs O(log n) times (i doubles) and the inner loop runs O(n) times, giving O(n log n)."
+    },
+    {
+      "number": 17,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Using the Master Method, what is the asymptotic time complexity of the recurrence relation T(n) = 2T(n/2) + Theta(n)?",
+      "options": { "a": "Theta(n)", "b": "Theta(log n)", "c": "Theta(n log n)", "d": "Theta(n^2)" },
+      "answer": "c",
+      "explanation": "This is Master Theorem case 2 (work matches n^{log_b a} = n), giving Θ(n log n) — the merge-sort recurrence."
+    },
+    {
+      "number": 18,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the worst-case time complexity of the Quick Sort algorithm when the pivot chosen is consistently the smallest or largest element?",
+      "options": { "a": "O(n log n)", "b": "O(n)", "c": "O(n^2)", "d": "O(n^2 log n)" },
+      "answer": "c",
+      "explanation": "A consistently extreme pivot produces maximally unbalanced partitions, degrading quicksort to O(n²)."
+    },
+    {
+      "number": 19,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "The Longest Common Subsequence (LCS) problem is efficiently solved using which of the following approaches?",
+      "options": { "a": "Greedy Strategy", "b": "Dynamic Programming", "c": "Divide and Conquer", "d": "Branch and Bound" },
+      "answer": "b",
+      "explanation": "LCS has overlapping subproblems and optimal substructure, so it is solved with dynamic programming in O(mn)."
+    },
+    {
+      "number": 20,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which of the following single-source shortest path algorithms can correctly handle graphs containing negative weight edges, provided there are no negative weight cycles?",
+      "options": { "a": "Dijkstra's Algorithm", "b": "Floyd-Warshall Algorithm", "c": "Bellman-Ford Algorithm", "d": "Prim's Algorithm" },
+      "answer": "c",
+      "explanation": "Bellman-Ford handles negative edge weights (and detects negative cycles); Dijkstra requires non-negative weights."
+    },
+    {
+      "number": 21,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which of the following issues in a traditional file processing system is directly caused by the lack of central control over data storage and formatting?",
+      "options": { "a": "Data Redundancy and Inconsistency", "b": "Poor execution speed of sequential searches", "c": "High hardware manufacturing costs", "d": "Inability to store text files alongside numeric data" },
+      "answer": "a",
+      "explanation": "Without central control, the same data is duplicated across files and can diverge, causing redundancy and inconsistency."
+    },
+    {
+      "number": 22,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "The Relational Algebra operator that outputs all tuples from relation R that do not have a matching match in relation S across shared attributes is known as:",
+      "options": { "a": "Natural Join", "b": "Set Difference", "c": "Division", "d": "Cartesian Product" },
+      "answer": "b",
+      "explanation": "Tuples of R with no match in S are obtained via set difference (the basis of the anti-join)."
+    },
+    {
+      "number": 23,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "If a relation is in 2nd Normal Form (2NF), which of the following vulnerabilities has been completely eliminated?",
+      "options": { "a": "Transitive functional dependencies", "b": "Partial functional dependencies on a candidate key", "c": "Multi-valued dependencies", "d": "Trivial functional dependencies" },
+      "answer": "b",
+      "explanation": "2NF removes partial dependencies of non-prime attributes on part of a candidate key; transitive dependencies go in 3NF."
+    },
+    {
+      "number": 24,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "In a standard B+ Tree index structure used by database storage engines, actual data record pointers or actual data rows are exclusively stored in which locations?",
+      "options": { "a": "The Root node only", "b": "Internal routing nodes only", "c": "Leaf nodes only", "d": "Evenly distributed across all levels of the tree" },
+      "answer": "c",
+      "explanation": "In a B+ tree, internal nodes only route searches; all data pointers/records live in the leaf nodes."
+    },
+    {
+      "number": 25,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "An attacker intercepts network traffic to analyze packet headers and discover communication patterns between two servers without altering the data. This is an example of which type of attack?",
+      "options": { "a": "Masquerading", "b": "Passive Attack", "c": "Replay Attack", "d": "Modification of Messages" },
+      "answer": "b",
+      "explanation": "Observing/analyzing traffic without modifying it is a passive attack (eavesdropping / traffic analysis)."
+    },
+    {
+      "number": 26,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "What is the primary objective of a Domain Name System (DNS) poisoning attack?",
+      "options": { "a": "To intercept session cookies from a user's browser", "b": "To corrupt database tables by injecting malicious SQL code", "c": "To redirect users to a malicious website by modifying IP mapping records", "d": "To flood a server with synchronization requests to crash it" },
+      "answer": "c",
+      "explanation": "DNS poisoning corrupts name-to-IP mappings so victims are redirected to attacker-controlled sites."
+    },
+    {
+      "number": 27,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which type of malware appears to be a legitimate, useful software application but performs malicious actions in the background when executed by the user?",
+      "options": { "a": "Worm", "b": "Virus", "c": "Trojan Horse", "d": "Ransomware" },
+      "answer": "c",
+      "explanation": "A Trojan horse masquerades as benign software while carrying out hidden malicious behaviour."
+    },
+    {
+      "number": 28,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "A communication channel is completely noiseless and has a bandwidth of 4 kHz. If the digital signal uses 4 discrete voltage levels to represent data, what is the maximum bit rate achievable according to the Nyquist formula?",
+      "options": { "a": "8 kbps", "b": "16 kbps", "c": "24 kbps", "d": "32 kbps" },
+      "answer": "b",
+      "explanation": "Nyquist: rate = 2·B·log₂(L) = 2·4000·log₂(4) = 2·4000·2 = 16 kbps."
+    },
+    {
+      "number": 29,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which physical topology requires a central controller or hub to which all dedicated links from devices are connected, offering easy installation but presenting a single point of failure?",
+      "options": { "a": "Mesh Topology", "b": "Star Topology", "c": "Bus Topology", "d": "Ring Topology" },
+      "answer": "b",
+      "explanation": "In a star topology every device links to a central hub, which is also a single point of failure."
+    },
+    {
+      "number": 30,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which line coding scheme has no DC component and provides synchronization?",
+      "options": { "a": "Unipolar NRZ", "b": "Polar NRZ-L", "c": "Manchester", "d": "RZ" },
+      "answer": "c",
+      "explanation": "Manchester encoding has a mid-bit transition for every bit, eliminating DC and providing self-synchronization."
+    },
+    {
+      "number": 31,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "What is the primary function of ARP?",
+      "options": { "a": "Find MAC address from IP address", "b": "Find IP address from MAC address", "c": "Assign IP address automatically", "d": "Resolve domain names" },
+      "answer": "a",
+      "explanation": "The Address Resolution Protocol maps a known IP address to its corresponding MAC (hardware) address."
+    },
+    {
+      "number": 32,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which protocol allows users to keep emails on the mail server and synchronize multiple devices?",
+      "options": { "a": "SMTP", "b": "FTP", "c": "POP3", "d": "IMAP" },
+      "answer": "d",
+      "explanation": "IMAP keeps mail on the server and synchronizes state across devices; POP3 typically downloads and removes it."
+    },
+    {
+      "number": 33,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which routing algorithm requires each router to have complete knowledge of the network topology?",
+      "options": { "a": "Distance Vector", "b": "Flooding", "c": "Link State", "d": "Random Routing" },
+      "answer": "c",
+      "explanation": "Link-state routing floods link information so every router builds a full map of the topology and runs Dijkstra."
+    },
+    {
+      "number": 34,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "In the instruction cycle, which step comes immediately after fetching an instruction?",
+      "options": { "a": "Execution", "b": "Decoding", "c": "Write Back", "d": "Memory Access" },
+      "answer": "b",
+      "explanation": "After fetch, the control unit decodes the instruction to determine the operation and operands."
+    },
+    {
+      "number": 35,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "A processor has a clock rate of 2 GHz and an average CPI of 2. What is the execution time for 1000 instructions?",
+      "options": { "a": "0.5 µs", "b": "1 µs", "c": "2 µs", "d": "4 µs" },
+      "answer": "b",
+      "explanation": "Time = (instructions × CPI) / clock = (1000 × 2) / (2×10⁹) = 1×10⁻⁶ s = 1 µs."
+    },
+    {
+      "number": 36,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "In the classic 5-stage MIPS pipeline, which stage performs arithmetic and logical operations?",
+      "options": { "a": "IF", "b": "ID", "c": "EX", "d": "WB" },
+      "answer": "c",
+      "explanation": "The Execute (EX) stage contains the ALU that performs arithmetic and logical operations."
+    },
+    {
+      "number": 37,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "Which instruction format generally requires the fewest bits to specify operands?",
+      "options": { "a": "Three-address instruction", "b": "Two-address instruction", "c": "One-address instruction", "d": "Zero-address instruction" },
+      "answer": "d",
+      "explanation": "Zero-address (stack) instructions take operands implicitly from the stack, needing no operand fields."
+    },
+    {
+      "number": 38,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which design pattern ensures that only one instance of a class exists throughout the system?",
+      "options": { "a": "Factory Pattern", "b": "Observer Pattern", "c": "Adapter Pattern", "d": "Singleton Pattern" },
+      "answer": "d",
+      "explanation": "The Singleton pattern restricts a class to a single shared instance with a global access point."
+    },
+    {
+      "number": 39,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which software development model is primarily risk-driven?",
+      "options": { "a": "Waterfall Model", "b": "Incremental Model", "c": "Spiral Model", "d": "Prototype Model" },
+      "answer": "c",
+      "explanation": "The Spiral model centres each iteration on risk analysis, making it the risk-driven process model."
+    },
+    {
+      "number": 40,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which development approach welcomes changing requirements even at a late stage of development?",
+      "options": { "a": "Plan-Driven Development", "b": "Agile Development", "c": "Waterfall Model", "d": "V-Model" },
+      "answer": "b",
+      "explanation": "Agile explicitly welcomes changing requirements, even late in development, to give the customer advantage."
+    },
+    {
+      "number": 41,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "In the FCFS scheduling algorithm, the main disadvantage is:",
+      "options": { "a": "Starvation of low-priority processes", "b": "High context-switching overhead", "c": "Convoy effect due to long processes", "d": "Requires burst-time prediction" },
+      "answer": "c",
+      "explanation": "Under FCFS a long job at the front makes short jobs wait — the convoy effect — hurting average waiting time."
+    },
+    {
+      "number": 42,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Three processes arrive at time 0 with burst times: P1 = 8 ms, P2 = 4 ms, P3 = 2 ms. According to the Shortest Job First (SJF) scheduling algorithm, which process executes first?",
+      "options": { "a": "P1", "b": "P2", "c": "P3", "d": "Any process can execute first" },
+      "answer": "c",
+      "explanation": "SJF runs the shortest burst first; P3 (2 ms) is the shortest, so it executes first."
+    },
+    {
+      "number": 43,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which page replacement algorithm can never produce more page faults when the number of page frames is increased?",
+      "options": { "a": "FIFO", "b": "LRU", "c": "MRU", "d": "Random Replacement" },
+      "answer": "b",
+      "explanation": "LRU is a stack algorithm, so it never suffers Belady's anomaly — more frames never increase faults."
+    },
+    {
+      "number": 44,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "Which of the following grammars is NOT LL(1)?",
+      "options": { "a": "S → aA | bB", "b": "S → aA | aB", "c": "S → 0S | 1S | ε", "d": "S → c | d" },
+      "answer": "b",
+      "explanation": "S → aA | aB has two productions starting with 'a' (overlapping FIRST sets), so it is not LL(1)."
+    },
+    {
+      "number": 45,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "Which of the following statements is TRUE regarding DFA and NFA?",
+      "options": { "a": "Every NFA can be converted to an equivalent DFA.", "b": "Every DFA can recognize more languages than an NFA.", "c": "NFA requires less memory during execution than DFA in all cases.", "d": "DFA may have multiple transitions for the same input symbol from a state." },
+      "answer": "a",
+      "explanation": "Via the subset construction, every NFA has an equivalent DFA; the two models recognize the same languages."
+    },
+    {
+      "number": 46,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "Which of the following is the simplified form of F(A, B) = Σm(1, 2, 3)?",
+      "options": { "a": "A + B", "b": "A' + B", "c": "A + B'", "d": "A'B'" },
+      "answer": "a",
+      "explanation": "Σm(1,2,3) = A'B + AB' + AB = A + B (only minterm 0, A'B', is excluded)."
+    },
+    {
+      "number": 47,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "The carry-out C_out of a full adder is equal to:",
+      "options": { "a": "A ⊕ B ⊕ C_in", "b": "AB + B·C_in + A·C_in", "c": "A + B + C_in", "d": "AB + C_in" },
+      "answer": "b",
+      "explanation": "A full adder's carry-out is the majority function AB + B·C_in + A·C_in; option (a) is the sum bit."
+    },
+    {
+      "number": 48,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "In the Minimax algorithm with Alpha-Beta pruning, pruning occurs when:",
+      "options": { "a": "Alpha becomes less than Beta", "b": "Beta becomes less than or equal to Alpha", "c": "Depth limit is reached", "d": "Leaf nodes are evaluated first" },
+      "answer": "b",
+      "explanation": "When β ≤ α the remaining branches cannot affect the outcome, so they are pruned (the α-β cutoff)."
+    },
+    {
+      "number": 49,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Which of the following best describes overfitting in a machine learning model?",
+      "options": { "a": "Model performs well on both training and unseen data", "b": "Model is too simple to capture data patterns", "c": "Model performs well on training data but poorly on unseen data", "d": "Model has no training phase" },
+      "answer": "c",
+      "explanation": "An overfit model memorizes training noise, so it scores high on training data but generalizes poorly."
+    },
+    {
+      "number": 50,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "Two fair dice are rolled. What is the probability that the sum is 7?",
+      "options": { "a": "1/12", "b": "1/9", "c": "1/6", "d": "1/36" },
+      "answer": "c",
+      "explanation": "Six of the 36 equally likely outcomes sum to 7, so the probability is 6/36 = 1/6."
+    }
+  ]
+}

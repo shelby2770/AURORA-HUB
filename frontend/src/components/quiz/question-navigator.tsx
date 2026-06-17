@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Check, X } from "lucide-react";
-import type { QuestionOut } from "@/lib/api";
+import type { DisplayQuestion } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 type TabStatus = "correct" | "incorrect" | "answered" | "unanswered";
@@ -27,7 +27,7 @@ export function QuestionNavigator({
   isPractice,
   onJump,
 }: {
-  questions: QuestionOut[];
+  questions: DisplayQuestion[];
   answers: (number | null)[];
   currentIndex: number;
   isPractice: boolean;

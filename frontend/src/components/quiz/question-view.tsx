@@ -1,7 +1,7 @@
 "use client";
 
 import { BlockMath } from "react-katex";
-import type { QuestionOut } from "@/lib/api";
+import type { DisplayQuestion } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { MathText } from "./math-text";
 import { CodeBlock } from "./code-block";
@@ -14,7 +14,7 @@ export function QuestionView({
   locked,
   onSelect,
 }: {
-  question: QuestionOut;
+  question: DisplayQuestion;
   selectedIndex: number | null;
   revealed: boolean;
   locked: boolean;
@@ -22,9 +22,13 @@ export function QuestionView({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <span className={cn("diff-chip w-fit", `diff-${question.difficulty}`)}>
-        {question.difficulty}
-      </span>
+      {/* Bank questions carry a difficulty; model-test questions don't, so the
+          chip is shown only when one is present. */}
+      {question.difficulty ? (
+        <span className={cn("diff-chip w-fit", `diff-${question.difficulty}`)}>
+          {question.difficulty}
+        </span>
+      ) : null}
 
       <h2 className="qtext">
         <MathText>{question.questionText}</MathText>
@@ -36,7 +40,12 @@ export function QuestionView({
         </div>
       ) : null}
 
-      {question.codeSnippet ? <CodeBlock code={question.codeSnippet} /> : null}
+      {question.codeSnippet ? (
+        <CodeBlock
+          code={question.codeSnippet}
+          lang={question.codeLang ?? undefined}
+        />
+      ) : null}
 
       <div
         className="flex flex-col gap-3"

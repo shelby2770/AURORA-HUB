@@ -1,0 +1,473 @@
+{
+  "exam": {
+    "title": "MSc Admission Test Preparation",
+    "model_test": "Model Test 4",
+    "full_marks": 150,
+    "time": "90 minutes",
+    "total_questions": 50,
+    "marks_per_question": 3,
+    "negative_marking": false,
+    "instructions": [
+      "Answer all fifty questions. Each question carries 3 marks.",
+      "There is no negative marking. The qualifying mark is 60 (40%)."
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "If two nonzero vectors u and v are orthogonal, then their dot product u·v equals:",
+      "options": { "a": "1", "b": "0", "c": "|u||v|", "d": "−1" },
+      "answer": "b",
+      "explanation": "Orthogonal vectors meet at 90°, and since cos 90° = 0, their dot product is 0."
+    },
+    {
+      "number": 2,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "Solve the system x + y = 5 and x − y = 1.",
+      "options": { "a": "x = 3, y = 2", "b": "x = 2, y = 3", "c": "x = 4, y = 1", "d": "x = 1, y = 4" },
+      "answer": "a",
+      "explanation": "Adding the equations gives 2x = 6, so x = 3; substituting back gives y = 2."
+    },
+    {
+      "number": 3,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is $\\int \\frac{1}{x}\\,dx$?",
+      "options": { "a": "x²/2 + C", "b": "ln|x| + C", "c": "−1/x² + C", "d": "1 + C" },
+      "answer": "b",
+      "explanation": "The antiderivative of 1/x is the natural logarithm ln|x| + C."
+    },
+    {
+      "number": 4,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "How many ordered arrangements of 2 items can be chosen from 5 distinct items, i.e. P(5, 2)?",
+      "options": { "a": "10", "b": "20", "c": "25", "d": "120" },
+      "answer": "b",
+      "explanation": "P(5, 2) = 5!/(5−2)! = 5 × 4 = 20."
+    },
+    {
+      "number": 5,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "The function $f(x) = x^2$ is classified as:",
+      "options": { "a": "an odd function", "b": "an even function", "c": "neither even nor odd", "d": "a periodic function" },
+      "answer": "b",
+      "explanation": "Since f(−x) = (−x)² = x² = f(x), the function is even (symmetric about the y-axis)."
+    },
+    {
+      "number": 6,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "What is the expected value of a single roll of a fair six-sided die?",
+      "options": { "a": "3", "b": "3.5", "c": "4", "d": "6" },
+      "answer": "b",
+      "explanation": "E[X] = (1+2+3+4+5+6)/6 = 21/6 = 3.5."
+    },
+    {
+      "number": 7,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "Which measure of central tendency is most strongly affected by extreme outliers?",
+      "options": { "a": "Mean", "b": "Median", "c": "Mode", "d": "Interquartile range" },
+      "answer": "a",
+      "explanation": "The mean uses every value, so a few extreme outliers can shift it substantially; the median resists them."
+    },
+    {
+      "number": 8,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "In hypothesis testing, a Type I error occurs when one:",
+      "options": { "a": "accepts a false null hypothesis", "b": "rejects a true null hypothesis", "c": "makes a correct decision", "d": "draws a biased sample" },
+      "answer": "b",
+      "explanation": "A Type I error (false positive) is rejecting a null hypothesis that is actually true."
+    },
+    {
+      "number": 9,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The intersection of two context-free languages is:",
+      "options": { "a": "always context-free", "b": "not necessarily context-free", "c": "always regular", "d": "always undecidable" },
+      "answer": "b",
+      "explanation": "Context-free languages are not closed under intersection; e.g. {aⁿbⁿcᵐ} ∩ {aⁿbᵐcᵐ} = {aⁿbⁿcⁿ}, which is not context-free."
+    },
+    {
+      "number": 10,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "A Turing machine that halts on every input is called a:",
+      "options": { "a": "acceptor", "b": "decider", "c": "recognizer", "d": "transducer" },
+      "answer": "b",
+      "explanation": "A decider is a Turing machine that always halts, so it decides (rather than merely recognizes) its language."
+    },
+    {
+      "number": 11,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "Which of the following languages is NOT regular?",
+      "options": { "a": "{0, 1}*", "b": "{ 0ⁿ1ⁿ | n ≥ 0 }", "c": "strings over {0,1} ending in 0", "d": "any finite set of strings" },
+      "answer": "b",
+      "explanation": "{0ⁿ1ⁿ} requires counting/matching, which a finite automaton cannot do; the others are regular."
+    },
+    {
+      "number": 12,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The equivalence of NFAs and DFAs is proved using the:",
+      "options": { "a": "pumping lemma", "b": "subset (powerset) construction", "c": "Rice's theorem", "d": "CYK algorithm" },
+      "answer": "b",
+      "explanation": "The subset construction builds a DFA whose states are sets of NFA states, showing the two models accept the same languages."
+    },
+    {
+      "number": 13,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What does this C code print?",
+      "language": "c",
+      "code": "int arr[5] = {1, 2, 3};\nprintf(\"%d\", arr[4]);",
+      "options": { "a": "3", "b": "0", "c": "garbage value", "d": "Compilation error" },
+      "answer": "b",
+      "explanation": "When an array is partially initialized, the remaining elements are set to 0, so arr[4] is 0."
+    },
+    {
+      "number": 14,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the output of the following C code?",
+      "language": "c",
+      "code": "int x = 5;\nprintf(\"%d\", x > 3 ? x : -x);",
+      "options": { "a": "5", "b": "−5", "c": "3", "d": "1" },
+      "answer": "a",
+      "explanation": "The condition x > 3 is true, so the ternary returns x, which is 5."
+    },
+    {
+      "number": 15,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which Java keyword prevents a class from being subclassed (inherited)?",
+      "options": { "a": "static", "b": "final", "c": "private", "d": "abstract" },
+      "answer": "b",
+      "explanation": "Declaring a class `final` forbids any class from extending it."
+    },
+    {
+      "number": 16,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What does this C loop print?",
+      "language": "c",
+      "code": "int i = 0;\nwhile (i < 3) {\n    printf(\"%d\", i);\n    i++;\n}",
+      "options": { "a": "123", "b": "012", "c": "0123", "d": "0 1 2" },
+      "answer": "b",
+      "explanation": "The loop prints i for i = 0, 1, 2 with no separators, producing \"012\"."
+    },
+    {
+      "number": 17,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which C++ operator dynamically allocates memory on the heap?",
+      "options": { "a": "malloc", "b": "new", "c": "alloc", "d": "create" },
+      "answer": "b",
+      "explanation": "In C++, the `new` operator allocates heap memory and calls the constructor; `malloc` is the C library function."
+    },
+    {
+      "number": 18,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the time complexity of accessing an element of an array by its index?",
+      "options": { "a": "O(1)", "b": "O(n)", "c": "O(log n)", "d": "O(n²)" },
+      "answer": "a",
+      "explanation": "Array indexing computes the element's address directly, giving constant-time O(1) access."
+    },
+    {
+      "number": 19,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which graph traversal naturally uses a stack (or recursion)?",
+      "options": { "a": "Breadth-First Search", "b": "Depth-First Search", "c": "Dijkstra's algorithm", "d": "Topological sort via a queue" },
+      "answer": "b",
+      "explanation": "DFS explores as deep as possible before backtracking, which is implemented with a stack or recursion; BFS uses a queue."
+    },
+    {
+      "number": 20,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which of the following is a self-balancing binary search tree?",
+      "options": { "a": "AVL tree", "b": "Binary heap", "c": "Singly linked list", "d": "Hash table" },
+      "answer": "a",
+      "explanation": "An AVL tree rebalances via rotations to keep its height O(log n); a heap is not a search tree."
+    },
+    {
+      "number": 21,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Evaluating a postfix (Reverse Polish) expression is most naturally done using a:",
+      "options": { "a": "queue", "b": "stack", "c": "binary tree", "d": "heap" },
+      "answer": "b",
+      "explanation": "Operands are pushed onto a stack and popped when an operator is read, making the stack the natural structure."
+    },
+    {
+      "number": 22,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "The recurrence T(n) = T(n/2) + O(1) solves to:",
+      "options": { "a": "O(n)", "b": "O(log n)", "c": "O(n log n)", "d": "O(1)" },
+      "answer": "b",
+      "explanation": "Halving the problem with constant work per level (as in binary search) gives O(log n)."
+    },
+    {
+      "number": 23,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which algorithm computes a minimum spanning tree of a weighted graph?",
+      "options": { "a": "Dijkstra's algorithm", "b": "Kruskal's algorithm", "c": "Bellman-Ford algorithm", "d": "Floyd-Warshall algorithm" },
+      "answer": "b",
+      "explanation": "Kruskal's algorithm builds an MST by adding the lowest-weight edges that don't form a cycle; the others compute shortest paths."
+    },
+    {
+      "number": 24,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "Direct Memory Access (DMA) allows:",
+      "options": { "a": "the CPU to access cache faster", "b": "I/O devices to transfer data to/from memory without continuous CPU involvement", "c": "a higher clock frequency", "d": "deeper instruction pipelines" },
+      "answer": "b",
+      "explanation": "DMA lets a controller move data between an I/O device and memory directly, freeing the CPU during the transfer."
+    },
+    {
+      "number": 25,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "The program counter (PC) register holds:",
+      "options": { "a": "the instruction currently executing", "b": "the address of the next instruction to fetch", "c": "the current operand value", "d": "the result of the last operation" },
+      "answer": "b",
+      "explanation": "The PC stores the memory address of the next instruction to be fetched and executed."
+    },
+    {
+      "number": 26,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "How many 1-bits are in the binary representation of the decimal number 7?",
+      "options": { "a": "1", "b": "2", "c": "3", "d": "7" },
+      "answer": "c",
+      "explanation": "7 in binary is 111, which contains three 1-bits."
+    },
+    {
+      "number": 27,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "A cache hit ratio of 0.9 means that:",
+      "options": { "a": "90% of accesses miss the cache", "b": "90% of memory accesses are served from the cache", "c": "the cache is 90% full", "d": "the cache runs 90% faster" },
+      "answer": "b",
+      "explanation": "Hit ratio is the fraction of accesses found in cache; 0.9 means 90% are hits (10% misses)."
+    },
+    {
+      "number": 28,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Virtual memory primarily enables:",
+      "options": { "a": "a faster CPU clock", "b": "execution of processes whose total size may exceed physical memory", "c": "more CPU registers", "d": "the elimination of all paging" },
+      "answer": "b",
+      "explanation": "Virtual memory uses disk as an extension of RAM, letting programs larger than physical memory run."
+    },
+    {
+      "number": 29,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "The dispatcher module of an operating system is responsible for:",
+      "options": { "a": "choosing which process should run next", "b": "giving CPU control to the process the scheduler selected (the context switch)", "c": "allocating physical memory frames", "d": "servicing disk interrupts only" },
+      "answer": "b",
+      "explanation": "The scheduler picks the next process; the dispatcher actually hands it the CPU via a context switch."
+    },
+    {
+      "number": 30,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which page-replacement algorithm can exhibit Belady's anomaly?",
+      "options": { "a": "LRU", "b": "Optimal (OPT)", "c": "FIFO", "d": "Most Recently Used" },
+      "answer": "c",
+      "explanation": "FIFO can produce more page faults when given more frames — Belady's anomaly; stack algorithms like LRU cannot."
+    },
+    {
+      "number": 31,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "A critical section is:",
+      "options": { "a": "the boot sector of the disk", "b": "a code region accessing shared resources that must run with mutual exclusion", "c": "the interrupt vector table", "d": "the kernel's idle loop" },
+      "answer": "b",
+      "explanation": "A critical section manipulates shared data, so only one process may execute it at a time to avoid race conditions."
+    },
+    {
+      "number": 32,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Shortest Job First (SJF) scheduling is provably optimal for minimizing:",
+      "options": { "a": "the variance of turnaround time", "b": "the average waiting time", "c": "response time in all cases", "d": "CPU utilization" },
+      "answer": "b",
+      "explanation": "SJF minimizes average waiting time by always running the shortest available job first."
+    },
+    {
+      "number": 33,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which TCP/IP layer is responsible for end-to-end, reliable delivery between hosts?",
+      "options": { "a": "Application layer", "b": "Transport layer", "c": "Internet (network) layer", "d": "Link layer" },
+      "answer": "b",
+      "explanation": "The transport layer (e.g. TCP) provides end-to-end reliability, sequencing, and flow control."
+    },
+    {
+      "number": 34,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "In classful addressing, the IP address 192.168.1.1 belongs to which class?",
+      "options": { "a": "Class A", "b": "Class B", "c": "Class C", "d": "Class D" },
+      "answer": "c",
+      "explanation": "Addresses with a first octet from 192–223 are Class C; 192 falls in this range."
+    },
+    {
+      "number": 35,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which port does HTTPS use by default?",
+      "options": { "a": "80", "b": "21", "c": "443", "d": "8080" },
+      "answer": "c",
+      "explanation": "HTTPS (HTTP over TLS) uses TCP port 443 by default."
+    },
+    {
+      "number": 36,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which protocol automatically assigns IP addresses to hosts on a network?",
+      "options": { "a": "DNS", "b": "DHCP", "c": "ARP", "d": "FTP" },
+      "answer": "b",
+      "explanation": "DHCP (Dynamic Host Configuration Protocol) leases IP addresses and other parameters to hosts automatically."
+    },
+    {
+      "number": 37,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "A view in SQL is:",
+      "options": { "a": "a physical copy of table data", "b": "a virtual table defined by a stored query", "c": "an index on a column", "d": "a database trigger" },
+      "answer": "b",
+      "explanation": "A view is a named, virtual table whose contents are produced by running its defining query when accessed."
+    },
+    {
+      "number": 38,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which of the following is a Data Definition Language (DDL) command?",
+      "options": { "a": "SELECT", "b": "INSERT", "c": "CREATE", "d": "UPDATE" },
+      "answer": "c",
+      "explanation": "CREATE defines schema objects (DDL); SELECT/INSERT/UPDATE manipulate data (DML)."
+    },
+    {
+      "number": 39,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "The primary goal of database normalization is to:",
+      "options": { "a": "increase data redundancy", "b": "reduce redundancy and avoid update anomalies", "c": "speed up every possible query", "d": "encrypt stored data" },
+      "answer": "b",
+      "explanation": "Normalization organizes data to minimize redundancy and the insertion/update/deletion anomalies it causes."
+    },
+    {
+      "number": 40,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "A deadlock between two transactions is typically resolved by:",
+      "options": { "a": "committing both transactions", "b": "rolling back one transaction chosen as the victim", "c": "adding more memory", "d": "rebuilding all indexes" },
+      "answer": "b",
+      "explanation": "The DBMS breaks the cycle by aborting and rolling back a victim transaction, releasing its locks."
+    },
+    {
+      "number": 41,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "Sharding a database means:",
+      "options": { "a": "keeping a full copy of the data on every node", "b": "horizontally partitioning the data across multiple servers", "c": "encrypting the data at rest", "d": "caching query results in memory" },
+      "answer": "b",
+      "explanation": "Sharding splits rows of a dataset across nodes (horizontal partitioning) so each node holds a subset."
+    },
+    {
+      "number": 42,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "During a network partition, the CAP property that must be sacrificed if availability is kept is:",
+      "options": { "a": "concurrency", "b": "consistency", "c": "caching", "d": "capacity" },
+      "answer": "b",
+      "explanation": "CAP says under a partition you choose between consistency and availability; keeping availability sacrifices strong consistency."
+    },
+    {
+      "number": 43,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "A heartbeat message in a distributed system is used primarily to:",
+      "options": { "a": "synchronize physical clocks exactly", "b": "detect whether a node is still alive", "c": "encrypt inter-node traffic", "d": "compress data before transfer" },
+      "answer": "b",
+      "explanation": "Periodic heartbeats let peers detect node/link failures when expected messages stop arriving."
+    },
+    {
+      "number": 44,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Depth-first search is not guaranteed to find a solution when:",
+      "options": { "a": "the search tree is finite", "b": "the state space can be infinitely deep", "c": "there is exactly one goal", "d": "all step costs are equal" },
+      "answer": "b",
+      "explanation": "DFS can descend an infinite branch forever, so it is not complete in infinite-depth spaces."
+    },
+    {
+      "number": 45,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "A confusion matrix is used to evaluate the performance of a:",
+      "options": { "a": "regression model", "b": "classification model", "c": "clustering algorithm", "d": "search heuristic" },
+      "answer": "b",
+      "explanation": "A confusion matrix tabulates true/false positives and negatives, summarizing classification accuracy."
+    },
+    {
+      "number": 46,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Which regularization technique reduces overfitting by randomly deactivating neurons during training?",
+      "options": { "a": "Batch normalization", "b": "Dropout", "c": "Max pooling", "d": "Zero padding" },
+      "answer": "b",
+      "explanation": "Dropout randomly omits a fraction of neurons each step, preventing co-adaptation and reducing overfitting."
+    },
+    {
+      "number": 47,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "The Turing Test evaluates a machine's ability to:",
+      "options": { "a": "perform arithmetic quickly", "b": "carry on a conversation indistinguishable from a human", "c": "solve NP-complete problems", "d": "learn without any data" },
+      "answer": "b",
+      "explanation": "In the Turing Test, a machine passes if a human interrogator cannot reliably tell it apart from a human in conversation."
+    },
+    {
+      "number": 48,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "If today is Wednesday, what day of the week will it be 100 days from now?",
+      "options": { "a": "Thursday", "b": "Friday", "c": "Saturday", "d": "Monday" },
+      "answer": "b",
+      "explanation": "100 mod 7 = 2, so the day advances by 2 from Wednesday, giving Friday."
+    },
+    {
+      "number": 49,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Find the next number in the series: 5, 11, 23, 47, ?",
+      "options": { "a": "94", "b": "95", "c": "96", "d": "93" },
+      "answer": "b",
+      "explanation": "Each term is the previous one doubled plus one (×2 + 1): 47 × 2 + 1 = 95."
+    },
+    {
+      "number": 50,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "In a certain code, 'MAN' is written as 'NBO'. How is 'CAT' written in the same code?",
+      "options": { "a": "DBU", "b": "DBT", "c": "CBU", "d": "EBV" },
+      "answer": "a",
+      "explanation": "Each letter is shifted forward by one: C→D, A→B, T→U, giving 'DBU'."
+    }
+  ]
+}

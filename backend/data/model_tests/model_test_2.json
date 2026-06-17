@@ -1,0 +1,475 @@
+{
+  "exam": {
+    "title": "MSc Admission Test Preparation",
+    "model_test": "Model Test 2",
+    "full_marks": 150,
+    "time": "90 minutes",
+    "total_questions": 50,
+    "marks_per_question": 3,
+    "negative_marking": false,
+    "instructions": [
+      "Answer all fifty questions. Each question carries 3 marks.",
+      "There is no negative marking. The qualifying mark is 60 (40%)."
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is the determinant of the matrix [[1, 2], [3, 4]]?",
+      "options": { "a": "−2", "b": "2", "c": "10", "d": "−10" },
+      "answer": "a",
+      "explanation": "det = (1)(4) − (2)(3) = 4 − 6 = −2."
+    },
+    {
+      "number": 2,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "If A is an orthogonal matrix, then its inverse A⁻¹ equals:",
+      "options": { "a": "A", "b": "Aᵀ (its transpose)", "c": "−A", "d": "A²" },
+      "answer": "b",
+      "explanation": "An orthogonal matrix satisfies AᵀA = I, so A⁻¹ = Aᵀ."
+    },
+    {
+      "number": 3,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is the derivative of $\\ln(x)$ with respect to x?",
+      "options": { "a": "1/x", "b": "x", "c": "ln x", "d": "eˣ" },
+      "answer": "a",
+      "explanation": "The derivative of the natural logarithm ln(x) is 1/x for x > 0."
+    },
+    {
+      "number": 4,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "Solve for x: $2^x = 8$.",
+      "options": { "a": "2", "b": "3", "c": "4", "d": "16" },
+      "answer": "b",
+      "explanation": "8 = 2³, so 2ˣ = 2³ gives x = 3."
+    },
+    {
+      "number": 5,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "In how many distinct ways can 4 different books be arranged on a shelf?",
+      "options": { "a": "12", "b": "24", "c": "16", "d": "4" },
+      "answer": "b",
+      "explanation": "The number of permutations of 4 distinct items is 4! = 24."
+    },
+    {
+      "number": 6,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "What is the median of the data set 3, 1, 4, 1, 5, 9, 2?",
+      "options": { "a": "3", "b": "4", "c": "2", "d": "1" },
+      "answer": "a",
+      "explanation": "Sorted: 1, 1, 2, 3, 4, 5, 9. The middle (4th) value is 3."
+    },
+    {
+      "number": 7,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "Events A and B are independent with P(A) = 0.5 and P(B) = 0.4. What is P(A ∩ B)?",
+      "options": { "a": "0.9", "b": "0.2", "c": "0.1", "d": "0.45" },
+      "answer": "b",
+      "explanation": "For independent events, P(A ∩ B) = P(A)·P(B) = 0.5 × 0.4 = 0.2."
+    },
+    {
+      "number": 8,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "Which statement is true for a perfectly normal (Gaussian) distribution?",
+      "options": { "a": "Mean > median", "b": "Mean = median = mode", "c": "Mode > mean", "d": "It is right-skewed" },
+      "answer": "b",
+      "explanation": "A normal distribution is symmetric, so its mean, median, and mode coincide."
+    },
+    {
+      "number": 9,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The complement of a regular language is:",
+      "options": { "a": "not regular", "b": "regular", "c": "context-free only", "d": "undecidable" },
+      "answer": "b",
+      "explanation": "Regular languages are closed under complementation (swap accepting and non-accepting states of a DFA)."
+    },
+    {
+      "number": 10,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "How does a DFA differ from an NFA?",
+      "options": { "a": "A DFA can have ε-transitions", "b": "A DFA has exactly one transition per input symbol from each state", "c": "A DFA recognizes more languages", "d": "A DFA cannot be minimized" },
+      "answer": "b",
+      "explanation": "A DFA is deterministic: each state has exactly one transition per input symbol and no ε-moves; DFAs and NFAs recognize the same languages."
+    },
+    {
+      "number": 11,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The halting problem is:",
+      "options": { "a": "decidable", "b": "undecidable", "c": "NP-complete", "d": "regular" },
+      "answer": "b",
+      "explanation": "Turing proved no algorithm can decide, for all programs and inputs, whether the program halts; the problem is undecidable."
+    },
+    {
+      "number": 12,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "Context-free grammars generate exactly the class of:",
+      "options": { "a": "regular languages", "b": "context-free languages", "c": "all recursively enumerable languages", "d": "finite languages only" },
+      "answer": "b",
+      "explanation": "By definition, context-free grammars generate the context-free languages, which are recognized by pushdown automata."
+    },
+    {
+      "number": 13,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is printed by the following C code?",
+      "language": "c",
+      "code": "int x = 10;\nint y = x++;\nprintf(\"%d %d\", x, y);",
+      "options": { "a": "10 10", "b": "11 10", "c": "11 11", "d": "10 11" },
+      "answer": "b",
+      "explanation": "Post-increment assigns the old value (10) to y, then increments x to 11, printing \"11 10\"."
+    },
+    {
+      "number": 14,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the output of this C code?",
+      "language": "c",
+      "code": "int a = 7;\nint b = a % 3;\nprintf(\"%d\", b);",
+      "options": { "a": "2", "b": "1", "c": "0", "d": "3" },
+      "answer": "b",
+      "explanation": "The modulo operator returns the remainder of 7 ÷ 3, which is 1."
+    },
+    {
+      "number": 15,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What does the following Java code print?",
+      "language": "java",
+      "code": "int[] arr = new int[5];\nSystem.out.println(arr[0]);",
+      "options": { "a": "null", "b": "0", "c": "garbage value", "d": "Compilation error" },
+      "answer": "b",
+      "explanation": "Java initializes numeric array elements to 0 by default, so arr[0] prints 0."
+    },
+    {
+      "number": 16,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "In standard C, the value of sizeof(char) is always:",
+      "options": { "a": "1", "b": "2", "c": "4", "d": "implementation-defined" },
+      "answer": "a",
+      "explanation": "The C standard defines sizeof(char) to be exactly 1 byte, regardless of platform."
+    },
+    {
+      "number": 17,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What value does this recursive C function print for f(4)?",
+      "language": "c",
+      "code": "int f(int n) {\n    return n == 0 ? 0 : n + f(n - 1);\n}\nprintf(\"%d\", f(4));",
+      "options": { "a": "10", "b": "4", "c": "24", "d": "0" },
+      "answer": "a",
+      "explanation": "f(4) computes 4 + 3 + 2 + 1 + 0 = 10 (the sum 1..n)."
+    },
+    {
+      "number": 18,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the best-case time complexity of insertion sort on an already-sorted array?",
+      "options": { "a": "O(n)", "b": "O(n²)", "c": "O(log n)", "d": "O(n log n)" },
+      "answer": "a",
+      "explanation": "When the input is sorted, each element needs only one comparison, giving a linear O(n) best case."
+    },
+    {
+      "number": 19,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which combination of data structures implements an LRU cache with O(1) get and put?",
+      "options": { "a": "A single array", "b": "A hash map plus a doubly linked list", "c": "A singly linked list only", "d": "A stack" },
+      "answer": "b",
+      "explanation": "The hash map gives O(1) lookup while the doubly linked list lets you move/evict nodes in O(1)."
+    },
+    {
+      "number": 20,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "A queue is a data structure that follows which ordering discipline?",
+      "options": { "a": "LIFO", "b": "FIFO", "c": "Random access", "d": "Priority order" },
+      "answer": "b",
+      "explanation": "A queue is First-In-First-Out: the earliest enqueued element is dequeued first."
+    },
+    {
+      "number": 21,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "How many edges does a tree with n nodes have?",
+      "options": { "a": "n", "b": "n − 1", "c": "n + 1", "d": "2n" },
+      "answer": "b",
+      "explanation": "A tree is connected and acyclic, which forces exactly n − 1 edges for n nodes."
+    },
+    {
+      "number": 22,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Binary search can be applied only when the underlying array is:",
+      "options": { "a": "sorted", "b": "unsorted", "c": "a linked list", "d": "a heap" },
+      "answer": "a",
+      "explanation": "Binary search relies on order to discard half the range each step, so the array must be sorted."
+    },
+    {
+      "number": 23,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Dijkstra's shortest-path algorithm can give incorrect results when the graph contains:",
+      "options": { "a": "negative edge weights", "b": "many vertices", "c": "directed edges", "d": "a dense edge set" },
+      "answer": "a",
+      "explanation": "Dijkstra's greedy choice assumes non-negative weights; negative edges can break its correctness (use Bellman-Ford instead)."
+    },
+    {
+      "number": 24,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "A pipeline stall caused by one instruction needing the result of a previous, not-yet-completed instruction is a:",
+      "options": { "a": "structural hazard", "b": "data hazard", "c": "control hazard", "d": "no hazard" },
+      "answer": "b",
+      "explanation": "A data hazard arises from data dependencies between instructions still in the pipeline."
+    },
+    {
+      "number": 25,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "Which addressing mode specifies the operand value directly within the instruction itself?",
+      "options": { "a": "Direct", "b": "Immediate", "c": "Indirect", "d": "Register" },
+      "answer": "b",
+      "explanation": "In immediate addressing the operand is a constant encoded in the instruction, e.g. MOV R1, #5."
+    },
+    {
+      "number": 26,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "A defining characteristic of RISC processors is:",
+      "options": { "a": "complex, variable-length instructions", "b": "a small set of simple, fixed-length instructions", "c": "heavy reliance on microcode", "d": "having no general-purpose registers" },
+      "answer": "b",
+      "explanation": "RISC designs use a small, regular set of simple fixed-length instructions to enable fast, pipelined execution."
+    },
+    {
+      "number": 27,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "How many bits are in one nibble?",
+      "options": { "a": "2 bits", "b": "4 bits", "c": "8 bits", "d": "16 bits" },
+      "answer": "b",
+      "explanation": "A nibble is 4 bits, i.e. half a byte, and maps to a single hexadecimal digit."
+    },
+    {
+      "number": 28,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "A process in the 'ready' state is:",
+      "options": { "a": "waiting for an I/O operation to complete", "b": "waiting to be assigned the CPU", "c": "terminated", "d": "currently executing on the CPU" },
+      "answer": "b",
+      "explanation": "A ready process has everything it needs except the CPU and is waiting in the ready queue to be scheduled."
+    },
+    {
+      "number": 29,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which of the following is a non-preemptive scheduling algorithm?",
+      "options": { "a": "Round Robin", "b": "First-Come-First-Served", "c": "Preemptive Shortest Job First", "d": "Multilevel feedback queue" },
+      "answer": "b",
+      "explanation": "FCFS runs each process to completion (or until it blocks) without preempting it."
+    },
+    {
+      "number": 30,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which part of the operating system always remains resident in main memory?",
+      "options": { "a": "The shell", "b": "The kernel", "c": "The compiler", "d": "The loader" },
+      "answer": "b",
+      "explanation": "The kernel is the core, always-resident component that manages processes, memory, and devices."
+    },
+    {
+      "number": 31,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "A semaphore that can take only the values 0 and 1, used to enforce mutual exclusion, is called a:",
+      "options": { "a": "counting semaphore", "b": "binary semaphore (mutex)", "c": "monitor", "d": "condition variable" },
+      "answer": "b",
+      "explanation": "A binary semaphore (mutex) toggles between 0 and 1 to guard a critical section for one process at a time."
+    },
+    {
+      "number": 32,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "In a paging system, a logical (virtual) address is divided into:",
+      "options": { "a": "a segment number and offset", "b": "a page number and offset", "c": "a frame number and block", "d": "a base and limit" },
+      "answer": "b",
+      "explanation": "Paging splits the virtual address into a page number (index into the page table) and an offset within the page."
+    },
+    {
+      "number": 33,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which protocol maps a known IP address to a physical (MAC) address on a local network?",
+      "options": { "a": "DNS", "b": "ARP", "c": "DHCP", "d": "RARP" },
+      "answer": "b",
+      "explanation": "The Address Resolution Protocol (ARP) finds the MAC address corresponding to a given IPv4 address."
+    },
+    {
+      "number": 34,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "What is the well-known port number for HTTP?",
+      "options": { "a": "21", "b": "25", "c": "80", "d": "443" },
+      "answer": "c",
+      "explanation": "HTTP uses TCP port 80 by default (HTTPS uses 443, FTP 21, SMTP 25)."
+    },
+    {
+      "number": 35,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which networking device primarily operates at the data link layer (Layer 2)?",
+      "options": { "a": "Hub", "b": "Switch", "c": "Router", "d": "Repeater" },
+      "answer": "b",
+      "explanation": "A switch forwards frames using MAC addresses, placing it at the data link layer; routers work at Layer 3."
+    },
+    {
+      "number": 36,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "UDP is best described as a transport protocol that is:",
+      "options": { "a": "connection-oriented", "b": "connectionless", "c": "reliable with retransmission", "d": "based on a three-way handshake" },
+      "answer": "b",
+      "explanation": "UDP sends datagrams without establishing a connection and offers no delivery or ordering guarantees."
+    },
+    {
+      "number": 37,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "In the ACID properties of transactions, the 'I' stands for:",
+      "options": { "a": "Integrity", "b": "Isolation", "c": "Indexing", "d": "Inheritance" },
+      "answer": "b",
+      "explanation": "Isolation ensures concurrent transactions do not interfere, appearing as if executed serially."
+    },
+    {
+      "number": 38,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "A foreign key in a relational table is used to:",
+      "options": { "a": "uniquely identify each row in its own table", "b": "reference the primary key of another table", "c": "sort the table's rows", "d": "create an index automatically" },
+      "answer": "b",
+      "explanation": "A foreign key references another table's primary key, enforcing referential integrity between the two."
+    },
+    {
+      "number": 39,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which SQL clause is used to filter groups produced by GROUP BY?",
+      "options": { "a": "WHERE", "b": "HAVING", "c": "ORDER BY", "d": "FILTER" },
+      "answer": "b",
+      "explanation": "HAVING applies conditions to aggregated groups; WHERE filters individual rows before grouping."
+    },
+    {
+      "number": 40,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "A relation that is in Boyce-Codd Normal Form (BCNF) is necessarily also in:",
+      "options": { "a": "1NF only", "b": "2NF only", "c": "3NF", "d": "no normal form" },
+      "answer": "c",
+      "explanation": "BCNF is stricter than 3NF, so every BCNF relation also satisfies 3NF (and 2NF and 1NF)."
+    },
+    {
+      "number": 41,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "A distributed system that keeps providing correct service despite component failures is said to be:",
+      "options": { "a": "scalable", "b": "fault-tolerant", "c": "transparent", "d": "stateless" },
+      "answer": "b",
+      "explanation": "Fault tolerance is the ability to continue operating correctly even when some components fail."
+    },
+    {
+      "number": 42,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "In consensus protocols such as Raft, a new leader is selected by:",
+      "options": { "a": "choosing the node with the highest IP address", "b": "a leader election decided by a majority vote", "c": "picking a node at random", "d": "a fixed round-robin order" },
+      "answer": "b",
+      "explanation": "Raft elects a leader when a candidate receives votes from a majority (quorum) of the nodes."
+    },
+    {
+      "number": 43,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "In the MapReduce model, the Map phase is responsible for:",
+      "options": { "a": "aggregating the final results", "b": "transforming input records into intermediate key-value pairs", "c": "sorting the final output", "d": "electing a coordinator" },
+      "answer": "b",
+      "explanation": "Map processes input splits in parallel and emits intermediate key-value pairs that Reduce later aggregates."
+    },
+    {
+      "number": 44,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "The Minimax algorithm is primarily used for:",
+      "options": { "a": "clustering data", "b": "decision-making in two-player adversarial games", "c": "linear regression", "d": "image compression" },
+      "answer": "b",
+      "explanation": "Minimax computes optimal moves in zero-sum two-player games by minimizing the opponent's maximum payoff."
+    },
+    {
+      "number": 45,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Which activation function squashes its input into the range (0, 1)?",
+      "options": { "a": "ReLU", "b": "Sigmoid", "c": "tanh", "d": "Linear" },
+      "answer": "b",
+      "explanation": "The sigmoid (logistic) function σ(x) = 1/(1+e⁻ˣ) outputs values strictly between 0 and 1."
+    },
+    {
+      "number": 46,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Overfitting in machine learning is best described as a model that:",
+      "options": { "a": "is too simple to capture the data", "b": "performs well on training data but poorly on unseen data", "c": "has no trainable parameters", "d": "ignores the training data entirely" },
+      "answer": "b",
+      "explanation": "An overfit model memorizes noise in the training set, so it generalizes poorly to new examples."
+    },
+    {
+      "number": 47,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "When all step costs are equal, breadth-first search is guaranteed to find:",
+      "options": { "a": "the deepest goal node", "b": "the shallowest (fewest-step) goal node", "c": "a randomly chosen goal", "d": "no goal at all" },
+      "answer": "b",
+      "explanation": "BFS expands nodes level by level, so it reaches the shallowest goal first, which is optimal when step costs are uniform."
+    },
+    {
+      "number": 48,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "If A is taller than B, and B is taller than C, which conclusion must be true?",
+      "options": { "a": "C is the tallest", "b": "A is taller than C", "c": "B is the shortest", "d": "It cannot be determined" },
+      "answer": "b",
+      "explanation": "Height is transitive: A > B and B > C imply A > C."
+    },
+    {
+      "number": 49,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Find the next number in the series: 1, 4, 9, 16, 25, ?",
+      "options": { "a": "30", "b": "36", "c": "49", "d": "35" },
+      "answer": "b",
+      "explanation": "The terms are perfect squares 1², 2², …, 5², so the next is 6² = 36."
+    },
+    {
+      "number": 50,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Pointing to a girl in a photo, a man says, \"She is the daughter of my grandfather's only son.\" How is the girl related to the man?",
+      "options": { "a": "Daughter", "b": "Sister", "c": "Mother", "d": "Niece" },
+      "answer": "b",
+      "explanation": "The grandfather's only son is the man's father; his father's daughter is the man's sister."
+    }
+  ]
+}

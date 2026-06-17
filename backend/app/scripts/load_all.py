@@ -24,6 +24,7 @@ from app.models.course import Course, Subtopic
 from app.models.question import Question
 from app.scripts.author_questions import load_authored
 from app.scripts.seed import seed_database
+from app.scripts.seed_model_tests import seed_model_tests
 
 DATA = Path(__file__).resolve().parents[2] / "data"
 TARGET_PER_SUBTOPIC = 20
@@ -81,6 +82,10 @@ async def _main() -> None:
             print("      !", p)
 
     print(f"\nLoaded: {grand_ins} inserted, {grand_skip} already present.")
+
+    mt_created, mt_updated = await seed_model_tests()
+    print(f"Model tests: {mt_created} created, {mt_updated} updated.")
+
     await _coverage_report()
     await close_db()
 

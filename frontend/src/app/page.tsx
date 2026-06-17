@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
   ArrowRight,
+  ClipboardList,
   GraduationCap,
   Loader2,
   RotateCcw,
@@ -315,6 +316,23 @@ export default function ConfigPage() {
 
   return (
     <Shell>
+      {/* Entry point to the full-length model tests (separate from practice). */}
+      <button
+        type="button"
+        data-testid="model-test-entry"
+        className="mt-entry-card"
+        onClick={() => router.push("/model-test/")}
+      >
+        <span className="mt-entry-icon">
+          <ClipboardList className="size-5" />
+        </span>
+        <span className="mt-entry-text">
+          <span className="mt-entry-title">Model Tests</span>
+          <span className="mt-entry-desc">Full 90-min mock exams · 150 marks</span>
+        </span>
+        <ArrowRight className="mt-entry-arrow size-5" />
+      </button>
+
       <div className="stagger flex flex-col gap-5">
       {/* Section tab — only shown once more than one section has courses */}
       {sections.length > 1 ? (

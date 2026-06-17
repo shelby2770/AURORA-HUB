@@ -1,0 +1,473 @@
+{
+  "exam": {
+    "title": "MSc Admission Test Preparation",
+    "model_test": "Model Test 5",
+    "full_marks": 150,
+    "time": "90 minutes",
+    "total_questions": 50,
+    "marks_per_question": 3,
+    "negative_marking": false,
+    "instructions": [
+      "Answer all fifty questions. Each question carries 3 marks.",
+      "There is no negative marking. The qualifying mark is 60 (40%)."
+    ]
+  },
+  "questions": [
+    {
+      "number": 1,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "The trace of a square matrix is defined as:",
+      "options": { "a": "the product of its eigenvalues", "b": "the sum of its main-diagonal elements", "c": "its determinant", "d": "its rank" },
+      "answer": "b",
+      "explanation": "The trace is the sum of the diagonal entries (which also equals the sum of the eigenvalues)."
+    },
+    {
+      "number": 2,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is the derivative of $e^x$ with respect to x?",
+      "options": { "a": "x·eˣ⁻¹", "b": "eˣ", "c": "1", "d": "x" },
+      "answer": "b",
+      "explanation": "The exponential function eˣ is its own derivative."
+    },
+    {
+      "number": 3,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "Solve the equation $|x - 3| = 5$.",
+      "options": { "a": "x = 8 or x = −2", "b": "x = 8 only", "c": "x = −2 only", "d": "x = 2 or x = −8" },
+      "answer": "a",
+      "explanation": "x − 3 = 5 gives x = 8, and x − 3 = −5 gives x = −2."
+    },
+    {
+      "number": 4,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "How many diagonals does a hexagon (6-sided polygon) have?",
+      "options": { "a": "6", "b": "9", "c": "12", "d": "15" },
+      "answer": "b",
+      "explanation": "Diagonals = n(n−3)/2 = 6·3/2 = 9."
+    },
+    {
+      "number": 5,
+      "subject": "Mathematics",
+      "marks": 3,
+      "question": "What is the determinant of the 3×3 identity matrix?",
+      "options": { "a": "0", "b": "1", "c": "3", "d": "9" },
+      "answer": "b",
+      "explanation": "The identity matrix is upper triangular with 1's on the diagonal, so its determinant is 1."
+    },
+    {
+      "number": 6,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "The standard normal distribution has which mean and standard deviation?",
+      "options": { "a": "mean 0 and standard deviation 1", "b": "mean 1 and standard deviation 0", "c": "mean 0 and standard deviation 0", "d": "mean 1 and standard deviation 1" },
+      "answer": "a",
+      "explanation": "The standard normal distribution N(0, 1) is defined to have mean 0 and standard deviation 1."
+    },
+    {
+      "number": 7,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "A single card is drawn from a standard 52-card deck. What is the probability that it is an ace?",
+      "options": { "a": "1/13", "b": "1/4", "c": "1/52", "d": "4/13" },
+      "answer": "a",
+      "explanation": "There are 4 aces out of 52 cards, so the probability is 4/52 = 1/13."
+    },
+    {
+      "number": 8,
+      "subject": "Statistics",
+      "marks": 3,
+      "question": "The range of a data set is calculated as:",
+      "options": { "a": "the most frequent value", "b": "the maximum minus the minimum value", "c": "the middle value", "d": "the arithmetic mean" },
+      "answer": "b",
+      "explanation": "Range is a simple dispersion measure: largest value minus smallest value."
+    },
+    {
+      "number": 9,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "A pushdown automaton (PDA) is a finite automaton augmented with:",
+      "options": { "a": "an unbounded tape", "b": "a stack", "c": "a queue", "d": "extra registers" },
+      "answer": "b",
+      "explanation": "A PDA adds a stack to a finite automaton, giving it the power to recognize context-free languages."
+    },
+    {
+      "number": 10,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "Which of the following problems is undecidable?",
+      "options": { "a": "Membership in a regular language", "b": "Equivalence of two context-free grammars", "c": "Emptiness of a DFA", "d": "Membership in a context-free language" },
+      "answer": "b",
+      "explanation": "Deciding whether two context-free grammars generate the same language is undecidable; the others are decidable."
+    },
+    {
+      "number": 11,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "The Kleene star of the empty set, ∅*, equals:",
+      "options": { "a": "∅", "b": "{ε} (the set containing only the empty string)", "c": "Σ*", "d": "undefined" },
+      "answer": "b",
+      "explanation": "Kleene star always includes the empty string (zero concatenations), so ∅* = {ε}."
+    },
+    {
+      "number": 12,
+      "subject": "Theory of Computation (TOC)",
+      "marks": 3,
+      "question": "A context-free grammar is ambiguous if:",
+      "options": { "a": "it contains ε-productions", "b": "some string has two or more distinct parse trees", "c": "it is left-recursive", "d": "it has unreachable nonterminals" },
+      "answer": "b",
+      "explanation": "Ambiguity means at least one string in the language has more than one parse tree (or leftmost derivation)."
+    },
+    {
+      "number": 13,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the output of this C code?",
+      "language": "c",
+      "code": "int a = 2;\nprintf(\"%d\", a << 1);",
+      "options": { "a": "4", "b": "2", "c": "8", "d": "1" },
+      "answer": "a",
+      "explanation": "Left-shifting by 1 multiplies by 2, so 2 << 1 = 4."
+    },
+    {
+      "number": 14,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What does the following C code print?",
+      "language": "c",
+      "code": "int x = 10;\nint *p = &x;\n*p = 20;\nprintf(\"%d\", x);",
+      "options": { "a": "10", "b": "20", "c": "an address", "d": "Compilation error" },
+      "answer": "b",
+      "explanation": "p points to x; assigning *p = 20 writes through the pointer, changing x to 20."
+    },
+    {
+      "number": 15,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "Which Java collection type does NOT allow duplicate elements?",
+      "options": { "a": "List", "b": "Set", "c": "ArrayList", "d": "LinkedList" },
+      "answer": "b",
+      "explanation": "A Set models a mathematical set and rejects duplicate elements; List implementations allow duplicates."
+    },
+    {
+      "number": 16,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "In C++, a class destructor is automatically called when:",
+      "options": { "a": "the object is created", "b": "the object goes out of scope or is deleted", "c": "any member function is called", "d": "never; it must be called manually" },
+      "answer": "b",
+      "explanation": "The destructor runs when an object's lifetime ends — it leaves scope or is explicitly deleted."
+    },
+    {
+      "number": 17,
+      "subject": "Programming",
+      "marks": 3,
+      "question": "What is the final value of sum printed by this C code?",
+      "language": "c",
+      "code": "int sum = 0;\nfor (int i = 1; i <= 3; i++)\n    for (int j = 1; j <= 2; j++)\n        sum++;\nprintf(\"%d\", sum);",
+      "options": { "a": "5", "b": "6", "c": "9", "d": "3" },
+      "answer": "b",
+      "explanation": "The inner loop runs 2 times for each of the 3 outer iterations, so sum is incremented 3 × 2 = 6 times."
+    },
+    {
+      "number": 18,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which data structure does a runtime use to manage function calls and recursion?",
+      "options": { "a": "Queue", "b": "Stack (the call stack)", "c": "Heap", "d": "Binary tree" },
+      "answer": "b",
+      "explanation": "Function activation records are pushed/popped on the call stack, matching the LIFO nature of calls and returns."
+    },
+    {
+      "number": 19,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the worst-case search time in a hash table when every key hashes to the same bucket?",
+      "options": { "a": "O(1)", "b": "O(n)", "c": "O(log n)", "d": "O(n²)" },
+      "answer": "b",
+      "explanation": "If all keys collide into one chain, a search degenerates to scanning a list of n items, i.e. O(n)."
+    },
+    {
+      "number": 20,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "In a circular linked list:",
+      "options": { "a": "there is no head node", "b": "the last node's pointer references the first node", "c": "the list is always sorted", "d": "each node has two data fields" },
+      "answer": "b",
+      "explanation": "A circular linked list connects the last node back to the first, forming a loop with no NULL terminator."
+    },
+    {
+      "number": 21,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Topological sorting can be performed only on:",
+      "options": { "a": "any graph", "b": "directed acyclic graphs (DAGs)", "c": "undirected graphs", "d": "complete graphs" },
+      "answer": "b",
+      "explanation": "A topological order exists only if the directed graph has no cycles, i.e. it is a DAG."
+    },
+    {
+      "number": 22,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "What is the average-case time complexity of quicksort?",
+      "options": { "a": "O(n²)", "b": "O(n log n)", "c": "O(n)", "d": "O(log n)" },
+      "answer": "b",
+      "explanation": "With balanced partitions on average, quicksort runs in O(n log n); its worst case is O(n²)."
+    },
+    {
+      "number": 23,
+      "subject": "Data Structures & Algorithms (DSA)",
+      "marks": 3,
+      "question": "Which collision-resolution technique stores a colliding key in the next available slot of the table itself?",
+      "options": { "a": "Separate chaining", "b": "Open addressing (e.g. linear probing)", "c": "Cuckoo hashing only", "d": "Perfect hashing" },
+      "answer": "b",
+      "explanation": "Open addressing probes for another empty slot within the table rather than using external chains."
+    },
+    {
+      "number": 24,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "What is the decimal value of the hexadecimal number FF?",
+      "options": { "a": "128", "b": "255", "c": "256", "d": "15" },
+      "answer": "b",
+      "explanation": "FF₁₆ = 15×16 + 15 = 255 (the largest value in one byte)."
+    },
+    {
+      "number": 25,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "In a pipelined processor, a branch instruction most directly causes which kind of hazard?",
+      "options": { "a": "a data hazard", "b": "a control hazard", "c": "a structural hazard", "d": "no hazard at all" },
+      "answer": "b",
+      "explanation": "A branch changes the instruction flow, so the pipeline may have fetched wrong-path instructions — a control (branch) hazard."
+    },
+    {
+      "number": 26,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "Which type of memory is non-volatile (retains data without power)?",
+      "options": { "a": "RAM", "b": "ROM", "c": "CPU cache", "d": "CPU registers" },
+      "answer": "b",
+      "explanation": "ROM keeps its contents when powered off; RAM, cache, and registers are volatile."
+    },
+    {
+      "number": 27,
+      "subject": "Computer Architecture",
+      "marks": 3,
+      "question": "How many bits are there in one byte?",
+      "options": { "a": "4", "b": "8", "c": "16", "d": "32" },
+      "answer": "b",
+      "explanation": "By standard definition a byte consists of 8 bits."
+    },
+    {
+      "number": 28,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "A Process Control Block (PCB) stores:",
+      "options": { "a": "the program's source code", "b": "process state, program counter, and register contents", "c": "only the process name", "d": "the disk partition table" },
+      "answer": "b",
+      "explanation": "The PCB holds all per-process metadata — state, PC, registers, scheduling info — needed to manage and resume it."
+    },
+    {
+      "number": 29,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Mutual exclusion over a shared resource is commonly implemented using:",
+      "options": { "a": "pipes", "b": "semaphores", "c": "sockets", "d": "environment variables" },
+      "answer": "b",
+      "explanation": "Semaphores (or mutexes) provide the synchronization primitive used to guarantee mutual exclusion."
+    },
+    {
+      "number": 30,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "In the producer-consumer problem, access to the shared bounded buffer requires:",
+      "options": { "a": "no coordination at all", "b": "synchronization to prevent race conditions", "c": "additional CPU cores", "d": "a faster disk" },
+      "answer": "b",
+      "explanation": "Producers and consumers share the buffer, so semaphores/mutexes are needed to avoid races and over/underflow."
+    },
+    {
+      "number": 31,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Which scheduling algorithm is best suited to giving good response time in interactive, time-sharing systems?",
+      "options": { "a": "First-Come-First-Served", "b": "Round Robin", "c": "Shortest Job First", "d": "Non-preemptive priority" },
+      "answer": "b",
+      "explanation": "Round Robin's small time quantum gives every process frequent CPU turns, keeping interactive response times low."
+    },
+    {
+      "number": 32,
+      "subject": "Operating Systems (OS)",
+      "marks": 3,
+      "question": "Spooling is most commonly used to manage:",
+      "options": { "a": "the CPU cache", "b": "slow I/O devices such as printers", "c": "main memory allocation", "d": "the network interface" },
+      "answer": "b",
+      "explanation": "Spooling queues jobs (e.g. print jobs) on disk so a slow device can process them while the CPU continues other work."
+    },
+    {
+      "number": 33,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which network topology connects every device to a single central hub or switch?",
+      "options": { "a": "Bus topology", "b": "Star topology", "c": "Ring topology", "d": "Mesh topology" },
+      "answer": "b",
+      "explanation": "In a star topology each node has a dedicated link to a central device, which is also a single point of failure."
+    },
+    {
+      "number": 34,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "The protocol data unit at the network (IP) layer is called a:",
+      "options": { "a": "frame", "b": "packet", "c": "segment", "d": "bit" },
+      "answer": "b",
+      "explanation": "The network layer handles packets; segments belong to the transport layer and frames to the data link layer."
+    },
+    {
+      "number": 35,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "Which transport-layer protocol is connection-oriented and guarantees reliable, ordered delivery?",
+      "options": { "a": "UDP", "b": "TCP", "c": "IP", "d": "ICMP" },
+      "answer": "b",
+      "explanation": "TCP establishes a connection and provides reliable, in-order delivery through acknowledgements and retransmission."
+    },
+    {
+      "number": 36,
+      "subject": "Computer Networks",
+      "marks": 3,
+      "question": "How many bits are in a standard MAC (hardware) address?",
+      "options": { "a": "32", "b": "48", "c": "64", "d": "128" },
+      "answer": "b",
+      "explanation": "A MAC address is 48 bits, usually written as six pairs of hexadecimal digits."
+    },
+    {
+      "number": 37,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which SQL statement is used to retrieve data from a table?",
+      "options": { "a": "GET", "b": "SELECT", "c": "FETCH", "d": "READ" },
+      "answer": "b",
+      "explanation": "SELECT is the SQL query statement used to read rows from one or more tables."
+    },
+    {
+      "number": 38,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "A composite key is:",
+      "options": { "a": "a foreign key referencing another table", "b": "a key formed from two or more attributes together", "c": "an automatically generated index", "d": "a uniqueness constraint on a single column" },
+      "answer": "b",
+      "explanation": "A composite (compound) key uses a combination of two or more columns to uniquely identify a row."
+    },
+    {
+      "number": 39,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which transaction isolation level prevents dirty reads but still permits non-repeatable reads?",
+      "options": { "a": "Read Uncommitted", "b": "Read Committed", "c": "Serializable", "d": "Snapshot" },
+      "answer": "b",
+      "explanation": "Read Committed forbids reading uncommitted data (no dirty reads) but a row may change between two reads in the same transaction."
+    },
+    {
+      "number": 40,
+      "subject": "Database Management Systems (DBMS)",
+      "marks": 3,
+      "question": "Which SQL join produces the Cartesian product of two tables?",
+      "options": { "a": "INNER JOIN", "b": "CROSS JOIN", "c": "NATURAL JOIN", "d": "UNION" },
+      "answer": "b",
+      "explanation": "A CROSS JOIN pairs every row of the first table with every row of the second, yielding the Cartesian product."
+    },
+    {
+      "number": 41,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "A Distributed Hash Table (DHT) provides:",
+      "options": { "a": "centralized data storage on one server", "b": "a decentralized lookup that maps keys to the nodes responsible for them", "c": "a relational query engine", "d": "physical clock synchronization" },
+      "answer": "b",
+      "explanation": "A DHT spreads key-value pairs across nodes and lets any node locate the responsible node without a central directory."
+    },
+    {
+      "number": 42,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "The Byzantine Generals problem is about reaching agreement when some participants may:",
+      "options": { "a": "be slightly slow", "b": "behave arbitrarily or maliciously (send conflicting information)", "c": "have clock drift", "d": "run low on memory" },
+      "answer": "b",
+      "explanation": "Byzantine fault tolerance addresses consensus despite components that can fail arbitrarily, including lying."
+    },
+    {
+      "number": 43,
+      "subject": "Distributed Systems",
+      "marks": 3,
+      "question": "Horizontal scaling (scaling out) refers to:",
+      "options": { "a": "upgrading a single server's CPU and RAM", "b": "adding more machines/nodes to share the load", "c": "increasing the clock speed", "d": "compressing stored data" },
+      "answer": "b",
+      "explanation": "Horizontal scaling adds more nodes to distribute work; vertical scaling upgrades a single machine."
+    },
+    {
+      "number": 44,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Alpha-beta pruning improves which algorithm by skipping branches that cannot affect the result?",
+      "options": { "a": "Gradient descent", "b": "The Minimax algorithm", "c": "K-means clustering", "d": "Backpropagation" },
+      "answer": "b",
+      "explanation": "Alpha-beta pruning prunes subtrees in minimax game-tree search, reducing the number of nodes evaluated."
+    },
+    {
+      "number": 45,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "In informed (heuristic) search, the heuristic function h(n) estimates:",
+      "options": { "a": "the cost already spent reaching node n", "b": "the estimated cost from node n to the goal", "c": "the total number of nodes", "d": "the branching factor of the tree" },
+      "answer": "b",
+      "explanation": "The heuristic h(n) approximates the remaining cost from n to a goal, guiding the search toward promising nodes."
+    },
+    {
+      "number": 46,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "The Naive Bayes classifier makes which simplifying assumption about features?",
+      "options": { "a": "features are perfectly correlated", "b": "features are conditionally independent given the class", "c": "features must be continuous", "d": "features are irrelevant to the class" },
+      "answer": "b",
+      "explanation": "Naive Bayes assumes class-conditional independence of features, which simplifies probability estimation."
+    },
+    {
+      "number": 47,
+      "subject": "Artificial Intelligence (AI)",
+      "marks": 3,
+      "question": "Which of the following is an unsupervised learning algorithm?",
+      "options": { "a": "Logistic regression", "b": "K-means clustering", "c": "Support vector machine", "d": "Decision-tree classifier" },
+      "answer": "b",
+      "explanation": "K-means groups unlabelled data into clusters without target labels, making it unsupervised; the others are supervised."
+    },
+    {
+      "number": 48,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "A person walks 3 km due north, then 4 km due east. How far are they from the starting point?",
+      "options": { "a": "5 km", "b": "7 km", "c": "1 km", "d": "12 km" },
+      "answer": "a",
+      "explanation": "The displacement is the hypotenuse of a 3-4 right triangle: √(3² + 4²) = √25 = 5 km."
+    },
+    {
+      "number": 49,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "Find the next term in the series: AZ, BY, CX, ?",
+      "options": { "a": "DW", "b": "DV", "c": "EW", "d": "CW" },
+      "answer": "a",
+      "explanation": "The first letter advances A→B→C→D while the second moves back Z→Y→X→W, giving DW."
+    },
+    {
+      "number": 50,
+      "subject": "Analytical Ability",
+      "marks": 3,
+      "question": "If 5 machines take 5 minutes to make 5 widgets, how long will 100 machines take to make 100 widgets?",
+      "options": { "a": "100 minutes", "b": "5 minutes", "c": "20 minutes", "d": "1 minute" },
+      "answer": "b",
+      "explanation": "Each machine makes one widget in 5 minutes, so 100 machines make 100 widgets in the same 5 minutes."
+    }
+  ]
+}
