@@ -1,0 +1,82 @@
+[
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "easy",
+  "questionText": "The value of $5!$ (5 factorial) is:",
+  "options": ["120", "60", "24", "720"],
+  "correctIndex": 0,
+  "explanation": "5! = 5 × 4 × 3 × 2 × 1 = 120.",
+  "distractorRationales": ["", "60 = 5 × 4 × 3 stops early.", "24 = 4! is one factorial too small.", "720 = 6! is one factorial too large."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "easy",
+  "questionText": "The number of ways to choose 2 items from 5 distinct items, $\\binom{5}{2}$, is:",
+  "options": ["10", "20", "5", "25"],
+  "correctIndex": 0,
+  "explanation": "C(5,2) = 5!/(2!·3!) = 10.",
+  "distractorRationales": ["", "20 = 5 × 4 is the permutation count ⁵P₂, where order matters.", "5 is just the total number of items.", "25 = 5² overcounts with repetition."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "easy",
+  "questionText": "The number of distinct arrangements of the letters in the word \"CAT\" is:",
+  "options": ["6", "3", "9", "27"],
+  "correctIndex": 0,
+  "explanation": "All three letters are distinct, so the count is 3! = 6.",
+  "distractorRationales": ["", "3 is the number of letters, not the arrangements.", "9 = 3² is not how arrangements are counted.", "27 = 3³ would allow repetition."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "medium",
+  "questionText": "The number of permutations of 2 items chosen from 5 distinct items, $^5P_2$, is:",
+  "options": ["20", "10", "25", "120"],
+  "correctIndex": 0,
+  "explanation": "⁵P₂ = 5!/(5-2)! = 5 × 4 = 20 (order matters).",
+  "distractorRationales": ["", "10 = C(5,2) counts unordered selections.", "25 = 5² allows repetition.", "120 = 5! arranges all five items."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "medium",
+  "questionText": "How many 3-digit numbers can be formed using the digits 1–9 with no digit repeated?",
+  "options": ["504", "729", "720", "81"],
+  "correctIndex": 0,
+  "explanation": "9 choices for the first digit, 8 for the second, 7 for the third: 9 × 8 × 7 = 504.",
+  "distractorRationales": ["", "729 = 9³ allows repetition.", "720 = 10 × 9 × 8 wrongly uses 10 digits.", "81 = 9² covers only two positions."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "medium",
+  "questionText": "In how many ways can 4 distinct people be seated in a row of 4 chairs?",
+  "options": ["24", "12", "16", "4"],
+  "correctIndex": 0,
+  "explanation": "Arranging 4 distinct people is 4! = 24.",
+  "distractorRationales": ["", "12 = 4!/2 wrongly divides by a symmetry that does not apply to a row.", "16 = 4² is not an arrangement count.", "4 is the number of people, not the arrangements."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "hard",
+  "questionText": "In how many ways can a committee of 3 be chosen from 7 people?",
+  "options": ["35", "21", "210", "7"],
+  "correctIndex": 0,
+  "explanation": "Order does not matter: C(7,3) = 7!/(3!·4!) = 35.",
+  "distractorRationales": ["", "21 = C(7,2) chooses 2, not 3.", "210 = ⁷P₃ counts ordered selections.", "7 is just the number of people."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "permutations-combinations",
+  "difficulty": "hard",
+  "questionText": "The number of distinct arrangements of the letters in the word \"LEVEL\" is:",
+  "options": ["30", "60", "120", "20"],
+  "correctIndex": 0,
+  "explanation": "LEVEL has 5 letters with L repeated twice and E repeated twice: 5!/(2!·2!) = 120/4 = 30.",
+  "distractorRationales": ["", "60 = 5!/2! divides by only one repetition.", "120 = 5! ignores both repeated letters.", "20 results from an incorrect division."]
+ }
+]

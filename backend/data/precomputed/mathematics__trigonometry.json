@@ -1,0 +1,92 @@
+[
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "easy",
+  "questionText": "The value of $\\sin 30^\\circ$ is:",
+  "options": ["$\\frac{1}{2}$", "$\\frac{\\sqrt{3}}{2}$", "$\\frac{1}{\\sqrt{2}}$", "1"],
+  "correctIndex": 0,
+  "explanation": "sin 30° = 1/2 is a standard value.",
+  "distractorRationales": ["", "√3/2 is cos 30° (or sin 60°).", "1/√2 is sin 45°.", "1 is sin 90°."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "easy",
+  "questionText": "The value of $\\cos 60^\\circ$ is:",
+  "options": ["$\\frac{\\sqrt{3}}{2}$", "$\\frac{1}{2}$", "1", "0"],
+  "correctIndex": 1,
+  "explanation": "cos 60° = 1/2 is a standard value.",
+  "distractorRationales": ["√3/2 is cos 30°.", "", "1 is cos 0°.", "0 is cos 90°."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "easy",
+  "questionText": "The value of $\\tan 45^\\circ$ is:",
+  "options": ["0", "$\\sqrt{3}$", "1", "$\\frac{1}{\\sqrt{3}}$"],
+  "correctIndex": 2,
+  "explanation": "tan 45° = sin 45° / cos 45° = 1.",
+  "distractorRationales": ["0 is tan 0°.", "√3 is tan 60°.", "", "1/√3 is tan 30°."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "easy",
+  "questionText": "For any angle $\\theta$, the value of $\\sin^2\\theta + \\cos^2\\theta$ is:",
+  "options": ["0", "1", "2", "$\\sin 2\\theta$"],
+  "correctIndex": 1,
+  "explanation": "This is the fundamental Pythagorean identity: sin²θ + cos²θ = 1.",
+  "distractorRationales": ["The sum of the squares is never 0 for a valid angle.", "", "The identity equals 1, not 2.", "sin 2θ = 2 sinθ cosθ, a different expression."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "medium",
+  "questionText": "If $\\sin\\theta = \\frac{3}{5}$ and $\\theta$ is acute, then $\\cos\\theta$ equals:",
+  "options": ["$\\frac{4}{5}$", "$\\frac{3}{5}$", "$\\frac{5}{3}$", "$\\frac{3}{4}$"],
+  "correctIndex": 0,
+  "explanation": "cos²θ = 1 - sin²θ = 1 - 9/25 = 16/25, so cosθ = 4/5 (positive, since θ is acute).",
+  "distractorRationales": ["", "3/5 is sinθ, not cosθ.", "5/3 is cscθ, the reciprocal of sinθ.", "3/4 is tanθ, not cosθ."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "medium",
+  "questionText": "The identity $1 + \\tan^2\\theta$ equals:",
+  "options": ["$\\csc^2\\theta$", "$\\sec^2\\theta$", "$\\cot^2\\theta$", "1"],
+  "correctIndex": 1,
+  "explanation": "Dividing sin²θ + cos²θ = 1 by cos²θ gives tan²θ + 1 = sec²θ.",
+  "distractorRationales": ["csc²θ = 1 + cot²θ, the companion identity.", "", "cot²θ is the square of cosθ/sinθ, unrelated here.", "Only true when tanθ = 0."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "medium",
+  "questionText": "The value of $\\sin 90^\\circ - \\cos 0^\\circ$ is:",
+  "options": ["0", "1", "2", "-1"],
+  "correctIndex": 0,
+  "explanation": "sin 90° = 1 and cos 0° = 1, so the difference is 1 - 1 = 0.",
+  "distractorRationales": ["", "Both terms equal 1, so the difference is 0, not 1.", "Adding them would give 2; the expression subtracts.", "The result is 0; neither term is large enough to give -1."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "hard",
+  "questionText": "If $\\tan\\theta = 1$ and $0^\\circ < \\theta < 90^\\circ$, then $\\theta$ equals:",
+  "options": ["30°", "45°", "60°", "90°"],
+  "correctIndex": 1,
+  "explanation": "tanθ = 1 means sinθ = cosθ, which occurs at θ = 45° in the first quadrant.",
+  "distractorRationales": ["tan 30° = 1/√3, not 1.", "", "tan 60° = √3, not 1.", "tan 90° is undefined."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "trigonometry",
+  "difficulty": "hard",
+  "questionText": "The value of $2\\sin 30^\\circ \\cos 30^\\circ$ is:",
+  "options": ["$\\frac{\\sqrt{3}}{2}$", "$\\frac{1}{2}$", "1", "$\\frac{1}{\\sqrt{2}}$"],
+  "correctIndex": 0,
+  "explanation": "By the double-angle identity, 2 sinθ cosθ = sin 2θ, so this equals sin 60° = √3/2.",
+  "distractorRationales": ["", "1/2 is sin 30°, not sin 60°.", "1 would require sin 90°; here 2θ = 60°.", "1/√2 is sin 45°, not sin 60°."]
+ }
+]

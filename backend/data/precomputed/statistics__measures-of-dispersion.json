@@ -1,0 +1,82 @@
+[
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "easy",
+  "questionText": "The range of the data set 4, 8, 15, 16, 23, 42 is:",
+  "options": ["38", "42", "4", "23"],
+  "correctIndex": 0,
+  "explanation": "Range = maximum - minimum = 42 - 4 = 38.",
+  "distractorRationales": ["", "42 is the maximum only.", "4 is the minimum only.", "23 is one of the data values, not the range."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "easy",
+  "questionText": "The standard deviation is the square root of the:",
+  "options": ["variance", "mean", "range", "median"],
+  "correctIndex": 0,
+  "explanation": "By definition, standard deviation = √variance.",
+  "distractorRationales": ["", "The mean is a measure of centre, not spread.", "The range is max - min, unrelated to the square root.", "The median is a measure of centre."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "medium",
+  "questionText": "The population variance of the data set 2, 4, 6 is:",
+  "options": ["$\\frac{8}{3}$", "2", "4", "8"],
+  "correctIndex": 0,
+  "explanation": "Mean = 4. Squared deviations: (-2)², 0², 2² = 4, 0, 4. Population variance = (4 + 0 + 4)/3 = 8/3.",
+  "distractorRationales": ["", "2 is the standard deviation of the deviations' spacing, not the variance.", "4 is the sum of squared deviations over 2, the sample-variance divisor.", "8 is the sum of squared deviations, before dividing by n."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "medium",
+  "questionText": "If every value in a data set is identical, the variance is:",
+  "options": ["0", "1", "equal to the mean", "undefined"],
+  "correctIndex": 0,
+  "explanation": "With no spread, every deviation from the mean is 0, so the variance is 0.",
+  "distractorRationales": ["", "Variance of identical values is 0, not 1.", "Variance measures spread, not centre.", "It is well-defined and equals 0."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "medium",
+  "questionText": "The standard deviation of the data set 5, 5, 5, 5 is:",
+  "options": ["0", "5", "2.5", "1"],
+  "correctIndex": 0,
+  "explanation": "All values are equal, so there is no spread and the standard deviation is 0.",
+  "distractorRationales": ["", "5 is the common value (and the mean), not the spread.", "2.5 is half the value, not a measure of spread here.", "1 would require some variation."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "medium",
+  "questionText": "The coefficient of variation (CV) is defined as:",
+  "options": ["$\\frac{\\sigma}{\\bar{x}} \\times 100$", "$\\frac{\\bar{x}}{\\sigma} \\times 100$", "$\\sigma \\times \\bar{x}$", "$\\sigma^2$"],
+  "correctIndex": 0,
+  "explanation": "CV expresses the standard deviation as a percentage of the mean: (σ / x̄) × 100.",
+  "distractorRationales": ["", "This inverts the ratio (mean over SD).", "Multiplying SD by the mean is not the CV.", "σ² is the variance, not the CV."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "hard",
+  "questionText": "If every observation in a data set is multiplied by 3, the standard deviation:",
+  "options": ["becomes 3 times the original", "stays the same", "becomes 9 times the original", "becomes one-third of the original"],
+  "correctIndex": 0,
+  "explanation": "Scaling all data by a factor k scales the standard deviation by |k|, so it becomes 3 times larger.",
+  "distractorRationales": ["", "Scaling does change the spread, unlike adding a constant.", "The variance becomes 9 times larger; the standard deviation becomes 3 times.", "Multiplying by 3 increases, not decreases, the spread."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "measures-of-dispersion",
+  "difficulty": "hard",
+  "questionText": "Adding the constant 5 to every observation changes the variance by:",
+  "options": ["no change", "an increase of 5", "an increase of 25", "a decrease of 5"],
+  "correctIndex": 0,
+  "explanation": "Shifting all values by a constant moves the mean equally, leaving every deviation — and thus the variance — unchanged.",
+  "distractorRationales": ["", "A location shift does not add to the spread.", "25 = 5² would only apply to scaling, not shifting.", "The variance neither rises nor falls under a shift."]
+ }
+]

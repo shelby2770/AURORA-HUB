@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 
 from app.core.slug import slugify
 from app.models.course import Course, Subtopic
-from app.scripts.seed_data import SEED
+from app.scripts.seed_data import SEED, category_for
 
 
 @dataclass
@@ -31,15 +31,24 @@ async def seed_database(verbose: bool = False) -> SeedResult:
 
     for course_name, subtopic_names in SEED.items():
         course_slug = slugify(course_name)
+        category = category_for(course_name)
         course = await Course.find_one(Course.slug == course_slug)
         if course is None:
             course = await Course(
-                name=course_name, slug=course_slug, isActive=True
+                name=course_name,
+                slug=course_slug,
+                category=category,
+                isActive=True,
             ).insert()
             result.courses_created += 1
             if verbose:
                 print(f"  + course  {course_name}")
         else:
+            # Backfill/refresh category on existing courses so a course added
+            # to the catalog before categories existed lands in the right tab.
+            if course.category != category:
+                course.category = category
+                await course.save()
             result.courses_existing += 1
 
         for subtopic_name in subtopic_names:

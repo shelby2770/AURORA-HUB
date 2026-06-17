@@ -1,0 +1,82 @@
+[
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "easy",
+  "questionText": "Evaluate $\\lim_{x \\to 2} (3x + 1)$.",
+  "options": ["6", "7", "5", "Does not exist"],
+  "correctIndex": 1,
+  "explanation": "3x + 1 is continuous, so substitute x = 2: 3(2) + 1 = 7.",
+  "distractorRationales": ["6 = 3 × 2 omits the +1.", "", "5 = 3 + 2 adds instead of multiplying.", "The limit of a polynomial always exists."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "easy",
+  "questionText": "Evaluate $\\lim_{x \\to 0} \\frac{\\sin x}{x}$.",
+  "options": ["0", "1", "$\\infty$", "Undefined"],
+  "correctIndex": 1,
+  "explanation": "This is a standard limit: as x → 0, (sin x)/x → 1.",
+  "distractorRationales": ["The ratio approaches 1, not 0.", "", "It is a finite limit equal to 1, not infinite.", "The limit exists and equals 1, even though the function is undefined exactly at 0."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "medium",
+  "questionText": "Evaluate $\\lim_{x \\to 3} \\frac{x^2 - 9}{x - 3}$.",
+  "options": ["0", "3", "6", "Does not exist"],
+  "correctIndex": 2,
+  "explanation": "Factor: (x² - 9)/(x - 3) = (x + 3)(x - 3)/(x - 3) = x + 3, which → 6 as x → 3.",
+  "distractorRationales": ["The 0/0 form simplifies after factoring to a finite limit.", "3 is the limit point, not the value of x + 3 there.", "", "After cancelling (x - 3), the limit exists and equals 6."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "medium",
+  "questionText": "Evaluate $\\lim_{x \\to \\infty} \\frac{2x^2 + 3}{x^2 + 1}$.",
+  "options": ["0", "1", "2", "$\\infty$"],
+  "correctIndex": 2,
+  "explanation": "Divide top and bottom by x²: (2 + 3/x²)/(1 + 1/x²) → 2/1 = 2.",
+  "distractorRationales": ["The degrees are equal, so the limit is the ratio of leading coefficients, not 0.", "1 ignores the leading coefficient 2 on top.", "", "Equal degrees give a finite ratio, not infinity."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "medium",
+  "questionText": "Evaluate $\\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}$.",
+  "options": ["0", "$\\frac{1}{2}$", "1", "2"],
+  "correctIndex": 1,
+  "explanation": "Using 1 - cos x ≈ x²/2 for small x, the ratio → 1/2.",
+  "distractorRationales": ["The numerator is second-order small, matching x², so the limit is nonzero.", "", "1 would hold for (1 - cos x)/(x²/2); dividing by x² halves it.", "2 is the reciprocal of the correct value."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "medium",
+  "questionText": "A function $f$ is continuous at $x = a$ if and only if:",
+  "options": ["$\\lim_{x \\to a} f(x) = f(a)$", "$f(a)$ is undefined", "$\\lim_{x \\to a} f(x)$ does not exist", "$f$ is increasing at $a$"],
+  "correctIndex": 0,
+  "explanation": "Continuity at a requires that f(a) exists, the limit exists, and the two are equal.",
+  "distractorRationales": ["", "If f(a) is undefined, f cannot be continuous there.", "Continuity requires the limit to exist, not fail to exist.", "Monotonicity is unrelated to continuity."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "hard",
+  "questionText": "Evaluate $\\lim_{x \\to \\infty} \\frac{3x + 2}{2x - 5}$.",
+  "options": ["$\\frac{3}{2}$", "$\\frac{2}{3}$", "3", "0"],
+  "correctIndex": 0,
+  "explanation": "For equal-degree (degree 1) polynomials, the limit is the ratio of leading coefficients: 3/2.",
+  "distractorRationales": ["", "2/3 inverts the ratio of leading coefficients.", "3 ignores the denominator's leading coefficient.", "Equal degrees give a finite nonzero limit."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "limits-continuity",
+  "difficulty": "hard",
+  "questionText": "The function $f(x) = \\frac{x^2 - 1}{x - 1}$ has, at $x = 1$, a discontinuity that is:",
+  "options": ["Removable", "A jump (step)", "Infinite", "Nonexistent; f is continuous there"],
+  "correctIndex": 0,
+  "explanation": "f simplifies to x + 1 for x ≠ 1, with a finite limit of 2. The hole at x = 1 can be filled, so the discontinuity is removable.",
+  "distractorRationales": ["", "The left and right limits agree (both 2), so it is not a jump.", "The limit is finite (2), not infinite.", "f(1) is undefined (0/0), so there is a genuine discontinuity."]
+ }
+]

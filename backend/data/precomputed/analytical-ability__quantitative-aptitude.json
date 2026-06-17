@@ -1,0 +1,82 @@
+[
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "easy",
+  "questionText": "What is 15% of 200?",
+  "options": ["30", "15", "20", "45"],
+  "correctIndex": 0,
+  "explanation": "15% of 200 = 0.15 × 200 = 30.",
+  "distractorRationales": ["", "15 is the percentage figure, not 15% of 200.", "20 = 10% of 200.", "45 would be 22.5% of 200."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "easy",
+  "questionText": "If 3 pens cost $12, what is the cost of 5 pens (at the same rate)?",
+  "options": ["$20", "$15", "$24", "$18"],
+  "correctIndex": 0,
+  "explanation": "Each pen costs 12/3 = $4, so 5 pens cost 5 × 4 = $20.",
+  "distractorRationales": ["", "$15 assumes $3 per pen.", "$24 doubles the cost of 3 pens incorrectly.", "$18 assumes $3.60 per pen."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "medium",
+  "questionText": "A train travels 180 km in 3 hours. Its average speed is:",
+  "options": ["60 km/h", "45 km/h", "90 km/h", "50 km/h"],
+  "correctIndex": 0,
+  "explanation": "Speed = distance / time = 180 / 3 = 60 km/h.",
+  "distractorRationales": ["", "45 km/h would cover only 135 km in 3 hours.", "90 km/h would cover 270 km in 3 hours.", "50 km/h would cover 150 km in 3 hours."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "medium",
+  "questionText": "The simple interest on $1000 at 5% per annum for 2 years is:",
+  "options": ["$100", "$50", "$150", "$200"],
+  "correctIndex": 0,
+  "explanation": "Simple interest = P × r × t = 1000 × 0.05 × 2 = $100.",
+  "distractorRationales": ["", "$50 is the interest for 1 year only.", "$150 uses 3 years instead of 2.", "$200 doubles the correct interest."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "medium",
+  "questionText": "In the ratio 3 : 5, the first part as a percentage of the total is:",
+  "options": ["37.5%", "60%", "30%", "40%"],
+  "correctIndex": 0,
+  "explanation": "Total parts = 3 + 5 = 8, so the first part is 3/8 = 37.5%.",
+  "distractorRationales": ["", "60% would be 3/5, ignoring that the total is 8 parts.", "30% misplaces the fraction 3/10.", "40% would be 2/5, not 3/8."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "medium",
+  "questionText": "A number increased by 20% becomes 60. The original number is:",
+  "options": ["50", "48", "40", "72"],
+  "correctIndex": 0,
+  "explanation": "1.2 × x = 60, so x = 60 / 1.2 = 50.",
+  "distractorRationales": ["", "48 = 60 × 0.8 wrongly subtracts 20% of 60.", "40 would become 48 after a 20% increase.", "72 = 60 × 1.2 increases instead of reversing the increase."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "hard",
+  "questionText": "A sum of money doubles in 8 years under simple interest. The annual rate of interest is:",
+  "options": ["12.5%", "8%", "10%", "25%"],
+  "correctIndex": 0,
+  "explanation": "Doubling means the interest equals the principal: P = P × r × 8, so r = 1/8 = 12.5%.",
+  "distractorRationales": ["", "8% comes from confusing the rate with the number of years.", "10% would not double the principal in 8 years.", "25% would double the sum in just 4 years."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "quantitative-aptitude",
+  "difficulty": "hard",
+  "questionText": "The average of 5 numbers is 18. If four of them are 10, 20, 15, and 25, the fifth number is:",
+  "options": ["20", "18", "25", "15"],
+  "correctIndex": 0,
+  "explanation": "Total = 18 × 5 = 90. The four known numbers sum to 70, so the fifth is 90 - 70 = 20.",
+  "distractorRationales": ["", "18 is the average, not the missing value.", "25 is one of the given numbers, not the fifth.", "15 is also already among the given numbers."]
+ }
+]

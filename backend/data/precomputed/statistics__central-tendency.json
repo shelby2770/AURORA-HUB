@@ -1,0 +1,82 @@
+[
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "easy",
+  "questionText": "The mean of the values 2, 4, 6, 8, 10 is:",
+  "options": ["6", "5", "30", "8"],
+  "correctIndex": 0,
+  "explanation": "Mean = (2 + 4 + 6 + 8 + 10) / 5 = 30 / 5 = 6.",
+  "distractorRationales": ["", "5 is the count of values, not the mean.", "30 is the sum, not yet divided by 5.", "8 is a value in the set, not the mean."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "easy",
+  "questionText": "The median of the data set 3, 1, 4, 1, 5 is:",
+  "options": ["3", "1", "4", "2.8"],
+  "correctIndex": 0,
+  "explanation": "Sorted: 1, 1, 3, 4, 5. With 5 values, the median is the 3rd value, which is 3.",
+  "distractorRationales": ["", "1 is the minimum (and the mode), not the middle value.", "4 is the 4th value, not the middle one.", "2.8 is the mean, not the median."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "easy",
+  "questionText": "The mode of the data set 2, 3, 3, 4, 5, 3, 2 is:",
+  "options": ["3", "2", "4", "5"],
+  "correctIndex": 0,
+  "explanation": "The mode is the most frequent value. 3 appears three times, more than any other value.",
+  "distractorRationales": ["", "2 appears twice, fewer times than 3.", "4 appears only once.", "5 appears only once."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "medium",
+  "questionText": "The median of the data set 4, 2, 8, 6 is:",
+  "options": ["5", "6", "4", "4.5"],
+  "correctIndex": 0,
+  "explanation": "Sorted: 2, 4, 6, 8. With an even count, the median is the average of the two middle values: (4 + 6)/2 = 5.",
+  "distractorRationales": ["", "6 is one of the two middle values, not their average.", "4 is the other middle value, not the average.", "4.5 would average 4 with the wrong neighbour."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "medium",
+  "questionText": "For a perfectly symmetric distribution, the mean, median, and mode are:",
+  "options": ["all equal", "mean > median > mode", "mode > median > mean", "all different"],
+  "correctIndex": 0,
+  "explanation": "In a perfectly symmetric (e.g. normal) distribution, the three measures of central tendency coincide.",
+  "distractorRationales": ["", "Mean > median > mode indicates right (positive) skew.", "Mode > median > mean indicates left (negative) skew.", "They coincide under symmetry, so they are not all different."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "medium",
+  "questionText": "The mean of 5 numbers is 12. The sum of those numbers is:",
+  "options": ["60", "12", "17", "5"],
+  "correctIndex": 0,
+  "explanation": "Sum = mean × count = 12 × 5 = 60.",
+  "distractorRationales": ["", "12 is the mean, not the sum.", "17 = 12 + 5 adds instead of multiplying.", "5 is the count of numbers."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "medium",
+  "questionText": "Which measure of central tendency is most affected by extreme values (outliers)?",
+  "options": ["Mean", "Median", "Mode", "All are affected equally"],
+  "correctIndex": 0,
+  "explanation": "The mean uses every value, so a single extreme value can shift it substantially; the median and mode are far more robust.",
+  "distractorRationales": ["", "The median depends on order, so it resists outliers.", "The mode depends on frequency, so it ignores outlier magnitude.", "They are not affected equally — the mean is most sensitive."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "central-tendency",
+  "difficulty": "hard",
+  "questionText": "The mean of 10 observations is 15. If each observation is increased by 5, the new mean is:",
+  "options": ["20", "15", "75", "150"],
+  "correctIndex": 0,
+  "explanation": "Adding a constant c to every value increases the mean by c: 15 + 5 = 20.",
+  "distractorRationales": ["", "15 is the original mean, unchanged.", "75 = 15 × 5 multiplies instead of adding.", "150 is the original total, not a mean."]
+ }
+]

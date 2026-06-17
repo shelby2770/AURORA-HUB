@@ -1,0 +1,82 @@
+[
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "easy",
+  "questionText": "A subset of a population selected for study is called a:",
+  "options": ["sample", "parameter", "census", "statistic"],
+  "correctIndex": 0,
+  "explanation": "A sample is the portion of the population actually observed.",
+  "distractorRationales": ["", "A parameter is a numerical property of the population.", "A census examines the entire population, not a subset.", "A statistic is a number computed from a sample."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "easy",
+  "questionText": "A numerical characteristic of a population is called a:",
+  "options": ["parameter", "statistic", "sample", "estimator"],
+  "correctIndex": 0,
+  "explanation": "A parameter (e.g. the population mean μ) describes the whole population.",
+  "distractorRationales": ["", "A statistic describes a sample, not the population.", "A sample is a subset of data, not a numerical characteristic.", "An estimator is a rule for estimating a parameter, not the parameter itself."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "medium",
+  "questionText": "A numerical characteristic computed from a sample is called a:",
+  "options": ["statistic", "parameter", "population", "census"],
+  "correctIndex": 0,
+  "explanation": "A statistic (e.g. the sample mean x̄) is calculated from sample data and used to estimate a parameter.",
+  "distractorRationales": ["", "A parameter describes the population, not the sample.", "A population is the whole group, not a computed value.", "A census is a complete enumeration, not a statistic."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "medium",
+  "questionText": "The standard deviation of the sampling distribution of the sample mean is called the:",
+  "options": ["standard error", "variance", "range", "bias"],
+  "correctIndex": 0,
+  "explanation": "The standard error measures the variability of the sample mean across repeated samples.",
+  "distractorRationales": ["", "Variance is the square of a standard deviation, not this specific term.", "The range is max - min of data, unrelated here.", "Bias is a systematic error, not a measure of spread."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "medium",
+  "questionText": "As the sample size increases, the standard error of the mean:",
+  "options": ["decreases", "increases", "stays the same", "becomes negative"],
+  "correctIndex": 0,
+  "explanation": "Standard error = σ/√n, which shrinks as n grows.",
+  "distractorRationales": ["", "Larger samples give more precise estimates, so the error falls, not rises.", "The √n in the denominator changes the error with n.", "A standard error is never negative."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "medium",
+  "questionText": "The standard error of the sample mean equals:",
+  "options": ["$\\frac{\\sigma}{\\sqrt{n}}$", "$\\sigma\\sqrt{n}$", "$\\frac{\\sigma}{n}$", "$\\sigma^2$"],
+  "correctIndex": 0,
+  "explanation": "The standard error of the mean is the population standard deviation divided by the square root of the sample size: σ/√n.",
+  "distractorRationales": ["", "Multiplying by √n would make the error grow with n, which is wrong.", "Dividing by n (not √n) overstates the reduction.", "σ² is the variance, not the standard error of the mean."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "medium",
+  "questionText": "A sampling method in which every member of the population has an equal chance of being selected is called:",
+  "options": ["simple random sampling", "convenience sampling", "quota sampling", "snowball sampling"],
+  "correctIndex": 0,
+  "explanation": "Simple random sampling gives each member an equal, independent chance of selection.",
+  "distractorRationales": ["", "Convenience sampling selects whoever is easiest to reach, not at random.", "Quota sampling fills preset category counts non-randomly.", "Snowball sampling recruits via referrals, not equal chance."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "sampling-estimation",
+  "difficulty": "hard",
+  "questionText": "A 95% confidence interval for a mean is best interpreted as:",
+  "options": ["if sampling were repeated many times, about 95% of such intervals would contain the true mean", "there is a 95% chance the sample mean equals the true mean", "95% of the data values fall inside the interval", "the true mean changes 95% of the time"],
+  "correctIndex": 0,
+  "explanation": "The 95% refers to the long-run capture rate of the procedure: across many samples, ~95% of the constructed intervals contain the fixed true parameter.",
+  "distractorRationales": ["", "The sample mean is a single number; the statement misuses 'chance' here.", "The interval is about the mean, not where individual data values fall.", "The true mean is fixed; it does not change."]
+ }
+]

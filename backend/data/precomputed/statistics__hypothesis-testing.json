@@ -1,0 +1,82 @@
+[
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "easy",
+  "questionText": "The hypothesis stating that there is no effect or no difference is called the:",
+  "options": ["null hypothesis", "alternative hypothesis", "research hypothesis", "test statistic"],
+  "correctIndex": 0,
+  "explanation": "The null hypothesis (H₀) is the default claim of no effect or no difference.",
+  "distractorRationales": ["", "The alternative hypothesis claims there IS an effect.", "The research hypothesis is usually the alternative, not the no-effect claim.", "A test statistic is a computed number, not a hypothesis."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "easy",
+  "questionText": "Rejecting a null hypothesis that is actually true is called a:",
+  "options": ["Type I error", "Type II error", "correct decision", "confidence level"],
+  "correctIndex": 0,
+  "explanation": "A Type I error (false positive) is rejecting a true H₀; its probability is α.",
+  "distractorRationales": ["", "A Type II error is failing to reject a false H₀.", "Rejecting a true null is an error, not a correct decision.", "The confidence level is 1 - α, not the error itself."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "medium",
+  "questionText": "Failing to reject a null hypothesis that is actually false is a:",
+  "options": ["Type II error", "Type I error", "correct decision", "significance level"],
+  "correctIndex": 0,
+  "explanation": "A Type II error (false negative) is failing to reject a false H₀; its probability is β.",
+  "distractorRationales": ["", "A Type I error is rejecting a true H₀.", "Missing a real effect is an error, not a correct decision.", "The significance level α is a threshold, not this outcome."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "medium",
+  "questionText": "If the p-value is less than the significance level $\\alpha$, the correct decision is to:",
+  "options": ["reject the null hypothesis", "accept the null hypothesis as proven true", "increase the sample size", "do nothing"],
+  "correctIndex": 0,
+  "explanation": "A p-value below α indicates statistically significant evidence against H₀, so we reject it.",
+  "distractorRationales": ["", "We never 'prove' H₀ true; and here the evidence is against it.", "The decision rule does not call for resampling.", "A significant result calls for a decision, not inaction."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "medium",
+  "questionText": "A significance level of $\\alpha = 0.05$ means:",
+  "options": ["a 5% risk of rejecting a true null hypothesis", "a 95% chance the null hypothesis is false", "the power of the test is 5%", "the sample size is 5% of the population"],
+  "correctIndex": 0,
+  "explanation": "α is the probability of a Type I error — here, a 5% chance of rejecting H₀ when it is true.",
+  "distractorRationales": ["", "α is not the probability that H₀ is false.", "Power is 1 - β, a separate quantity.", "α is unrelated to the sampling fraction."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "medium",
+  "questionText": "The power of a statistical test is:",
+  "options": ["the probability of correctly rejecting a false null hypothesis", "the probability of a Type I error", "the significance level", "the p-value"],
+  "correctIndex": 0,
+  "explanation": "Power = 1 - β: the probability of detecting an effect when H₀ is actually false.",
+  "distractorRationales": ["", "The Type I error probability is α, not the power.", "The significance level α is a threshold, not the power.", "The p-value is computed from data, not a fixed property of the test."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "hard",
+  "questionText": "A two-tailed test is appropriate when the alternative hypothesis has the form:",
+  "options": ["$\\mu \\neq \\mu_0$", "$\\mu > \\mu_0$", "$\\mu < \\mu_0$", "$\\mu = \\mu_0$"],
+  "correctIndex": 0,
+  "explanation": "A two-tailed test checks for a difference in either direction, i.e. μ ≠ μ₀.",
+  "distractorRationales": ["", "μ > μ₀ is a one-tailed (right) alternative.", "μ < μ₀ is a one-tailed (left) alternative.", "μ = μ₀ is the null hypothesis, not the alternative."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "hypothesis-testing",
+  "difficulty": "hard",
+  "questionText": "Lowering the significance level (e.g. from $\\alpha = 0.05$ to $\\alpha = 0.01$), with everything else fixed:",
+  "options": ["makes it harder to reject the null hypothesis", "makes it easier to reject the null hypothesis", "has no effect on the test", "eliminates Type II error"],
+  "correctIndex": 0,
+  "explanation": "A smaller α demands stronger evidence, lowering the Type I error rate but making rejection harder (and raising the Type II error rate).",
+  "distractorRationales": ["", "A stricter threshold makes rejection harder, not easier.", "Changing α directly changes the rejection criterion.", "Reducing α tends to increase, not eliminate, Type II error."]
+ }
+]

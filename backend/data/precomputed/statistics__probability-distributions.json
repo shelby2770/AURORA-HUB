@@ -1,0 +1,92 @@
+[
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "easy",
+  "questionText": "The sum of all probabilities in a discrete probability distribution equals:",
+  "options": ["1", "0", "100", "the number of outcomes"],
+  "correctIndex": 0,
+  "explanation": "Probabilities of all mutually exclusive, exhaustive outcomes must sum to 1.",
+  "distractorRationales": ["", "0 would mean no outcome can occur.", "100 confuses probability with percentage (the proportion is 1, or 100%).", "The sum is fixed at 1 regardless of how many outcomes there are."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "easy",
+  "questionText": "The binomial distribution applies to an experiment with:",
+  "options": ["a fixed number of independent trials, each with two outcomes", "a continuous range of outcomes", "exactly one trial only", "infinitely many outcomes per trial"],
+  "correctIndex": 0,
+  "explanation": "A binomial experiment has a fixed number of independent trials, each a success/failure with constant probability p.",
+  "distractorRationales": ["", "Continuous outcomes describe distributions like the normal, not the binomial.", "A single trial is a special case (Bernoulli); binomial allows many.", "Each trial has exactly two outcomes, not infinitely many."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "medium",
+  "questionText": "For a binomial distribution with $n$ trials and success probability $p$, the mean is:",
+  "options": ["$np$", "$np(1-p)$", "$\\frac{n}{p}$", "$p$"],
+  "correctIndex": 0,
+  "explanation": "The mean (expected number of successes) of a binomial distribution is np.",
+  "distractorRationales": ["", "np(1-p) is the variance, not the mean.", "n/p is not a binomial parameter.", "p is the single-trial success probability, not the mean of n trials."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "medium",
+  "questionText": "For a binomial distribution with $n$ trials and success probability $p$, the variance is:",
+  "options": ["$np(1-p)$", "$np$", "$\\sqrt{np}$", "$n^2 p$"],
+  "correctIndex": 0,
+  "explanation": "The variance of a binomial distribution is np(1 - p).",
+  "distractorRationales": ["", "np is the mean, not the variance.", "√(np) is not a standard binomial quantity.", "n²p does not correspond to the binomial variance."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "medium",
+  "questionText": "The normal distribution curve is:",
+  "options": ["symmetric and bell-shaped", "skewed to the right", "discrete", "uniform (flat)"],
+  "correctIndex": 0,
+  "explanation": "The normal distribution is a continuous, symmetric, bell-shaped curve centred at its mean.",
+  "distractorRationales": ["", "A symmetric curve has zero skew.", "The normal distribution is continuous, not discrete.", "A uniform distribution is flat, unlike the bell curve."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "medium",
+  "questionText": "For the standard normal distribution, the mean and standard deviation are:",
+  "options": ["mean 0, standard deviation 1", "mean 1, standard deviation 0", "mean 0, standard deviation 0", "mean 1, standard deviation 1"],
+  "correctIndex": 0,
+  "explanation": "The standard normal distribution is defined with mean 0 and standard deviation 1.",
+  "distractorRationales": ["", "A standard deviation of 0 would mean no spread.", "A standard deviation of 0 is invalid for a distribution with spread.", "The standard normal has mean 0, not 1."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "medium",
+  "questionText": "For a Poisson distribution with parameter $\\lambda$, the mean is:",
+  "options": ["$\\lambda$", "$\\lambda^2$", "$\\sqrt{\\lambda}$", "$\\frac{1}{\\lambda}$"],
+  "correctIndex": 0,
+  "explanation": "The Poisson distribution has mean = variance = λ.",
+  "distractorRationales": ["", "λ² is not the Poisson mean.", "√λ is the standard deviation, not the mean.", "1/λ is unrelated to the Poisson mean."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "hard",
+  "questionText": "A fair coin is tossed 4 times. Using the binomial distribution, the probability of getting exactly 2 heads is:",
+  "options": ["$\\frac{3}{8}$", "$\\frac{1}{4}$", "$\\frac{1}{2}$", "$\\frac{6}{8}$"],
+  "correctIndex": 0,
+  "explanation": "P = C(4,2)·(1/2)²·(1/2)² = 6 × (1/16) = 6/16 = 3/8.",
+  "distractorRationales": ["", "1/4 omits the C(4,2) = 6 combinations factor.", "1/2 is not the probability of exactly 2 of 4 heads.", "6/8 keeps the count 6 but uses the wrong denominator (should be 16)."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "probability-distributions",
+  "difficulty": "hard",
+  "questionText": "In a normal distribution, approximately what percentage of values lie within one standard deviation of the mean?",
+  "options": ["68%", "95%", "99.7%", "50%"],
+  "correctIndex": 0,
+  "explanation": "By the empirical (68–95–99.7) rule, about 68% of data lies within ±1 standard deviation of the mean.",
+  "distractorRationales": ["", "95% lies within ±2 standard deviations.", "99.7% lies within ±3 standard deviations.", "50% lies below the mean, not within ±1 SD."]
+ }
+]

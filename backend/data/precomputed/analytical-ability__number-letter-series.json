@@ -1,0 +1,82 @@
+[
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "easy",
+  "questionText": "Find the next term: 2, 4, 6, 8, ?",
+  "options": ["10", "12", "9", "11"],
+  "correctIndex": 0,
+  "explanation": "The series increases by 2 each step (even numbers), so the next term is 10.",
+  "distractorRationales": ["", "12 skips a term; the step is +2.", "9 is odd and breaks the even pattern.", "11 is odd and breaks the pattern."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "easy",
+  "questionText": "Find the next term: 1, 4, 9, 16, ?",
+  "options": ["25", "20", "24", "36"],
+  "correctIndex": 0,
+  "explanation": "These are perfect squares 1², 2², 3², 4², so the next is 5² = 25.",
+  "distractorRationales": ["", "20 ignores the square pattern.", "24 ignores the square pattern.", "36 = 6² skips 5²."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "medium",
+  "questionText": "Find the next term: 2, 6, 12, 20, 30, ?",
+  "options": ["42", "40", "36", "44"],
+  "correctIndex": 0,
+  "explanation": "The differences are 4, 6, 8, 10, then 12, giving 30 + 12 = 42 (terms are n(n+1)).",
+  "distractorRationales": ["", "40 uses a step of 10 instead of 12.", "36 breaks the increasing-difference pattern.", "44 overshoots; the next difference is 12, not 14."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "medium",
+  "questionText": "Find the next term: 3, 6, 12, 24, ?",
+  "options": ["48", "36", "30", "60"],
+  "correctIndex": 0,
+  "explanation": "Each term doubles the previous one, so 24 × 2 = 48.",
+  "distractorRationales": ["", "36 = 24 + 12 assumes addition, not doubling.", "30 = 24 + 6 breaks the ×2 pattern.", "60 does not fit the doubling rule."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "medium",
+  "questionText": "Find the next term in the Fibonacci-type series: 1, 1, 2, 3, 5, 8, ?",
+  "options": ["13", "11", "12", "10"],
+  "correctIndex": 0,
+  "explanation": "Each term is the sum of the two before it: 5 + 8 = 13.",
+  "distractorRationales": ["", "11 does not equal 5 + 8.", "12 does not equal 5 + 8.", "10 does not equal 5 + 8."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "medium",
+  "questionText": "Find the next letter: A, C, E, G, ?",
+  "options": ["I", "H", "J", "K"],
+  "correctIndex": 0,
+  "explanation": "The letters advance by 2 positions each time (every other letter), so G → I.",
+  "distractorRationales": ["", "H is only one step after G, not two.", "J is three steps after G.", "K skips too far ahead."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "hard",
+  "questionText": "Find the next term: 5, 11, 23, 47, ?",
+  "options": ["95", "94", "96", "71"],
+  "correctIndex": 0,
+  "explanation": "Each term is (previous × 2) + 1: 47 × 2 + 1 = 95.",
+  "distractorRationales": ["", "94 = 47 × 2 forgets the +1.", "96 = 47 × 2 + 2 adds the wrong amount.", "71 = 47 + 24 does not match the rule."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "number-letter-series",
+  "difficulty": "hard",
+  "questionText": "Find the next letter: B, D, G, K, ?",
+  "options": ["P", "O", "Q", "N"],
+  "correctIndex": 0,
+  "explanation": "Positions are 2, 4, 7, 11 with gaps +2, +3, +4; the next gap is +5, giving position 16 = P.",
+  "distractorRationales": ["", "O is position 15; the gap should be +5 to reach 16.", "Q is position 17, one too far.", "N is position 14, too early."]
+ }
+]

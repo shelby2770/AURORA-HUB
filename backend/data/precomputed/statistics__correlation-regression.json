@@ -1,0 +1,82 @@
+[
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "easy",
+  "questionText": "The correlation coefficient $r$ always lies in the range:",
+  "options": ["between -1 and 1", "between 0 and 1", "between 0 and 100", "between $-\\infty$ and $\\infty$"],
+  "correctIndex": 0,
+  "explanation": "Pearson's r is bounded: -1 ≤ r ≤ 1.",
+  "distractorRationales": ["", "r can be negative, so it is not limited to 0–1.", "r is not a percentage; it does not reach 100.", "r is bounded, not unbounded."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "easy",
+  "questionText": "A correlation coefficient of $r = 0$ indicates:",
+  "options": ["no linear relationship", "a perfect positive relationship", "a perfect negative relationship", "a strong relationship"],
+  "correctIndex": 0,
+  "explanation": "r = 0 means no linear association (though a nonlinear relationship could still exist).",
+  "distractorRationales": ["", "A perfect positive relationship is r = +1.", "A perfect negative relationship is r = -1.", "r = 0 indicates the absence of a linear relationship, not a strong one."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "medium",
+  "questionText": "A correlation coefficient of $r = -1$ indicates:",
+  "options": ["a perfect negative linear correlation", "a perfect positive linear correlation", "no correlation", "a curved relationship"],
+  "correctIndex": 0,
+  "explanation": "r = -1 means all points lie exactly on a line with negative slope.",
+  "distractorRationales": ["", "A perfect positive correlation is r = +1.", "No correlation is r = 0.", "r measures linear association, not curvature."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "medium",
+  "questionText": "In the regression line $y = a + bx$, the coefficient $b$ represents:",
+  "options": ["the slope (change in y per unit change in x)", "the y-intercept", "the correlation coefficient", "the mean of y"],
+  "correctIndex": 0,
+  "explanation": "b is the slope: the predicted change in y for a one-unit increase in x.",
+  "distractorRationales": ["", "The y-intercept is a, not b.", "The correlation coefficient r is a related but distinct quantity.", "The mean of y is not a regression coefficient."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "medium",
+  "questionText": "The coefficient of determination $r^2$ measures:",
+  "options": ["the proportion of variance in y explained by x", "the slope of the regression line", "the average prediction error", "the sample size"],
+  "correctIndex": 0,
+  "explanation": "r² is the fraction of the variability in y that the linear model accounts for.",
+  "distractorRationales": ["", "The slope is b, not r².", "r² is a proportion of variance, not an error measure.", "Sample size is unrelated to r²."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "medium",
+  "questionText": "If the correlation coefficient is $r = 0.8$, then $r^2$ equals:",
+  "options": ["0.64", "0.8", "0.16", "1.6"],
+  "correctIndex": 0,
+  "explanation": "r² = (0.8)² = 0.64.",
+  "distractorRationales": ["", "0.8 is r, not r².", "0.16 = 1 - 0.84-type error; (0.8)² is 0.64.", "1.6 = 2 × 0.8 doubles instead of squaring."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "hard",
+  "questionText": "A strong correlation between two variables does NOT, by itself, imply:",
+  "options": ["causation", "correlation", "association", "a linear pattern"],
+  "correctIndex": 0,
+  "explanation": "Correlation measures association; it does not establish that one variable causes the other.",
+  "distractorRationales": ["", "A strong correlation is, by definition, correlation.", "Correlation does indicate association.", "A high Pearson r does reflect a linear pattern; what it lacks is causation."]
+ },
+ {
+  "course": "statistics",
+  "subtopic": "correlation-regression",
+  "difficulty": "hard",
+  "questionText": "If the regression slope of y on x is positive, then the correlation coefficient $r$ is:",
+  "options": ["positive", "negative", "zero", "undefined"],
+  "correctIndex": 0,
+  "explanation": "The slope and r share the same sign (both depend on the covariance), so a positive slope means r > 0.",
+  "distractorRationales": ["", "A negative r would accompany a negative slope.", "r = 0 corresponds to a zero slope.", "r is well-defined whenever both variables vary."]
+ }
+]

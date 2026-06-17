@@ -1,0 +1,72 @@
+[
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "medium",
+  "questionText": "Five children sit in a row, all facing north. P is exactly in the middle. How many children are to P's left?",
+  "options": ["2", "1", "3", "4"],
+  "correctIndex": 0,
+  "explanation": "In a row of 5, the middle position is the 3rd, leaving 2 children on each side of P.",
+  "distractorRationales": ["", "1 would place P 2nd, not in the middle.", "3 would place P 4th, not in the middle.", "4 would place P at the far right end."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "medium",
+  "questionText": "A, B, C, D sit around a circular table (in that clockwise order). A faces C. Then B faces:",
+  "options": ["D", "A", "C", "B"],
+  "correctIndex": 0,
+  "explanation": "With 4 people evenly placed, each faces the person directly opposite. A faces C, so B faces D.",
+  "distractorRationales": ["", "A is adjacent to B, not opposite.", "C is opposite A, not B.", "No one faces themselves."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "medium",
+  "questionText": "In a queue, Ravi is 7th from the front and 5th from the back. How many people are in the queue?",
+  "options": ["11", "12", "10", "13"],
+  "correctIndex": 0,
+  "explanation": "Total = (position from front) + (position from back) - 1 = 7 + 5 - 1 = 11.",
+  "distractorRationales": ["", "12 = 7 + 5 forgets to subtract 1 for Ravi counted twice.", "10 subtracts 2 instead of 1.", "13 adds an extra person."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "medium",
+  "questionText": "Six people sit in a row. If X is 2nd from the left end, then X's position from the right end is:",
+  "options": ["5th", "4th", "6th", "3rd"],
+  "correctIndex": 0,
+  "explanation": "Position from right = total - position from left + 1 = 6 - 2 + 1 = 5th.",
+  "distractorRationales": ["", "4th = 6 - 2 forgets the +1.", "6th would be the far right end.", "3rd does not match 6 - 2 + 1."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "hard",
+  "questionText": "Five books are stacked vertically. The Physics book is at the bottom, and the Maths book is directly above it. Counting from the bottom, the Maths book is in position:",
+  "options": ["2nd from bottom", "at the bottom", "at the top", "in the middle"],
+  "correctIndex": 0,
+  "explanation": "Physics is 1st (bottom) and Maths sits directly on it, so Maths is 2nd from the bottom.",
+  "distractorRationales": ["", "The bottom position is occupied by Physics.", "The top is the 5th position, not where Maths is.", "The middle is the 3rd position, not 2nd."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "hard",
+  "questionText": "In a row of 20 students, A is 8th from the left. A's rank from the right is:",
+  "options": ["13th", "12th", "14th", "11th"],
+  "correctIndex": 0,
+  "explanation": "Rank from right = total - rank from left + 1 = 20 - 8 + 1 = 13th.",
+  "distractorRationales": ["", "12th = 20 - 8 forgets the +1.", "14th adds one too many.", "11th does not match the formula."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "puzzles-seating-arrangements",
+  "difficulty": "hard",
+  "questionText": "A, B, C, D, E sit around a circle in that clockwise order. Moving clockwise starting at D, who sits between D and A?",
+  "options": ["E", "B", "C", "D"],
+  "correctIndex": 0,
+  "explanation": "Clockwise order is A, B, C, D, E, then back to A. Going clockwise from D, the next seat is E, then A — so E is between them.",
+  "distractorRationales": ["", "B sits between A and C, not between D and A.", "C sits between B and D.", "D is the starting point, not the one in between."]
+ }
+]

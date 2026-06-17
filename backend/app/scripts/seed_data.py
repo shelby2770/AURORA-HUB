@@ -1,8 +1,13 @@
-"""Curated seed content: 9 courses + a sensible, editable subtopic list each.
+"""Curated seed content: courses + a sensible, editable subtopic list each.
 
 Order of courses is preserved as a stable display order. Subtopics are chosen
 to map cleanly onto GATE CS / MSc-admission style topics so exemplars and
 generated questions tag to a meaningful bucket.
+
+Courses are grouped into two section tabs via ``COURSE_CATEGORY``:
+  - "Computer Science": the core CS syllabus.
+  - "Others":           Mathematics, Statistics, Analytical Ability.
+A course not listed in ``COURSE_CATEGORY`` defaults to "Computer Science".
 """
 from __future__ import annotations
 
@@ -93,4 +98,49 @@ SEED: dict[str, list[str]] = {
         "Probabilistic Reasoning",
         "Machine Learning Basics",
     ],
+    # ── Others section (non-CS-core subjects on the DU MSc Phase 1 syllabus) ──
+    "Mathematics": [
+        "Algebra & Equations",
+        "Trigonometry",
+        "Limits & Continuity",
+        "Differentiation",
+        "Integration",
+        "Matrices & Determinants",
+        "Permutations & Combinations",
+    ],
+    "Statistics": [
+        "Central Tendency",
+        "Measures of Dispersion",
+        "Probability",
+        "Probability Distributions",
+        "Correlation & Regression",
+        "Sampling & Estimation",
+        "Hypothesis Testing",
+    ],
+    "Analytical Ability": [
+        "Logical Reasoning & Syllogisms",
+        "Number & Letter Series",
+        "Data Interpretation",
+        "Quantitative Aptitude",
+        "Puzzles & Seating Arrangements",
+        "Coding-Decoding & Direction Sense",
+    ],
 }
+
+# Section tab per course. Anything omitted defaults to "Computer Science".
+COMPUTER_SCIENCE = "Computer Science"
+OTHERS = "Others"
+
+COURSE_CATEGORY: dict[str, str] = {
+    "Mathematics": OTHERS,
+    "Statistics": OTHERS,
+    "Analytical Ability": OTHERS,
+}
+
+# Stable display order of the section tabs in the UI.
+CATEGORY_ORDER: list[str] = [COMPUTER_SCIENCE, OTHERS]
+
+
+def category_for(course_name: str) -> str:
+    """Section tab a course belongs to (default: Computer Science)."""
+    return COURSE_CATEGORY.get(course_name, COMPUTER_SCIENCE)

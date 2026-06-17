@@ -9,6 +9,9 @@ from pydantic import Field
 class Course(Document):
     name: str
     slug: str
+    # Section tab the course belongs to: "Computer Science" or "Others".
+    # Defaults to Computer Science so pre-category courses keep their place.
+    category: str = "Computer Science"
     isActive: bool = True
 
     class Settings:

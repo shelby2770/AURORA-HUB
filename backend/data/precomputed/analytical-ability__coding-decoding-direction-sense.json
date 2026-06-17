@@ -1,0 +1,72 @@
+[
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "easy",
+  "questionText": "If CAT is coded as DBU (each letter shifted forward by one), then DOG is coded as:",
+  "options": ["EPH", "CPF", "EPF", "DPH"],
+  "correctIndex": 0,
+  "explanation": "Shift each letter forward by 1: D→E, O→P, G→H, giving EPH.",
+  "distractorRationales": ["", "CPF shifts the first letter backward instead of forward.", "EPF shifts G backward to F instead of forward to H.", "DPH leaves D unchanged."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "medium",
+  "questionText": "If A = 1, B = 2, C = 3, ... , then the sum of the letter values in \"CAB\" is:",
+  "options": ["6", "5", "7", "9"],
+  "correctIndex": 0,
+  "explanation": "C + A + B = 3 + 1 + 2 = 6.",
+  "distractorRationales": ["", "5 misses one of the letter values.", "7 overcounts by 1.", "9 = 3 × 3 treats all letters as C."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "medium",
+  "questionText": "A man walks 3 km north, then turns and walks 4 km east. His straight-line distance from the starting point is:",
+  "options": ["5 km", "7 km", "1 km", "12 km"],
+  "correctIndex": 0,
+  "explanation": "By the Pythagorean theorem, distance = √(3² + 4²) = √25 = 5 km.",
+  "distractorRationales": ["", "7 km adds the legs (3 + 4) instead of using the hypotenuse.", "1 km subtracts the legs.", "12 km multiplies the legs."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "medium",
+  "questionText": "If a word is coded by reversing its letters, then \"MOUSE\" is coded as:",
+  "options": ["ESUOM", "MOUSE", "OMSEU", "ESOUM"],
+  "correctIndex": 0,
+  "explanation": "Reversing M-O-U-S-E gives E-S-U-O-M.",
+  "distractorRationales": ["", "This is the original word, not reversed.", "OMSEU is a scramble, not a reversal.", "ESOUM swaps the middle letters incorrectly."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "medium",
+  "questionText": "Facing north, you turn 90° clockwise, then 90° clockwise again. You are now facing:",
+  "options": ["South", "East", "West", "North"],
+  "correctIndex": 0,
+  "explanation": "North → (90° CW) East → (90° CW) South.",
+  "distractorRationales": ["", "East is the result of only one clockwise turn.", "West would require turning counter-clockwise.", "North is the starting direction, before any turn."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "hard",
+  "questionText": "If FRIEND is coded as IULHQG (each letter shifted forward by 3), then CANDLE is coded as:",
+  "options": ["FDQGOH", "FDQGOG", "FDRGOH", "EDQGOH"],
+  "correctIndex": 0,
+  "explanation": "Shift each letter forward by 3: C→F, A→D, N→Q, D→G, L→O, E→H, giving FDQGOH.",
+  "distractorRationales": ["", "The last letter E→H, not G.", "N→Q, not R; this shifts N by the wrong amount.", "C→F, not E; the first letter is shifted incorrectly."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "coding-decoding-direction-sense",
+  "difficulty": "hard",
+  "questionText": "A person walks 5 m south, turns left and walks 5 m, then turns left again and walks 5 m. Which direction is the person now facing?",
+  "options": ["North", "South", "East", "West"],
+  "correctIndex": 0,
+  "explanation": "Facing south, a left turn points east; another left turn points north. So the person ends up facing north.",
+  "distractorRationales": ["", "South is the initial walking direction, before the turns.", "East is the direction after only the first left turn.", "West is never faced in this path."]
+ }
+]

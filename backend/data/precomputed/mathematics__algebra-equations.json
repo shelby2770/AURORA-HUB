@@ -1,0 +1,92 @@
+[
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "easy",
+  "questionText": "Solve the quadratic equation $x^2 - 5x + 6 = 0$.",
+  "options": ["x = 1, 6", "x = 2, 3", "x = -2, -3", "x = 5, 6"],
+  "correctIndex": 1,
+  "explanation": "Factor as (x - 2)(x - 3) = 0, since 2 + 3 = 5 and 2 × 3 = 6. So x = 2 or x = 3.",
+  "distractorRationales": ["1 + 6 = 7 ≠ 5, so these are not the roots.", "", "(x + 2)(x + 3) gives x² + 5x + 6 — wrong sign on the middle term.", "5 and 6 are the coefficient and constant, not the roots."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "easy",
+  "questionText": "For the equation $x^2 - 7x + 10 = 0$, the sum of the roots is:",
+  "options": ["-7", "10", "7", "-10"],
+  "correctIndex": 2,
+  "explanation": "For ax² + bx + c = 0, the sum of roots is -b/a = -(-7)/1 = 7.",
+  "distractorRationales": ["This is b, not -b/a; the sign is wrong.", "10 is the product of the roots (c/a), not the sum.", "", "Wrong sign — the sum is -b/a = +7."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "easy",
+  "questionText": "For the equation $2x^2 - 3x + 1 = 0$, the product of the roots is:",
+  "options": ["$\\frac{3}{2}$", "$\\frac{1}{2}$", "$-\\frac{1}{2}$", "2"],
+  "correctIndex": 1,
+  "explanation": "Product of roots = c/a = 1/2.",
+  "distractorRationales": ["3/2 is the sum of roots (-b/a), not the product.", "", "The product c/a is positive (1/2), not negative.", "2 is the leading coefficient a, not c/a."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "medium",
+  "questionText": "If $3$ is a root of $x^2 + kx + 12 = 0$, then $k$ equals:",
+  "options": ["-7", "7", "-4", "4"],
+  "correctIndex": 0,
+  "explanation": "Substitute x = 3: 9 + 3k + 12 = 0, so 3k = -21 and k = -7.",
+  "distractorRationales": ["", "Sign error: 3k = -21 gives k = -7, not +7.", "Comes from dividing 12 by 3 with a sign slip; substitution gives -7.", "Comes from 12/3 = 4 ignoring the other terms."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "medium",
+  "questionText": "The nature of the roots of $3x^2 + 4x + 5 = 0$ is:",
+  "options": ["Two distinct real roots", "Two equal real roots", "No real roots (complex conjugates)", "Exactly one real root"],
+  "correctIndex": 2,
+  "explanation": "Discriminant = b² - 4ac = 16 - 60 = -44 < 0, so the roots are complex conjugates.",
+  "distractorRationales": ["Distinct real roots need discriminant > 0, but it is -44.", "Equal roots need discriminant = 0, but it is -44.", "", "A single real root would need discriminant = 0; here it is negative."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "medium",
+  "questionText": "Solving the system $2x + 3y = 12$ and $x - y = 1$ gives:",
+  "options": ["x = 2, y = 3", "x = 3, y = 2", "x = 1, y = 3", "x = 4, y = 1"],
+  "correctIndex": 1,
+  "explanation": "From x = 1 + y, substitute: 2(1 + y) + 3y = 12 → 2 + 5y = 12 → y = 2, x = 3.",
+  "distractorRationales": ["Check: 2(2) + 3(3) = 13 ≠ 12.", "", "Check: x - y = 1 - 3 = -2 ≠ 1.", "Check: 2(4) + 3(1) = 11 ≠ 12."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "medium",
+  "questionText": "If $a + b = 5$ and $ab = 6$, then $a^2 + b^2$ equals:",
+  "options": ["11", "37", "13", "25"],
+  "correctIndex": 2,
+  "explanation": "a² + b² = (a + b)² - 2ab = 25 - 12 = 13.",
+  "distractorRationales": ["This subtracts ab once (25 - 14); the identity subtracts 2ab.", "This adds 2ab instead of subtracting it.", "", "25 is (a + b)²; you must still subtract 2ab."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "hard",
+  "questionText": "The equation $x^2 - 6x + k = 0$ has two equal real roots when $k$ equals:",
+  "options": ["6", "9", "3", "36"],
+  "correctIndex": 1,
+  "explanation": "Equal roots require discriminant = 0: 36 - 4k = 0, so k = 9.",
+  "distractorRationales": ["6 is -b, not the value making the discriminant zero.", "", "3 comes from 6/2; the condition is 36 - 4k = 0.", "36 is b²; you must still divide by 4."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "algebra-equations",
+  "difficulty": "hard",
+  "questionText": "If $\\log_2 x = 3$, then $x$ equals:",
+  "options": ["8", "6", "9", "2"],
+  "correctIndex": 0,
+  "explanation": "log₂ x = 3 means x = 2³ = 8.",
+  "distractorRationales": ["", "6 = 2 × 3 mixes the base and exponent additively.", "9 = 3² swaps base and exponent.", "2 is the base, not 2 raised to the power 3."]
+ }
+]

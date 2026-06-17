@@ -45,11 +45,17 @@ const ALL_COUNT = 0;
 const COUNTS = [5, 10, 20, 30, 40, ALL_COUNT];
 const countLabel = (c: number) => (c === ALL_COUNT ? "All" : String(c));
 const DIFFICULTIES: RequestDifficulty[] = ["easy", "medium", "hard", "random"];
+// Section tabs, in display order. Courses are grouped under these by their
+// `category`; any unknown category falls back into "Computer Science".
+const SECTION_ORDER = ["Computer Science", "Others"];
+const sectionOf = (c: { category?: string }) =>
+  SECTION_ORDER.includes(c.category ?? "") ? c.category! : "Computer Science";
 
 export default function ConfigPage() {
   const router = useRouter();
   const initSession = useQuizStore((s) => s.initSession);
 
+  const [section, setSection] = useState<string>("Computer Science");
   const [courseSlug, setCourseSlug] = useState<string | null>(null);
   const [subtopicId, setSubtopicId] = useState<string>(WHOLE_COURSE);
   const [count, setCount] = useState<number>(20);
@@ -57,6 +63,23 @@ export default function ConfigPage() {
   const [mode, setMode] = useState<QuizMode>("exam");
 
   const courses = useQuery({ queryKey: ["courses"], queryFn: getCourses });
+
+  // Section tabs that actually have at least one course, in display order.
+  const sections = SECTION_ORDER.filter((s) =>
+    courses.data?.some((c) => sectionOf(c) === s),
+  );
+  // Courses shown in the picker for the active section tab.
+  const visibleCourses =
+    courses.data?.filter((c) => sectionOf(c) === section) ?? [];
+
+  // Switch tab: clear the course/subtopic selection so the picker can't keep a
+  // course that belongs to the other section.
+  const changeSection = (s: string) => {
+    if (s === section) return;
+    setSection(s);
+    setCourseSlug(null);
+    setSubtopicId(WHOLE_COURSE);
+  };
   const subtopics = useQuery({
     queryKey: ["subtopics", courseSlug],
     queryFn: () => getSubtopics(courseSlug!),
@@ -293,14 +316,27 @@ export default function ConfigPage() {
   return (
     <Shell>
       <div className="stagger flex flex-col gap-5">
+      {/* Section tab — only shown once more than one section has courses */}
+      {sections.length > 1 ? (
+        <section className="flex flex-col gap-0" style={{ ["--i" as string]: 0 }}>
+          <Label className="field-label">Section</Label>
+          <Segmented
+            testid="section"
+            options={sections}
+            value={section}
+            onChange={changeSection}
+          />
+        </section>
+      ) : null}
+
       {/* Course */}
-      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 0 }}>
+      <section className="flex flex-col gap-0" style={{ ["--i" as string]: 1 }}>
         <Label htmlFor="course-select" className="field-label">Course</Label>
         {courses.isLoading ? (
           <Skeleton data-testid="course-skeleton" className="h-13 w-full rounded-[14px]" />
         ) : (
           <Select
-            items={courses.data?.map((c) => ({ value: c.slug, label: c.name }))}
+            items={visibleCourses.map((c) => ({ value: c.slug, label: c.name }))}
             value={courseSlug}
             onValueChange={(v) => {
               setCourseSlug(v);
@@ -311,7 +347,7 @@ export default function ConfigPage() {
               <SelectValue placeholder="Choose a course" />
             </SelectTrigger>
             <SelectContent>
-              {courses.data?.map((c) => (
+              {visibleCourses.map((c) => (
                 <SelectItem key={c.id} value={c.slug}>
                   {c.name}
                 </SelectItem>

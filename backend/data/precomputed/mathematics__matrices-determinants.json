@@ -1,0 +1,82 @@
+[
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "easy",
+  "questionText": "The determinant of $\\begin{pmatrix} 2 & 3 \\\\ 1 & 4 \\end{pmatrix}$ is:",
+  "options": ["5", "11", "8", "-5"],
+  "correctIndex": 0,
+  "explanation": "For a 2×2 matrix [[a,b],[c,d]], the determinant is ad - bc = (2)(4) - (3)(1) = 8 - 3 = 5.",
+  "distractorRationales": ["", "11 = 8 + 3 adds bc instead of subtracting it.", "8 = ad only; you must subtract bc.", "Wrong sign: ad - bc = +5."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "easy",
+  "questionText": "Multiplying any matrix $A$ by the identity matrix $I$ (of compatible size) gives:",
+  "options": ["$A$", "the zero matrix", "$A^{-1}$", "$A^{T}$"],
+  "correctIndex": 0,
+  "explanation": "The identity matrix is the multiplicative identity: AI = IA = A.",
+  "distractorRationales": ["", "Multiplying by the zero matrix gives the zero matrix, not I.", "The inverse comes from A·A⁻¹ = I, a different operation.", "The transpose is unrelated to multiplying by I."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "easy",
+  "questionText": "A $2 \\times 3$ matrix multiplied by a $3 \\times 2$ matrix yields a matrix of order:",
+  "options": ["$2 \\times 2$", "$3 \\times 3$", "$2 \\times 3$", "$3 \\times 2$"],
+  "correctIndex": 0,
+  "explanation": "The product of an (m×n) and (n×p) matrix is (m×p). Here m = 2, p = 2, so the result is 2×2.",
+  "distractorRationales": ["", "3×3 would come from a 3×n times n×3 product.", "2×3 keeps the wrong second dimension.", "3×2 swaps the outer dimensions."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "medium",
+  "questionText": "If a square matrix has determinant equal to 0, then the matrix is:",
+  "options": ["singular (has no inverse)", "the identity matrix", "necessarily symmetric", "of full rank"],
+  "correctIndex": 0,
+  "explanation": "A zero determinant means the matrix is singular and cannot be inverted.",
+  "distractorRationales": ["", "The identity matrix has determinant 1, not 0.", "Determinant says nothing about symmetry.", "Full rank requires a nonzero determinant."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "medium",
+  "questionText": "If $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$, then $\\det(A)$ equals:",
+  "options": ["-2", "2", "10", "-10"],
+  "correctIndex": 0,
+  "explanation": "det(A) = (1)(4) - (2)(3) = 4 - 6 = -2.",
+  "distractorRationales": ["", "Wrong sign: 4 - 6 = -2.", "10 = 4 + 6 adds instead of subtracting.", "-10 = -(4 + 6) compounds the addition error."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "medium",
+  "questionText": "For any matrix $A$, the value of $(A^{T})^{T}$ is:",
+  "options": ["$A$", "$A^{-1}$", "$-A$", "$I$"],
+  "correctIndex": 0,
+  "explanation": "Transposing twice returns the original matrix: (Aᵀ)ᵀ = A.",
+  "distractorRationales": ["", "The inverse is a different operation entirely.", "Transposing does not negate entries.", "The identity results only for special matrices, not in general."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "hard",
+  "questionText": "If a $2 \\times 2$ matrix $A$ has $\\det(A) = 3$, then $\\det(2A)$ equals:",
+  "options": ["6", "12", "3", "24"],
+  "correctIndex": 1,
+  "explanation": "For an n×n matrix, det(kA) = kⁿ·det(A). Here n = 2, so det(2A) = 2²·3 = 12.",
+  "distractorRationales": ["6 = 2·3 forgets that the scalar is raised to the power n = 2.", "", "3 ignores the scalar factor entirely.", "24 = 2³·3 uses the wrong power."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "matrices-determinants",
+  "difficulty": "hard",
+  "questionText": "The linear system $A\\mathbf{x} = \\mathbf{b}$ (with $A$ square) has a unique solution exactly when:",
+  "options": ["$\\det(A) \\neq 0$", "$\\det(A) = 0$", "$A$ is not square", "$\\mathbf{b} = \\mathbf{0}$"],
+  "correctIndex": 0,
+  "explanation": "A unique solution exists iff A is invertible, i.e. det(A) ≠ 0.",
+  "distractorRationales": ["", "det(A) = 0 means no unique solution (none or infinitely many).", "Uniqueness here is stated for square A.", "b = 0 gives the trivial solution but does not guarantee uniqueness."]
+ }
+]

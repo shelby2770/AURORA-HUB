@@ -1,0 +1,82 @@
+[
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "easy",
+  "questionText": "Find $\\frac{d}{dx}(x^3)$.",
+  "options": ["$3x^2$", "$x^2$", "$3x$", "$\\frac{x^4}{4}$"],
+  "correctIndex": 0,
+  "explanation": "By the power rule, d/dx(xⁿ) = n·xⁿ⁻¹, so d/dx(x³) = 3x².",
+  "distractorRationales": ["", "x² drops the coefficient 3 from the power rule.", "3x lowers the exponent too far.", "x⁴/4 is the integral of x³, not the derivative."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "easy",
+  "questionText": "Find $\\frac{d}{dx}(\\sin x)$.",
+  "options": ["$-\\cos x$", "$\\cos x$", "$-\\sin x$", "$\\tan x$"],
+  "correctIndex": 1,
+  "explanation": "The derivative of sin x is cos x.",
+  "distractorRationales": ["-cos x is the derivative of cos x (with a sign added), not of sin x.", "", "-sin x is the second derivative of sin x.", "tan x is unrelated to the derivative of sin x."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "easy",
+  "questionText": "Find $\\frac{d}{dx}(e^x)$.",
+  "options": ["$x e^{x-1}$", "$e^x$", "$\\frac{e^x}{x}$", "1"],
+  "correctIndex": 1,
+  "explanation": "The exponential function is its own derivative: d/dx(eˣ) = eˣ.",
+  "distractorRationales": ["This wrongly applies the power rule to a constant base.", "", "Dividing by x is not part of differentiating eˣ.", "1 is the derivative of x, not of eˣ."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "medium",
+  "questionText": "Find $\\frac{d}{dx}(\\ln x)$.",
+  "options": ["$\\frac{1}{x}$", "$\\ln x$", "$x$", "$-\\frac{1}{x^2}$"],
+  "correctIndex": 0,
+  "explanation": "The derivative of ln x is 1/x for x > 0.",
+  "distractorRationales": ["", "ln x is the function itself, not its derivative.", "x is unrelated to the derivative of ln x.", "-1/x² is the derivative of 1/x, one step too far."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "medium",
+  "questionText": "Using the product rule, $\\frac{d}{dx}(x^2 \\sin x)$ equals:",
+  "options": ["$2x \\cos x$", "$2x \\sin x + x^2 \\cos x$", "$x^2 \\cos x$", "$2x \\sin x - x^2 \\cos x$"],
+  "correctIndex": 1,
+  "explanation": "Product rule: (uv)' = u'v + uv' = 2x·sin x + x²·cos x.",
+  "distractorRationales": ["This multiplies the two derivatives instead of applying the product rule.", "", "This keeps only the second term and drops u'v.", "Wrong sign: both terms are added in the product rule."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "medium",
+  "questionText": "The slope of the tangent to $y = x^2$ at $x = 3$ is:",
+  "options": ["3", "6", "9", "12"],
+  "correctIndex": 1,
+  "explanation": "y' = 2x, so at x = 3 the slope is 2(3) = 6.",
+  "distractorRationales": ["3 is the x-value, not the slope.", "", "9 = 3² is the y-value of the point, not the slope.", "12 = 2 × 6 doubles the slope."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "hard",
+  "questionText": "Using the chain rule, $\\frac{d}{dx}(\\sin(x^2))$ equals:",
+  "options": ["$\\cos(x^2)$", "$2x \\cos(x^2)$", "$2x \\sin(x^2)$", "$\\cos(2x)$"],
+  "correctIndex": 1,
+  "explanation": "Chain rule: derivative of the outer (cos) times derivative of the inner (2x): 2x·cos(x²).",
+  "distractorRationales": ["This omits the inner derivative 2x.", "", "This fails to differentiate the outer function (still sin).", "cos(2x) misreads x² as 2x."]
+ },
+ {
+  "course": "mathematics",
+  "subtopic": "differentiation",
+  "difficulty": "hard",
+  "questionText": "The function $f(x) = x^3 - 3x$ has a local maximum at:",
+  "options": ["x = 1", "x = -1", "x = 0", "x = 3"],
+  "correctIndex": 1,
+  "explanation": "f'(x) = 3x² - 3 = 0 gives x = ±1. f''(x) = 6x; at x = -1, f'' = -6 < 0, so there is a local maximum.",
+  "distractorRationales": ["At x = 1, f'' = 6 > 0, which is a local minimum.", "", "x = 0 is not a critical point of f.", "x = 3 is not where f'(x) = 0."]
+ }
+]

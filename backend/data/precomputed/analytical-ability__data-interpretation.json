@@ -1,0 +1,72 @@
+[
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "easy",
+  "questionText": "A shop sold 20, 30, 25, and 25 units on four consecutive days. The total number of units sold is:",
+  "options": ["100", "90", "95", "110"],
+  "correctIndex": 0,
+  "explanation": "20 + 30 + 25 + 25 = 100.",
+  "distractorRationales": ["", "90 misses one of the 25s in the sum.", "95 is 5 short of the correct total.", "110 overcounts by 10."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "medium",
+  "questionText": "A shop sold 20, 30, 25, and 25 units over four days. The average daily sales is:",
+  "options": ["25", "20", "30", "100"],
+  "correctIndex": 0,
+  "explanation": "Average = total / days = 100 / 4 = 25.",
+  "distractorRationales": ["", "20 is the lowest day's sales, not the average.", "30 is the highest day's sales, not the average.", "100 is the total, not the average."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "medium",
+  "questionText": "In a class of 40 students, 25 passed an exam. The pass percentage is:",
+  "options": ["62.5%", "60%", "37.5%", "75%"],
+  "correctIndex": 0,
+  "explanation": "Pass percentage = (25 / 40) × 100 = 62.5%.",
+  "distractorRationales": ["", "60% would correspond to 24 of 40, not 25.", "37.5% is the fail percentage (15 of 40).", "75% would correspond to 30 of 40."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "medium",
+  "questionText": "A monthly budget of $1200 is split as Food 40%, Rent 35%, Savings 25%. The amount allocated to Rent is:",
+  "options": ["$420", "$480", "$300", "$400"],
+  "correctIndex": 0,
+  "explanation": "Rent = 35% of 1200 = 0.35 × 1200 = 420.",
+  "distractorRationales": ["", "$480 is 40% (the Food share), not Rent.", "$300 is 25% (the Savings share).", "$400 is one-third of the budget, not 35%."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "medium",
+  "questionText": "In a pie chart, a sector with a central angle of 90° represents what fraction of the whole?",
+  "options": ["25%", "50%", "30%", "90%"],
+  "correctIndex": 0,
+  "explanation": "A full circle is 360°, so 90°/360° = 1/4 = 25%.",
+  "distractorRationales": ["", "50% would be a 180° sector.", "30% would be a 108° sector.", "90% confuses the angle in degrees with a percentage."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "hard",
+  "questionText": "Sales were 200 units in January and 250 units in February. The percentage increase from January to February is:",
+  "options": ["25%", "20%", "50%", "12.5%"],
+  "correctIndex": 0,
+  "explanation": "Increase = (250 - 200)/200 × 100 = 50/200 × 100 = 25%.",
+  "distractorRationales": ["", "20% would divide the increase by 250 (the new value) instead of 200.", "50% confuses the absolute increase (50 units) with a percentage.", "12.5% halves the correct percentage."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "data-interpretation",
+  "difficulty": "hard",
+  "questionText": "In a survey of 500 people, 60% said they like tea. How many people like tea?",
+  "options": ["300", "150", "200", "350"],
+  "correctIndex": 0,
+  "explanation": "60% of 500 = 0.60 × 500 = 300.",
+  "distractorRationales": ["", "150 is 30% of 500, not 60%.", "200 is 40% of 500.", "350 is 70% of 500."]
+ }
+]

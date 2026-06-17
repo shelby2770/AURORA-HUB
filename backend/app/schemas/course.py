@@ -13,6 +13,7 @@ class CourseOut(BaseModel):
     id: PydanticObjectId
     name: str
     slug: str
+    category: str
     isActive: bool
 
     @classmethod

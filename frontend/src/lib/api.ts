@@ -42,6 +42,7 @@ export interface Course {
   id: string;
   name: string;
   slug: string;
+  category: string;
   isActive: boolean;
 }
 

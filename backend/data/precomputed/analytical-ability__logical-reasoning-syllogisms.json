@@ -1,0 +1,72 @@
+[
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "easy",
+  "questionText": "All cats are animals. All animals are living things. Therefore:",
+  "options": ["All cats are living things", "Some cats are not animals", "No cats are living things", "All living things are cats"],
+  "correctIndex": 0,
+  "explanation": "Chaining the two universal statements: cats ⊆ animals ⊆ living things, so all cats are living things.",
+  "distractorRationales": ["", "Contradicts the premise that all cats are animals.", "Contradicts the chained conclusion.", "Reverses the inclusion; living things need not be cats."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "medium",
+  "questionText": "Premises: All roses are flowers. Some flowers fade quickly. Which conclusion is valid?",
+  "options": ["It cannot be concluded that some roses fade quickly", "All roses fade quickly", "No roses fade quickly", "Some roses are not flowers"],
+  "correctIndex": 0,
+  "explanation": "The flowers that fade quickly need not include any roses, so nothing definite about roses follows.",
+  "distractorRationales": ["", "Not supported — the fading flowers may be entirely non-roses.", "Equally unsupported — some roses could be among the fading flowers.", "Contradicts the premise that all roses are flowers."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "medium",
+  "questionText": "Premises: Some pens are pencils. All pencils are erasers. Which conclusion follows?",
+  "options": ["Some pens are erasers", "All pens are erasers", "No pens are erasers", "All erasers are pens"],
+  "correctIndex": 0,
+  "explanation": "The pens that are pencils are also erasers (since all pencils are erasers), so some pens are erasers.",
+  "distractorRationales": ["", "Only the pens that are pencils are guaranteed to be erasers, not all pens.", "Contradicts the valid 'some pens are erasers'.", "Reverses the relation without support."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "medium",
+  "questionText": "Premises: All A are B. No B are C. Therefore:",
+  "options": ["No A are C", "All A are C", "Some A are C", "All C are A"],
+  "correctIndex": 0,
+  "explanation": "Since every A is a B, and no B is a C, no A can be a C.",
+  "distractorRationales": ["", "Contradicts the conclusion that no A are C.", "Also contradicted — none of the A's can be C.", "Reverses and contradicts the premises."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "medium",
+  "questionText": "\"If it rains, the match is cancelled. The match was not cancelled.\" Therefore:",
+  "options": ["It did not rain", "It rained", "The match was cancelled", "Nothing can be determined"],
+  "correctIndex": 0,
+  "explanation": "By modus tollens: rain implies cancellation; no cancellation means it did not rain.",
+  "distractorRationales": ["", "If it had rained, the match would have been cancelled — but it was not.", "Contradicts the given fact that the match was not cancelled.", "Modus tollens yields a definite conclusion here."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "hard",
+  "questionText": "Premises: Some books are pens. All pens are rulers. Conclusions: I. Some books are rulers. II. All rulers are pens. Which follow?",
+  "options": ["Only conclusion I follows", "Only conclusion II follows", "Both I and II follow", "Neither follows"],
+  "correctIndex": 0,
+  "explanation": "The books that are pens are rulers, so I follows. II reverses 'all pens are rulers' without support, so it does not.",
+  "distractorRationales": ["", "II is an invalid converse; I is the valid one.", "II does not follow, so 'both' is wrong.", "I clearly follows, so 'neither' is wrong."]
+ },
+ {
+  "course": "analytical-ability",
+  "subtopic": "logical-reasoning-syllogisms",
+  "difficulty": "hard",
+  "questionText": "\"All engineers are graduates. Ravi is a graduate.\" Can we conclude that Ravi is an engineer?",
+  "options": ["No, it cannot be concluded", "Yes, Ravi is an engineer", "Ravi is not a graduate", "Ravi is both an engineer and a graduate"],
+  "correctIndex": 0,
+  "explanation": "Being a graduate does not imply being an engineer (the converse is not guaranteed). Graduates may include non-engineers.",
+  "distractorRationales": ["", "This assumes the invalid converse of the premise.", "Contradicts the given fact that Ravi is a graduate.", "We cannot confirm he is an engineer at all."]
+ }
+]
